@@ -7,6 +7,10 @@ spec:
   id: stock-cluster-api-form
   keysAndTags:
     {{- if .Values.addons.hbf.enabled }}
+    hbf-hosts:
+      - netguard.sgroups.io/v1beta1/hosts
+    hbf-hostbindings:
+      - netguard.sgroups.io/v1beta1/hostbindings
     hbf-networks:
       - netguard.sgroups.io/v1beta1/networks
     hbf-addressgroups:

@@ -18,6 +18,12 @@
 - key: hbf
   label: HBF
   children:
+    - key: hbf-hosts
+      label: Hosts
+      link: "/openapi-ui/{clusterName}/api-table/netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hosts"
+    - key: hbf-hostbindings
+      label: HostBindings
+      link: "/openapi-ui/{clusterName}/api-table/netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hostbindings"
     - key: hbf-networks
       label: Networks
       link: "/openapi-ui/{clusterName}/{namespace}/api-table/netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/networks"
