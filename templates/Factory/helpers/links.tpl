@@ -5,10 +5,14 @@
 {{- $jsonPath := (default "" .jsonPath) -}}
 {{- $factory := (default "" .factory) -}}
 {{- $ns := (default "" .namespace) -}}
+{{- $proj := (default "" .project) -}}
 
 {{- $nsPart := "" -}}
 {{- if ne $ns "" }}
   {{- $nsPart = printf "%s/" $ns -}}
+{{- end }}
+{{- if ne $proj "" }}
+  {{- $nsPart = printf "%s%s/" $nsPart $proj -}}
 {{- end }}
 - type: parsedText
   data:
@@ -30,11 +34,16 @@
 {{- $jsonPath := (default "" .jsonPath) -}}
 {{- $factory := (default "" .factory) -}}
 {{- $ns := (default "" .namespace) -}}
+{{- $proj := (default "" .project) -}}
 
 {{- $nsPart := "" -}}
 {{- if ne $ns "" }}
   {{- $nsPart = printf "%s/" $ns -}}
 {{- end }}
+  {{- if ne $proj "" }}
+    {{- $nsPart = printf "%s%s/" $nsPart $proj -}}
+  {{- end }}
+
 - type: antdLink
   data:
     id: {{ printf "%s-link" $type }}

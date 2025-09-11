@@ -1,3 +1,15 @@
+namespaceNavigation: true
+
+projectResource:
+  apiGroup: in-cloud.io
+  apiVersion: v1alpha1
+  resourceName: projects
+
+instanceResource:
+  apiGroup: in-cloud.io
+  apiVersion: v1alpha1
+  resourceName: instances
+
 addons:
   argocd:
     enabled: false

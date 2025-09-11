@@ -11,3 +11,19 @@ spec:
       link: "/openapi-ui/{clusterName}/{namespace}/api-table/apps/v1/replicasets"
     - key: ReplicaSet
       label: "{6}"
+
+{{- if not .Values.namespaceNavigation }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-factory-instance-replicaset-details
+spec:
+  id: "stock-instance-factory-instance-replicaset-details"
+  breadcrumbItems:
+    - key: replicasets
+      label: "apps/v1/replicasets"
+      link: "/openapi-ui/{clusterName}/{namespace}/{syntheticProject}/api-table/apps/v1/replicasets"
+    - key: ReplicaSet
+      label: "{7}"
+{{- end -}}

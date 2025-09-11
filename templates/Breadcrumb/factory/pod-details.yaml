@@ -11,3 +11,19 @@ spec:
       link: "/openapi-ui/{clusterName}/{namespace}/builtin-table/pods"
     - key: pod
       label: "{6}"
+
+{{- if not .Values.namespaceNavigation }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-factory-instance-pod-details
+spec:
+  id: "stock-instance-factory-instance-pod-details"
+  breadcrumbItems:
+    - key: pods
+      label: "v1/pods"
+      link: "/openapi-ui/{clusterName}/{namespace}/{syntheticProject}/builtin-table/pods"
+    - key: pod
+      label: "{7}"
+{{- end -}}

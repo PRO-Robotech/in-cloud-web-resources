@@ -84,6 +84,7 @@ spec:
       value: 1
   id: "stock-cluster-/apps/v1/statefulsets"
 
+{{ if .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -138,3 +139,115 @@ spec:
     - key: Pod Selector
       value: 1
   id: "stock-namespace-/apps/v1/statefulsets"
+{{ else }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: "stock-project-apps.v1.statefulsets"
+spec:
+  additionalPrinterColumns:
+    - jsonPath: .metadata.name
+      name: Name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.icon" (dict
+            "text" "SS"
+            "title" "statefulset"
+            "backgroundColor" "#2b9af3"
+          )| nindent 8
+        }}
+        {{ include "incloud-web-resources.factory.linkblock" (dict
+            "reqIndex" 0
+            "type" "name"
+            "jsonPath" ".metadata.name"
+            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+            "factory" "statefulset-details"
+          ) | nindent 12 
+        }}
+    - jsonPath: .metadata.labels
+      name: Labels
+      type: array
+    - jsonPath: .spec.template.metadata.labels
+      name: Pod Selector
+      type: array
+    - jsonPath: .status.conditions[?(@.type=="Available")].status
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Created
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.factory.timeblock" (dict
+          "req" ".metadata.creationTimestamp"
+          ) | nindent 8
+        }}
+  additionalPrinterColumnsTrimLengths:
+    - key: Name
+      value: 64
+    - key: Labels
+      value: 1
+    - key: Pod Selector
+      value: 1
+  id: "stock-project-/apps/v1/statefulsets"
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: "stock-instance-apps.v1.statefulsets"
+spec:
+  additionalPrinterColumns:
+    - jsonPath: .metadata.name
+      name: Name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.icon" (dict
+            "text" "SS"
+            "title" "statefulset"
+            "backgroundColor" "#2b9af3"
+          )| nindent 8
+        }}
+        {{ include "incloud-web-resources.factory.linkblock" (dict
+            "reqIndex" 0
+            "type" "name"
+            "jsonPath" ".metadata.name"
+            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+            "project" "{4}"
+            "factory" "instance-statefulset-details"
+          ) | nindent 12 
+        }}
+    - jsonPath: .metadata.labels
+      name: Labels
+      type: array
+    - jsonPath: .spec.template.metadata.labels
+      name: Pod Selector
+      type: array
+    - jsonPath: .status.conditions[?(@.type=="Available")].status
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Created
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.factory.timeblock" (dict
+          "req" ".metadata.creationTimestamp"
+          ) | nindent 8
+        }}
+  additionalPrinterColumnsTrimLengths:
+    - key: Name
+      value: 64
+    - key: Labels
+      value: 1
+    - key: Pod Selector
+      value: 1
+  id: "stock-instance-/apps/v1/statefulsets"
+{{ end }}

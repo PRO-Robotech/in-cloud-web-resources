@@ -1,0 +1,476 @@
+{{- define "incloud-web-resources.factory.manifets.daemonset-details" -}}
+{{- $key            := (default "daemonset-details" .key) -}}
+{{- $resName        := (default "{6}" .resName) -}}
+{{- $podFactoryName := (default "factory-/v1/pods" .podFactoryName) -}}
+{{- $trivyEnabled   := (default false .trivyEnabled) -}}
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Factory
+metadata:
+  name: "{{ $key }}"
+spec:
+  # Unique key for this factory configuration
+  key: "{{ $key }}"
+
+  # Sidebar category tags
+  sidebarTags:
+    - daemonset-sidebar
+
+  # Enable scrollable content card for main section
+  withScrollableMainContentCard: true
+
+  # API endpoint for fetching DaemonSet details--
+  urlsToFetch:
+    - "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{{ $resName }}"
+
+  data:
+    # === HEADER ROW ===
+    - type: antdFlex
+      data:
+        id: ds-header
+        gap: 6
+        align: center
+        style:
+          marginBottom: 24px
+      children:
+        # Badge with resource short name
+        - type: antdText
+          data:
+            id: ds-header-badge
+            text: DS
+            title: daemonset
+            style:
+              fontSize: 20px
+              lineHeight: 24px
+              padding: "0 9px"
+              borderRadius: "20px"
+              minWidth: 24
+              display: inline-block
+              textAlign: center
+              whiteSpace: nowrap
+              color: "#fff"
+              backgroundColor: "#004080"
+              fontFamily: RedHatDisplay, Overpass, overpass, helvetica, arial, sans-serif
+              fontWeight: 400
+
+        # DaemonSet name
+        - type: parsedText
+          data:
+            id: ds-header-name
+            text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+            style:
+              fontSize: 20px
+              lineHeight: 24px
+              fontFamily: RedHatDisplay, Overpass, overpass, helvetica, arial, sans-serif
+
+    # === MAIN TABS ===
+    - type: antdTabs
+      data:
+        id: ds-tabs
+        defaultActiveKey: details
+        items:
+          # ------ DETAILS TAB ------
+          - key: details
+            label: Details
+            children:
+              # Main card container for details section
+              - type: ContentCard
+                data:
+                  id: ds-details-card
+                  style:
+                    marginBottom: 24px
+                children:
+                  # Section title
+                  - type: antdText
+                    data:
+                      id: ds-details-title
+                      text: DaemonSet details
+                      strong: true
+                      style:
+                        fontSize: 20px
+                        marginBottom: 12px
+
+                  # Spacer for visual separation
+                  - type: Spacer
+                    data:
+                      id: ds-spacer
+                      $space: 16
+
+                  # Grid layout: left and right columns
+                  - type: antdRow
+                    data:
+                      id: ds-main-row
+                      gutter: [48, 12]
+                    children:
+                      # LEFT COLUMN: Metadata and selectors
+                      - type: antdCol
+                        data:
+                          id: ds-left-col
+                          span: 12
+                        children:
+                          - type: antdFlex
+                            data:
+                              id: ds-left-stack
+                              vertical: true
+                              gap: 24
+                            children:
+                              # Resource name block
+                              - type: antdFlex
+                                data:
+                                  id: ds-name-block
+                                  vertical: true
+                                  gap: 4
+                                children:
+                                  - type: antdText
+                                    data:
+                                      id: ds-name-label
+                                      text: Name
+                                      strong: true
+                                  - type: parsedText
+                                    data:
+                                      id: ds-name-value
+                                      text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+
+                              # Namespace link block
+                              - type: antdFlex
+                                data:
+                                  id: meta-namespace-block
+                                  vertical: true
+                                  gap: 8
+                                children:
+                                  - type: antdText
+                                    data:
+                                      id: meta-name-label
+                                      text: Namespace
+                                      strong: true
+
+                                  {{ include "incloud-web-resources.icon" (dict
+                                      "text" "NS"
+                                      "title" "namespace"
+                                      "backgroundColor" "#a25792ff"
+                                    )| nindent 34
+                                  }}
+                                  {{ include "incloud-web-resources.factory.linkblock" (dict
+                                      "reqIndex" 0
+                                      "type" "namespace"
+                                      "jsonPath" ".metadata.namespace"
+                                      "factory" "namespace-details"
+                                    ) | nindent 38
+                                  }}
+                              # Labels display block
+                              - type: antdFlex
+                                data:
+                                  id: ds-labels-block
+                                  vertical: true
+                                  gap: 8
+                                children:
+                                 {{ include "incloud-web-resources.factory.labels" (dict
+                                      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{{ $resName }}"
+                                    ) | nindent 34
+                                  }}
+
+                              # Node selector block
+                              - type: antdFlex
+                                data:
+                                  id: ds-node-selector
+                                  vertical: true
+                                  gap: 4
+                                children:
+                                  {{ include "incloud-web-resources.factory.labels.base.selector" (dict
+                                      "type" "node"
+                                      "title" "Node selector"
+                                      "jsonPath" ".spec.template.spec.nodeSelector"
+                                    ) | nindent 34
+                                  }}
+
+                              # Pod selector block
+                              - type: antdFlex
+                                data:
+                                  id: ds-pod-selector
+                                  vertical: true
+                                  gap: 4
+                                children:
+                                  {{ include "incloud-web-resources.factory.labels.base.selector" (dict
+                                      "type" "pod"
+                                      "title" "Pod selector"
+                                      "jsonPath" ".spec.template.metadata.labels"
+                                    ) | nindent 34
+                                  }}
+  
+                              # Tolerations counter block
+                              - type: antdFlex
+                                data:
+                                  id: ds-tolerations
+                                  vertical: true
+                                  gap: 4
+                                children:
+                                  {{ include "incloud-web-resources.factory.tolerations.block" (dict 
+                                    "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{{ $resName }}"
+                                    "jsonPathToArray" ".spec.template.spec.tolerations"
+                                    "pathToValue" "/spec/template/spec/tolerations"
+                                    ) | nindent 34
+                                  }}
+
+                              # Annotations counter block
+                              - type: antdFlex
+                                data:
+                                  id: ds-annotations
+                                  vertical: true
+                                  gap: 4
+                                children:
+                                  {{ include "incloud-web-resources.factory.annotations.block" (dict
+                                      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{{ $resName }}"
+                                    ) | nindent 34
+                                  }}
+
+                              # Creation time block
+                              - type: antdFlex
+                                data:
+                                  id: ds-created-time
+                                  vertical: true
+                                  gap: 4
+                                children:
+                                  {{ include "incloud-web-resources.factory.time.create" (dict
+                                    "req" ".metadata.creationTimestamp"
+                                    "text" "Created"
+                                    ) | nindent 30
+                                  }}
+
+                              # Owner information block
+                              # - type: antdFlex
+                              #   data:
+                              #     id: ds-owner-block
+                              #     vertical: true
+                              #     gap: 4
+                              #   children:
+                              #     - type: antdText
+                              #       data:
+                              #         id: ds-owner-label
+                              #         text: Owner
+                              #         strong: true
+                              #     - type: parsedText
+                              #       data:
+                              #         id: ds-owner-value
+                              #         strong: true
+                              #         text: "No owner"
+                              #         style:
+                              #           color: red
+
+                      # RIGHT COLUMN: Status counts
+                      - type: antdCol
+                        data:
+                          id: ds-right-col
+                          span: 12
+                        children:
+                          - type: antdFlex
+                            data:
+                              id: ds-right-stack
+                              vertical: true
+                              gap: 24
+                            children:
+                              # Current pods count
+                              - type: antdFlex
+                                data:
+                                  id: ds-current-count
+                                  vertical: true
+                                  gap: 4
+                                children:
+                                  - type: antdText
+                                    data:
+                                      id: ds-current-count-label
+                                      text: Current count
+                                      strong: true
+                                  - type: parsedText
+                                    data:
+                                      id: ds-current-count-value
+                                      text: "{reqsJsonPath[0]['.status.currentNumberScheduled']['-']}"
+
+                              # Desired pods count
+                              - type: antdFlex
+                                data:
+                                  id: ds-desired-count
+                                  vertical: true
+                                  gap: 4
+                                children:
+                                  - type: antdText
+                                    data:
+                                      id: ds-desired-count-label
+                                      text: Desired count
+                                      strong: true
+                                  - type: parsedText
+                                    data:
+                                      id: ds-desired-count-value
+                                      text: "{reqsJsonPath[0]['.status.desiredNumberScheduled']['-']}"
+
+                  # ---- VOLUMES SECTION ----
+                  # TODO to be done
+                  # - type: antdCol
+                  #   data:
+                  #     id: ds-volumes-col
+                  #     style:
+                  #       marginTop: 10
+                  #       padding: 10
+                  #   children:
+                  #     - type: VisibilityContainer
+                  #       data:
+                  #         id: ds-volumes-container
+                  #         value: "{reqsJsonPath[0]['.spec.template.spec.volumes']['-']}"
+                  #         style:
+                  #           margin: 0
+                  #           padding: 0
+                  #       children:
+                  #         # Section title
+                  #         - type: antdText
+                  #           data:
+                  #             id: ds-volumes-label
+                  #             text: Volumes
+                  #             strong: true
+                  #             style:
+                  #               fontSize: 22
+                  #               marginBottom: 32px
+                  #         # Table rendering volumes
+                  #         - type: EnrichedTable
+                  #           data:
+                  #             id: ds-volumes-table
+                  #             fetchUrl: "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{{ $resName }}"
+                  #             clusterNamePartOfUrl: "{2}"
+                  #             customizationId: factory-daemonset-details-volume-list
+                  #             baseprefix: "/openapi-ui"
+                  #             withoutControls: true
+                  #             pathToItems: ".spec.template.spec.volumes"
+
+                  # ---- INIT CONTAINERS SECTION ----
+                  - type: antdCol
+                    data:
+                      id: ds-init-containers-col
+                      style:
+                        marginTop: 10
+                        padding: 10
+                    children:
+                      - type: VisibilityContainer
+                        data:
+                          id: ds-init-containers-container
+                          value: "{reqsJsonPath[0]['.spec.template.spec.initContainers']['-']}"
+                          style:
+                            margin: 0
+                            padding: 0
+                        children:
+                          {{ include "incloud-web-resources.factory.containers.table" (dict
+                              "title" "Init containers"
+                              "customizationId" "container-spec-init-containers-list"
+                              "type" "init-containers"
+                              "apiGroup" "apis/apps/v1"
+                              "kind" "daemonsets"
+                              "resourceName" $resName
+                              "namespace" "{3}"
+                              "jsonPath" ".spec.template.spec.initContainers"
+                              "pathToItems" "['spec','template','spec','initContainers']"
+                            ) | nindent 26
+                          }}
+
+                  # ---- CONTAINERS SECTION ----
+                  - type: antdCol
+                    data:
+                      id: ds-containers-col
+                      style:
+                        marginTop: 10
+                        padding: 10
+                    children:
+                      - type: VisibilityContainer
+                        data:
+                          id: ds-containers-container
+                          value: "{reqsJsonPath[0]['.spec.template.spec.containers']['-']}"
+                          style:
+                            margin: 0
+                            padding: 0
+                        children:
+                          {{ include "incloud-web-resources.factory.containers.table" (dict
+                              "title" "Containers"
+                              "customizationId" "container-spec-containers-list"
+                              "type" "containers"
+                              "apiGroup" "apis/apps/v1"
+                              "kind" "daemonsets"
+                              "resourceName" $resName
+                              "namespace" "{3}"
+                              "jsonPath" ".spec.template.spec.containers"
+                              "pathToItems" "['spec','template','spec','containers']"
+                            ) | nindent 26
+                          }}
+
+          # ------ YAML TAB ------
+          - key: yaml
+            label: YAML
+            children:
+              # YAML editor for DaemonSet manifest
+              - type: YamlEditorSingleton
+                data:
+                  id: ds-yaml-editor
+                  cluster: "{2}"
+                  isNameSpaced: true
+                  type: apis
+                  apiGroup: apps
+                  apiVersion: v1
+                  typeName: daemonsets
+                  prefillValuesRequestIndex: 0
+                  substractHeight: 400
+
+          # ------ PODS TAB ------
+          - key: pods
+            label: Pods
+            children:
+              # Table of Pods controlled by the DaemonSet
+              - type: EnrichedTable
+                data:
+                  id: ds-pods-table
+                  fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods"
+                  clusterNamePartOfUrl: "{2}"
+                  customizationId: "{{ $podFactoryName }}"
+                  baseprefix: "/openapi-ui"
+                  withoutControls: true
+                  # Build label selector from pod template labels
+                  labelsSelectorFull:
+                    reqIndex: 0
+                    pathToLabels: ".spec.template.metadata.labels"
+                  # Items path for Pods list
+                  pathToItems: ".items"
+
+  {{- if $trivyEnabled }}
+          # ------ PODS TAB ------
+          - key: reports
+            label: Reports
+            children:
+              - type: EnrichedTable
+                data:
+                  id: ds-pods-table
+                  fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/namespaces/{3}/vulnerabilityreports"
+                  clusterNamePartOfUrl: "{2}"
+                  customizationId: factory-aquasecurity.github.io.v1alpha1.vulnerabilityreports
+                  baseprefix: "/openapi-ui"
+                  withoutControls: true
+                  # Build label selector from pod template labels
+                  labelsSelector:
+                    trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']}"
+                    trivy-operator.container.name: "{reqsJsonPath[0]['.spec.template.spec.containers[0].name']}"
+                  # Items path for Pods list
+                  pathToItems: ".items[*].report.vulnerabilities"
+
+          - key: cfg-reports
+            label: CFG reports
+            children:
+              - type: EnrichedTable
+                data:
+                  id: ds-pods-table
+                  fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/namespaces/{3}/configauditreports"
+                  clusterNamePartOfUrl: "{2}"
+                  customizationId: factory-aquasecurity.github.io.v1alpha1.configauditreports
+                  baseprefix: "/openapi-ui"
+                  withoutControls: true
+                  # Build label selector from pod template labels
+                  labelsSelector:
+                    trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                    trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
+                  # Items path for Pods list
+                  pathToItems: ".items[*].report.checks"
+  {{- end -}}
+{{- end -}}

@@ -1,0 +1,14 @@
+{{ $projRes := .Values.projectResource }}
+{{ $instRes := .Values.instanceResource }}
+
+{{ if not .Values.namespaceNavigation }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: TableUriMapping
+metadata:
+  name: stock-cluster-project
+spec:
+  keysToParse: ".metadata.name"
+  id: "stock-cluster-/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
+  pathToNavigate: "/openapi-ui/{clusterName}/~recordValue~/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
+{{ end }}

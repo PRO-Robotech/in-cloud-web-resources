@@ -1,0 +1,38 @@
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-builtin-table
+spec:
+  id: "stock-instance-builtin-table"
+  breadcrumbItems:
+    - key: api
+      label: "v1/{typeName}"
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-builtin-form
+spec:
+  id: "stock-instance-builtin-form"
+  breadcrumbItems:
+    - key: create-api-res-namespaced-table
+      label: "v1/{typeName}"
+      link: "/openapi-ui/{clusterName}/{namespace}/{syntheticProject}/builtin-table/{typeName}"
+    - key: create-api-res-namespaced-typename
+      label: Create
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-builtin-form-edit
+spec:
+  id: "stock-instance-builtin-form-edit"
+  breadcrumbItems:
+    - key: create-api-res-namespaced-table
+      label: "v1/{typeName}"
+      link: "/openapi-ui/{clusterName}/{namespace}/{syntheticProject}/builtin-table/{typeName}"
+    - key: create-api-res-namespaced-typename
+      label: Update

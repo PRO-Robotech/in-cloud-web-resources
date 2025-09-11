@@ -76,6 +76,7 @@ spec:
       value: "-"
   id: "stock-cluster-/batch/v1/cronjobs"
 
+{{ if .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -134,3 +135,123 @@ spec:
     - key: Starting deadline seconds
       value: "-"
   id: "stock-namespace-/batch/v1/cronjobs"
+{{ else }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: "stock-project-batch.v1.cronjobs"
+spec:
+  additionalPrinterColumns:
+    - jsonPath: .metadata.name
+      name: Name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.icon" (dict
+            "text" "CJ"
+            "title" "cronjob"
+            "backgroundColor" "#2b9af3"
+          )| nindent 8
+        }}
+        {{ include "incloud-web-resources.factory.linkblock" (dict
+            "reqIndex" 0
+            "type" "name"
+            "jsonPath" ".metadata.name"
+            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+            "factory" "cronjob-details"
+          ) | nindent 12 
+        }}
+    - jsonPath: .spec.schedule
+      name: Schedule
+      type: string
+    - jsonPath: .spec.suspend
+      name: Suspend
+      type: string
+    - jsonPath: .spec.concurrencyPolicy
+      name: Concurrency policy
+      type: string
+    - jsonPath: .spec.startingDeadlineSeconds
+      name: Starting deadline seconds
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Created
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.factory.timeblock" (dict
+          "req" ".metadata.creationTimestamp"
+          ) | nindent 8
+        }}
+  additionalPrinterColumnsTrimLengths:
+    - key: Name
+      value: 64
+  additionalPrinterColumnsUndefinedValues:
+    - key: Namespace
+      value: "-"
+    - key: Starting deadline seconds
+      value: "-"
+  id: "stock-project-/batch/v1/cronjobs"
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: "stock-instance-batch.v1.cronjobs"
+spec:
+  additionalPrinterColumns:
+    - jsonPath: .metadata.name
+      name: Name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.icon" (dict
+            "text" "CJ"
+            "title" "cronjob"
+            "backgroundColor" "#2b9af3"
+          )| nindent 8
+        }}
+        {{ include "incloud-web-resources.factory.linkblock" (dict
+            "reqIndex" 0
+            "type" "name"
+            "jsonPath" ".metadata.name"
+            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+            "project" "{4}"
+            "factory" "instance-cronjob-details"
+          ) | nindent 12 
+        }}
+    - jsonPath: .spec.schedule
+      name: Schedule
+      type: string
+    - jsonPath: .spec.suspend
+      name: Suspend
+      type: string
+    - jsonPath: .spec.concurrencyPolicy
+      name: Concurrency policy
+      type: string
+    - jsonPath: .spec.startingDeadlineSeconds
+      name: Starting deadline seconds
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Created
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.factory.timeblock" (dict
+          "req" ".metadata.creationTimestamp"
+          ) | nindent 8
+        }}
+  additionalPrinterColumnsTrimLengths:
+    - key: Name
+      value: 64
+  additionalPrinterColumnsUndefinedValues:
+    - key: Namespace
+      value: "-"
+    - key: Starting deadline seconds
+      value: "-"
+  id: "stock-instance-/batch/v1/cronjobs"
+{{ end }}

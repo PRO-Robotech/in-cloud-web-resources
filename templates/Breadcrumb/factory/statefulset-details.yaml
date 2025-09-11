@@ -10,4 +10,20 @@ spec:
       label: "apps/v1/statefulsets"
       link: "/openapi-ui/{clusterName}/{namespace}/api-table/apps/v1/statefulsets"
     - key: statefulset
-      label: "{5}"
+      label: "{6}"
+
+{{- if not .Values.namespaceNavigation }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-factory-instance-statefulset-details
+spec:
+  id: "stock-instance-factory-instance-statefulset-details"
+  breadcrumbItems:
+    - key: statefulsets
+      label: "apps/v1/statefulsets"
+      link: "/openapi-ui/{clusterName}/{namespace}/{syntheticProject}/api-table/apps/v1/statefulsets"
+    - key: statefulset
+      label: "{7}"
+{{- end -}}

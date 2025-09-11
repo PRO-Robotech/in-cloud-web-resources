@@ -67,6 +67,7 @@ spec:
       value: 1
   id: "stock-cluster-/v1/replicationcontrollers"
 
+{{ if .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -116,7 +117,108 @@ spec:
     - key: Labels
       value: 1
   id: "stock-namespace-/v1/replicationcontrollers"
+{{ else }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: "stock-project-apps.v1.replicationcontroller"
+spec:
+  additionalPrinterColumns:
+    - jsonPath: .metadata.name
+      name: Name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.icon" (dict
+            "text" "RC"
+            "title" "replicationcontroller"
+            "backgroundColor" "#004080"
+          )| nindent 8
+        }}
+        {{ include "incloud-web-resources.factory.linkblock" (dict
+            "reqIndex" 0
+            "type" "name"
+            "jsonPath" ".metadata.name"
+            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+            "factory" "replicationcontroller-details"
+          ) | nindent 12 
+        }}
+    - jsonPath: .metadata.labels
+      name: Labels
+      type: string
+    - jsonPath: .metadata.ownerReferences[*].name
+      name: Owner
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Created
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.factory.timeblock" (dict
+          "req" ".metadata.creationTimestamp"
+          ) | nindent 8
+        }}
+  additionalPrinterColumnsTrimLengths:
+    - key: Name
+      value: 64
+    - key: Labels
+      value: 1
+  id: "stock-project-/v1/replicationcontrollers"
 
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: "stock-instance-apps.v1.replicationcontroller"
+spec:
+  additionalPrinterColumns:
+    - jsonPath: .metadata.name
+      name: Name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.icon" (dict
+            "text" "RC"
+            "title" "replicationcontroller"
+            "backgroundColor" "#004080"
+          )| nindent 8
+        }}
+        {{ include "incloud-web-resources.factory.linkblock" (dict
+            "reqIndex" 0
+            "type" "name"
+            "jsonPath" ".metadata.name"
+            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+            "project" "{4}"
+            "factory" "instance-replicationcontroller-details"
+          ) | nindent 12 
+        }}
+    - jsonPath: .metadata.labels
+      name: Labels
+      type: string
+    - jsonPath: .metadata.ownerReferences[*].name
+      name: Owner
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Created
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.factory.timeblock" (dict
+          "req" ".metadata.creationTimestamp"
+          ) | nindent 8
+        }}
+  additionalPrinterColumnsTrimLengths:
+    - key: Name
+      value: 64
+    - key: Labels
+      value: 1
+  id: "stock-instance-/v1/replicationcontrollers"
+{{ end }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
