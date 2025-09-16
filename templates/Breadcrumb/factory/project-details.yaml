@@ -1,0 +1,17 @@
+{{ $projRes := .Values.projectResource }}
+
+{{ if not .Values.namespaceNavigation }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-cluster-project-node-details
+spec:
+  id: "stock-cluster-factory-project-details"
+  breadcrumbItems:
+    - key: project
+      label: "{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
+      link: "/openapi-ui/{clusterName}/api-table/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
+    - key: project
+      label: "{5}"
+{{ end }}

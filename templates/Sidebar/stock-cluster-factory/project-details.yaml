@@ -1,0 +1,11 @@
+{{ if not .Values.namespaceNavigation }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Sidebar
+metadata:
+  name: stock-cluster-factory-project-details
+spec:
+  id: stock-cluster-factory-project-details
+  menuItems:
+    {{ include "incloud-web-resources.sidebar.menu.items.cluster" . | nindent 4 }}
+{{ end }}

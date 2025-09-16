@@ -10,6 +10,36 @@ instanceResource:
   apiVersion: v1alpha1
   resourceName: instances
 
+frontendResource:
+  baseApiGroup: front.in-cloud.io
+  baseApiVersion: v1alpha1
+  marketplaceResource:
+    name: marketplacepanels
+    kind: MarketplacePanel
+
+basePrefix: openapi-ui
+
+projectFactory:
+  accessGroups:
+    - group-1
+    - group-2
+    - group-3
+  devTools:
+    - name: ArgoCD
+      link: "/argocd"
+    - name: Nexus
+      link: "/nexus"
+    - name: Monitoring
+      link: "/grafana"
+    - name: Gitlab
+      link: "/gitlab"
+    - name: Harbor
+      link: "/harbor"
+    - name: OpenSearch
+      link: "/opensearch"
+    - name: Vault
+      link: "/vault"
+
 addons:
   argocd:
     enabled: false
@@ -20,3 +50,254 @@ addons:
     enabled: false
   grafana:
     enabled: false
+
+sidebars:
+  cluster:
+    argocd:
+      enabled: true
+      items:
+        argocdlink: false
+        applications: true
+        applicationset: true
+        appprojects: true
+      extraItems: []
+
+    monitoring:
+      enabled: false
+      items:
+        grafana: true
+      extraItems: []
+    
+    hbf:
+      enabled: true
+      items:
+        networks: true
+        addressgroups: true
+        networkbindings: true
+        ieagagrules: true
+        services: true
+        servicealiases: true
+        addressgroupbindings: true
+        rules2ses: true
+        addressgroupportmappings: true
+      extraItems: []
+    
+    workloads:
+      enabled: true
+      items:
+        pods: true
+        deployments: true
+        statefulsets: true
+        secrets: true
+        configmaps: true
+        cronjobs: true
+        jobs: true
+        daemonsets: true
+        replicasets: true
+        replicationcontrollers: true
+        horizontalpodautoscalers: true
+        poddisruptionbudgets: true
+      extraItems: []
+    
+    networking:
+      enabled: true
+      items:
+        services: true
+        networkpolicies: true
+        ingresses: true
+      extraItems: []
+    
+    storage:
+      enabled: true
+      items:
+        persistentvolumes: true
+        persistentvolumeclaims: true
+        storageclasses: true
+      extraItems: []
+    
+    compute:
+      enabled: true
+      items:
+        nodes: true
+      extraItems: []
+    
+    usermanagement:
+      enabled: true
+      items:
+        serviceaccounts: true
+        roles: true
+        rolebindings: true
+        clusterroles: true
+        clusterrolebindings: true
+      extraItems: []
+    
+    administration:
+      enabled: true
+      items:
+        namespaces: true
+        limitranges: true
+        resourcequotas: true
+        customresourcedefinitions: true
+      extraItems: []
+
+  namespaced:
+    argocd:
+      enabled: true
+      items:
+        applications: true
+        applicationset: true
+        appprojects: true
+      extraItems: []
+
+    hbf:
+      enabled: true
+      items:
+        networks: true
+        addressgroups: true
+        networkbindings: true
+        ieagagrules: true
+        services: true
+        servicealiases: true
+        addressgroupbindings: true
+        rules2ses: true
+        addressgroupportmappings: true
+      extraItems: []
+    
+    workloads:
+      enabled: true
+      items:
+        pods: true
+        deployments: true
+        statefulsets: true
+        secrets: true
+        configmaps: true
+        cronjobs: true
+        jobs: true
+        daemonsets: true
+        replicasets: true
+        replicationcontrollers: true
+        horizontalpodautoscalers: true
+        poddisruptionbudgets: true
+      extraItems: []
+    
+    networking:
+      enabled: true
+      items:
+        services: true
+        networkpolicies: true
+        ingresses: true
+      extraItems: []
+    
+    storage:
+      enabled: true
+      items:
+        persistentvolumes: true
+        persistentvolumeclaims: true
+        storageclasses: true
+      extraItems: []
+    
+    compute:
+      enabled: true
+      items:
+        nodes: true
+      extraItems: []
+    
+    usermanagement:
+      enabled: true
+      items:
+        serviceaccounts: true
+        roles: true
+        rolebindings: true
+        clusterroles: true
+        clusterrolebindings: true
+      extraItems: []
+    
+    administration:
+      enabled: true
+      items:
+        namespaces: true
+        limitranges: true
+        resourcequotas: true
+        customresourcedefinitions: true
+      extraItems: []
+
+  instance:
+    argocd:
+      enabled: true
+      items:
+        applications: true
+        applicationset: true
+        appprojects: true
+      extraItems: []
+
+    hbf:
+      enabled: true
+      items:
+        networks: true
+        addressgroups: true
+        networkbindings: true
+        ieagagrules: true
+        services: true
+        servicealiases: true
+        addressgroupbindings: true
+        rules2ses: true
+        addressgroupportmappings: true
+      extraItems: []
+    
+    workloads:
+      enabled: true
+      items:
+        pods: true
+        deployments: true
+        statefulsets: true
+        secrets: true
+        configmaps: true
+        cronjobs: true
+        jobs: true
+        daemonsets: true
+        replicasets: true
+        replicationcontrollers: true
+        horizontalpodautoscalers: true
+        poddisruptionbudgets: true
+      extraItems: []
+    
+    networking:
+      enabled: true
+      items:
+        services: true
+        networkpolicies: true
+        ingresses: true
+      extraItems: []
+    
+    storage:
+      enabled: true
+      items:
+        persistentvolumes: true
+        persistentvolumeclaims: true
+        storageclasses: true
+      extraItems: []
+    
+    compute:
+      enabled: true
+      items:
+        nodes: true
+      extraItems: []
+    
+    usermanagement:
+      enabled: true
+      items:
+        serviceaccounts: true
+        roles: true
+        rolebindings: true
+        clusterroles: true
+        clusterrolebindings: true
+      extraItems: []
+    
+    administration:
+      enabled: true
+      items:
+        namespaces: true
+        limitranges: true
+        resourcequotas: true
+        customresourcedefinitions: true
+      extraItems: []
