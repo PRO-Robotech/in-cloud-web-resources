@@ -1,5 +1,44 @@
 {{ define "incloud-web-resources.sidebar.menu.items.cluster" }}
 {{ $sidebars := .Values.sidebars.cluster }}
+{{ $projRes := .Values.projectResource }}
+{{ $instRes := .Values.instanceResource }}
+
+- children:
+{{ if .Values.namespaceNavigation }}
+    - key: namespaces
+      label: Namespaces
+      link: /openapi-ui/{clusterName}/builtin-table/namespaces
+{{ else }}
+    - key: projects
+      label: Projects
+      link: /openapi-ui/{clusterName}/{namespace}/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}
+{{ end }}
+  key: cluster
+  label: "Cluster"
+
+{{ if not .Values.namespaceNavigation }}
+{{ with $sidebars.projects }}
+  {{ if .enabled }}
+- children:
+    - key: projects
+      label: Projects
+      link: /openapi-ui/{clusterName}/{namespace}/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}
+  key: projects
+  label: Projects
+  {{ end }}
+{{ end }}
+
+{{ with $sidebars.instances }}
+  {{ if .enabled }}
+- children:
+    - key: instances
+      label: Instances
+      link: /openapi-ui/{clusterName}/{namespace}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}
+  key: instances
+  label: Instances
+  {{ end }}
+{{ end }}
+{{ end }}
 
 {{ if .Values.addons.argocd.enabled }}
 {{ with $sidebars.argocd }}

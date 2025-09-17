@@ -53,8 +53,17 @@ addons:
 
 sidebars:
   cluster:
+    clusters:
+      enabled: false
+
+    projects:
+      enabled: false
+
+    instances:
+      enabled: false
+
     argocd:
-      enabled: true
+      enabled: false
       items:
         argocdlink: false
         applications: true
@@ -69,7 +78,7 @@ sidebars:
       extraItems: []
     
     hbf:
-      enabled: true
+      enabled: false
       items:
         networks: true
         addressgroups: true
@@ -83,7 +92,7 @@ sidebars:
       extraItems: []
     
     workloads:
-      enabled: true
+      enabled: false
       items:
         pods: true
         deployments: true
@@ -100,7 +109,7 @@ sidebars:
       extraItems: []
     
     networking:
-      enabled: true
+      enabled: false
       items:
         services: true
         networkpolicies: true
@@ -111,7 +120,7 @@ sidebars:
       enabled: true
       items:
         persistentvolumes: true
-        persistentvolumeclaims: true
+        persistentvolumeclaims: false
         storageclasses: true
       extraItems: []
     
@@ -124,9 +133,9 @@ sidebars:
     usermanagement:
       enabled: true
       items:
-        serviceaccounts: true
-        roles: true
-        rolebindings: true
+        serviceaccounts: false
+        roles: false
+        rolebindings: false
         clusterroles: true
         clusterrolebindings: true
       extraItems: []
@@ -134,15 +143,21 @@ sidebars:
     administration:
       enabled: true
       items:
-        namespaces: true
-        limitranges: true
-        resourcequotas: true
+        namespaces: false
+        limitranges: false
+        resourcequotas: false
         customresourcedefinitions: true
       extraItems: []
 
   namespaced:
+    projects:
+      enabled: false
+
+    instances:
+      enabled: false
+
     argocd:
-      enabled: true
+      enabled: false
       items:
         applications: true
         applicationset: true
@@ -150,7 +165,7 @@ sidebars:
       extraItems: []
 
     hbf:
-      enabled: true
+      enabled: false
       items:
         networks: true
         addressgroups: true
@@ -164,7 +179,7 @@ sidebars:
       extraItems: []
     
     workloads:
-      enabled: true
+      enabled: false
       items:
         pods: true
         deployments: true
@@ -181,7 +196,7 @@ sidebars:
       extraItems: []
     
     networking:
-      enabled: true
+      enabled: false
       items:
         services: true
         networkpolicies: true
@@ -189,7 +204,7 @@ sidebars:
       extraItems: []
     
     storage:
-      enabled: true
+      enabled: false
       items:
         persistentvolumes: true
         persistentvolumeclaims: true
@@ -197,13 +212,13 @@ sidebars:
       extraItems: []
     
     compute:
-      enabled: true
+      enabled: false
       items:
         nodes: true
       extraItems: []
     
     usermanagement:
-      enabled: true
+      enabled: false
       items:
         serviceaccounts: true
         roles: true
@@ -213,7 +228,7 @@ sidebars:
       extraItems: []
     
     administration:
-      enabled: true
+      enabled: false
       items:
         namespaces: true
         limitranges: true
@@ -222,6 +237,12 @@ sidebars:
       extraItems: []
 
   instance:
+    projects:
+      enabled: false
+
+    instances:
+      enabled: false
+
     argocd:
       enabled: true
       items:
@@ -272,13 +293,13 @@ sidebars:
     storage:
       enabled: true
       items:
-        persistentvolumes: true
+        persistentvolumes: false
         persistentvolumeclaims: true
-        storageclasses: true
+        storageclasses: false
       extraItems: []
     
     compute:
-      enabled: true
+      enabled: false
       items:
         nodes: true
       extraItems: []
@@ -289,15 +310,15 @@ sidebars:
         serviceaccounts: true
         roles: true
         rolebindings: true
-        clusterroles: true
-        clusterrolebindings: true
+        clusterroles: false
+        clusterrolebindings: false
       extraItems: []
     
     administration:
       enabled: true
       items:
-        namespaces: true
+        namespaces: false
         limitranges: true
         resourcequotas: true
-        customresourcedefinitions: true
+        customresourcedefinitions: false
       extraItems: []

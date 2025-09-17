@@ -1,5 +1,44 @@
 {{ define "incloud-web-resources.sidebar.menu.items.namespaced" }}
 {{ $sidebars := .Values.sidebars.namespaced }}
+{{ $projRes := .Values.projectResource }}
+{{ $instRes := .Values.instanceResource }}
+
+{{ if .Values.namespaceNavigation }}
+- children: []
+  key: namespace
+  label: "Namespace"
+{{ else }}
+- children:
+    - key: instances
+      label: Instances
+      link: /openapi-ui/{clusterName}/{namespace}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}
+  key: project
+  label: "Project"
+{{ end }}
+
+{{ if not .Values.namespaceNavigation }}
+{{ with $sidebars.projects }}
+  {{ if .enabled }}
+- children:
+    - key: projects
+      label: Projects
+      link: /openapi-ui/{clusterName}/{namespace}/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}
+  key: projects
+  label: Projects
+  {{ end }}
+{{ end }}
+
+{{ with $sidebars.instances }}
+  {{ if .enabled }}
+- children:
+    - key: instances
+      label: Instances
+      link: /openapi-ui/{clusterName}/{namespace}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}
+  key: instances
+  label: Instances
+  {{ end }}
+{{ end }}
+{{ end }}
 
 {{ if .Values.addons.argocd.enabled }}
 {{ with $sidebars.argocd }}

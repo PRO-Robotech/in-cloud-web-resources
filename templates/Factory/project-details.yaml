@@ -29,7 +29,7 @@ spec:
           data:
             id: project-column
             title: ""
-            span: 12
+            span: 14
             style:
               flexShrink: 0
           children:
@@ -134,7 +134,7 @@ spec:
           data:
             id: project-column
             title: ""
-            span: 12
+            span: 10
             style:
               flexShrink: 0
           children:
