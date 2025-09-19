@@ -25,6 +25,7 @@ spec:
   instances:
     clear: "/openapi-ui/{selectedCluster}/{selectedProject}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
     change: "/openapi-ui/{selectedCluster}/{value}/{selectedProject}/api-table/apps/v1/deployments"
+    mapOptionsPattern: "{{ .Values.navigation.instanceNamespacePattern }}"
   namespaces:
     clear: "/openapi-ui/clusters/{selectedCluster}"
     change: "/openapi-ui/clusters/{selectedCluster}/{{ $projRes.resourceName }}/{value}"

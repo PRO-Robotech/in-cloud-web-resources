@@ -3,18 +3,11 @@
 {{ $projRes := .Values.projectResource }}
 {{ $instRes := .Values.instanceResource }}
 
-{{ if .Values.namespaceNavigation }}
-- children: []
-  key: namespace
-  label: "Namespace"
-{{ else }}
-- children:
-    - key: instances
-      label: Instances
-      link: /openapi-ui/{clusterName}/{namespace}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}
-  key: project
-  label: "Project"
-{{ end }}
+{{- if $sidebars.customItems -}}
+  {{- range $sidebars.customItems }}
+{{ $sidebars.customItems | toYaml }}
+  {{- end }}
+{{- end -}}
 
 {{ if not .Values.namespaceNavigation }}
 {{ with $sidebars.projects }}

@@ -19,6 +19,9 @@ frontendResource:
 
 basePrefix: openapi-ui
 
+navigation:
+  instanceNamespacePattern: "{reqsJsonPath[0]['.metadata.namespace']}-{reqsJsonPath[0]['.metadata.name']}"
+
 projectFactory:
   accessGroups:
     - group-1
@@ -53,6 +56,26 @@ addons:
 
 sidebars:
   cluster:
+    customItems: []
+    # The `customItems` block is used to specify the required custom sections for the sidebar.
+    # The label field supports templating from the URL address using the pattern {n}, 
+    # where n is the path segment index (e.g., {2} would insert the cluster name).
+    # example:
+    # if namespaceNavigation is true:
+    # - children:
+    #     - key: namespaces
+    #       label: Namespaces
+    #       link: /openapi-ui/{clusterName}/builtin-table/namespaces
+    #   key: cluster
+    #   label: "Cluster: {2}"
+    # if namespaceNavigation is false:
+    # - children:
+    #     - key: projects
+    #       label: Projects
+    #       link: /openapi-ui/{clusterName}/api-table/{{ projectAPIGroup }}/{{ projectAPIVersion }}/{{ projectResourceName }}
+    #   key: cluster
+    #   label: "Cluster: {2}"
+
     clusters:
       enabled: false
 
@@ -150,6 +173,23 @@ sidebars:
       extraItems: []
 
   namespaced:
+    customItems: []
+    # The `customItems` block is used to specify the required custom sections for the sidebar.
+    # The label field supports templating from the URL address using the pattern {n}, 
+    # where n is the path segment index (e.g., {3} would insert the namespace).
+    # example:
+    # if namespaceNavigation is true:
+    # - children: []
+    #   key: namespace
+    #   label: "Namespace: {3}"
+    # if namespaceNavigation is false:
+    # - children:
+    #     - key: instances
+    #       label: Instances
+    #       link: /openapi-ui/{clusterName}/{namespace}/api-table/{{ instanceAPIGroup }}/{{ instanceAPIVersion }}/{{ instanceResourceName }}
+    #   key: project
+    #   label: "Project: {3}"
+
     projects:
       enabled: false
 
@@ -237,6 +277,16 @@ sidebars:
       extraItems: []
 
   instance:
+    customItems: []
+    # The `customItems` block is used to specify the required custom sections for the sidebar.
+    # The label field supports templating from the URL address using the pattern {n}, 
+    # where n is the path segment index (e.g., {3} would insert the instance name).
+    # example:
+    # if namespaceNavigation is false:
+    # - children: []
+    #   key: instances
+    #   label: "Instance: {3}"
+
     projects:
       enabled: false
 

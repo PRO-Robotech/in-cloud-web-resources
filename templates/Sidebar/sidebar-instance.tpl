@@ -3,11 +3,11 @@
 {{ $projRes := .Values.projectResource }}
 {{ $instRes := .Values.instanceResource }}
 
-{{ if not .Values.namespaceNavigation }}
-- children: []
-  key: instances
-  label: "Instances"
-{{ end }}
+{{- if $sidebars.customItems -}}
+  {{- range $sidebars.customItems }}
+{{ $sidebars.customItems | toYaml }}
+  {{- end }}
+{{- end -}}
 
 {{ if not .Values.namespaceNavigation }}
 {{ with $sidebars.projects }}
