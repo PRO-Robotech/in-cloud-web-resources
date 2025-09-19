@@ -1,4 +1,13 @@
+# return [] if sidebebar items are empty
 {{ define "incloud-web-resources.sidebar.menu.items.cluster" }}
+{{ if (include "incloud-web-resources.sidebar.menu.items.cluster-items" . | trim) }}
+{{ include "incloud-web-resources.sidebar.menu.items.cluster-items" . }}
+{{ else }}
+[]
+{{ end }}
+{{ end }}
+
+{{ define "incloud-web-resources.sidebar.menu.items.cluster-items" }}
 {{ $sidebars := .Values.sidebars.cluster }}
 {{ $projRes := .Values.projectResource }}
 {{ $instRes := .Values.instanceResource }}

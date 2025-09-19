@@ -1,4 +1,13 @@
+# return [] if sidebebar items are empty
 {{ define "incloud-web-resources.sidebar.menu.items.namespaced" }}
+{{ if (include "incloud-web-resources.sidebar.menu.items.namespaced-items" . | trim) }}
+{{ include "incloud-web-resources.sidebar.menu.items.namespaced-items" . }}
+{{ else }}
+[]
+{{ end }}
+{{ end }}
+
+{{ define "incloud-web-resources.sidebar.menu.items.namespaced-items" }}
 {{ $sidebars := .Values.sidebars.namespaced }}
 {{ $projRes := .Values.projectResource }}
 {{ $instRes := .Values.instanceResource }}

@@ -1,4 +1,12 @@
 {{ define "incloud-web-resources.sidebar.menu.items.instance" }}
+{{ if (include "incloud-web-resources.sidebar.menu.items.instance-items" . | trim) }}
+{{ include "incloud-web-resources.sidebar.menu.items.instance-items" . }}
+{{ else }}
+[]
+{{ end }}
+{{ end }}
+
+{{ define "incloud-web-resources.sidebar.menu.items.instance-items" }}
 {{ $sidebars := .Values.sidebars.instance }}
 {{ $projRes := .Values.projectResource }}
 {{ $instRes := .Values.instanceResource }}
