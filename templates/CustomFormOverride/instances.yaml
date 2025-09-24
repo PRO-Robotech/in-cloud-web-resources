@@ -1,0 +1,67 @@
+{{ $instRes := .Values.instanceResource }}
+
+{{ if and ($instRes.deployDefaultForms) (not .Values.namespaceNavigation) }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomFormsOverride
+metadata:
+  name: default-instances
+spec:
+  customizationId: "default-/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
+  hidden:
+    - - apiVersion
+    - - kind
+    - - status
+    - - spec
+      - compositeDeletePolicy
+    - - spec
+      - publishConnectionDetailsTo
+    - - spec
+      - compositionRef
+    - - spec
+      - compositionRevisionRef
+    - - spec
+      - compositionRevisionSelector
+    - - spec
+      - compositionSelector
+    - - spec
+      - compositionUpdatePolicy
+    - - spec
+      - resourceRef
+    - - spec
+      - writeConnectionSecretToRef
+    - - spec
+      - spi
+    - - spec
+      - chatid
+    - - metadata
+      - creationTimestamp
+    - - metadata
+      - namespace
+    - - metadata
+      - deletionGracePeriodSeconds
+    - - metadata
+      - deletionTimestamp
+    - - metadata
+      - finalizers
+    - - metadata
+      - generateName
+    - - metadata
+      - generation
+    - - metadata
+      - managedFields
+    - - metadata
+      - labels
+    - - metadata
+      - annotations
+    - - metadata
+      - ownerReferences
+    - - metadata
+      - resourceVersion
+    - - metadata
+      - selfLink
+    - - metadata
+      - uid
+  schema: {}
+  strategy: merge
+{{ end }}

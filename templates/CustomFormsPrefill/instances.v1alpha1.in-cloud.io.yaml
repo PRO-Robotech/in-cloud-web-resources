@@ -1,0 +1,20 @@
+{{ $instRes := .Values.instanceResource }}
+
+{{ if and ($instRes.deployDefaultForms) (not .Values.namespaceNavigation) }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomFormsPrefill
+metadata:
+  name: default-instances
+spec:
+  customizationId: "default-/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
+  values:
+    - path:
+        - metadata
+        - name
+      value: example
+    - path:
+        - spec
+        - description
+      value: Instance description
+{{ end }}

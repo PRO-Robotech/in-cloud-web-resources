@@ -4,11 +4,13 @@ projectResource:
   apiGroup: in-cloud.io
   apiVersion: v1alpha1
   resourceName: projects
+  deployDefaultForms: true
 
 instanceResource:
   apiGroup: in-cloud.io
   apiVersion: v1alpha1
   resourceName: instances
+  deployDefaultForms: true
 
 frontendResource:
   baseApiGroup: front.in-cloud.io

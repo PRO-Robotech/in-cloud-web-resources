@@ -78,12 +78,12 @@
     {{ if .items.hosts }}
     - key: hbf-hosts
       label: Hosts
-      link: "/openapi-ui/{clusterName}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hosts"
+      link: "/openapi-ui/{clusterName}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/hosts"
     {{ end }}
     {{ if .items.hostbindings }}
     - key: hbf-hostbindings
       label: HostBindings
-      link: "/openapi-ui/{clusterName}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hostbindings"
+      link: "/openapi-ui/{clusterName}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/hostbindings"
     {{ end }}
     {{ if .items.networks }}
     - key: hbf-networks
