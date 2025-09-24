@@ -103,6 +103,8 @@ sidebars:
     hbf:
       enabled: false
       items:
+        hosts: true
+        hostbindings: true
         networks: true
         addressgroups: true
         networkbindings: true
@@ -207,6 +209,8 @@ sidebars:
     hbf:
       enabled: false
       items:
+        hosts: true
+        hostbindings: true
         networks: true
         addressgroups: true
         networkbindings: true
@@ -304,6 +308,8 @@ sidebars:
     hbf:
       enabled: true
       items:
+        hosts: true
+        hostbindings: true
         networks: true
         addressgroups: true
         networkbindings: true
