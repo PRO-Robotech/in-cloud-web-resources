@@ -1,6 +1,6 @@
 {{ $instRes := .Values.instanceResource }}
 
-{{ if not .Values.namespaceNavigation }}
+{{ if and ($instRes.deployDefaultForms) (not .Values.namespaceNavigation) }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride

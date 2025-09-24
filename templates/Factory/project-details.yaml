@@ -2,7 +2,7 @@
 {{ $instRes := .Values.instanceResource }}
 {{ $frntRes := .Values.frontendResource }}
 
-{{ if not .Values.namespaceNavigation }}
+{{ if and ($projRes.deployDefaultForms) (not .Values.namespaceNavigation) }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: Factory

@@ -20,8 +20,11 @@ spec:
 {{ else }}
   projects:
     clear: "/openapi-ui/clusters/{selectedCluster}"
-    # change: "/openapi-ui/{selectedCluster}/{value}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
+  {{ if $projRes.deployDefaultForms }}
     change: "/openapi-ui/{selectedCluster}/factory/project-details/{value}"
+  {{ else }}
+    change: "/openapi-ui/{selectedCluster}/{value}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
+  {{ end }}
   instances:
     clear: "/openapi-ui/{selectedCluster}/{selectedProject}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
     change: "/openapi-ui/{selectedCluster}/{value}/{selectedProject}/api-table/apps/v1/deployments"
