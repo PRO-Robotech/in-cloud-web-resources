@@ -5,7 +5,7 @@
 apiVersion: front.in-cloud.io/v1alpha1
 kind: Breadcrumb
 metadata:
-  name: stock-cluster-project-node-details
+  name: stock-cluster-factory-project-details
 spec:
   id: "stock-cluster-factory-project-details"
   breadcrumbItems:
@@ -14,4 +14,18 @@ spec:
       link: "/openapi-ui/{clusterName}/api-table/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
     - key: project
       label: "{5}"
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-project-factory-project-details
+spec:
+  id: "stock-project-factory-project-details"
+  breadcrumbItems:
+    - key: project
+      label: "{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
+      link: "/openapi-ui/{clusterName}/api-table/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
+    - key: project
+      label: "{3}"
 {{ end }}

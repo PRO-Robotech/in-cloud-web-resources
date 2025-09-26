@@ -81,11 +81,6 @@
       label: Hosts
       link: "/openapi-ui/{clusterName}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/hosts"
     {{ end }}
-    {{ if .items.hostbindings }}
-    - key: hbf-hostbindings
-      label: HostBindings
-      link: "/openapi-ui/{clusterName}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/hostbindings"
-    {{ end }}
     {{ if .items.networks }}
     - key: hbf-networks
       label: Networks
@@ -95,6 +90,32 @@
     - key: hbf-addressgroups
       label: AddressGroups
       link: "/openapi-ui/{clusterName}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/addressgroups"
+    {{ end }}
+    {{ if .items.services }}
+    - key: hbf-services
+      label: Services
+      link: "/openapi-ui/{clusterName}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/services"
+    {{ end }}
+    {{ if .items.rules2ses }}
+    - key: hbf-rules2ses
+      label: RuleS2S
+      link: "/openapi-ui/{clusterName}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/rules2s"
+    {{ end }}
+    {{ with .extraItems }}
+      {{ . | toYaml | nindent 4 }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ with $sidebars.hbf }}
+  {{ if .enabled }}
+- key: hbfSystem
+  label: HBF System
+  children:
+    {{ if .items.hostbindings }}
+    - key: hbf-hostbindings
+      label: HostBindings
+      link: "/openapi-ui/{clusterName}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/hostbindings"
     {{ end }}
     {{ if .items.networkbindings }}
     - key: hbf-networkbindings
@@ -106,11 +127,6 @@
       label: RuleAG2AG
       link: "/openapi-ui/{clusterName}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/ieagagrules"
     {{ end }}
-    {{ if .items.services }}
-    - key: hbf-services
-      label: Services
-      link: "/openapi-ui/{clusterName}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/services"
-    {{ end }}
     {{ if .items.servicealiases }}
     - key: hbf-servicealiases
       label: ServiceAliases
@@ -120,11 +136,6 @@
     - key: hbf-addressgroupbindings
       label: AddressGroupBindings
       link: "/openapi-ui/{clusterName}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/addressgroupbindings"
-    {{ end }}
-    {{ if .items.rules2ses }}
-    - key: hbf-rules2ses
-      label: RuleS2S
-      link: "/openapi-ui/{clusterName}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/rules2s"
     {{ end }}
     {{ if .items.addressgroupportmappings }}
     - key: hbf-addressgroupportmappings

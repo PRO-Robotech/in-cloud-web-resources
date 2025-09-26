@@ -14,7 +14,7 @@ spec:
     - clusterrole-sidebar
   withScrollableMainContentCard: true
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}/{5}"
+    - "/api/clusters/{2}/k8s/apis/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}/{3}"
 
   # Header row with badge and project name
   data:
@@ -44,7 +44,7 @@ spec:
                   data:
                     id: 211
                     clusterNamePartOfUrl: "{2}"
-                    namespacePartOfUrl:   "{5}"
+                    namespacePartOfUrl:   "{3}"
                     baseApiGroup:         "{{ $frntRes.baseApiGroup }}"
                     baseApiVersion:       "{{ $frntRes.baseApiVersion }}"
                     baseProjectApiGroup:  "{{ $projRes.apiGroup }}"
@@ -153,7 +153,7 @@ spec:
                       data:
                         id: 311
                         clusterNamePartOfUrl: "{2}"
-                        namespacePartOfUrl:   "{5}"
+                        namespacePartOfUrl:   "{3}"
                         baseApiGroup:         "{{ $frntRes.baseApiGroup }}"
                         baseApiVersion:       "{{ $frntRes.baseApiVersion }}"
                         mpResourceName:       "{{ $frntRes.marketplaceResource.name }}"

@@ -82,7 +82,7 @@ sidebars:
       enabled: false
 
     projects:
-      enabled: false
+      enabled: true
 
     instances:
       enabled: false
@@ -101,23 +101,28 @@ sidebars:
       items:
         grafana: true
       extraItems: []
-    
+
     hbf:
       enabled: false
       items:
         hosts: true
-        hostbindings: true
         networks: true
         addressgroups: true
+        services: true
+        rules2ses: true
+      extraItems: []
+
+    hbfSystem:
+      enabled: false
+      items:
+        hostbindings: true
         networkbindings: true
         ieagagrules: true
-        services: true
         servicealiases: true
         addressgroupbindings: true
-        rules2ses: true
         addressgroupportmappings: true
       extraItems: []
-    
+
     workloads:
       enabled: false
       items:
@@ -134,7 +139,7 @@ sidebars:
         horizontalpodautoscalers: true
         poddisruptionbudgets: true
       extraItems: []
-    
+
     networking:
       enabled: false
       items:
@@ -142,7 +147,7 @@ sidebars:
         networkpolicies: true
         ingresses: true
       extraItems: []
-    
+
     storage:
       enabled: true
       items:
@@ -150,13 +155,13 @@ sidebars:
         persistentvolumeclaims: false
         storageclasses: true
       extraItems: []
-    
+
     compute:
       enabled: true
       items:
         nodes: true
       extraItems: []
-    
+
     usermanagement:
       enabled: true
       items:
@@ -166,7 +171,7 @@ sidebars:
         clusterroles: true
         clusterrolebindings: true
       extraItems: []
-    
+
     administration:
       enabled: true
       items:
@@ -198,7 +203,7 @@ sidebars:
       enabled: false
 
     instances:
-      enabled: false
+      enabled: true
 
     argocd:
       enabled: false
@@ -212,18 +217,23 @@ sidebars:
       enabled: false
       items:
         hosts: true
-        hostbindings: true
         networks: true
         addressgroups: true
+        services: true
+        rules2ses: true
+      extraItems: []
+
+    hbfSystem:
+      enabled: false
+      items:
+        hostbindings: true
         networkbindings: true
         ieagagrules: true
-        services: true
         servicealiases: true
         addressgroupbindings: true
-        rules2ses: true
         addressgroupportmappings: true
       extraItems: []
-    
+
     workloads:
       enabled: false
       items:
@@ -240,7 +250,7 @@ sidebars:
         horizontalpodautoscalers: true
         poddisruptionbudgets: true
       extraItems: []
-    
+
     networking:
       enabled: false
       items:
@@ -248,7 +258,7 @@ sidebars:
         networkpolicies: true
         ingresses: true
       extraItems: []
-    
+
     storage:
       enabled: false
       items:
@@ -256,13 +266,13 @@ sidebars:
         persistentvolumeclaims: true
         storageclasses: true
       extraItems: []
-    
+
     compute:
       enabled: false
       items:
         nodes: true
       extraItems: []
-    
+
     usermanagement:
       enabled: false
       items:
@@ -272,7 +282,7 @@ sidebars:
         clusterroles: true
         clusterrolebindings: true
       extraItems: []
-    
+
     administration:
       enabled: false
       items:
@@ -311,18 +321,23 @@ sidebars:
       enabled: true
       items:
         hosts: true
-        hostbindings: true
         networks: true
         addressgroups: true
+        services: true
+        rules2ses: true
+      extraItems: []
+
+    hbfSystem:
+      enabled: true
+      items:
+        hostbindings: true
         networkbindings: true
         ieagagrules: true
-        services: true
         servicealiases: true
         addressgroupbindings: true
-        rules2ses: true
         addressgroupportmappings: true
       extraItems: []
-    
+
     workloads:
       enabled: true
       items:
@@ -339,7 +354,7 @@ sidebars:
         horizontalpodautoscalers: true
         poddisruptionbudgets: true
       extraItems: []
-    
+
     networking:
       enabled: true
       items:
@@ -347,7 +362,7 @@ sidebars:
         networkpolicies: true
         ingresses: true
       extraItems: []
-    
+
     storage:
       enabled: true
       items:
@@ -355,13 +370,13 @@ sidebars:
         persistentvolumeclaims: true
         storageclasses: false
       extraItems: []
-    
+
     compute:
       enabled: false
       items:
         nodes: true
       extraItems: []
-    
+
     usermanagement:
       enabled: true
       items:
@@ -371,7 +386,7 @@ sidebars:
         clusterroles: false
         clusterrolebindings: false
       extraItems: []
-    
+
     administration:
       enabled: true
       items:

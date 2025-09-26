@@ -3,9 +3,9 @@
 apiVersion: front.in-cloud.io/v1alpha1
 kind: Sidebar
 metadata:
-  name: stock-cluster-factory-project-details
+  name: stock-project-factory-project-details
 spec:
-  id: stock-cluster-factory-project-details
+  id: stock-project-factory-project-details
   menuItems:
     {{ include "incloud-web-resources.sidebar.menu.items.namespaced" . | nindent 4 }}
 {{ end }}

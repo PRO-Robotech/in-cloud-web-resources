@@ -25,6 +25,7 @@ spec:
             "type" "name"
             "jsonPath" ".metadata.name"
             "factory" "project-details"
+            "namespace" "{reqsJsonPath[0]['.metadata.name']['-']}"
           ) | nindent 12 
         }}
     - jsonPath: .metadata.creationTimestamp
