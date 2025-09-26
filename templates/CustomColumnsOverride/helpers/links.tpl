@@ -4,12 +4,9 @@
 {{- $title      := (default "" .title) -}}
 {{- $jsonPath   := (default "" .jsonPath) -}}
 {{- $resource   := (default "" .resource) -}}
-# {{- $basePrefix := (default "" .basePrefix) -}}
+{{- $basePrefix := (default "openapi-ui" .basePrefix) -}}
 {{- $ns         := (default "" .namespace) -}}
 {{- $proj       := (default "" .project) -}}
-
-{{- $basePrefix := (include "incloud-web-resources.base-prefix" .) -}}
-
 
 {{- $nsPart := "" -}}
 {{- if ne $ns "" }}
@@ -37,7 +34,7 @@
 {{- $type       := (default "" .type) -}}
 {{- $jsonPath   := (default "" .jsonPath) -}}
 {{- $resource   := (default "" .resource) -}}
-{{- $basePrefix := (default "" .basePrefix) -}}
+{{- $basePrefix := (default "openapi-ui" .basePrefix) -}}
 {{- $ns         := (default "" .namespace) -}}
 {{- $proj       := (default "" .project) -}}
 
