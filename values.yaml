@@ -1,107 +1,155 @@
-namespaceNavigation: true
+# In-Cloud Web Interface Helm Chart Values
+# This file configures the In-Cloud web interface for Kubernetes resource management
+# The interface supports two navigation modes: classic namespace-based and project/instance-based
 
-projectResource:
-  apiGroup: in-cloud.io
-  apiVersion: v1alpha1
-  resourceName: projects
-  deployDefaultForms: true
-
-instanceResource:
-  apiGroup: in-cloud.io
-  apiVersion: v1alpha1
-  resourceName: instances
-  deployDefaultForms: true
-
-frontendResource:
-  baseApiGroup: front.in-cloud.io
-  baseApiVersion: v1alpha1
-  marketplaceResource:
-    name: marketplacepanels
-    kind: MarketplacePanel
-
+# Base URL prefix configured for the incloud-web application
+# This prefix will be used in all application routes
 basePrefix: openapi-ui
 
-navigation:
-  instanceNamespacePattern: "{reqsJsonPath[0]['.metadata.namespace']}-{reqsJsonPath[0]['.metadata.name']}"
+# Navigation mode selection for the In-Cloud interface
+# true: Classic namespace-based navigation (Cluster/Namespace resources)
+# false: Project/Instance based navigation (Project as parent resource, Instance as child resource)
+# When using project/instance mode, instances create namespaces with matching names
+namespaceNavigation: true
 
-projectFactory:
-  accessGroups:
-    - group-1
-    - group-2
-    - group-3
-  devTools:
-    - name: ArgoCD
-      link: "/argocd"
-    - name: Nexus
-      link: "/nexus"
-    - name: Monitoring
-      link: "/grafana"
-    - name: Gitlab
-      link: "/gitlab"
-    - name: Harbor
-      link: "/harbor"
-    - name: OpenSearch
-      link: "/opensearch"
-    - name: Vault
-      link: "/vault"
+# Project resource configuration
+# Defines the custom resource definition for Projects when using project/instance mode
+projectResource:
+  # API group for the Project custom resource
+  apiGroup: in-cloud.io
+  # API version for the Project custom resource
+  apiVersion: v1alpha1
+  # Plural resource name for the Project custom resource
+  resourceName: projects
+  # Enable deployment of frontend forms for Project resource navigation
+  # When true, the UI will provide default forms for Project management
+  # Required resource structure for custom resources:
+  # - metadata.name: Project name
+  # - spec.businessName: Business display name
+  # - spec.description: Project description
+  # - spec.prefix: Short project identifier
+  deployDefaultForms: true
+  # Factory settings for Project creation and management pages
+  factory:
+    # List of available OIDC groups for user access management
+    # These groups are used for configuring user permissions within projects
+    accessGroups:
+      - group-1
+      - group-2
+      - group-3
+    # Developer tools links displayed in the project interface
+    # Each tool provides quick access to development infrastructure components
+    devTools:
+      - name: ArgoCD
+        link: "/argocd"
+      - name: Nexus
+        link: "/nexus"
+      - name: Monitoring
+        link: "/grafana"
+      - name: Gitlab
+        link: "/gitlab"
+      - name: Harbor
+        link: "/harbor"
+      - name: OpenSearch
+        link: "/opensearch"
+      - name: Vault
+        link: "/vault"
 
+# Instance resource configuration
+# Defines the custom resource definition for Instances when using project/instance mode
+# Instances are child resources of Projects and create corresponding namespaces
+instanceResource:
+  # API group for the Instance custom resource
+  apiGroup: in-cloud.io
+  # API version for the Instance custom resource
+  apiVersion: v1alpha1
+  # Plural resource name for the Instance custom resource
+  resourceName: instances
+  # Enable deployment of frontend forms for Instance resource navigation
+  # When true, the UI will provide default forms for Instance management
+  # Required resource structure for custom resources:
+  # - metadata.name: Instance name
+  # - spec.description: Instance description
+  deployDefaultForms: true
+  # Namespace naming pattern for instances
+  # Defines how instance namespaces are generated when using project/instance mode
+  # Default pattern: {projectName}-{instanceName}
+  # Supports JSONPath expressions for dynamic namespace generation
+  instanceNamespaceNavigationPattern: "{reqsJsonPath[0]['.metadata.namespace']}-{reqsJsonPath[0]['.metadata.name']}"
+
+# Addons configuration
+# Enable/disable and configure additional integrated tools and features
 addons:
+  # ArgoCD - GitOps continuous delivery tool
+  # Provides management for Applications, ApplicationSets, and Projects
   argocd:
     enabled: false
+  # HostBase Firewall (HBF) - Network security management
+  # See more: https://h-bf.prorobotech.ru
   hbf:
     enabled: false
     apiVersion: v1beta1
+  # Trivy - Vulnerability scanner for container images
+  # Provides security scanning and reporting capabilities
   trivy:
     enabled: false
+  # Grafana - Monitoring and observability dashboard
+  # Provides links to monitoring infrastructure
   grafana:
     enabled: false
 
+# Sidebar navigation configuration
+# Controls the visibility and content of navigation sidebars at different hierarchy levels
 sidebars:
+  # Cluster-level sidebar (when no namespace/project context is selected)
+  # Displays global cluster resources and overview
   cluster:
-    customItems: []
-    # The `customItems` block is used to specify the required custom sections for the sidebar.
-    # The label field supports templating from the URL address using the pattern {n}, 
-    # where n is the path segment index (e.g., {2} would insert the cluster name).
-    # example:
-    # if namespaceNavigation is true:
-    # - children:
-    #     - key: namespaces
-    #       label: Namespaces
-    #       link: /openapi-ui/{clusterName}/builtin-table/namespaces
-    #   key: cluster
-    #   label: "Cluster: {2}"
-    # if namespaceNavigation is false:
-    # - children:
-    #     - key: projects
-    #       label: Projects
-    #       link: /openapi-ui/{clusterName}/api-table/{{ projectAPIGroup }}/{{ projectAPIVersion }}/{{ projectResourceName }}
-    #   key: cluster
-    #   label: "Cluster: {2}"
-
+    # Configuration for custom sidebar navigation items
+    # customItems allows you to define additional sidebar sections with custom structure
+    # 
+    # Each item should be structured as:
+    # - key: unique-identifier     # Unique key for the sidebar section
+    #   label: "Display Name"      # Display text (supports URL templating)
+    #   children:                  # Optional nested items array
+    #     - key: child-unique-id
+    #       label: "Child Name"
+    #       link: /openapi-ui/{clusterName}/api-table/apiGroup/apiVersion/resourceName
+    #     - key: child-unique-id
+    #       label: "Child Name"
+    #       link: /openapi-ui/{2}/api-table/apiGroup/apiVersion/resourceName
+    # URL Templating in labels:
+    # Use {n} pattern to insert URL path segments, where n is the segment index (1-based)
+    # Example paths:
+    # /openapi-ui/cluster-name/builtin-table/namespaces
+    #   {1} = "openapi-ui", {2} = "cluster-name", {3} = "builtin-table", {4} = "namespaces"
+    #   {clusterName} = "cluster-name"
+    customItems: []    
+    # Built-in sidebar sections configuration
     clusters:
       enabled: false
-
     projects:
       enabled: true
-
     instances:
       enabled: false
 
+    # ArgoCD sidebar section and sub-items
     argocd:
       enabled: false
       items:
-        argocdlink: false
-        applications: true
-        applicationset: true
-        appprojects: true
-      extraItems: []
+        argocdlink: false  # Link to ArgoCD UI
+        applications: true  # ArgoCD Applications
+        applicationset: true  # ArgoCD ApplicationSets
+        appprojects: true  # ArgoCD Projects
+      extraItems: []  # Additional custom ArgoCD items
 
+    # Monitoring tools section
     monitoring:
       enabled: false
       items:
-        grafana: true
+        grafana: true  # Grafana dashboard links
       extraItems: []
 
+    # HostBase Firewall management section
     hbf:
       enabled: false
       items:
@@ -112,6 +160,7 @@ sidebars:
         rules2ses: true
       extraItems: []
 
+    # HBF system configuration section
     hbfSystem:
       enabled: false
       items:
@@ -123,6 +172,7 @@ sidebars:
         addressgroupportmappings: true
       extraItems: []
 
+    # Workloads management section
     workloads:
       enabled: false
       items:
@@ -136,10 +186,11 @@ sidebars:
         daemonsets: true
         replicasets: true
         replicationcontrollers: true
-        horizontalpodautoscalers: true
-        poddisruptionbudgets: true
+        horizontalpodautoscalers: true  # HPA configurations
+        poddisruptionbudgets: true  # PDB configurations
       extraItems: []
 
+    # Networking resources section
     networking:
       enabled: false
       items:
@@ -148,63 +199,76 @@ sidebars:
         ingresses: true
       extraItems: []
 
+    # Storage resources section
     storage:
       enabled: true
       items:
-        persistentvolumes: true
-        persistentvolumeclaims: false
-        storageclasses: true
+        persistentvolumes: true  # Cluster-wide PVs
+        persistentvolumeclaims: false  # Namespace-scoped PVCs
+        storageclasses: true  # Storage classes
       extraItems: []
 
+    # Compute resources section
     compute:
       enabled: true
       items:
-        nodes: true
+        nodes: true  # Cluster nodes
       extraItems: []
 
+    # User and access management section
     usermanagement:
       enabled: true
       items:
-        serviceaccounts: false
-        roles: false
-        rolebindings: false
-        clusterroles: true
-        clusterrolebindings: true
+        serviceaccounts: false  # Namespace-scoped service accounts
+        roles: false  # Namespace-scoped roles
+        rolebindings: false  # Namespace-scoped role bindings
+        clusterroles: true  # Cluster-wide roles
+        clusterrolebindings: true  # Cluster-wide role bindings
       extraItems: []
 
+    # Cluster administration section
     administration:
       enabled: true
       items:
-        namespaces: false
-        limitranges: false
-        resourcequotas: false
-        customresourcedefinitions: true
+        namespaces: false  # Namespace management
+        limitranges: false  # Resource limits
+        resourcequotas: false  # Resource quotas
+        customresourcedefinitions: true  # CRD management
       extraItems: []
 
+  # Namespaced-level sidebar (when namespace or project context is selected)
+  # Displays resources scoped to the selected namespace/project
   namespaced:
+    # Configuration for custom sidebar navigation items
+    # customItems allows you to define additional sidebar sections with custom structure
+    # 
+    # Each item should be structured as:
+    # - key: unique-identifier     # Unique key for the sidebar section
+    #   label: "Display Name"      # Display text (supports URL templating)
+    #   children:                  # Optional nested items array
+    #     - key: child-unique-id
+    #       label: "Child Name"
+    #       link: /openapi-ui/{clusterName}/{namespace}/api-table/apiGroup/apiVersion/resourceName
+    #     - key: child-unique-id
+    #       label: "Child Name"
+    #       link: /openapi-ui/{2}/{3}/api-table/apiGroup/apiVersion/resourceName
+    # URL Templating in labels:
+    # Use {n} pattern to insert URL path segments, where n is the segment index (1-based)
+    # Example paths:
+    # /openapi-ui/cluster-name/namespace/builtin-table/pods
+    #   {1} = "openapi-ui", {2} = "cluster-name", {3} = "namespace", etc.
+    #   {clusterName} = "cluster-name"
+    #   {namespace} = "namespace"
     customItems: []
-    # The `customItems` block is used to specify the required custom sections for the sidebar.
-    # The label field supports templating from the URL address using the pattern {n}, 
-    # where n is the path segment index (e.g., {3} would insert the namespace).
-    # example:
-    # if namespaceNavigation is true:
-    # - children: []
-    #   key: namespace
-    #   label: "Namespace: {3}"
-    # if namespaceNavigation is false:
-    # - children:
-    #     - key: instances
-    #       label: Instances
-    #       link: /openapi-ui/{clusterName}/{namespace}/api-table/{{ instanceAPIGroup }}/{{ instanceAPIVersion }}/{{ instanceResourceName }}
-    #   key: project
-    #   label: "Project: {3}"
 
+    # Built-in sidebar sections for namespaced context
     projects:
       enabled: false
 
     instances:
       enabled: true
 
+    # ArgoCD resources within the namespace/project
     argocd:
       enabled: false
       items:
@@ -213,6 +277,7 @@ sidebars:
         appprojects: true
       extraItems: []
 
+    # HBF resources within the namespace
     hbf:
       enabled: false
       items:
@@ -223,6 +288,7 @@ sidebars:
         rules2ses: true
       extraItems: []
 
+    # HBF system resources within the namespace
     hbfSystem:
       enabled: false
       items:
@@ -234,6 +300,7 @@ sidebars:
         addressgroupportmappings: true
       extraItems: []
 
+    # Workloads within the namespace
     workloads:
       enabled: false
       items:
@@ -251,6 +318,7 @@ sidebars:
         poddisruptionbudgets: true
       extraItems: []
 
+    # Networking within the namespace
     networking:
       enabled: false
       items:
@@ -259,56 +327,77 @@ sidebars:
         ingresses: true
       extraItems: []
 
+    # Storage resources within the namespace
     storage:
       enabled: false
       items:
         persistentvolumes: true
-        persistentvolumeclaims: true
+        persistentvolumeclaims: true  # Namespace-scoped PVCs
         storageclasses: true
       extraItems: []
 
+    # Compute resources (typically cluster-scoped, but visible in context)
     compute:
       enabled: false
       items:
         nodes: true
       extraItems: []
 
+    # User management within the namespace
     usermanagement:
       enabled: false
       items:
-        serviceaccounts: true
-        roles: true
-        rolebindings: true
-        clusterroles: true
-        clusterrolebindings: true
+        serviceaccounts: true  # Namespace-scoped service accounts
+        roles: true  # Namespace-scoped roles
+        rolebindings: true  # Namespace-scoped role bindings
+        clusterroles: true  # Cluster-wide roles (visible in context)
+        clusterrolebindings: true  # Cluster-wide bindings (visible in context)
       extraItems: []
 
+    # Administration within the namespace
     administration:
       enabled: false
       items:
-        namespaces: true
-        limitranges: true
-        resourcequotas: true
-        customresourcedefinitions: true
+        namespaces: true  # Current namespace management
+        limitranges: true  # Namespace resource limits
+        resourcequotas: true  # Namespace resource quotas
+        customresourcedefinitions: true  # CRDs (cluster-wide but visible)
       extraItems: []
 
+  # Instance-level sidebar (when instance context is selected)
+  # Displays resources specific to the selected instance and its namespace
   instance:
+    # Configuration for custom sidebar navigation items
+    # customItems allows you to define additional sidebar sections with custom structure
+    # 
+    # Each item should be structured as:
+    # - key: unique-identifier     # Unique key for the sidebar section
+    #   label: "Display Name"      # Display text (supports URL templating)
+    #   children:                  # Optional nested items array
+    #     - key: child-unique-id
+    #       label: "Child Name"
+    #       link: /openapi-ui/{clusterName}/{namespace}/{syntheticProject}/api-table/apiGroup/apiVersion/resourceName
+    #     - key: child-unique-id
+    #       label: "Child Name"
+    #       link: /openapi-ui/{2}/{3}/{4}/api-table/apiGroup/apiVersion/resourceName
+    # URL Templating in labels:
+    # Use {n} pattern to insert URL path segments, where n is the segment index (1-based)
+    # Example paths:
+    # /openapi-ui/cluster-name/namespace/project-name/builtin-table/pods
+    #   {1} = "openapi-ui", {2} = "cluster-name", {3} = "namespace", etc.
+    #   {clusterName} = "cluster-name"
+    #   {namespace} = "namespace"
+    #   {syntheticProject} = "project-name"
     customItems: []
-    # The `customItems` block is used to specify the required custom sections for the sidebar.
-    # The label field supports templating from the URL address using the pattern {n}, 
-    # where n is the path segment index (e.g., {3} would insert the instance name).
-    # example:
-    # if namespaceNavigation is false:
-    # - children: []
-    #   key: instances
-    #   label: "Instance: {3}"
 
+    # Built-in sidebar sections for instance context
     projects:
       enabled: false
 
     instances:
       enabled: false
 
+    # ArgoCD resources for the instance
     argocd:
       enabled: true
       items:
@@ -317,6 +406,7 @@ sidebars:
         appprojects: true
       extraItems: []
 
+    # HBF resources for the instance
     hbf:
       enabled: true
       items:
@@ -327,6 +417,7 @@ sidebars:
         rules2ses: true
       extraItems: []
 
+    # HBF system resources for the instance
     hbfSystem:
       enabled: true
       items:
@@ -338,6 +429,7 @@ sidebars:
         addressgroupportmappings: true
       extraItems: []
 
+    # Workloads within the instance namespace
     workloads:
       enabled: true
       items:
@@ -355,6 +447,7 @@ sidebars:
         poddisruptionbudgets: true
       extraItems: []
 
+    # Networking within the instance namespace
     networking:
       enabled: true
       items:
@@ -363,35 +456,39 @@ sidebars:
         ingresses: true
       extraItems: []
 
+    # Storage resources for the instance
     storage:
       enabled: true
       items:
-        persistentvolumes: false
-        persistentvolumeclaims: true
-        storageclasses: false
+        persistentvolumes: false  # Typically cluster-scoped
+        persistentvolumeclaims: true  # Instance namespace PVCs
+        storageclasses: false  # Typically cluster-scoped
       extraItems: []
 
+    # Compute resources (cluster-scoped but visible)
     compute:
       enabled: false
       items:
         nodes: true
       extraItems: []
 
+    # User management for the instance namespace
     usermanagement:
       enabled: true
       items:
-        serviceaccounts: true
-        roles: true
-        rolebindings: true
-        clusterroles: false
-        clusterrolebindings: false
+        serviceaccounts: true  # Instance namespace service accounts
+        roles: true  # Instance namespace roles
+        rolebindings: true  # Instance namespace role bindings
+        clusterroles: false  # Typically not instance-scoped
+        clusterrolebindings: false  # Typically not instance-scoped
       extraItems: []
 
+    # Administration for the instance namespace
     administration:
       enabled: true
       items:
-        namespaces: false
-        limitranges: true
-        resourcequotas: true
-        customresourcedefinitions: false
+        namespaces: false  # Instance uses existing namespace
+        limitranges: true  # Instance namespace limits
+        resourcequotas: true  # Instance namespace quotas
+        customresourcedefinitions: false  # Typically cluster-scoped
       extraItems: []

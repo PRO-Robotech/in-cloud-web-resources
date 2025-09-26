@@ -3,6 +3,7 @@
   "resName" "{6}"
   "rsFactoryName" "factory-/apps/v1/replicasets"
   "podFactoryName" "factory-/v1/pods"
+  "basePrefix" .Values.basePrefix
 ) }}
 
 {{- if not .Values.namespaceNavigation }}
@@ -11,5 +12,6 @@
   "resName" "{7}"
   "rsFactoryName" "factory-instance-replicaset-details"
   "podFactoryName" "factory-instance-pods-details"
+  "basePrefix" .Values.basePrefix
 ) }}
 {{- end }}

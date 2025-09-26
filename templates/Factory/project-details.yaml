@@ -1,6 +1,10 @@
-{{ $projRes := .Values.projectResource }}
-{{ $instRes := .Values.instanceResource }}
-{{ $frntRes := .Values.frontendResource }}
+{{ $projRes         := .Values.projectResource }}
+{{ $instRes         := .Values.instanceResource }}
+{{ $frontApiGroup   := "front.in-cloud.io" }}
+{{ $frontApiVersion := "v1alpha1" }}
+{{ $mpName          := "marketplacepanels" }}
+{{ $mpKind          := "MarketplacePanel" }}
+{{ $factory         := .Values.projectResource.factory }}
 
 {{ if and ($projRes.deployDefaultForms) (not .Values.namespaceNavigation) }}
 ---
@@ -45,15 +49,15 @@ spec:
                     id: 211
                     clusterNamePartOfUrl: "{2}"
                     namespacePartOfUrl:   "{3}"
-                    baseApiGroup:         "{{ $frntRes.baseApiGroup }}"
-                    baseApiVersion:       "{{ $frntRes.baseApiVersion }}"
+                    baseApiGroup:         "{{ $frontApiGroup }}"
+                    baseApiVersion:       "{{ $frontApiVersion }}"
                     baseProjectApiGroup:  "{{ $projRes.apiGroup }}"
                     baseProjectVersion:   "{{ $projRes.apiVersion }}"
                     projectResourceName:  "{{ $projRes.resourceName }}"
-                    mpResourceName:       "{{ $frntRes.marketplaceResource.name }}"
+                    mpResourceName:       "{{ $mpName }}"
                     baseprefix:           "{{ .Values.basePrefix }}"
                     accessGroups:
-                      {{ .Values.projectFactory.accessGroups | toYaml | nindent 22 }}
+                      {{ $factory.accessGroups | toYaml | nindent 22 }}
                   children:
                     # Business name
                     - type: antdFlex
@@ -119,7 +123,7 @@ spec:
                             style:
                               flexShrink: 0
                           children:
-                          {{- range $i := .Values.projectFactory.devTools }}
+                          {{- range $i := $factory.devTools }}
                             - type: antdButton
                               data:
                                 id:     "{{ $i.name | lower }}-button"
@@ -154,9 +158,9 @@ spec:
                         id: 311
                         clusterNamePartOfUrl: "{2}"
                         namespacePartOfUrl:   "{3}"
-                        baseApiGroup:         "{{ $frntRes.baseApiGroup }}"
-                        baseApiVersion:       "{{ $frntRes.baseApiVersion }}"
-                        mpResourceName:       "{{ $frntRes.marketplaceResource.name }}"
-                        mpResourceKind:       "{{ $frntRes.marketplaceResource.kind }}"
+                        baseApiGroup:         "{{ $frontApiGroup }}"
+                        baseApiVersion:       "{{ $frontApiVersion }}"
+                        mpResourceName:       "{{ $mpName }}"
+                        mpResourceKind:       "{{ $mpKind }}"
                         baseprefix:           "{{ .Values.basePrefix }}"
 {{ end }}

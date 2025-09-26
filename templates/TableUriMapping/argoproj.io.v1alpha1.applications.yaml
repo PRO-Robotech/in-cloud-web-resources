@@ -8,7 +8,7 @@
 #   keysToParse: ".metadata.name"
 #   keysToParseSecond: ".metadata.namespace"
 #   id: "stock-cluster-/argoproj.io/v1alpha1/applications"
-#   pathToNavigate: "/openapi-ui/{clusterName}/~recordValueSecond~/factory/argocd-application-details/~recordValue~"
+#   pathToNavigate: "/{{ .Values.basePrefix }}/{clusterName}/~recordValueSecond~/factory/argocd-application-details/~recordValue~"
 
 # ---
 # apiVersion: front.in-cloud.io/v1alpha1
@@ -19,5 +19,5 @@
 #   keysToParse: ".metadata.name"
 #   keysToParseSecond: ".metadata.namespace"
 #   id: "stock-namespace-/argoproj.io/v1alpha1/applications"
-#   pathToNavigate: "/openapi-ui/{clusterName}/~recordValueSecond~/factory/argocd-application-details/~recordValue~"
+#   pathToNavigate: "/{{ .Values.basePrefix }}/{clusterName}/~recordValueSecond~/factory/argocd-application-details/~recordValue~"
 # {{- end }}

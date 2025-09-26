@@ -25,6 +25,7 @@ spec:
             "type" "name"
             "jsonPath" ".metadata.name"
             "resource" "apps/v1/deployments"
+            "basePrefix" .Values.basePrefix
             "project" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
             "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}-{reqsJsonPath[0]['.metadata.name']['-']}"
           ) | nindent 12 
@@ -46,6 +47,7 @@ spec:
             "type" "project"
             "jsonPath" ".metadata.namespace"
             "factory" "project-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12
         }}
     - jsonPath: .metadata.creationTimestamp
@@ -88,6 +90,7 @@ spec:
             "type" "name"
             "jsonPath" ".metadata.name"
             "resource" "apps/v1/deployments"
+            "basePrefix" .Values.basePrefix
             "project" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
             "namespace" "{reqsJsonPath[0]['.metadata.name']['-']}"
           ) | nindent 12 
@@ -109,6 +112,7 @@ spec:
             "type" "project"
             "jsonPath" ".metadata.namespace"
             "factory" "project-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12
         }}
     - jsonPath: .metadata.creationTimestamp

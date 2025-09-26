@@ -19,7 +19,7 @@ spec:
   breadcrumbItems:
     - key: create-api-res-namespaced-table
       label: "v1/{typeName}"
-      link: "/openapi-ui/{clusterName}/{namespace}/{syntheticProject}/builtin-table/{typeName}"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/builtin-table/{typeName}"
     - key: create-api-res-namespaced-typename
       label: Create
 
@@ -33,6 +33,6 @@ spec:
   breadcrumbItems:
     - key: create-api-res-namespaced-table
       label: "v1/{typeName}"
-      link: "/openapi-ui/{clusterName}/{namespace}/{syntheticProject}/builtin-table/{typeName}"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/builtin-table/{typeName}"
     - key: create-api-res-namespaced-typename
       label: Update

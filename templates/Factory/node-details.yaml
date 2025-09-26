@@ -436,7 +436,7 @@ spec:
                           fetchUrl: "/api/clusters/{2}/k8s/api/v1/nodes/{5}"
                           clusterNamePartOfUrl: "{2}"
                           customizationId: "factory-status-conditions"
-                          baseprefix: "/openapi-ui"
+                          baseprefix: "/{{ .Values.basePrefix }}"
                           withoutControls: true
                           pathToItems: ".status.conditions"
 
@@ -461,7 +461,7 @@ spec:
                           fetchUrl: "/api/clusters/{2}/k8s/api/v1/nodes/{5}"
                           clusterNamePartOfUrl: "{2}"
                           customizationId: "factory-node-images"
-                          baseprefix: "/openapi-ui"
+                          baseprefix: "/{{ .Values.basePrefix }}"
                           withoutControls: true
                           pathToItems: ".status.images"
 
@@ -491,7 +491,7 @@ spec:
                   fetchUrl: "/api/clusters/{2}/k8s/api/v1/pods"
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "factory-node-details-/v1/pods"
-                  baseprefix: "/openapi-ui"
+                  baseprefix: "/{{ .Values.basePrefix }}"
                   withoutControls: true
                   fieldSelector:
                     fieldName: "spec.nodeName"
@@ -521,7 +521,7 @@ spec:
                   fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/clusterinfraassessmentreports"
                   clusterNamePartOfUrl: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.clusterinfraassessmentreports
-                  baseprefix: "/openapi-ui"
+                  baseprefix: "/{{ .Values.basePrefix }}"
                   withoutControls: true
                   # Build label selector from pod template labels
                   labelsSelector:

@@ -3,6 +3,7 @@
   "resName" "{6}"
   "podFactoryName" "factory-/v1/pods"
   "trivyEnabled" .Values.addons.trivy.enabled
+  "basePrefix" .Values.basePrefix
 ) }}
 
 {{- if not .Values.namespaceNavigation }}
@@ -11,5 +12,6 @@
   "resName" "{7}"
   "podFactoryName" "factory-instance-pods-details"
   "trivyEnabled" .Values.addons.trivy.enabled
+  "basePrefix" .Values.basePrefix
 ) }}
 {{- end }}

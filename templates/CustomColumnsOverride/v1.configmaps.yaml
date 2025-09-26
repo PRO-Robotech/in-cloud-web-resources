@@ -23,6 +23,7 @@ spec:
             "jsonPath" ".metadata.name"
             "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
             "factory" "configmap-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12 
         }}
     - jsonPath: .metadata.namespace
@@ -42,6 +43,7 @@ spec:
             "type" "namespace"
             "jsonPath" ".metadata.namespace"
             "factory" "namespace-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12
         }}
     - jsonPath: .metadata.creationTimestamp
@@ -88,6 +90,7 @@ spec:
             "jsonPath" ".metadata.name"
             "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
             "factory" "configmap-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12 
         }}
     - jsonPath: .metadata.creationTimestamp
@@ -130,6 +133,7 @@ spec:
             "jsonPath" ".metadata.name"
             "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
             "factory" "configmap-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12 
         }}
     - jsonPath: .metadata.creationTimestamp
@@ -173,6 +177,7 @@ spec:
             "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
             "project" "{4}"
             "factory" "instance-configmap-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12 
         }}
     - jsonPath: .metadata.creationTimestamp
@@ -215,6 +220,7 @@ spec:
             "jsonPath" ".metadata.name"
             "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
             "factory" "configmap-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12 
         }}
     - jsonPath: .metadata.namespace
@@ -234,6 +240,7 @@ spec:
             "type" "namespace"
             "jsonPath" ".metadata.namespace"
             "factory" "namespace-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12
         }}
     - jsonPath: .metadata.creationTimestamp

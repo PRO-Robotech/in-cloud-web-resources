@@ -22,6 +22,7 @@ spec:
             "type" "name"
             "jsonPath" ".metadata.name"
             "factory" "crd-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12
         }}
     - jsonPath: .spec.group

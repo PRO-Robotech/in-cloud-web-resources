@@ -2,6 +2,7 @@
 {{- $key          := (default "pod-details" .key) -}}
 {{- $resName      := (default "{6}" .resName) -}}
 {{- $trivyEnabled := (default false .trivyEnabled) -}}
+{{- $basePrefix   := (default "openapi-ui" .basePrefix) -}}
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -153,6 +154,7 @@ spec:
                                       "type" "namespace"
                                       "jsonPath" ".metadata.namespace"
                                       "factory" "namespace-details"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 38
                                   }}
                               # Labels list (kept as include)
@@ -178,6 +180,7 @@ spec:
                                       "type" "node"
                                       "title" "Node selector"
                                       "jsonPath" ".spec.nodeSelector"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 34
                                   }}
 
@@ -365,6 +368,7 @@ spec:
                                       "type" "name"
                                       "jsonPath" ".spec.nodeName"
                                       "factory" "node-details"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 38
                                   }}
 
@@ -418,7 +422,7 @@ spec:
                   #             fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{{ $resName }}"
                   #             clusterNamePartOfUrl: "{2}"
                   #             customizationId: factory-pod-details-volume-list
-                  #             baseprefix: "/openapi-ui"
+                  #             baseprefix: "/{{ $basePrefix }}"
                   #             withoutControls: true
                   #             pathToItems: ".spec.volumes"
 
@@ -441,6 +445,7 @@ spec:
                           "namespace" "{3}"
                           "jsonPath" ".status.initContainerStatuses"
                           "pathToItems" "['status','initContainerStatuses']"
+                          "basePrefix" $basePrefix
                         ) | nindent 22 
                       }}
 
@@ -462,6 +467,7 @@ spec:
                           "namespace" "{3}"
                           "jsonPath" ".status.containerStatuses"
                           "pathToItems" "['status','containerStatuses']"
+                          "basePrefix" $basePrefix
                         ) | nindent 22 
                       }}
 
@@ -496,7 +502,7 @@ spec:
                               fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{{ $resName }}"
                               clusterNamePartOfUrl: "{2}"
                               customizationId: factory-status-conditions
-                              baseprefix: "/openapi-ui"
+                              baseprefix: "/{{ $basePrefix }}"
                               withoutControls: true
                               pathToItems: ".status.conditions"
 
@@ -549,7 +555,7 @@ spec:
                   fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/namespaces/{3}/vulnerabilityreports"
                   clusterNamePartOfUrl: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.vulnerabilityreports
-                  baseprefix: "/openapi-ui"
+                  baseprefix: "/{{ $basePrefix }}"
                   withoutControls: true
                   # Build label selector from pod template labels
                   labelsSelector:
@@ -567,7 +573,7 @@ spec:
                   fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/namespaces/{3}/configauditreports"
                   clusterNamePartOfUrl: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.configauditreports
-                  baseprefix: "/openapi-ui"
+                  baseprefix: "/{{ $basePrefix }}"
                   withoutControls: true
                   # Build label selector from pod template labels
                   labelsSelector:

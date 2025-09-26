@@ -3,6 +3,7 @@
 {{- $resName        := (default "{6}" .resName) -}}
 {{- $rsFactoryName  := (default "factory-/apps/v1/replicasets" .rsFactoryName) -}}
 {{- $podFactoryName := (default "factory-/v1/pods" .podFactoryName) -}}
+{{- $basePrefix     := (default "openapi-ui" .basePrefix) -}}
 
 ---
 # Factory definition for Deployment details page
@@ -166,6 +167,7 @@ spec:
                                       "type" "namespace"
                                       "jsonPath" ".metadata.namespace"
                                       "factory" "namespace-details"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 38
                                   }}
 
@@ -192,6 +194,7 @@ spec:
                                       "type" "node"
                                       "title" "Node selector"
                                       "jsonPath" ".spec.template.spec.nodeSelector"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 34
                                   }}
 
@@ -207,6 +210,7 @@ spec:
                                       "type" "pod"
                                       "title" "Pod selector"
                                       "jsonPath" ".spec.template.metadata.labels"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 34
                                   }}
 
@@ -417,7 +421,7 @@ spec:
                   #             fetchUrl: /api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/deployments/{{ $resName }}
                   #             clusterNamePartOfUrl: "{2}"
                   #             customizationId: factory-deployment-details-volume-list
-                  #             baseprefix: /openapi-ui
+                  #             baseprefix: /{{ $basePrefix }}
                   #             withoutControls: true
                   #             # Path in the fetched object to the volumes array
                   #             pathToItems: ".spec.template.spec.volumes"
@@ -448,6 +452,7 @@ spec:
                               "namespace" "{3}"
                               "jsonPath" ".spec.template.spec.initContainers"
                               "pathToItems" "['spec','template','spec','initContainers']"
+                              "basePrefix" $basePrefix
                             ) | nindent 26
                           }}
 
@@ -477,6 +482,7 @@ spec:
                               "namespace" "{3}"
                               "jsonPath" ".spec.template.spec.containers"
                               "pathToItems" "['spec','template','spec','containers']"
+                              "basePrefix" $basePrefix
                             ) | nindent 26
                           }}
 
@@ -510,7 +516,7 @@ spec:
                               fetchUrl: /api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/deployments/{{ $resName }}
                               clusterNamePartOfUrl: "{2}"
                               customizationId: factory-status-conditions
-                              baseprefix: /openapi-ui
+                              baseprefix: /{{ $basePrefix }}
                               withoutControls: true
                               # Path in the fetched object to the conditions array
                               pathToItems: ".status.conditions"
@@ -541,7 +547,7 @@ spec:
                 data:
                   id: replicasets-table
                   fetchUrl: /api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets
-                  baseprefix: /openapi-ui
+                  baseprefix: /{{ $basePrefix }}
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $rsFactoryName }}"
                   labelsSelectorFull:
@@ -560,7 +566,7 @@ spec:
                 data:
                   id: pods-table
                   fetchUrl: /api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods
-                  baseprefix: /openapi-ui
+                  baseprefix: /{{ $basePrefix }}
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $podFactoryName }}"
                   labelsSelectorFull:

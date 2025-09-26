@@ -1,11 +1,13 @@
 {{ include "incloud-web-resources.factory.manifets.horizontalpodautoscaler-details" (dict
   "key" "horizontalpodautoscaler-details"
   "resName" "{6}"
+  "basePrefix" .Values.basePrefix
 ) }}
 
 {{- if not .Values.namespaceNavigation }}
 {{ include "incloud-web-resources.factory.manifets.horizontalpodautoscaler-details" (dict
   "key" "instance-horizontalpodautoscaler-details"
   "resName" "{7}"
+  "basePrefix" .Values.basePrefix
 ) }}
 {{- end }}

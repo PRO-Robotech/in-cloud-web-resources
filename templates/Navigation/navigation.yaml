@@ -9,27 +9,27 @@ metadata:
 spec:
 {{ if .Values.namespaceNavigation }}
   projects:
-    clear: "/openapi-ui/{selectedCluster}/builtin-table/pods"
-    change: "/openapi-ui/{selectedCluster}/{value}/builtin-table/pods"
+    clear: "/{{ .Values.basePrefix }}/{selectedCluster}/builtin-table/pods"
+    change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/builtin-table/pods"
   instances:
-    clear: "/openapi-ui/{selectedCluster}/builtin-table/pods"
-    change: "/openapi-ui/{selectedCluster}/{value}/builtin-table/pods"
+    clear: "/{{ .Values.basePrefix }}/{selectedCluster}/builtin-table/pods"
+    change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/builtin-table/pods"
   namespaces:
-    clear: "/openapi-ui/{selectedCluster}/builtin-table/pods"
-    change: "/openapi-ui/{selectedCluster}/{value}/builtin-table/pods"
+    clear: "/{{ .Values.basePrefix }}/{selectedCluster}/builtin-table/pods"
+    change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/builtin-table/pods"
 {{ else }}
   projects:
-    clear: "/openapi-ui/clusters/{selectedCluster}"
+    clear: "/{{ .Values.basePrefix }}/clusters/{selectedCluster}"
   {{ if $projRes.deployDefaultForms }}
-    change: "/openapi-ui/{selectedCluster}/factory/project-details/{value}"
+    change: "/{{ .Values.basePrefix }}/{selectedCluster}/factory/project-details/{value}"
   {{ else }}
-    change: "/openapi-ui/{selectedCluster}/{value}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
+    change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
   {{ end }}
   instances:
-    clear: "/openapi-ui/{selectedCluster}/{selectedProject}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
-    change: "/openapi-ui/{selectedCluster}/{value}/{selectedProject}/api-table/apps/v1/deployments"
-    mapOptionsPattern: "{{ .Values.navigation.instanceNamespacePattern }}"
+    clear: "/{{ .Values.basePrefix }}/{selectedCluster}/{selectedProject}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
+    change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/{selectedProject}/api-table/apps/v1/deployments"
+    mapOptionsPattern: "{{ .Values.instanceResource.instanceNamespaceNavigationPattern }}"
   namespaces:
-    clear: "/openapi-ui/clusters/{selectedCluster}"
-    change: "/openapi-ui/clusters/{selectedCluster}/{{ $projRes.resourceName }}/{value}"
+    clear: "/{{ .Values.basePrefix }}/clusters/{selectedCluster}"
+    change: "/{{ .Values.basePrefix }}/clusters/{selectedCluster}/{{ $projRes.resourceName }}/{value}"
 {{ end }}

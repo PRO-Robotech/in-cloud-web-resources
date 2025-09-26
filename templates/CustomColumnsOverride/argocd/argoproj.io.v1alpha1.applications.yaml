@@ -24,6 +24,7 @@ spec:
             "jsonPath" ".metadata.name"
             "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
             "factory" "argocd-application-details"
+            "basePrefix" .Values.basePrefix
         ) | nindent 12 
         }}
     - jsonPath: .metadata.namespace
@@ -43,6 +44,7 @@ spec:
             "type" "namespace"
             "jsonPath" ".metadata.namespace"
             "factory" "namespace-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12
         }}
     - jsonPath: .status.sync.status
@@ -108,6 +110,7 @@ spec:
             "jsonPath" ".metadata.name"
             "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
             "factory" "argocd-application-details"
+            "basePrefix" .Values.basePrefix
         ) | nindent 12 
         }}
     - jsonPath: .status.sync.status
@@ -173,6 +176,7 @@ spec:
             "jsonPath" ".metadata.name"
             "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
             "factory" "argocd-application-details"
+            "basePrefix" .Values.basePrefix
         ) | nindent 12 
         }}
     - jsonPath: .status.sync.status
@@ -239,6 +243,7 @@ spec:
             "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
             "project" "{4}"
             "factory" "instance-argocd-application-details"
+            "basePrefix" .Values.basePrefix
         ) | nindent 12 
         }}
     - jsonPath: .status.sync.status

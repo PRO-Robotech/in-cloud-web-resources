@@ -1,6 +1,7 @@
 {{- define "incloud-web-resources.factory.manifets.serviceaccount-details" -}}
-{{- $key     := (default "serviceaccount-details" .key) -}}
-{{- $resName := (default "{6}" .resName) -}}
+{{- $key        := (default "serviceaccount-details" .key) -}}
+{{- $resName    := (default "{6}" .resName) -}}
+{{- $basePrefix := (default "openapi-ui" .basePrefix) -}}
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -145,6 +146,7 @@ spec:
                                       "type" "namespace"
                                       "jsonPath" ".metadata.namespace"
                                       "factory" "namespace-details"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 38
                                   }}
 
@@ -245,7 +247,7 @@ spec:
                                   fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/serviceaccounts/{{ $resName }}"
                                   clusterNamePartOfUrl: "{2}"
                                   customizationId: factory-serviceaccount-secrets
-                                  baseprefix: "/openapi-ui"
+                                  baseprefix: "/{{ $basePrefix }}"
                                   withoutControls: true
                                   pathToItems: ".secrets"
 

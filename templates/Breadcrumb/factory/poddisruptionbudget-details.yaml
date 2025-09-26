@@ -8,7 +8,7 @@ spec:
   breadcrumbItems:
     - key: poddisruptionbudgets
       label: "policy/v1/poddisruptionbudgets"
-      link: "/openapi-ui/{clusterName}/{namespace}/api-table/policy/v1/poddisruptionbudgets"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/api-table/policy/v1/poddisruptionbudgets"
     - key: poddisruptionbudget
       label: "{6}"
 
@@ -23,7 +23,7 @@ spec:
   breadcrumbItems:
     - key: poddisruptionbudgets
       label: "policy/v1/poddisruptionbudgets"
-      link: "/openapi-ui/{clusterName}/{namespace}/{syntheticProject}/api-table/policy/v1/poddisruptionbudgets"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/policy/v1/poddisruptionbudgets"
     - key: poddisruptionbudget
       label: "{7}"
 {{- end -}}

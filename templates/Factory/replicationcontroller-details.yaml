@@ -2,6 +2,7 @@
   "key" "replicationcontroller-details"
   "resName" "{6}"
   "podFactoryName" "factory-/v1/pods"
+  "basePrefix" .Values.basePrefix
 ) }}
 
 {{- if not .Values.namespaceNavigation }}
@@ -9,5 +10,6 @@
   "key" "instance-replicationcontroller-details"
   "resName" "{7}"
   "podFactoryName" "factory-instance-pods-details"
+  "basePrefix" .Values.basePrefix
 ) }}
 {{- end }}

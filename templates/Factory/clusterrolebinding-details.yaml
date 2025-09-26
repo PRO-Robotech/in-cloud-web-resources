@@ -220,6 +220,7 @@ spec:
                                             "namespace" "{reqsJsonPath[0]['.metadata.namespace']}"
                                             "jsonPath" ".roleRef.name"
                                             "factory" "role-details"
+                                            "basePrefix" .Values.basePrefix
                                           ) | nindent 40 
                                         }}
 
@@ -238,6 +239,7 @@ spec:
                                             "title" "ClusterRole"
                                             "jsonPath" ".roleRef.name"
                                             "factory" "clusterrole-details"
+                                            "basePrefix" .Values.basePrefix
                                           ) | nindent 40 
                                         }}
 

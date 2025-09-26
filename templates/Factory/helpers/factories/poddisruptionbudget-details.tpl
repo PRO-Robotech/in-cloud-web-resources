@@ -1,6 +1,7 @@
 {{- define "incloud-web-resources.factory.manifets.poddisruptionbudget-details" -}}
-{{- $key     := (default "poddisruptionbudget-details" .key) -}}
-{{- $resName := (default "{6}" .resName) -}}
+{{- $key        := (default "poddisruptionbudget-details" .key) -}}
+{{- $resName    := (default "{6}" .resName) -}}
+{{- $basePrefix := (default "openapi-ui" .basePrefix) -}}
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -144,6 +145,7 @@ spec:
                                       "type" "namespace"
                                       "jsonPath" ".metadata.namespace"
                                       "factory" "namespace-details"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 38
                                   }}
 
@@ -170,6 +172,7 @@ spec:
                                       "type" "pod"
                                       "title" "Pod selector"
                                       "jsonPath" ".spec.selector.matchLabels"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 34
                                   }}
 
@@ -294,7 +297,7 @@ spec:
                               fetchUrl: "/api/clusters/{2}/k8s/apis/policy/v1/namespaces/{3}/poddisruptionbudgets/{{ $resName }}"
                               clusterNamePartOfUrl: "{2}"
                               customizationId: factory-status-conditions
-                              baseprefix: "/openapi-ui"
+                              baseprefix: "/{{ $basePrefix }}"
                               withoutControls: true
                               pathToItems: ".status.conditions"
 

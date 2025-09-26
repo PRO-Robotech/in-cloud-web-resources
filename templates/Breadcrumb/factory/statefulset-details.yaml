@@ -8,7 +8,7 @@ spec:
   breadcrumbItems:
     - key: statefulsets
       label: "apps/v1/statefulsets"
-      link: "/openapi-ui/{clusterName}/{namespace}/api-table/apps/v1/statefulsets"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/api-table/apps/v1/statefulsets"
     - key: statefulset
       label: "{6}"
 
@@ -23,7 +23,7 @@ spec:
   breadcrumbItems:
     - key: statefulsets
       label: "apps/v1/statefulsets"
-      link: "/openapi-ui/{clusterName}/{namespace}/{syntheticProject}/api-table/apps/v1/statefulsets"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/apps/v1/statefulsets"
     - key: statefulset
       label: "{7}"
 {{- end -}}

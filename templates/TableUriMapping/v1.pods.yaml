@@ -7,7 +7,7 @@
 #   keysToParse: ".metadata.name"
 #   keysToParseSecond: ".metadata.namespace"
 #   id: "stock-cluster-/v1/pods"
-#   pathToNavigate: "/openapi-ui/{clusterName}/~recordValueSecond~/factory/pod-details/~recordValue~"
+#   pathToNavigate: "/{{ .Values.basePrefix }}/{clusterName}/~recordValueSecond~/factory/pod-details/~recordValue~"
 
 # ---
 # apiVersion: front.in-cloud.io/v1alpha1
@@ -18,7 +18,7 @@
 #   keysToParse: ".metadata.name"
 #   keysToParseSecond: ".metadata.namespace"
 #   id: "stock-namespace-/v1/pods"
-#   pathToNavigate: "/openapi-ui/{clusterName}/~recordValueSecond~/factory/pod-details/~recordValue~"
+#   pathToNavigate: "/{{ .Values.basePrefix }}/{clusterName}/~recordValueSecond~/factory/pod-details/~recordValue~"
 
 # ---
 # apiVersion: front.in-cloud.io/v1alpha1
@@ -29,7 +29,7 @@
 #   keysToParse: ".metadata.name"
 #   keysToParseSecond: ".metadata.namespace"
 #   id: "factory-node-details-/v1/pods"
-#   pathToNavigate: "/openapi-ui/{2}/~recordValueSecond~/factory/pod-details/~recordValue~"
+#   pathToNavigate: "/{{ .Values.basePrefix }}/{2}/~recordValueSecond~/factory/pod-details/~recordValue~"
 
 # ---
 # apiVersion: front.in-cloud.io/v1alpha1
@@ -40,7 +40,7 @@
 #   keysToParse: ".targetRef.name"
 #   keysToParseSecond: ".targetRef.namespace"
 #   id: "factory-service-details-endpointslice"
-#   pathToNavigate: "/openapi-ui/{2}/~recordValueSecond~/factory/pod-details/~recordValue~"
+#   pathToNavigate: "/{{ .Values.basePrefix }}/{2}/~recordValueSecond~/factory/pod-details/~recordValue~"
 
 # ---
 # apiVersion: front.in-cloud.io/v1alpha1
@@ -51,4 +51,4 @@
 #   keysToParse: ".metadata.name"
 #   keysToParseSecond: ".metadata.namespace"
 #   id: "factory-/v1/pods"
-#   pathToNavigate: "/openapi-ui/{2}/~recordValueSecond~/factory/pod-details/~recordValue~"
+#   pathToNavigate: "/{{ .Values.basePrefix }}/{2}/~recordValueSecond~/factory/pod-details/~recordValue~"

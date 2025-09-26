@@ -1,6 +1,7 @@
 {{- define "incloud-web-resources.factory.manifets.secret-details" -}}
-{{- $key     := (default "secret-details" .key) -}}
-{{- $resName := (default "{6}" .resName) -}}
+{{- $key        := (default "secret-details" .key) -}}
+{{- $resName    := (default "{6}" .resName) -}}
+{{- $basePrefix := (default "openapi-ui" .basePrefix) -}}
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -145,6 +146,7 @@ spec:
                                       "type" "namespace"
                                       "jsonPath" ".metadata.namespace"
                                       "factory" "namespace-details"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 38
                                   }}
 
@@ -255,6 +257,7 @@ spec:
                                       "jsonPath" ".metadata.annotations['kubernetes.io/service-account.name']"
                                       "namespace" "{3}"
                                       "factory" "serviceaccount-details"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 34 
                                   }}
 

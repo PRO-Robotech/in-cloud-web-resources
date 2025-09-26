@@ -43,6 +43,6 @@ annotations:
   artifacthub.io/category: infrastructure
   artifacthub.io/links: |
     - name: Source
-      url: https://github.com/PRO-Robotech/openapi-ui
+      url: https://github.com/PRO-Robotech/{{ .Values.basePrefix }}
     - name: Issues
-      url: https://github.com/PRO-Robotech/openapi-ui/issues
+      url: https://github.com/PRO-Robotech/{{ .Values.basePrefix }}/issues

@@ -3,7 +3,7 @@
 {{- $resName        := (default "{6}" .resName) -}}
 {{- $podFactoryName := (default "factory-/v1/pods" .podFactoryName) -}}
 {{- $jobFactoryName := (default "factory-/batch/v1/jobs" .jobFactoryName) -}}
-
+{{- $basePrefix     := (default "openapi-ui" .basePrefix) -}}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: Factory
@@ -157,6 +157,7 @@ spec:
                                       "type" "namespace"
                                       "jsonPath" ".metadata.namespace"
                                       "factory" "namespace-details"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 38
                                   }}
 
@@ -412,7 +413,7 @@ spec:
                   #             fetchUrl: "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/cronjobs/{{ $resName }}"
                   #             clusterNamePartOfUrl: "{2}"
                   #             customizationId: factory-cronjob-details-volume-list
-                  #             baseprefix: "/openapi-ui"
+                  #             baseprefix: "/{{ $basePrefix }}"
                   #             withoutControls: true
                   #             # Path inside CronJob manifest where volumes are located
                   #             pathToItems: ".spec.volumes"
@@ -444,6 +445,7 @@ spec:
                               "namespace" "{3}"
                               "jsonPath" ".spec.jobTemplate.spec.template.spec.initContainers"
                               "pathToItems" "['spec','jobTemplate','spec','template','spec','initContainers']"
+                              "basePrefix" $basePrefix
                             ) | nindent 26
                           }}
 
@@ -474,6 +476,7 @@ spec:
                               "namespace" "{3}"
                               "jsonPath" ".spec.jobTemplate.spec.template.spec.containers"
                               "pathToItems" "['spec','jobTemplate','spec','template','spec','containers']"
+                              "basePrefix" $basePrefix
                             ) | nindent 26
                           }}
 
@@ -509,7 +512,7 @@ spec:
                               fetchUrl: "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/cronjobs/{{ $resName }}"
                               clusterNamePartOfUrl: "{2}"
                               customizationId: factory-status-conditions
-                              baseprefix: "/openapi-ui"
+                              baseprefix: "/{{ $basePrefix }}"
                               withoutControls: true
                               # Path to conditions array
                               pathToItems: ".status.conditions"
@@ -540,7 +543,7 @@ spec:
                   fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods"
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $podFactoryName }}"
-                  baseprefix: "/openapi-ui"
+                  baseprefix: "/{{ $basePrefix }}"
                   withoutControls: true
                   # Build label selector from job template's pod labels
                   labelsSelectorFull:
@@ -560,7 +563,7 @@ spec:
                   fetchUrl: "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs"
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $jobFactoryName }}"
-                  baseprefix: "/openapi-ui"
+                  baseprefix: "/{{ $basePrefix }}"
                   withoutControls: true
                   # Build label selector from CronJob's job template metadata.labels
                   labelsSelectorFull:

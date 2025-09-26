@@ -6,4 +6,4 @@
 # spec:
 #   keysToParse: ".metadata.name"
 #   id: "stock-cluster-/rbac.authorization.k8s.io/v1/clusterroles"
-#   pathToNavigate: "/openapi-ui/{clusterName}/factory/clusterrole-details/~recordValue~"
+#   pathToNavigate: "/{{ .Values.basePrefix }}/{clusterName}/factory/clusterrole-details/~recordValue~"

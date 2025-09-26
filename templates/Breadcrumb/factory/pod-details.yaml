@@ -8,7 +8,7 @@ spec:
   breadcrumbItems:
     - key: pods
       label: "v1/pods"
-      link: "/openapi-ui/{clusterName}/{namespace}/builtin-table/pods"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/builtin-table/pods"
     - key: pod
       label: "{6}"
 
@@ -23,7 +23,7 @@ spec:
   breadcrumbItems:
     - key: pods
       label: "v1/pods"
-      link: "/openapi-ui/{clusterName}/{namespace}/{syntheticProject}/builtin-table/pods"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/builtin-table/pods"
     - key: pod
       label: "{7}"
 {{- end -}}

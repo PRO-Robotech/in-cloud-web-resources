@@ -3,6 +3,7 @@
 {{- $trivyEnabled   := (default false .trivyEnabled) -}}
 {{- $resName        := (default "{6}" .resName) -}}
 {{- $podFactoryName := (default "factory-/v1/pods" .podFactoryName) -}}
+{{- $basePrefix     := (default "openapi-ui" .basePrefix) -}}
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -149,6 +150,7 @@ spec:
                                       "type" "namespace"
                                       "jsonPath" ".metadata.namespace"
                                       "factory" "namespace-details"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 38
                                   }}
 
@@ -175,6 +177,7 @@ spec:
                                       "type" "node"
                                       "title" "Node selector"
                                       "jsonPath" ".spec.template.spec.nodeSelector"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 34
                                   }}
 
@@ -190,6 +193,7 @@ spec:
                                       "type" "pod"
                                       "title" "Pod selector"
                                       "jsonPath" ".spec.template.metadata.labels"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 34
                                   }}
 
@@ -327,7 +331,7 @@ spec:
                   #             fetchUrl: "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/statefulsets/{{ $resName }}"
                   #             clusterNamePartOfUrl: "{2}"
                   #             customizationId: factory-statefulset-details-volume-list
-                  #             baseprefix: "/openapi-ui"
+                  #             baseprefix: "{{ $basePrefix }}"
                   #             withoutControls: true
                   #             pathToItems: ".spec.template.spec.volumes"
 
@@ -358,6 +362,7 @@ spec:
                               "namespace" "{3}"
                               "jsonPath" ".spec.template.spec.initContainers"
                               "pathToItems" "['spec','template','spec','initContainers']"
+                              "basePrefix" $basePrefix
                             ) | nindent 26
                           }}
 
@@ -387,6 +392,7 @@ spec:
                               "namespace" "{3}"
                               "jsonPath" ".spec.template.spec.containers"
                               "pathToItems" "['spec','template','spec','containers']"
+                              "basePrefix" $basePrefix
                             ) | nindent 26
                           }}
 
@@ -416,7 +422,6 @@ spec:
                   fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods"
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $podFactoryName }}"
-                  baseprefix: "/openapi-ui"
                   withoutControls: true
                   labelsSelectorFull:
                     reqIndex: 0
@@ -434,7 +439,7 @@ spec:
                   fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/clusterinfraassessmentreports"
                   clusterNamePartOfUrl: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.clusterinfraassessmentreports
-                  baseprefix: "/openapi-ui"
+                  baseprefix: "/{{ $basePrefix }}"
                   withoutControls: true
                   # Build label selector from pod template labels
                   labelsSelector:

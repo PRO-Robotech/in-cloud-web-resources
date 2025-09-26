@@ -8,7 +8,7 @@ spec:
   breadcrumbItems:
     - key: replicasets
       label: "apps/v1/replicasets"
-      link: "/openapi-ui/{clusterName}/{namespace}/api-table/apps/v1/replicasets"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/api-table/apps/v1/replicasets"
     - key: ReplicaSet
       label: "{6}"
 
@@ -23,7 +23,7 @@ spec:
   breadcrumbItems:
     - key: replicasets
       label: "apps/v1/replicasets"
-      link: "/openapi-ui/{clusterName}/{namespace}/{syntheticProject}/api-table/apps/v1/replicasets"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/apps/v1/replicasets"
     - key: ReplicaSet
       label: "{7}"
 {{- end -}}

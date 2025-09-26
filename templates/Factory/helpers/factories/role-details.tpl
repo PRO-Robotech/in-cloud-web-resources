@@ -1,6 +1,7 @@
 {{- define "incloud-web-resources.factory.manifets.role-details" -}}
-{{- $key     := (default "role-details" .key) -}}
-{{- $resName := (default "{6}" .resName) -}}
+{{- $key        := (default "role-details" .key) -}}
+{{- $resName    := (default "{6}" .resName) -}}
+{{- $basePrefix := (default "openapi-ui" .basePrefix) -}}
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -140,6 +141,7 @@ spec:
                                       "type" "namespace"
                                       "jsonPath" ".metadata.namespace"
                                       "factory" "namespace-details"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 38
                                   }}
 
@@ -226,7 +228,7 @@ spec:
                           fetchUrl: "/api/clusters/{2}/k8s/apis/rbac.authorization.k8s.io/v1/namespaces/{3}/roles/{{ $resName }}"
                           clusterNamePartOfUrl: "{2}"
                           customizationId: factory-k8s-rbac-rules
-                          baseprefix: "/openapi-ui"
+                          baseprefix: "/{{ $basePrefix }}"
                           withoutControls: true
                           pathToItems: ".rules"
 

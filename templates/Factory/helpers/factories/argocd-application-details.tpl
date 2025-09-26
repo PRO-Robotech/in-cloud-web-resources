@@ -1,6 +1,7 @@
 {{- define "incloud-web-resources.factory.manifets.argocd-application-details" -}}
-{{- $key     := (default "argocd-application-details" .key) -}}
-{{- $resName := (default "{6}" .resName) -}}
+{{- $key        := (default "argocd-application-details" .key) -}}
+{{- $resName    := (default "{6}" .resName) -}}
+{{- $basePrefix := (default "openapi-ui" .basePrefix) -}}
 
 ---
 # Factory definition for ArgoCD Application details page
@@ -136,6 +137,7 @@ spec:
                                       "type" "namespace"
                                       "jsonPath" ".metadata.namespace"
                                       "factory" "namespace-details"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 38
                                   }}
 
@@ -254,6 +256,7 @@ spec:
                                       "title" "Project"
                                       "jsonPath" ".spec.project"
                                       "factory" "argocd-appproject-details"
+                                      "basePrefix" $basePrefix
                                       "namespace" "{3}"
                                     ) | nindent 34 
                                   }}
@@ -315,7 +318,7 @@ spec:
                   fetchUrl: "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{{ $resName }}"
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "factory-argocd-application-status-resources"
-                  baseprefix: "/openapi-ui"
+                  baseprefix: "/{{ $basePrefix }}"
                   withoutControls: true
                   pathToItems: ".status.resources"
 
@@ -457,7 +460,7 @@ spec:
                           fetchUrl: "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{{ $resName }}"
                           clusterNamePartOfUrl: "{2}"
                           customizationId: "factory-argocd-application-resources"
-                          baseprefix: "/openapi-ui"
+                          baseprefix: "/{{ $basePrefix }}"
                           withoutControls: true
                           pathToItems: ".status.operationState.syncResult.resources"
 
@@ -471,7 +474,7 @@ spec:
                   fetchUrl: "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{{ $resName }}"
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "factory-argocd-application-status-history"
-                  baseprefix: "/openapi-ui"
+                  baseprefix: "/{{ $basePrefix }}"
                   withoutControls: true
                   pathToItems: ".status.history"
 {{- end }}

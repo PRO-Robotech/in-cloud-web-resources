@@ -1,6 +1,7 @@
 {{- define "incloud-web-resources.factory.manifets.horizontalpodautoscaler-details" -}}
-{{- $key     := (default "horizontalpodautoscaler-details" .key) -}}
-{{- $resName := (default "{6}" .resName) -}}
+{{- $key        := (default "horizontalpodautoscaler-details" .key) -}}
+{{- $resName    := (default "{6}" .resName) -}}
+{{- $basePrefix := (default "openapi-ui" .basePrefix) -}}
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -144,6 +145,7 @@ spec:
                                       "type" "namespace"
                                       "jsonPath" ".metadata.namespace"
                                       "factory" "namespace-details"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 38
                                   }}
 
@@ -376,7 +378,7 @@ spec:
                               fetchUrl: "/api/clusters/{2}/k8s/apis/autoscaling/v2/namespaces/{3}/horizontalpodautoscalers/{{ $resName }}"
                               clusterNamePartOfUrl: "{2}"
                               customizationId: factory-status-conditions
-                              baseprefix: "/openapi-ui"
+                              baseprefix: "/{{ $basePrefix }}"
                               withoutControls: true
                               pathToItems: ".status.conditions"
 

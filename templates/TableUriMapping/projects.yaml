@@ -10,5 +10,5 @@
 # spec:
 #   keysToParse: ".metadata.name"
 #   id: "stock-cluster-/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
-#   pathToNavigate: "/openapi-ui/{clusterName}/~recordValue~/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
+#   pathToNavigate: "/{{ .Values.basePrefix }}/{clusterName}/~recordValue~/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
 # {{ end }}

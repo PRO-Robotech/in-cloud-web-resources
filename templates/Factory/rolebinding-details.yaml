@@ -1,11 +1,13 @@
 {{ include "incloud-web-resources.factory.manifets.rolebinding-details" (dict
   "key" "rolebinding-details"
   "resName" "{6}"
+  "basePrefix" .Values.basePrefix
 ) }}
 
 {{- if not .Values.namespaceNavigation }}
 {{ include "incloud-web-resources.factory.manifets.rolebinding-details" (dict
   "key" "instance-rolebinding-details"
   "resName" "{7}"
+  "basePrefix" .Values.basePrefix
 ) }}
 {{- end }}

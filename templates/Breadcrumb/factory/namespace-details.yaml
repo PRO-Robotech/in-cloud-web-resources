@@ -8,6 +8,6 @@ spec:
   breadcrumbItems:
     - key: namespaces
       label: "v1/namespaces"
-      link: "/openapi-ui/{clusterName}/builtin-table/namespaces"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/builtin-table/namespaces"
     - key: namespace
       label: "{5}"

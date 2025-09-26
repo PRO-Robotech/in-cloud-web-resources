@@ -11,7 +11,7 @@ spec:
   breadcrumbItems:
     - key: project
       label: "{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
-      link: "/openapi-ui/{clusterName}/api-table/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/api-table/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
     - key: project
       label: "{5}"
 
@@ -25,7 +25,7 @@ spec:
   breadcrumbItems:
     - key: project
       label: "{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
-      link: "/openapi-ui/{clusterName}/api-table/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/api-table/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
     - key: project
       label: "{3}"
 {{ end }}

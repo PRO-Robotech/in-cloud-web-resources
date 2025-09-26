@@ -2,6 +2,7 @@
 {{- $key            := (default "job-details" .key) -}}
 {{- $resName        := (default "{6}" .resName) -}}
 {{- $podFactoryName := (default "factory-/v1/pods" .podFactoryName) -}}
+{{- $basePrefix     := (default "openapi-ui" .basePrefix) -}}
 
 ---
 # Factory definition for Job details page
@@ -160,6 +161,7 @@ spec:
                                       "type" "namespace"
                                       "jsonPath" ".metadata.namespace"
                                       "factory" "namespace-details"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 38
                                   }}
 
@@ -425,7 +427,7 @@ spec:
                   #             fetchUrl: "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{{ $resName }}"
                   #             clusterNamePartOfUrl: "{2}"
                   #             customizationId: factory-job-details-volume-list
-                  #             baseprefix: "/openapi-ui"
+                  #             baseprefix: "/{{ $basePrefix }}"
                   #             withoutControls: true
                   #             pathToItems: ".spec.template.spec.volumes"
 
@@ -455,6 +457,7 @@ spec:
                               "namespace" "{3}"
                               "jsonPath" ".spec.template.spec.initContainers"
                               "pathToItems" "['spec','template','spec','initContainers']"
+                              "basePrefix" $basePrefix
                             ) | nindent 26
                           }}
 
@@ -484,6 +487,7 @@ spec:
                               "namespace" "{3}"
                               "jsonPath" ".spec.template.spec.containers"
                               "pathToItems" "['spec','template','spec','containers']"
+                              "basePrefix" $basePrefix
                             ) | nindent 26
                           }}
 
@@ -517,7 +521,7 @@ spec:
                               fetchUrl: "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{{ $resName }}"
                               clusterNamePartOfUrl: "{2}"
                               customizationId: factory-status-conditions
-                              baseprefix: "/openapi-ui"
+                              baseprefix: "/{{ $basePrefix }}"
                               withoutControls: true
                               pathToItems: ".status.conditions"
 
@@ -545,7 +549,7 @@ spec:
                   fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods"
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $podFactoryName }}"
-                  baseprefix: "/openapi-ui"
+                  baseprefix: "/{{ $basePrefix }}"
                   withoutControls: true
                   # Build label selector from Job's pod template labels
                   labelsSelectorFull:

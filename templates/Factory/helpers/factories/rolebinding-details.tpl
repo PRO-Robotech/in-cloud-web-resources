@@ -1,6 +1,7 @@
 {{- define "incloud-web-resources.factory.manifets.rolebinding-details" -}}
-{{- $key     := (default "rolebinding-details" .key) -}}
-{{- $resName := (default "{6}" .resName) -}}
+{{- $key        := (default "rolebinding-details" .key) -}}
+{{- $resName    := (default "{6}" .resName) -}}
+{{- $basePrefix := (default "openapi-ui" .basePrefix) -}}
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -140,6 +141,7 @@ spec:
                                       "type" "namespace"
                                       "jsonPath" ".metadata.namespace"
                                       "factory" "namespace-details"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 38
                                   }}
 
@@ -253,6 +255,7 @@ spec:
                                             "namespace" "{reqsJsonPath[0]['.metadata.namespace']}"
                                             "jsonPath" ".roleRef.name"
                                             "factory" "role-details"
+                                            "basePrefix" $basePrefix
                                           ) | nindent 40 
                                         }}
 
@@ -271,6 +274,7 @@ spec:
                                             "title" "ClusterRole"
                                             "jsonPath" ".roleRef.name"
                                             "factory" "clusterrole-details"
+                                            "basePrefix" $basePrefix
                                           ) | nindent 40 
                                         }}
 

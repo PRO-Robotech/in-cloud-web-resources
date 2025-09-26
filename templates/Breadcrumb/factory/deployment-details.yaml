@@ -8,7 +8,7 @@ spec:
   breadcrumbItems:
     - key: deployments
       label: "apps/v1/deployments"
-      link: "/openapi-ui/{clusterName}/{namespace}/api-table/apps/v1/deployments"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/api-table/apps/v1/deployments"
     - key: Deployment
       label: "{6}"
 
@@ -23,7 +23,7 @@ spec:
   breadcrumbItems:
     - key: deployments
       label: "apps/v1/deployments"
-      link: "/openapi-ui/{clusterName}/{namespace}/{syntheticProject}/api-table/apps/v1/deployments"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/apps/v1/deployments"
     - key: Deployment
       label: "{7}"
 {{- end -}}

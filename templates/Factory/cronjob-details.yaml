@@ -3,6 +3,7 @@
   "resName" "{6}"
   "jobFactoryName" "factory-/batch/v1/jobs"
   "podFactoryName" "factory-/v1/pods"
+  "basePrefix" .Values.basePrefix
 ) }}
 
 {{- if not .Values.namespaceNavigation }}
@@ -11,5 +12,6 @@
   "resName" "{7}"
   "jobFactoryName" "factory-instance-jobs-details"
   "podFactoryName" "factory-instance-pods-details"
+  "basePrefix" .Values.basePrefix
 ) }}
 {{- end }}

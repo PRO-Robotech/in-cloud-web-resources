@@ -8,7 +8,7 @@ spec:
   breadcrumbItems:
     - key: horizontalpodautoscalers
       label: "autoscaling/v2/horizontalpodautoscalers"
-      link: "/openapi-ui/{clusterName}/{namespace}/api-table/autoscaling/v2/horizontalpodautoscalers"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/api-table/autoscaling/v2/horizontalpodautoscalers"
     - key: horizontalpodautoscaler
       label: "{6}"
 
@@ -23,7 +23,7 @@ spec:
   breadcrumbItems:
     - key: horizontalpodautoscalers
       label: "autoscaling/v2/horizontalpodautoscalers"
-      link: "/openapi-ui/{clusterName}/{namespace}/{syntheticProject}/api-table/autoscaling/v2/horizontalpodautoscalers"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/autoscaling/v2/horizontalpodautoscalers"
     - key: horizontalpodautoscaler
       label: "{7}"
 {{- end -}}

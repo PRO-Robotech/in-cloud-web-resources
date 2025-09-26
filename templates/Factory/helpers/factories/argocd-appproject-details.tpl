@@ -1,6 +1,7 @@
 {{- define "incloud-web-resources.factory.manifets.argocd-appproject-details" -}}
-{{- $key     := (default "argocd-appproject-details" .key) -}}
-{{- $resName := (default "{6}" .resName) -}}
+{{- $key        := (default "argocd-appproject-details" .key) -}}
+{{- $resName    := (default "{6}" .resName) -}}
+{{- $basePrefix := (default "openapi-ui" .basePrefix) -}}
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -145,6 +146,7 @@ spec:
                                       "type" "namespace"
                                       "jsonPath" ".metadata.namespace"
                                       "factory" "namespace-details"
+                                      "basePrefix" $basePrefix
                                     ) | nindent 38
                                   }}
 

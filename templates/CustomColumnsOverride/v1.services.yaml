@@ -23,6 +23,7 @@ spec:
             "jsonPath" ".metadata.name"
             "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
             "factory" "service-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12 
         }}
     - jsonPath: .metadata.namespace
@@ -42,6 +43,7 @@ spec:
             "type" "namespace"
             "jsonPath" ".metadata.namespace"
             "factory" "namespace-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12
         }}
     - jsonPath: .spec.clusterIP
@@ -110,6 +112,7 @@ spec:
             "jsonPath" ".metadata.name"
             "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
             "factory" "service-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12 
         }}
     - jsonPath: .spec.clusterIP
@@ -177,6 +180,7 @@ spec:
             "jsonPath" ".metadata.name"
             "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
             "factory" "service-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12 
         }}
     - jsonPath: .spec.clusterIP
@@ -245,6 +249,7 @@ spec:
             "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
             "project" "{4}"
             "factory" "instance-service-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12 
         }}
     - jsonPath: .spec.clusterIP

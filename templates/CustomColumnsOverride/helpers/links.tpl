@@ -1,11 +1,15 @@
 {{- define "incloud-web-resources.api-table.links.details" -}}
-{{- $i := (default 0 .reqIndex) -}}
-{{- $type := (default "" .type) -}}
-{{- $title := (default "" .title) -}}
-{{- $jsonPath := (default "" .jsonPath) -}}
-{{- $resource := (default "" .resource) -}}
-{{- $ns := (default "" .namespace) -}}
-{{- $proj := (default "" .project) -}}
+{{- $i          := (default 0 .reqIndex) -}}
+{{- $type       := (default "" .type) -}}
+{{- $title      := (default "" .title) -}}
+{{- $jsonPath   := (default "" .jsonPath) -}}
+{{- $resource   := (default "" .resource) -}}
+# {{- $basePrefix := (default "" .basePrefix) -}}
+{{- $ns         := (default "" .namespace) -}}
+{{- $proj       := (default "" .project) -}}
+
+{{- $basePrefix := (include "incloud-web-resources.base-prefix" .) -}}
+
 
 {{- $nsPart := "" -}}
 {{- if ne $ns "" }}
@@ -25,16 +29,17 @@
   data:
     id: {{ printf "%s-link" $type }}
     text: "{reqsJsonPath[{{$i}}]['{{ $jsonPath }}']['-']}"
-    href: "/openapi-ui/{2}/{{$nsPart}}api-table/{{ $resource }}"
+    href: "/{{ $basePrefix }}/{2}/{{$nsPart}}api-table/{{ $resource }}"
 {{- end -}}
 
 {{- define "incloud-web-resources.api-table.linkblock" -}}
-{{- $i := (default 0 .reqIndex) -}}
-{{- $type := (default "" .type) -}}
-{{- $jsonPath := (default "" .jsonPath) -}}
-{{- $resource := (default "" .resource) -}}
-{{- $ns := (default "" .namespace) -}}
-{{- $proj := (default "" .project) -}}
+{{- $i          := (default 0 .reqIndex) -}}
+{{- $type       := (default "" .type) -}}
+{{- $jsonPath   := (default "" .jsonPath) -}}
+{{- $resource   := (default "" .resource) -}}
+{{- $basePrefix := (default "" .basePrefix) -}}
+{{- $ns         := (default "" .namespace) -}}
+{{- $proj       := (default "" .project) -}}
 
 {{- $nsPart := "" -}}
 {{- if ne $ns "" }}
@@ -48,5 +53,5 @@
   data:
     id: {{ printf "%s-link" $type }}
     text: "{reqsJsonPath[{{$i}}]['{{ $jsonPath }}']['-']}"
-    href: "/openapi-ui/{2}/{{$nsPart}}api-table/{{ $resource }}"
+    href: "/{{ $basePrefix }}/{2}/{{$nsPart}}api-table/{{ $resource }}"
 {{- end -}}

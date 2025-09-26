@@ -8,7 +8,7 @@ spec:
   breadcrumbItems:
     - key: services
       label: "v1/services"
-      link: "/openapi-ui/{clusterName}/{namespace}/builtin-table/services"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/builtin-table/services"
     - key: service
       label: "{6}"
 
@@ -23,7 +23,7 @@ spec:
   breadcrumbItems:
     - key: services
       label: "v1/services"
-      link: "/openapi-ui/{clusterName}/{namespace}/{syntheticProject}/builtin-table/services"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/builtin-table/services"
     - key: service
       label: "{7}"
 {{- end -}}

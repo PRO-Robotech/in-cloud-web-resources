@@ -9,5 +9,5 @@
 # spec:
 #   keysToParse: ".metadata.name"
 #   id: "stock-project-/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
-#   pathToNavigate: "/openapi-ui/{clusterName}/{3}-~recordValue~/{3}/api-table/apps/v1/deployments"
+#   pathToNavigate: "/{{ .Values.basePrefix }}/{clusterName}/{3}-~recordValue~/{3}/api-table/apps/v1/deployments"
 # {{ end }}
