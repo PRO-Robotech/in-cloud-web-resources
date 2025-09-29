@@ -1,4 +1,13 @@
 {{- define "incloud-web-resources.sidebar.menu.items.cluster" -}}
+
+- children:
+    - key: search
+      label: Search
+      link: /openapi-ui/{clusterName}/search
+  key: home
+  label: Home
+
+
 {{- if .Values.addons.argocd.enabled -}}
 - children:
     - key: argocd-web

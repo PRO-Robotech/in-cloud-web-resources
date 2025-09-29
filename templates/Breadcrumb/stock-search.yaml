@@ -1,0 +1,12 @@
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-cluster-seach-page
+spec:
+  id: "stock-cluster-seach-page"
+  breadcrumbItems:
+    - key: search
+      label: "search"
+    - key: resources
+      label: "resources"
