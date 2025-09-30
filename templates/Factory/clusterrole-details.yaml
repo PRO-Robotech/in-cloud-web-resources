@@ -194,7 +194,7 @@ spec:
                           fetchUrl: "/api/clusters/{2}/k8s/apis/rbac.authorization.k8s.io/v1/clusterroles/{5}"
                           clusterNamePartOfUrl: "{2}"
                           customizationId: factory-k8s-rbac-rules
-                          baseprefix: "/openapi-ui"
+                          baseprefix: "/{{ .Values.basePrefix }}"
                           withoutControls: true
                           pathToItems: ".rules"
 

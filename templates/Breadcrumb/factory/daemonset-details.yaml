@@ -8,6 +8,22 @@ spec:
   breadcrumbItems:
     - key: daemonsets
       label: "apps/v1/daemonsets"
-      link: "/openapi-ui/{clusterName}/{namespace}/api-table/apps/v1/daemonsets"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/api-table/apps/v1/daemonsets"
     - key: daemonset
-      label: "{5}"
+      label: "{6}"
+
+{{- if not .Values.namespaceNavigation }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-factory-instance-daemonset-details
+spec:
+  id: "stock-instance-factory-instance-daemonset-details"
+  breadcrumbItems:
+    - key: daemonsets
+      label: "apps/v1/daemonsets"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/apps/v1/daemonsets"
+    - key: daemonset
+      label: "{7}"
+{{- end -}}

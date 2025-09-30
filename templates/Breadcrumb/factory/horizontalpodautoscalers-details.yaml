@@ -8,6 +8,22 @@ spec:
   breadcrumbItems:
     - key: horizontalpodautoscalers
       label: "autoscaling/v2/horizontalpodautoscalers"
-      link: "/openapi-ui/{clusterName}/{namespace}/api-table/autoscaling/v2/horizontalpodautoscalers"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/api-table/autoscaling/v2/horizontalpodautoscalers"
     - key: horizontalpodautoscaler
       label: "{6}"
+
+{{- if not .Values.namespaceNavigation }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-factory-instance-horizontalpodautoscaler-details
+spec:
+  id: "stock-instance-factory-instance-horizontalpodautoscaler-details"
+  breadcrumbItems:
+    - key: horizontalpodautoscalers
+      label: "autoscaling/v2/horizontalpodautoscalers"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/autoscaling/v2/horizontalpodautoscalers"
+    - key: horizontalpodautoscaler
+      label: "{7}"
+{{- end -}}

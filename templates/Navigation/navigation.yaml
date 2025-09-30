@@ -1,0 +1,35 @@
+{{ $projRes := .Values.projectResource }}
+{{ $instRes := .Values.instanceResource }}
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Navigation
+metadata:
+  name: navigation
+spec:
+{{ if .Values.namespaceNavigation }}
+  projects:
+    clear: "/{{ .Values.basePrefix }}/{selectedCluster}/builtin-table/pods"
+    change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/builtin-table/pods"
+  instances:
+    clear: "/{{ .Values.basePrefix }}/{selectedCluster}/builtin-table/pods"
+    change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/builtin-table/pods"
+  namespaces:
+    clear: "/{{ .Values.basePrefix }}/{selectedCluster}/builtin-table/pods"
+    change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/builtin-table/pods"
+{{ else }}
+  projects:
+    clear: "/{{ .Values.basePrefix }}/clusters/{selectedCluster}"
+  {{ if $projRes.deployDefaultForms }}
+    change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/factory/project-details/{value}"
+  {{ else }}
+    change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
+  {{ end }}
+  instances:
+    clear: "/{{ .Values.basePrefix }}/{selectedCluster}/{selectedProject}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
+    change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/{selectedProject}/api-table/apps/v1/deployments"
+    mapOptionsPattern: "{{ .Values.instanceResource.instanceNamespaceNavigationPattern }}"
+  namespaces:
+    clear: "/{{ .Values.basePrefix }}/clusters/{selectedCluster}"
+    change: "/{{ .Values.basePrefix }}/clusters/{selectedCluster}/{{ $projRes.resourceName }}/{value}"
+{{ end }}

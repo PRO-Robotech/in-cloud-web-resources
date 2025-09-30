@@ -1,0 +1,133 @@
+{{ $instRes := .Values.instanceResource }}
+
+{{ if and ($instRes.deployDefaultForms) (not .Values.namespaceNavigation) }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: stock-project-instance
+spec:
+  additionalPrinterColumns:
+    - jsonPath: .metadata.name
+      name: Name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.icon" (dict
+            "text" "I"
+            "title" "project"
+            "backgroundColor" "#535db1ff"
+          )| nindent 8
+        }}
+        {{ include "incloud-web-resources.api-table.linkblock" (dict
+            "reqIndex" 0
+            "type" "name"
+            "jsonPath" ".metadata.name"
+            "resource" "apps/v1/deployments"
+            "basePrefix" .Values.basePrefix
+            "project" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}-{reqsJsonPath[0]['.metadata.name']['-']}"
+          ) | nindent 12 
+        }}
+    - jsonPath: .metadata.namespace
+      name: Project
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.icon" (dict
+            "text" "P"
+            "title" "project"
+            "backgroundColor" "#516dcaff"
+          )| nindent 8
+        }}
+        {{ include "incloud-web-resources.factory.linkblock" (dict
+            "reqIndex" 0
+            "type" "project"
+            "jsonPath" ".metadata.namespace"
+            "factory" "project-details"
+            "basePrefix" .Values.basePrefix
+          ) | nindent 12
+        }}
+    - jsonPath: .metadata.creationTimestamp
+      name: Created
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.factory.timeblock" (dict
+          "req" ".metadata.creationTimestamp"
+          ) | nindent 8
+        }}
+  additionalPrinterColumnsTrimLengths:
+    - key: Name
+      value: 64
+  additionalPrinterColumnsUndefinedValues: []
+  id: "stock-project-/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: factory-project-instance-details
+spec:
+  additionalPrinterColumns:
+    - jsonPath: .metadata.name
+      name: Name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.icon" (dict
+            "text" "P"
+            "title" "project"
+            "backgroundColor" "#004080"
+          )| nindent 8
+        }}
+        {{ include "incloud-web-resources.api-table.linkblock" (dict
+            "reqIndex" 0
+            "type" "name"
+            "jsonPath" ".metadata.name"
+            "resource" "apps/v1/deployments"
+            "basePrefix" .Values.basePrefix
+            "project" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+            "namespace" "{reqsJsonPath[0]['.metadata.name']['-']}"
+          ) | nindent 12 
+        }}
+    - jsonPath: .metadata.namespace
+      name: Project
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.icon" (dict
+            "text" "P"
+            "title" "project"
+            "backgroundColor" "#516dcaff"
+          )| nindent 8
+        }}
+        {{ include "incloud-web-resources.factory.linkblock" (dict
+            "reqIndex" 0
+            "type" "project"
+            "jsonPath" ".metadata.namespace"
+            "factory" "project-details"
+            "basePrefix" .Values.basePrefix
+          ) | nindent 12
+        }}
+    - jsonPath: .metadata.creationTimestamp
+      name: Created
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.factory.timeblock" (dict
+          "req" ".metadata.creationTimestamp"
+          ) | nindent 8
+        }}
+  additionalPrinterColumnsTrimLengths:
+    - key: Name
+      value: 64
+  additionalPrinterColumnsUndefinedValues: []
+  id: factory-project-instance-details
+{{ end }}

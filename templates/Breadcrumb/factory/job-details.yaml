@@ -8,6 +8,22 @@ spec:
   breadcrumbItems:
     - key: jobs
       label: "batch/v1/jobs"
-      link: "/openapi-ui/{clusterName}/{namespace}/api-table/batch/v1/jobs"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/api-table/batch/v1/jobs"
     - key: job
       label: "{6}"
+
+{{- if not .Values.namespaceNavigation }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-factory-instance-job-details
+spec:
+  id: "stock-instance-factory-instance-job-details"
+  breadcrumbItems:
+    - key: jobs
+      label: "batch/v1/jobs"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/batch/v1/jobs"
+    - key: job
+      label: "{7}"
+{{- end -}}

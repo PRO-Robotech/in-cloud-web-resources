@@ -1,0 +1,13 @@
+# {{ $instRes := .Values.instanceResource }}
+
+# {{ if not .Values.namespaceNavigation }}
+# ---
+# apiVersion: front.in-cloud.io/v1alpha1
+# kind: TableUriMapping
+# metadata:
+#   name: stock-namespace-instance
+# spec:
+#   keysToParse: ".metadata.name"
+#   id: "stock-project-/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
+#   pathToNavigate: "/{{ .Values.basePrefix }}/{clusterName}/{3}-~recordValue~/{3}/api-table/apps/v1/deployments"
+# {{ end }}

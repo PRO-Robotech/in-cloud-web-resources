@@ -1,14 +1,15 @@
 {{- define "incloud-web-resources.factory.containers.table" -}}
-  {{- $i := (default 0 .reqIndex) -}}
-  {{- $type := (default "" .type) -}}
-  {{- $title := (default "Init containers" .title) -}}
-  {{- $jsonPath := (default "" .jsonPath) -}}
-  {{- $pathToItems := (default "" .pathToItems) -}}
-  {{- $apiGroup := (default "" .apiGroup) -}}
-  {{- $kind := (default "" .kind) -}}
-  {{- $resourceName := (default "" .resourceName) -}}
-  {{- $namespace := (default "" .namespace) -}}
-  {{- $namespacePart := "" -}}
+  {{- $i              := (default 0 .reqIndex) -}}
+  {{- $type           := (default "" .type) -}}
+  {{- $title          := (default "Init containers" .title) -}}
+  {{- $jsonPath       := (default "" .jsonPath) -}}
+  {{- $pathToItems    := (default "" .pathToItems) -}}
+  {{- $apiGroup       := (default "" .apiGroup) -}}
+  {{- $kind           := (default "" .kind) -}}
+  {{- $resourceName   := (default "" .resourceName) -}}
+  {{- $basePrefix     := (default "" .basePrefix) -}}
+  {{- $namespace      := (default "" .namespace) -}}
+  {{- $namespacePart  := "" -}}
   {{- if ne $namespace "" }}
     {{- $namespacePart = printf "namespaces/%s/" $namespace -}}
   {{- end }}
@@ -34,7 +35,7 @@
         fetchUrl: "/api/clusters/{2}/k8s/{{ $apiGroup }}/{{$namespacePart}}{{ $kind }}/{{$resourceName}}"
         clusterNamePartOfUrl: "{2}"
         customizationId: {{ .customizationId | default ("") }}
-        baseprefix: "/openapi-ui"
+        baseprefix: "/{{ $basePrefix }}"
         withoutControls: {{ default true .withoutControls }}
         pathToItems: {{ $pathToItems }}
 {{- end -}}

@@ -7,7 +7,7 @@
 #   keysToParse: ".metadata.name"
 #   keysToParseSecond: ".metadata.namespace"
 #   id: "stock-cluster-/apps/v1/replicasets"
-#   pathToNavigate: "/openapi-ui/{clusterName}/~recordValueSecond~/factory/replicaset-details/~recordValue~"
+#   pathToNavigate: "/{{ .Values.basePrefix }}/{clusterName}/~recordValueSecond~/factory/replicaset-details/~recordValue~"
 
 # ---
 # apiVersion: front.in-cloud.io/v1alpha1
@@ -18,7 +18,7 @@
 #   keysToParse: ".metadata.name"
 #   keysToParseSecond: ".metadata.namespace"
 #   id: "stock-namespace-/apps/v1/replicasets"
-#   pathToNavigate: "/openapi-ui/{clusterName}/~recordValueSecond~/factory/replicaset-details/~recordValue~"
+#   pathToNavigate: "/{{ .Values.basePrefix }}/{clusterName}/~recordValueSecond~/factory/replicaset-details/~recordValue~"
 
 # ---
 # apiVersion: front.in-cloud.io/v1alpha1
@@ -29,4 +29,4 @@
 #   keysToParse: ".metadata.name"
 #   keysToParseSecond: ".metadata.namespace"
 #   id: "factory-/apps/v1/replicasets"
-#   pathToNavigate: "/openapi-ui/{2}/~recordValueSecond~/factory/replicaset-details/~recordValue~"
+#   pathToNavigate: "/{{ .Values.basePrefix }}/{2}/~recordValueSecond~/factory/replicaset-details/~recordValue~"

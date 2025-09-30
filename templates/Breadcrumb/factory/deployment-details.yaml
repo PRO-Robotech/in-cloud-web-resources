@@ -8,6 +8,22 @@ spec:
   breadcrumbItems:
     - key: deployments
       label: "apps/v1/deployments"
-      link: "/openapi-ui/{clusterName}/{namespace}/api-table/apps/v1/deployments"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/api-table/apps/v1/deployments"
     - key: Deployment
       label: "{6}"
+
+{{- if not .Values.namespaceNavigation }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-factory-instance-deployment-details
+spec:
+  id: "stock-instance-factory-instance-deployment-details"
+  breadcrumbItems:
+    - key: deployments
+      label: "apps/v1/deployments"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/apps/v1/deployments"
+    - key: Deployment
+      label: "{7}"
+{{- end -}}

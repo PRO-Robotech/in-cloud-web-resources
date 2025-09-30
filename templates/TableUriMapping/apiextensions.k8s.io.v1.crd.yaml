@@ -6,4 +6,4 @@
 # spec:
 #   keysToParse: ".metadata.name"
 #   id: "stock-cluster-/apiextensions.k8s.io/v1/customresourcedefinitions"
-#   pathToNavigate: "/openapi-ui/{clusterName}/factory/crd-details/~recordValue~"
+#   pathToNavigate: "/{{ .Values.basePrefix }}/{clusterName}/factory/crd-details/~recordValue~"

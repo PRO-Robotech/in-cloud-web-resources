@@ -23,6 +23,7 @@ spec:
             "jsonPath" ".metadata.name"
             "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
             "factory" "rolebinding-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12 
         }}
     - jsonPath: .metadata.namespace
@@ -42,6 +43,7 @@ spec:
             "type" "namespace"
             "jsonPath" ".metadata.namespace"
             "factory" "namespace-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12
         }}
     - jsonPath: .roleRef.name
@@ -84,6 +86,7 @@ spec:
       value: 64
   id: stock-cluster-/rbac.authorization.k8s.io/v1/rolebindings
 
+{{ if .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -109,6 +112,7 @@ spec:
             "jsonPath" ".metadata.name"
             "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
             "factory" "rolebinding-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12 
         }}
     - jsonPath: .roleRef.name
@@ -150,3 +154,141 @@ spec:
     - key: Role ref
       value: 64
   id: stock-namespace-/rbac.authorization.k8s.io/v1/rolebindings
+{{ else }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: stock-project-rbac.authorization.k8s.io.v1.rolebindings
+spec:
+  additionalPrinterColumns:
+    - jsonPath: .metadata.name
+      name: Name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.icon" (dict
+            "text" "RB"
+            "title" "rolebinding"
+            "backgroundColor" "#008bad"
+          )| nindent 8
+        }}
+        {{ include "incloud-web-resources.factory.linkblock" (dict
+            "reqIndex" 0
+            "type" "name"
+            "jsonPath" ".metadata.name"
+            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+            "factory" "rolebinding-details"
+            "basePrefix" .Values.basePrefix
+          ) | nindent 12 
+        }}
+    - jsonPath: .roleRef.name
+      name: Role ref
+      type: string
+    - jsonPath: .subjects[?(@.kind=="ServiceAccount")].name
+      name: Service accounts
+      type: string
+    - jsonPath: .subjects[?(@.kind=="User")].name
+      name: Users
+      type: array
+    - jsonPath: .subjects[?(@.kind=="Group")].name
+      name: Groups
+      type: array
+    - jsonPath: .metadata.creationTimestamp
+      name: Created
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.factory.timeblock" (dict
+          "req" ".metadata.creationTimestamp"
+          ) | nindent 8
+        }}
+  additionalPrinterColumnsUndefinedValues:
+    - key: Role ref
+      value: "-"
+    - key: Users
+      value: "-"
+    - key: Groups
+      value: "-"
+    - key: Service accounts
+      value: "-"
+    - key: Namespace
+      value: "All namespaces"
+  additionalPrinterColumnsTrimLengths:
+    - key: Name
+      value: 64
+    - key: Role ref
+      value: 64
+  id: stock-project-/rbac.authorization.k8s.io/v1/rolebindings
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: stock-instance-rbac.authorization.k8s.io.v1.rolebindings
+spec:
+  additionalPrinterColumns:
+    - jsonPath: .metadata.name
+      name: Name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.icon" (dict
+            "text" "RB"
+            "title" "rolebinding"
+            "backgroundColor" "#008bad"
+          )| nindent 8
+        }}
+        {{ include "incloud-web-resources.factory.linkblock" (dict
+            "reqIndex" 0
+            "type" "name"
+            "jsonPath" ".metadata.name"
+            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+            "project" "{4}"
+            "factory" "rolebinding-details"
+            "basePrefix" .Values.basePrefix
+          ) | nindent 12 
+        }}
+    - jsonPath: .roleRef.name
+      name: Role ref
+      type: string
+    - jsonPath: .subjects[?(@.kind=="ServiceAccount")].name
+      name: Service accounts
+      type: string
+    - jsonPath: .subjects[?(@.kind=="User")].name
+      name: Users
+      type: array
+    - jsonPath: .subjects[?(@.kind=="Group")].name
+      name: Groups
+      type: array
+    - jsonPath: .metadata.creationTimestamp
+      name: Created
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.factory.timeblock" (dict
+          "req" ".metadata.creationTimestamp"
+          ) | nindent 8
+        }}
+  additionalPrinterColumnsUndefinedValues:
+    - key: Role ref
+      value: "-"
+    - key: Users
+      value: "-"
+    - key: Groups
+      value: "-"
+    - key: Service accounts
+      value: "-"
+    - key: Namespace
+      value: "All namespaces"
+  additionalPrinterColumnsTrimLengths:
+    - key: Name
+      value: 64
+    - key: Role ref
+      value: 64
+  id: stock-instance-/rbac.authorization.k8s.io/v1/rolebindings
+{{ end }}

@@ -1,0 +1,38 @@
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-api-table
+spec:
+  id: "stock-instance-api-table"
+  breadcrumbItems:
+    - key: api
+      label: "{apiGroup}/{apiVersion}/{typeName}"
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-api-form
+spec:
+  id: "stock-instance-api-form"
+  breadcrumbItems:
+    - key: create-api-res-namespaced-table
+      label: "{apiGroup}/{apiVersion}/{typeName}"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/{apiGroup}/{apiVersion}/{typeName}"
+    - key: create-api-res-namespaced-typename
+      label: Create
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-api-form-edit
+spec:
+  id: "stock-instance-api-form-edit"
+  breadcrumbItems:
+    - key: create-api-res-namespaced-table
+      label: "{apiGroup}/{apiVersion}/{typeName}"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/{apiGroup}/{apiVersion}/{typeName}"
+    - key: create-api-res-namespaced-typename
+      label: Update

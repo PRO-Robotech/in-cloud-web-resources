@@ -1,0 +1,21 @@
+{{- $factoryID := "instance-deployment-details" -}}
+{{ if .Values.namespaceNavigation }}
+  {{- $factoryID = "deployment-details" -}}
+{{ end }}
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Sidebar
+metadata:
+  name: "stock-instance-factory-{{ $factoryID }}"
+spec:
+  id: "stock-instance-factory-{{ $factoryID }}"
+  keysAndTags:
+    deployments:
+      - deployment-sidebar
+  menuItems:
+  {{ if .Values.namespaceNavigation }}
+    {{ include "incloud-web-resources.sidebar.menu.items.namespaced" . | nindent 4 }}
+  {{ else }}
+    {{ include "incloud-web-resources.sidebar.menu.items.instance" . | nindent 4 }}
+  {{ end }}

@@ -8,6 +8,22 @@ spec:
   breadcrumbItems:
     - key: configmaps
       label: "v1/configmaps"
-      link: "/openapi-ui/{clusterName}/{namespace}/builtin-table/configmaps"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/builtin-table/configmaps"
     - key: configmap
       label: "{6}"
+
+{{- if not .Values.namespaceNavigation }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-factory-instance-configmap-details
+spec:
+  id: "stock-instance-factory-instance-configmap-details"
+  breadcrumbItems:
+    - key: configmaps
+      label: "v1/configmaps"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/builtin-table/configmaps"
+    - key: configmap
+      label: "{7}"
+{{- end }}

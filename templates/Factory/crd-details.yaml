@@ -271,7 +271,7 @@ spec:
                               fetchUrl: "/api/clusters/{2}/k8s/apis/apiextensions.k8s.io/v1/customresourcedefinitions/{5}"
                               clusterNamePartOfUrl: "{2}"
                               customizationId: factory-status-conditions
-                              baseprefix: "/openapi-ui"
+                              baseprefix: "/{{ .Values.basePrefix }}"
                               withoutControls: true
                               pathToItems: ".status.conditions"
 
@@ -305,7 +305,7 @@ spec:
                               fetchUrl: "/api/clusters/{2}/k8s/apis/apiextensions.k8s.io/v1/customresourcedefinitions/{5}"
                               clusterNamePartOfUrl: "{2}"
                               customizationId: versions-apiextensions.k8s.io.v1.customresourcedefinitions
-                              baseprefix: "/openapi-ui"
+                              baseprefix: "/{{ .Values.basePrefix }}"
                               withoutControls: true
                               pathToItems: ".spec.versions"
 
@@ -335,6 +335,6 @@ spec:
                   fetchUrl: "/api/clusters/{2}/k8s/apis/{reqsJsonPath[0]['.spec.group']['-']}/{reqsJsonPath[0]['.status.storedVersions[0]']['-']}/{reqsJsonPath[0]['.spec.names.plural']['-']}"
                   clusterNamePartOfUrl: "{2}"
                   customizationId: instances-crd
-                  baseprefix: "/openapi-ui"
+                  baseprefix: "/{{ .Values.basePrefix }}"
                   withoutControls: true
                   pathToItems: ".items"

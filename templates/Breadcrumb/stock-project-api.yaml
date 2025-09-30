@@ -19,7 +19,7 @@ spec:
   breadcrumbItems:
     - key: create-api-res-namespaced-table
       label: "{apiGroup}/{apiVersion}/{typeName}"
-      link: "/openapi-ui/{clusterName}/{namespace}/api-table/{apiGroup}/{apiVersion}/{typeName}"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/api-table/{apiGroup}/{apiVersion}/{typeName}"
     - key: create-api-res-namespaced-typename
       label: Create
 
@@ -33,6 +33,6 @@ spec:
   breadcrumbItems:
     - key: create-api-res-namespaced-table
       label: "{apiGroup}/{apiVersion}/{typeName}"
-      link: "/openapi-ui/{clusterName}/{namespace}/api-table/{apiGroup}/{apiVersion}/{typeName}"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/api-table/{apiGroup}/{apiVersion}/{typeName}"
     - key: create-api-res-namespaced-typename
       label: Update

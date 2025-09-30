@@ -22,6 +22,7 @@ spec:
             "jsonPath" ".targetRef.name"
             "namespace" "{reqsJsonPath[0]['.targetRef.namespace']['-']}"
             "factory" "pod-details"
+            "basePrefix" .Values.basePrefix
           ) | nindent 12 
         }}
     - jsonPath: .conditions.ready

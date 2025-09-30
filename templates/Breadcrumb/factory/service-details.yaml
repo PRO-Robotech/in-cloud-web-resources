@@ -8,6 +8,22 @@ spec:
   breadcrumbItems:
     - key: services
       label: "v1/services"
-      link: "/openapi-ui/{clusterName}/{namespace}/builtin-table/services"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/builtin-table/services"
     - key: service
       label: "{6}"
+
+{{- if not .Values.namespaceNavigation }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-factory-instance-service-details
+spec:
+  id: "stock-instance-factory-instance-service-details"
+  breadcrumbItems:
+    - key: services
+      label: "v1/services"
+      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/builtin-table/services"
+    - key: service
+      label: "{7}"
+{{- end -}}

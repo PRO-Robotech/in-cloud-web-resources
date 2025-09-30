@@ -46,6 +46,7 @@
 {{- $type := (default "pod-selector" .type) -}}
 {{- $title := (default "Pod selector" .title) -}}
 {{- $jsonPath := (default ".spec.template.metadata.labels" .jsonPath) -}}
+{{- $basePrefix := (default "openapi-ui" .basePrefix) -}}
 - type: antdText
   data:
     id: {{ printf "%s-selector" $type }}
@@ -58,7 +59,7 @@
     id: {{ printf "%s-to-search-params" $type }}
     reqIndex: {{$i}}
     jsonPathToLabels: "{{ $jsonPath }}"
-    linkPrefix: "{{ .linkPrefix | default "/openapi-ui/{2}/search" }}"
+    linkPrefix: "{{ .linkPrefix | default "/{{ $basePrefix }}/{2}/search" }}"
     errorText: "-"
 {{- end -}}
 
