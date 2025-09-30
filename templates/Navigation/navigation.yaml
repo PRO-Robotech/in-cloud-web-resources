@@ -21,7 +21,7 @@ spec:
   projects:
     clear: "/{{ .Values.basePrefix }}/clusters/{selectedCluster}"
   {{ if $projRes.deployDefaultForms }}
-    change: "/{{ .Values.basePrefix }}/{selectedCluster}/factory/project-details/{value}"
+    change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/factory/project-details/{value}"
   {{ else }}
     change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
   {{ end }}
