@@ -17,6 +17,17 @@
   {{- end }}
 {{- end -}}
 
+{{ with $sidebars.search }}
+  {{ if .enabled }}
+- children:
+    - key: search
+      label: Search
+      link: /openapi-ui/{clusterName}/search
+  key: home
+  label: Home
+  {{ end }}
+{{ end }}
+
 {{ if not .Values.namespaceNavigation }}
 {{ with $sidebars.projects }}
   {{ if .enabled }}

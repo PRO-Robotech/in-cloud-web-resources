@@ -106,7 +106,7 @@ sidebars:
   cluster:
     # Configuration for custom sidebar navigation items
     # customItems allows you to define additional sidebar sections with custom structure
-    # 
+    #
     # Each item should be structured as:
     # - key: unique-identifier     # Unique key for the sidebar section
     #   label: "Display Name"      # Display text (supports URL templating)
@@ -123,7 +123,10 @@ sidebars:
     # /openapi-ui/cluster-name/builtin-table/namespaces
     #   {1} = "openapi-ui", {2} = "cluster-name", {3} = "builtin-table", {4} = "namespaces"
     #   {clusterName} = "cluster-name"
-    customItems: []    
+    customItems: []
+    # Search sidebar section
+    search:
+      enabled: true
     # Built-in sidebar sections configuration
     clusters:
       enabled: false
@@ -241,7 +244,7 @@ sidebars:
   namespaced:
     # Configuration for custom sidebar navigation items
     # customItems allows you to define additional sidebar sections with custom structure
-    # 
+    #
     # Each item should be structured as:
     # - key: unique-identifier     # Unique key for the sidebar section
     #   label: "Display Name"      # Display text (supports URL templating)
@@ -260,6 +263,9 @@ sidebars:
     #   {clusterName} = "cluster-name"
     #   {namespace} = "namespace"
     customItems: []
+    # Search sidebar section
+    search:
+      enabled: true
 
     # Built-in sidebar sections for namespaced context
     projects:
@@ -369,7 +375,7 @@ sidebars:
   instance:
     # Configuration for custom sidebar navigation items
     # customItems allows you to define additional sidebar sections with custom structure
-    # 
+    #
     # Each item should be structured as:
     # - key: unique-identifier     # Unique key for the sidebar section
     #   label: "Display Name"      # Display text (supports URL templating)
@@ -389,6 +395,9 @@ sidebars:
     #   {namespace} = "namespace"
     #   {syntheticProject} = "project-name"
     customItems: []
+    # Search sidebar section
+    search:
+      enabled: true
 
     # Built-in sidebar sections for instance context
     projects:
