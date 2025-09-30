@@ -5,36 +5,23 @@ metadata:
   name: stock-cluster-rbac.authorization.k8s.io.v1.clusterroles
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "CR"
-            "title" "clusterrole"
-            "backgroundColor" "#c46100"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "factory" "clusterrole-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12 
-        }}
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "CR"
+      "title" "clusterrole"
+      "backgroundColor" "#c46100"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "factory" "clusterrole-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsTrimLengths:
     - key: Name
       value: 64

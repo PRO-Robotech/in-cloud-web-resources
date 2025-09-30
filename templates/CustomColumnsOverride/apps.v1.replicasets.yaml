@@ -5,63 +5,38 @@ metadata:
   name: "stock-cluster-apps.v1.replicasets"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "RS"
-            "title" "deployment"
-            "backgroundColor" "#004080"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "replicaset-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12 
-        }}
-    - jsonPath: .metadata.namespace
-      name: Namespace
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "NS"
-            "title" "namespace"
-            "backgroundColor" "#a25792ff"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "namespace"
-            "jsonPath" ".metadata.namespace"
-            "factory" "namespace-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12
-        }}
-    - jsonPath: .metadata.labels
-      name: Labels
-      type: array
-    - jsonPath: .metadata.ownerReferences[*].name
-      name: Owner
-      type: array
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "RS"
+      "title" "replicaset"
+      "backgroundColor" "#004080"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "replicaset-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Namespace"
+      "text" "NS"
+      "title" "namespace"
+      "backgroundColor" "#a25792ff"
+      "reqIndex" 0
+      "type" "namespace"
+      "jsonPath" ".metadata.namespace"
+      "factory" "namespace-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.owner" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsTrimLengths:
     - key: Name
       value: 64
@@ -77,43 +52,26 @@ metadata:
   name: "stock-namespace-apps.v1.replicasets"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "RS"
-            "title" "deployment"
-            "backgroundColor" "#004080"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "replicaset-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12 
-        }}
-    - jsonPath: .metadata.labels
-      name: Labels
-      type: array
-    - jsonPath: .metadata.ownerReferences[*].name
-      name: Owner
-      type: array
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "RS"
+      "title" "replicaset"
+      "backgroundColor" "#004080"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "replicaset-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.owner" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsTrimLengths:
     - key: Name
       value: 64
@@ -128,6 +86,19 @@ metadata:
   name: "stock-project-apps.v1.replicasets"
 spec:
   additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "RS"
+      "title" "replicaset"
+      "backgroundColor" "#004080"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "replicaset-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     - jsonPath: .metadata.name
       name: Name
       type: factory
@@ -149,22 +120,13 @@ spec:
             "basePrefix" .Values.basePrefix
           ) | nindent 12 
         }}
-    - jsonPath: .metadata.labels
-      name: Labels
-      type: array
-    - jsonPath: .metadata.ownerReferences[*].name
-      name: Owner
-      type: array
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.owner" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsTrimLengths:
     - key: Name
       value: 64
@@ -179,44 +141,27 @@ metadata:
   name: "stock-instance-apps.v1.replicasets"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "RS"
-            "title" "deployment"
-            "backgroundColor" "#004080"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "project" "{4}"
-            "factory" "instance-replicaset-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12 
-        }}
-    - jsonPath: .metadata.labels
-      name: Labels
-      type: array
-    - jsonPath: .metadata.ownerReferences[*].name
-      name: Owner
-      type: array
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "RS"
+      "title" "replicaset"
+      "backgroundColor" "#004080"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "project" "{4}"
+      "factory" "instance-replicaset-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.owner" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsTrimLengths:
     - key: Name
       value: 64
@@ -231,43 +176,26 @@ metadata:
   name: "factory-apps.v1.replicasets"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "RS"
-            "title" "deployment"
-            "backgroundColor" "#004080"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "replicaset-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12 
-        }}
-    - jsonPath: .metadata.labels
-      name: Labels
-      type: array
-    - jsonPath: .metadata.ownerReferences[*].name
-      name: Owner
-      type: array
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "RS"
+      "title" "replicaset"
+      "backgroundColor" "#004080"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "replicaset-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.owner" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsTrimLengths:
     - key: Name
       value: 64
@@ -276,7 +204,6 @@ spec:
   additionalPrinterColumnsUndefinedValues:
     - key: Labels
       value: "-"
-
   id: "factory-/apps/v1/replicasets"
 
 ---
@@ -286,44 +213,27 @@ metadata:
   name: "factory-instance-replicaset-details"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "RS"
-            "title" "deployment"
-            "backgroundColor" "#004080"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "project" "{4}"
-            "factory" "instance-replicaset-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12 
-        }}
-    - jsonPath: .metadata.labels
-      name: Labels
-      type: array
-    - jsonPath: .metadata.ownerReferences[*].name
-      name: Owner
-      type: array
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "RS"
+      "title" "replicaset"
+      "backgroundColor" "#004080"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "project" "{4}"
+      "factory" "instance-replicaset-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.owner" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsTrimLengths:
     - key: Name
       value: 64
@@ -332,7 +242,6 @@ spec:
   additionalPrinterColumnsUndefinedValues:
     - key: Labels
       value: "-"
-
   id: "factory-instance-replicaset-details"
 {{ end }}
 ---

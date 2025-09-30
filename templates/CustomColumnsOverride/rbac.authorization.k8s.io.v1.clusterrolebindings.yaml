@@ -5,26 +5,18 @@ metadata:
   name: stock-cluster-rbac.authorization.k8s.io.v1.clusterrolebindings
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "CRB"
-            "title" "clusterrolebinding"
-            "backgroundColor" "#008bad"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "factory" "clusterrolebinding-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12 
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "CRB"
+      "title" "clusterrolebinding"
+      "backgroundColor" "#008bad"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "factory" "clusterrolebinding-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     - jsonPath: .roleRef.name
       name: Role ref
       type: string
@@ -37,16 +29,11 @@ spec:
     - jsonPath: .subjects[?(@.kind=="Group")].name
       name: Groups
       type: array
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsUndefinedValues:
     - key: Role ref
       value: "-"

@@ -5,47 +5,31 @@ metadata:
   name: "factory-node-details-v1.pods"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "P"
-            "title" "pod"
-            "backgroundColor" "#009596"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "pod-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12 
-        }}
-    - jsonPath: .metadata.namespace
-      name: Namespace
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "NS"
-            "title" "namespace"
-            "backgroundColor" "#a25792ff"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "namespace"
-            "jsonPath" ".metadata.namespace"
-            "factory" "namespace-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "P"
+      "title" "pod"
+      "backgroundColor" "#009596"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "pod-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Namespace"
+      "text" "NS"
+      "title" "namespace"
+      "backgroundColor" "#a25792ff"
+      "reqIndex" 0
+      "type" "namespace"
+      "jsonPath" ".metadata.namespace"
+      "factory" "namespace-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     - jsonPath: .spec.restartPolicy
       name: Restart Policy
       type: string
@@ -67,16 +51,11 @@ spec:
         disableEventBubbling: true
         items:
         {{ include "incloud-web-resources.factory.statuses.pod" . | nindent 8 }}
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsUndefinedValues:
     - key: Node
       value: Unschedulable
@@ -94,67 +73,43 @@ metadata:
   name: "stock-cluster-v1.pods"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "P"
-            "title" "pod"
-            "backgroundColor" "#009596"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "pod-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12
-        }}
-    - jsonPath: .metadata.namespace
-      name: Namespace
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "NS"
-            "title" "namespace"
-            "backgroundColor" "#a25792ff"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "namespace"
-            "jsonPath" ".metadata.namespace"
-            "factory" "namespace-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12
-        }}
-    - jsonPath: .spec.nodeName
-      name: Node
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "N"
-            "title" "node"
-            "backgroundColor" "#8476d1"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".spec.nodeName"
-            "factory" "node-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "P"
+      "title" "pod"
+      "backgroundColor" "#009596"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "pod-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Namespace"
+      "text" "NS"
+      "title" "namespace"
+      "backgroundColor" "#a25792ff"
+      "reqIndex" 0
+      "type" "namespace"
+      "jsonPath" ".metadata.namespace"
+      "factory" "namespace-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "N"
+      "title" "node"
+      "backgroundColor" "#8476d1"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".spec.nodeName"
+      "factory" "node-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     - jsonPath: .spec.restartPolicy
       name: Restart Policy
       type: string
@@ -176,16 +131,11 @@ spec:
         disableEventBubbling: true
         items:
         {{ include "incloud-web-resources.factory.statuses.pod" . | nindent 8 }}
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsUndefinedValues:
     - key: Node
       value: Unschedulable
@@ -204,46 +154,31 @@ metadata:
   name: "stock-namespace-v1.pods"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "P"
-            "title" "pod"
-            "backgroundColor" "#009596"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "pod-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12 
-        }}
-    - name: Node
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "N"
-            "title" "node"
-            "backgroundColor" "#8476d1"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".spec.nodeName"
-            "factory" "node-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "P"
+      "title" "pod"
+      "backgroundColor" "#009596"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "pod-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "N"
+      "title" "node"
+      "backgroundColor" "#8476d1"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".spec.nodeName"
+      "factory" "node-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     - jsonPath: .spec.restartPolicy
       name: Restart Policy
       type: string
@@ -265,16 +200,11 @@ spec:
         disableEventBubbling: true
         items:
         {{ include "incloud-web-resources.factory.statuses.pod" . | nindent 8 }}
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsUndefinedValues:
     - key: Node
       value: Unschedulable
@@ -292,46 +222,31 @@ metadata:
   name: "stock-project-v1.pods"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "P"
-            "title" "pod"
-            "backgroundColor" "#009596"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "pod-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12 
-        }}
-    - name: Node
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "N"
-            "title" "node"
-            "backgroundColor" "#8476d1"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".spec.nodeName"
-            "factory" "node-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "P"
+      "title" "pod"
+      "backgroundColor" "#009596"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "pod-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "N"
+      "title" "node"
+      "backgroundColor" "#8476d1"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".spec.nodeName"
+      "factory" "node-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     - jsonPath: .spec.restartPolicy
       name: Restart Policy
       type: string
@@ -353,16 +268,11 @@ spec:
         disableEventBubbling: true
         items:
         {{ include "incloud-web-resources.factory.statuses.pod" . | nindent 8 }}
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsUndefinedValues:
     - key: Node
       value: Unschedulable
@@ -380,47 +290,32 @@ metadata:
   name: "stock-instance-v1.pods"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "P"
-            "title" "pod"
-            "backgroundColor" "#009596"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "project" "{4}"
-            "factory" "instance-pod-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12 
-        }}
-    - name: Node
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "N"
-            "title" "node"
-            "backgroundColor" "#8476d1"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".spec.nodeName"
-            "factory" "node-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "P"
+      "title" "pod"
+      "backgroundColor" "#009596"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "project" "{4}"
+      "factory" "instance-pod-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "N"
+      "title" "node"
+      "backgroundColor" "#8476d1"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".spec.nodeName"
+      "factory" "node-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     - jsonPath: .spec.restartPolicy
       name: Restart Policy
       type: string
@@ -442,16 +337,11 @@ spec:
         disableEventBubbling: true
         items:
         {{ include "incloud-web-resources.factory.statuses.pod" . | nindent 8 }}
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsUndefinedValues:
     - key: Node
       value: Unschedulable
@@ -469,47 +359,32 @@ metadata:
   name: "factory-instance-pods-details"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "P"
-            "title" "pod"
-            "backgroundColor" "#009596"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "project" "{4}"
-            "factory" "instance-pod-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12
-        }}
-    - name: Node
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "N"
-            "title" "node"
-            "backgroundColor" "#8476d1"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".spec.nodeName"
-            "factory" "node-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "P"
+      "title" "pod"
+      "backgroundColor" "#009596"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "project" "{4}"
+      "factory" "instance-pod-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "N"
+      "title" "node"
+      "backgroundColor" "#8476d1"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".spec.nodeName"
+      "factory" "node-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     - jsonPath: .spec.restartPolicy
       name: Restart Policy
       type: string
@@ -531,16 +406,11 @@ spec:
         disableEventBubbling: true
         items:
         {{ include "incloud-web-resources.factory.statuses.pod" . | nindent 8 }}
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsUndefinedValues:
     - key: Node
       value: Unschedulable
@@ -558,46 +428,31 @@ metadata:
   name: "factory-v1.pods"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "P"
-            "title" "pod"
-            "backgroundColor" "#009596"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "pod-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12
-        }}
-    - name: Node
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "N"
-            "title" "node"
-            "backgroundColor" "#8476d1"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".spec.nodeName"
-            "factory" "node-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "P"
+      "title" "pod"
+      "backgroundColor" "#009596"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "pod-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "N"
+      "title" "node"
+      "backgroundColor" "#8476d1"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".spec.nodeName"
+      "factory" "node-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     - jsonPath: .spec.restartPolicy
       name: Restart Policy
       type: string
@@ -619,16 +474,11 @@ spec:
         disableEventBubbling: true
         items:
         {{ include "incloud-web-resources.factory.statuses.pod" . | nindent 8 }}
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsUndefinedValues:
     - key: Node
       value: Unschedulable

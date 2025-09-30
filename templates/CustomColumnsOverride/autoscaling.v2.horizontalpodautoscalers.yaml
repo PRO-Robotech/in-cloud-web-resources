@@ -5,80 +5,49 @@ metadata:
   name: "stock-cluster-autoscaling.v2.horizontalpodautoscalers"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "HPA"
-            "title" "horizontalpodautoscaler"
-            "backgroundColor" "#2b9af3"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "horizontalpodautoscaler-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12 
-        }}
-    - jsonPath: .metadata.namespace
-      name: Namespace
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "NS"
-            "title" "namespace"
-            "backgroundColor" "#a25792ff"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "namespace"
-            "jsonPath" ".metadata.namespace"
-            "factory" "namespace-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12
-        }}
-    - jsonPath: .metadata.labels
-      name: Labels
-      type: array
-    - jsonPath: .metadata.labels
-      name: Min replicas
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-          - type: parsedText
-            data:
-              id: min-replicas-value
-              text: "{reqsJsonPath[0]['.spec.minReplicas']['-']}"
-    - jsonPath: .metadata.labels
-      name: Max replicas
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-          - type: parsedText
-            data:
-              id: max-replicas-value
-              text: "{reqsJsonPath[0]['.spec.maxReplicas']['-']}"
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "HPA"
+      "title" "horizontalpodautoscaler"
+      "backgroundColor" "#2b9af3"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "horizontalpodautoscaler-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Namespace"
+      "text" "NS"
+      "title" "namespace"
+      "backgroundColor" "#a25792ff"
+      "reqIndex" 0
+      "type" "namespace"
+      "jsonPath" ".metadata.namespace"
+      "factory" "namespace-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.parsed-text" (dict
+      "columnName" "Min replicas"
+      "jsonPath" ".metadata.labels"
+      "text" "{reqsJsonPath[0]['.spec.minReplicas']['-']}"
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.parsed-text" (dict
+      "columnName" "Max replicas"
+      "jsonPath" ".metadata.labels"
+      "text" "{reqsJsonPath[0]['.spec.maxReplicas']['-']}"
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsTrimLengths:
     - key: Name
       value: 64
@@ -97,60 +66,37 @@ metadata:
   name: "stock-namespace-autoscaling.v2.horizontalpodautoscalers"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "HPA"
-            "title" "horizontalpodautoscaler"
-            "backgroundColor" "#2b9af3"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "horizontalpodautoscaler-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12 
-        }}
-    - jsonPath: .metadata.labels
-      name: Labels
-      type: array
-    - jsonPath: .metadata.labels
-      name: Min replicas
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-          - type: parsedText
-            data:
-              id: min-replicas-value
-              text: "{reqsJsonPath[0]['.spec.minReplicas']['-']}"
-    - jsonPath: .metadata.labels
-      name: Max replicas
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-          - type: parsedText
-            data:
-              id: max-replicas-value
-              text: "{reqsJsonPath[0]['.spec.maxReplicas']['-']}"
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "HPA"
+      "title" "horizontalpodautoscaler"
+      "backgroundColor" "#2b9af3"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "horizontalpodautoscaler-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.parsed-text" (dict
+      "columnName" "Min replicas"
+      "jsonPath" ".metadata.labels"
+      "text" "{reqsJsonPath[0]['.spec.minReplicas']['-']}"
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.parsed-text" (dict
+      "columnName" "Max replicas"
+      "jsonPath" ".metadata.labels"
+      "text" "{reqsJsonPath[0]['.spec.maxReplicas']['-']}"
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsTrimLengths:
     - key: Name
       value: 64
@@ -168,60 +114,37 @@ metadata:
   name: "stock-project-autoscaling.v2.horizontalpodautoscalers"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "HPA"
-            "title" "horizontalpodautoscaler"
-            "backgroundColor" "#2b9af3"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "horizontalpodautoscaler-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12 
-        }}
-    - jsonPath: .metadata.labels
-      name: Labels
-      type: array
-    - jsonPath: .metadata.labels
-      name: Min replicas
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-          - type: parsedText
-            data:
-              id: min-replicas-value
-              text: "{reqsJsonPath[0]['.spec.minReplicas']['-']}"
-    - jsonPath: .metadata.labels
-      name: Max replicas
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-          - type: parsedText
-            data:
-              id: max-replicas-value
-              text: "{reqsJsonPath[0]['.spec.maxReplicas']['-']}"
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "HPA"
+      "title" "horizontalpodautoscaler"
+      "backgroundColor" "#2b9af3"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "horizontalpodautoscaler-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.parsed-text" (dict
+      "columnName" "Min replicas"
+      "jsonPath" ".metadata.labels"
+      "text" "{reqsJsonPath[0]['.spec.minReplicas']['-']}"
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.parsed-text" (dict
+      "columnName" "Max replicas"
+      "jsonPath" ".metadata.labels"
+      "text" "{reqsJsonPath[0]['.spec.maxReplicas']['-']}"
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsTrimLengths:
     - key: Name
       value: 64
@@ -239,61 +162,38 @@ metadata:
   name: "stock-instance-autoscaling.v2.horizontalpodautoscalers"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "HPA"
-            "title" "horizontalpodautoscaler"
-            "backgroundColor" "#2b9af3"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "project" "{4}"
-            "factory" "instance-horizontalpodautoscaler-details"
-            "basePrefix" .Values.basePrefix
-          ) | nindent 12 
-        }}
-    - jsonPath: .metadata.labels
-      name: Labels
-      type: array
-    - jsonPath: .metadata.labels
-      name: Min replicas
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-          - type: parsedText
-            data:
-              id: min-replicas-value
-              text: "{reqsJsonPath[0]['.spec.minReplicas']['-']}"
-    - jsonPath: .metadata.labels
-      name: Max replicas
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-          - type: parsedText
-            data:
-              id: max-replicas-value
-              text: "{reqsJsonPath[0]['.spec.maxReplicas']['-']}"
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "HPA"
+      "title" "horizontalpodautoscaler"
+      "backgroundColor" "#2b9af3"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "project" "{4}"
+      "factory" "instance-horizontalpodautoscaler-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.parsed-text" (dict
+      "columnName" "Min replicas"
+      "jsonPath" ".metadata.labels"
+      "text" "{reqsJsonPath[0]['.spec.minReplicas']['-']}"
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.parsed-text" (dict
+      "columnName" "Max replicas"
+      "jsonPath" ".metadata.labels"
+      "text" "{reqsJsonPath[0]['.spec.maxReplicas']['-']}"
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsTrimLengths:
     - key: Name
       value: 64
