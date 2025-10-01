@@ -118,7 +118,7 @@
   {{ end }}
 {{ end }}
 
-{{ with $sidebars.hbf }}
+{{ with $sidebars.hbfSystem }}
   {{ if .enabled }}
 - key: hbfSystem
   label: HBF System
