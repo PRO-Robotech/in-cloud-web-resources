@@ -27,25 +27,12 @@ spec:
         style:
           marginBottom: 24px
       children:
-        # Pod badge
-        - type: antdText
+        # factory badge
+        - type: ResourceBadge
           data:
-            id: header-badge
-            text: P
-            title: Pods
-            style:
-              fontSize: 20px
-              lineHeight: 24px
-              padding: "0 9px"
-              borderRadius: "20px"
-              minWidth: 24
-              display: inline-block
-              textAlign: center
-              whiteSpace: nowrap
-              color: "#fff"
-              backgroundColor: "#009596"
-              fontFamily: RedHatDisplay, Overpass, overpass, helvetica, arial, sans-serif
-              fontWeight: 400
+            id: factory-resource-badge
+            value: "{reqsJsonPath[0]['.kind']['-']}"
+
         # Pod name next to badge
         - type: parsedText
           data:
@@ -142,21 +129,25 @@ spec:
                                       id: meta-name-label
                                       text: Namespace
                                       strong: true
-
-                                  {{ include "incloud-web-resources.icon" (dict
-                                      "text" "NS"
-                                      "title" "namespace"
-                                      "backgroundColor" "#a25792ff"
-                                    )| nindent 34
-                                  }}
-                                  {{ include "incloud-web-resources.factory.linkblock" (dict
-                                      "reqIndex" 0
-                                      "type" "namespace"
-                                      "jsonPath" ".metadata.namespace"
-                                      "factory" "namespace-details"
-                                      "basePrefix" $basePrefix
-                                    ) | nindent 38
-                                  }}
+                                  - type: antdFlex
+                                    data:
+                                      id: namespace-badge-link-row
+                                      direction: row
+                                      align: center
+                                      gap: 6   # расстояние между иконкой и текстом
+                                    children:
+                                      - type: ResourceBadge
+                                        data:
+                                          id: namespace-resource-badge
+                                          value: Namespace
+                                      {{ include "incloud-web-resources.factory.linkblock" (dict
+                                          "reqIndex" 0
+                                          "type" "namespace"
+                                          "jsonPath" ".metadata.namespace"
+                                          "factory" "namespace-details"
+                                          "basePrefix" $basePrefix
+                                        ) | nindent 38
+                                      }}
                               # Labels list (kept as include)
                               - type: antdFlex
                                 data:
@@ -169,18 +160,25 @@ spec:
                                     ) | nindent 34
                                   }}
 
-                              # Node selector chips (kept as include)
+                              # Node selector block
                               - type: antdFlex
                                 data:
-                                  id: meta-node-selector-block
+                                  id: ds-node-selector
                                   vertical: true
                                   gap: 4
                                 children:
+                                  - type: antdText
+                                    data:
+                                      id: "node-selector"
+                                      text: "Node selector"
+                                      strong: true
+                                      style:
+                                        fontSize: 14
                                   {{ include "incloud-web-resources.factory.labels.base.selector" (dict
                                       "type" "node"
-                                      "title" "Node selector"
-                                      "jsonPath" ".spec.nodeSelector"
+                                      "jsonPath" ".spec.template.spec.nodeSelector"
                                       "basePrefix" $basePrefix
+                                      "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~nodes&labels="
                                     ) | nindent 34
                                   }}
 
@@ -356,21 +354,25 @@ spec:
                                       id: meta-node
                                       text: Node
                                       strong: true
-
-                                  {{ include "incloud-web-resources.icon" (dict
-                                      "text" "N"
-                                      "title" "node"
-                                      "backgroundColor" "#8476d1"
-                                    )| nindent 34
-                                  }}
-                                  {{ include "incloud-web-resources.factory.linkblock" (dict
-                                      "reqIndex" 0
-                                      "type" "name"
-                                      "jsonPath" ".spec.nodeName"
-                                      "factory" "node-details"
-                                      "basePrefix" $basePrefix
-                                    ) | nindent 38
-                                  }}
+                                  - type: antdFlex
+                                    data:
+                                      id: node-badge-link-row
+                                      direction: row
+                                      align: center
+                                      gap: 6   # расстояние между иконкой и текстом
+                                    children:
+                                      - type: ResourceBadge
+                                        data:
+                                          id: node-resource-badge
+                                          value: Node
+                                      {{ include "incloud-web-resources.factory.linkblock" (dict
+                                          "reqIndex" 0
+                                          "type" "name"
+                                          "jsonPath" ".spec.nodeName"
+                                          "factory" "node-details"
+                                          "basePrefix" $basePrefix
+                                        ) | nindent 38
+                                      }}
 
                               # QoS class
                               - type: antdFlex

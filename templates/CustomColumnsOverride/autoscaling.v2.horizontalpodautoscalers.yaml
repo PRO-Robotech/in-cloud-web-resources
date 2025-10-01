@@ -8,7 +8,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "HPA"
-      "title" "horizontalpodautoscaler"
+      "title" "HorizontalPodAutoscaler"
       "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
@@ -20,8 +20,8 @@ spec:
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Namespace"
-      "text" "NS"
-      "title" "namespace"
+      "text" "N"
+      "title" "Namespace"
       "backgroundColor" "#a25792ff"
       "reqIndex" 0
       "type" "namespace"
@@ -54,6 +54,10 @@ spec:
   additionalPrinterColumnsUndefinedValues:
     - key: Labels
       value: "-"
+    - key: Max replicas
+      value: "-"
+    - key: Min replicas
+      value: "-"
   id: "stock-cluster-/autoscaling/v2/horizontalpodautoscalers"
 
 {{ if .Values.namespaceNavigation }}
@@ -67,7 +71,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "HPA"
-      "title" "horizontalpodautoscaler"
+      "title" "HorizontalPodAutoscaler"
       "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
@@ -100,6 +104,10 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Labels
+      value: "-"
+    - key: Max replicas
+      value: "-"
+    - key: Min replicas
       value: "-"
   id: "stock-namespace-/autoscaling/v2/horizontalpodautoscalers"
 {{ else }}
@@ -113,7 +121,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "HPA"
-      "title" "horizontalpodautoscaler"
+      "title" "HorizontalPodAutoscaler"
       "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
@@ -147,6 +155,10 @@ spec:
   additionalPrinterColumnsUndefinedValues:
     - key: Labels
       value: "-"
+    - key: Max replicas
+      value: "-"
+    - key: Min replicas
+      value: "-"
   id: "stock-project-/autoscaling/v2/horizontalpodautoscalers"
 
 ---
@@ -159,7 +171,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "HPA"
-      "title" "horizontalpodautoscaler"
+      "title" "HorizontalPodAutoscaler"
       "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
@@ -193,6 +205,10 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Labels
+      value: "-"
+    - key: Max replicas
+      value: "-"
+    - key: Min replicas
       value: "-"
   id: "stock-instance-/autoscaling/v2/horizontalpodautoscalers"
 {{ end }}

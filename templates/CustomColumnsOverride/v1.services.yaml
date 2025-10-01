@@ -8,7 +8,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "S"
-      "title" "service"
+      "title" "Service"
       "backgroundColor" "#6ca100"
       "reqIndex" 0
       "type" "name"
@@ -20,8 +20,8 @@ spec:
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Namespace"
-      "text" "NS"
-      "title" "namespace"
+      "text" "N"
+      "title" "Namespace"
       "backgroundColor" "#a25792ff"
       "reqIndex" 0
       "type" "namespace"
@@ -71,7 +71,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "S"
-      "title" "service"
+      "title" "Service"
       "backgroundColor" "#6ca100"
       "reqIndex" 0
       "type" "name"
@@ -121,7 +121,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "S"
-      "title" "service"
+      "title" "Service"
       "backgroundColor" "#6ca100"
       "reqIndex" 0
       "type" "name"
@@ -171,7 +171,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "S"
-      "title" "service"
+      "title" "Service"
       "backgroundColor" "#6ca100"
       "reqIndex" 0
       "type" "name"

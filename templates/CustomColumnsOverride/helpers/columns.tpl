@@ -17,22 +17,27 @@
   customProps:
     disableEventBubbling: true
     items:
-    {{ include "incloud-web-resources.icon" (dict
-        "text" $text
-        "title" $title
-        "backgroundColor" $backgroundColor
-      )| nindent 4
-    }}
-    {{ include "incloud-web-resources.factory.linkblock" (dict
-        "reqIndex" $reqIndex
-        "type" $type
-        "jsonPath" $jsonPath
-        "factory" $factory
-        "basePrefix" $basePrefix
-        "namespace" $namespace
-        "project" $project
-      ) | nindent 8
-    }}
+    - type: antdFlex
+      data:
+        id: resource-badge-link-row
+        direction: row
+        align: center
+        gap: 6   # расстояние между иконкой и текстом
+      children:
+        - type: ResourceBadge
+          data:
+            id: example-resource-badge
+            value: {{ $title }}
+        {{ include "incloud-web-resources.factory.linkblock" (dict
+            "reqIndex" $reqIndex
+            "type" $type
+            "jsonPath" $jsonPath
+            "factory" $factory
+            "basePrefix" $basePrefix
+            "namespace" $namespace
+            "project" $project
+          ) | nindent 8
+        }}
 {{- end -}}
 
 {{- define "incloud-web-resources.cco.columns.timeblock" -}}
@@ -81,7 +86,16 @@
 {{- end -}}
 
 {{- define "incloud-web-resources.cco.columns.pod-selector" -}}
-- jsonPath: .spec.template.metadata.labels
-  name: Pod Selector
-  type: array
+- name: Pod selector
+  type: factory
+  customProps:
+    disableEventBubbling: true
+    items:
+    {{- include "incloud-web-resources.factory.labels.base.selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.template.metadata.labels"
+        "basePrefix" "openapi-ui"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 6
+    }}
 {{- end -}}

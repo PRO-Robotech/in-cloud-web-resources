@@ -1,7 +1,7 @@
 {{- define "incloud-web-resources.factory.manifets.deployment-details" -}}
 {{- $key            := (default "deployment-details" .key) -}}
 {{- $resName        := (default "{6}" .resName) -}}
-{{- $rsFactoryName  := (default "factory-/apps/v1/replicasets" .rsFactoryName) -}}
+{{- $rsFactoryName  := (default "factory-/v1/pods" .rsFactoryName) -}}
 {{- $podFactoryName := (default "factory-/v1/pods" .podFactoryName) -}}
 {{- $basePrefix     := (default "openapi-ui" .basePrefix) -}}
 
@@ -37,25 +37,11 @@ spec:
         style:
           marginBottom: 24px
       children:
-        # Left: static "D" label for Deployment
-        - type: antdText
+        # factory badge
+        - type: ResourceBadge
           data:
-            id: header-icon
-            text: D
-            title: Deployment
-            style:
-              backgroundColor: "#004080"
-              borderRadius: 20px
-              color: "#fff"
-              display: inline-block
-              fontFamily: RedHatDisplay, Overpass, helvetica, sans-serif
-              fontSize: 20px
-              fontWeight: 400
-              lineHeight: 24px
-              minWidth: 24
-              padding: 0 9px
-              textAlign: center
-              whiteSpace: nowrap
+            id: factory-resource-badge
+            value: "{reqsJsonPath[0]['.kind']['-']}"
 
         # Center: deployment name from the fetched object
         - type: parsedText
@@ -155,21 +141,25 @@ spec:
                                       id: meta-name-label
                                       text: Namespace
                                       strong: true
-
-                                  {{ include "incloud-web-resources.icon" (dict
-                                      "text" "NS"
-                                      "title" "namespace"
-                                      "backgroundColor" "#a25792ff"
-                                    )| nindent 34
-                                  }}
-                                  {{ include "incloud-web-resources.factory.linkblock" (dict
-                                      "reqIndex" 0
-                                      "type" "namespace"
-                                      "jsonPath" ".metadata.namespace"
-                                      "factory" "namespace-details"
-                                      "basePrefix" $basePrefix
-                                    ) | nindent 38
-                                  }}
+                                  - type: antdFlex
+                                    data:
+                                      id: namespace-badge-link-row
+                                      direction: row
+                                      align: center
+                                      gap: 6
+                                    children:
+                                      - type: ResourceBadge
+                                        data:
+                                          id: namespace-resource-badge
+                                          value: Namespace
+                                      {{ include "incloud-web-resources.factory.linkblock" (dict
+                                          "reqIndex" 0
+                                          "type" "namespace"
+                                          "jsonPath" ".metadata.namespace"
+                                          "factory" "namespace-details"
+                                          "basePrefix" $basePrefix
+                                        ) | nindent 38
+                                      }}
 
                               # Labels list (rendered by include)
                               - type: antdFlex
@@ -183,36 +173,50 @@ spec:
                                     ) | nindent 34
                                   }}
 
-                              # Node selector key-value list (rendered by include)
+                              # Node selector block
                               - type: antdFlex
                                 data:
-                                  id: node-selector-block
+                                  id: ds-node-selector
                                   vertical: true
                                   gap: 4
                                 children:
+                                  - type: antdText
+                                    data:
+                                      id: "node-selector"
+                                      text: "Node selector"
+                                      strong: true
+                                      style:
+                                        fontSize: 14
                                   {{ include "incloud-web-resources.factory.labels.base.selector" (dict
                                       "type" "node"
-                                      "title" "Node selector"
                                       "jsonPath" ".spec.template.spec.nodeSelector"
                                       "basePrefix" $basePrefix
+                                      "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~nodes&labels="
                                     ) | nindent 34
                                   }}
 
-
-                              # Pod selector key-value list (rendered by include)
+                              # Pod selector block
                               - type: antdFlex
                                 data:
-                                  id: pod-selector-block
+                                  id: ds-pod-selector
                                   vertical: true
                                   gap: 4
                                 children:
+                                  - type: antdText
+                                    data:
+                                      id: "pod-selector"
+                                      text: "Pod selector"
+                                      strong: true
+                                      style:
+                                        fontSize: 14
                                   {{ include "incloud-web-resources.factory.labels.base.selector" (dict
                                       "type" "pod"
-                                      "title" "Pod selector"
                                       "jsonPath" ".spec.template.metadata.labels"
                                       "basePrefix" $basePrefix
+                                      "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
                                     ) | nindent 34
                                   }}
+
 
                               # Tolerations counter (rendered by include)
                               - type: antdFlex

@@ -1,7 +1,7 @@
 {{ include "incloud-web-resources.factory.manifets.daemonset-details" (dict
   "key" "daemonset-details"
   "resName" "{6}"
-  "podFactoryName" "factory-/v1/pods"
+  "podFactoryName" "stock-namespace-/v1/pods"
   "trivyEnabled" .Values.addons.trivy.enabled
   "basePrefix" .Values.basePrefix
 ) }}

@@ -1,8 +1,8 @@
 {{ include "incloud-web-resources.factory.manifets.cronjob-details" (dict
   "key" "cronjob-details"
   "resName" "{6}"
-  "jobFactoryName" "factory-/batch/v1/jobs"
-  "podFactoryName" "factory-/v1/pods"
+  "jobFactoryName" "stock-namespace-/batch/v1/jobs"
+  "podFactoryName" "stock-namespace-/v1/pods"
   "basePrefix" .Values.basePrefix
 ) }}
 
@@ -10,8 +10,8 @@
 {{ include "incloud-web-resources.factory.manifets.cronjob-details" (dict
   "key" "instance-cronjob-details"
   "resName" "{7}"
-  "jobFactoryName" "factory-instance-jobs-details"
-  "podFactoryName" "factory-instance-pods-details"
+  "jobFactoryName" "stock-namespace-/batch/v1/jobs"
+  "podFactoryName" "stock-namespace-/v1/pods"
   "basePrefix" .Values.basePrefix
 ) }}
 {{- end }}

@@ -28,25 +28,12 @@ spec:
         style:
           marginBottom: 24px
       children:
-        # Service badge
-        - type: antdText
+        # factory badge
+        - type: ResourceBadge
           data:
-            id: badge-service
-            text: S
-            title: services
-            style:
-              fontSize: 20px
-              lineHeight: 24px
-              padding: "0 9px"
-              borderRadius: "20px"
-              minWidth: 24
-              display: inline-block
-              textAlign: center
-              whiteSpace: nowrap
-              color: "#fff"
-              backgroundColor: "#6ca100"
-              fontFamily: RedHatDisplay, Overpass, overpass, helvetica, arial, sans-serif
-              fontWeight: 400
+            id: factory-resource-badge
+            value: "{reqsJsonPath[0]['.kind']['-']}"
+
         # Service name
         - type: parsedText
           data:
@@ -132,20 +119,25 @@ spec:
                                       text: Namespace
                                       strong: true
 
-                                  {{ include "incloud-web-resources.icon" (dict
-                                      "text" "NS"
-                                      "title" "namespace"
-                                      "backgroundColor" "#a25792ff"
-                                    )| nindent 34
-                                  }}
-                                  {{ include "incloud-web-resources.factory.linkblock" (dict
-                                      "reqIndex" 0
-                                      "type" "namespace"
-                                      "jsonPath" ".metadata.namespace"
-                                      "factory" "namespace-details"
-                                      "basePrefix" $basePrefix
-                                    ) | nindent 38
-                                  }}
+                                  - type: antdFlex
+                                    data:
+                                      id: namespace-badge-link-row
+                                      direction: row
+                                      align: center
+                                      gap: 6   # расстояние между иконкой и текстом
+                                    children:
+                                      - type: ResourceBadge
+                                        data:
+                                          id: namespace-resource-badge
+                                          value: Namespace
+                                      {{ include "incloud-web-resources.factory.linkblock" (dict
+                                          "reqIndex" 0
+                                          "type" "namespace"
+                                          "jsonPath" ".metadata.namespace"
+                                          "factory" "namespace-details"
+                                          "basePrefix" $basePrefix
+                                        ) | nindent 38
+                                      }}
 
                               # Labels
                               - type: antdFlex
@@ -159,18 +151,18 @@ spec:
                                     ) | nindent 34
                                   }}
 
-                              # Pod selector
+                              # Pod selector block
                               - type: antdFlex
                                 data:
-                                  id: meta-pod-selector-block
+                                  id: ds-pod-selector
                                   vertical: true
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.labels.base.selector" (dict
                                       "type" "pod"
-                                      "title" "Pod selector"
-                                      "jsonPath" ".spec.template.metadata.labels"
+                                      "jsonPath" ".spec.selector"
                                       "basePrefix" $basePrefix
+                                      "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
                                     ) | nindent 34
                                   }}
 

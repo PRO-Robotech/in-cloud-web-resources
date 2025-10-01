@@ -11,7 +11,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "I"
-      "title" "instance"
+      "title" "Instance"
       "backgroundColor" "#535db1ff"
       "reqIndex" 0
       "type" "name"
@@ -25,7 +25,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Project"
       "text" "P"
-      "title" "project"
+      "title" "Project"
       "backgroundColor" "#516dcaff"
       "reqIndex" 0
       "type" "project"
@@ -54,7 +54,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "I"
-      "title" "instance"
+      "title" "Instance"
       "backgroundColor" "#535db1ff"
       "reqIndex" 0
       "type" "name"
@@ -68,7 +68,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Project"
       "text" "P"
-      "title" "project"
+      "title" "Project"
       "backgroundColor" "#516dcaff"
       "reqIndex" 0
       "type" "project"

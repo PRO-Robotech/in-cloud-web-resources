@@ -1,8 +1,8 @@
 {{ include "incloud-web-resources.factory.manifets.deployment-details" (dict
   "key" "deployment-details"
   "resName" "{6}"
-  "rsFactoryName" "factory-/apps/v1/replicasets"
-  "podFactoryName" "factory-/v1/pods"
+  "rsFactoryName" "stock-namespace-/apps/v1/replicasets"
+  "podFactoryName" "stock-namespace-/v1/pods"
   "basePrefix" .Values.basePrefix
 ) }}
 
@@ -10,8 +10,8 @@
 {{ include "incloud-web-resources.factory.manifets.deployment-details" (dict
   "key" "instance-deployment-details"
   "resName" "{7}"
-  "rsFactoryName" "factory-instance-replicaset-details"
-  "podFactoryName" "factory-instance-pods-details"
+  "rsFactoryName" "stock-namespace-/apps/v1/replicasets"
+  "podFactoryName" "stock-namespace-/v1/pods"
   "basePrefix" .Values.basePrefix
 ) }}
 {{- end }}

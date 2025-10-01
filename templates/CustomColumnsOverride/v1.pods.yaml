@@ -8,7 +8,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "P"
-      "title" "pod"
+      "title" "Pod"
       "backgroundColor" "#009596"
       "reqIndex" 0
       "type" "name"
@@ -20,8 +20,8 @@ spec:
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Namespace"
-      "text" "NS"
-      "title" "namespace"
+      "text" "N"
+      "title" "Namespace"
       "backgroundColor" "#a25792ff"
       "reqIndex" 0
       "type" "namespace"
@@ -75,7 +75,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "P"
-      "title" "pod"
+      "title" "Pod"
       "backgroundColor" "#009596"
       "reqIndex" 0
       "type" "name"
@@ -87,8 +87,8 @@ spec:
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Namespace"
-      "text" "NS"
-      "title" "namespace"
+      "text" "N"
+      "title" "Namespace"
       "backgroundColor" "#a25792ff"
       "reqIndex" 0
       "type" "namespace"
@@ -98,9 +98,9 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
-      "columnName" "Name"
+      "columnName" "Node"
       "text" "N"
-      "title" "node"
+      "title" "Node"
       "backgroundColor" "#8476d1"
       "reqIndex" 0
       "type" "name"
@@ -155,7 +155,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "P"
-      "title" "pod"
+      "title" "Pod"
       "backgroundColor" "#009596"
       "reqIndex" 0
       "type" "name"
@@ -166,9 +166,9 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
-      "columnName" "Name"
+      "columnName" "Node"
       "text" "N"
-      "title" "node"
+      "title" "Node"
       "backgroundColor" "#8476d1"
       "reqIndex" 0
       "type" "name"
@@ -222,7 +222,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "P"
-      "title" "pod"
+      "title" "Pod"
       "backgroundColor" "#009596"
       "reqIndex" 0
       "type" "name"
@@ -233,9 +233,9 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
-      "columnName" "Name"
+      "columnName" "Node"
       "text" "N"
-      "title" "node"
+      "title" "Node"
       "backgroundColor" "#8476d1"
       "reqIndex" 0
       "type" "name"
@@ -289,7 +289,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "P"
-      "title" "pod"
+      "title" "Pod"
       "backgroundColor" "#009596"
       "reqIndex" 0
       "type" "name"
@@ -301,9 +301,9 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
-      "columnName" "Name"
+      "columnName" "Node"
       "text" "N"
-      "title" "node"
+      "title" "Node"
       "backgroundColor" "#8476d1"
       "reqIndex" 0
       "type" "name"
@@ -357,7 +357,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "P"
-      "title" "pod"
+      "title" "Pod"
       "backgroundColor" "#009596"
       "reqIndex" 0
       "type" "name"
@@ -369,9 +369,9 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
-      "columnName" "Name"
+      "columnName" "Node"
       "text" "N"
-      "title" "node"
+      "title" "Node"
       "backgroundColor" "#8476d1"
       "reqIndex" 0
       "type" "name"
@@ -425,7 +425,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "P"
-      "title" "pod"
+      "title" "Pod"
       "backgroundColor" "#009596"
       "reqIndex" 0
       "type" "name"
@@ -436,9 +436,9 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
-      "columnName" "Name"
+      "columnName" "Node"
       "text" "N"
-      "title" "node"
+      "title" "Node"
       "backgroundColor" "#8476d1"
       "reqIndex" 0
       "type" "name"

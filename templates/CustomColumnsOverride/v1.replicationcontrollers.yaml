@@ -8,7 +8,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "RC"
-      "title" "replicationcontroller"
+      "title" "ReplicationController"
       "backgroundColor" "#004080"
       "reqIndex" 0
       "type" "name"
@@ -20,8 +20,8 @@ spec:
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Namespace"
-      "text" "NS"
-      "title" "namespace"
+      "text" "N"
+      "title" "Namespace"
       "backgroundColor" "#a25792ff"
       "reqIndex" 0
       "type" "namespace"
@@ -53,7 +53,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "RC"
-      "title" "replicationcontroller"
+      "title" "ReplicationController"
       "backgroundColor" "#004080"
       "reqIndex" 0
       "type" "name"
@@ -89,7 +89,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "RC"
-      "title" "replicationcontroller"
+      "title" "ReplicationController"
       "backgroundColor" "#004080"
       "reqIndex" 0
       "type" "name"
@@ -125,7 +125,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "text" "RC"
-      "title" "replicationcontroller"
+      "title" "ReplicationController"
       "backgroundColor" "#004080"
       "reqIndex" 0
       "type" "name"

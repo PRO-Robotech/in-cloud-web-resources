@@ -137,7 +137,7 @@ sidebars:
 
     # ArgoCD sidebar section and sub-items
     argocd:
-      enabled: false
+      enabled: true
       items:
         argocdlink: false  # Link to ArgoCD UI
         applications: true  # ArgoCD Applications
@@ -147,14 +147,14 @@ sidebars:
 
     # Monitoring tools section
     monitoring:
-      enabled: false
+      enabled: true
       items:
         grafana: true  # Grafana dashboard links
       extraItems: []
 
     # HostBase Firewall management section
     hbf:
-      enabled: false
+      enabled: true
       items:
         hosts: true
         networks: true
@@ -165,7 +165,7 @@ sidebars:
 
     # HBF system configuration section
     hbfSystem:
-      enabled: false
+      enabled: true
       items:
         hostbindings: true
         networkbindings: true
@@ -177,7 +177,7 @@ sidebars:
 
     # Workloads management section
     workloads:
-      enabled: false
+      enabled: true
       items:
         pods: true
         deployments: true
@@ -195,7 +195,7 @@ sidebars:
 
     # Networking resources section
     networking:
-      enabled: false
+      enabled: true
       items:
         services: true
         networkpolicies: true
@@ -207,7 +207,7 @@ sidebars:
       enabled: true
       items:
         persistentvolumes: true  # Cluster-wide PVs
-        persistentvolumeclaims: false  # Namespace-scoped PVCs
+        persistentvolumeclaims: true  # Namespace-scoped PVCs
         storageclasses: true  # Storage classes
       extraItems: []
 
@@ -222,9 +222,9 @@ sidebars:
     usermanagement:
       enabled: true
       items:
-        serviceaccounts: false  # Namespace-scoped service accounts
-        roles: false  # Namespace-scoped roles
-        rolebindings: false  # Namespace-scoped role bindings
+        serviceaccounts: true  # Namespace-scoped service accounts
+        roles: true  # Namespace-scoped roles
+        rolebindings: true  # Namespace-scoped role bindings
         clusterroles: true  # Cluster-wide roles
         clusterrolebindings: true  # Cluster-wide role bindings
       extraItems: []
@@ -233,9 +233,9 @@ sidebars:
     administration:
       enabled: true
       items:
-        namespaces: false  # Namespace management
-        limitranges: false  # Resource limits
-        resourcequotas: false  # Resource quotas
+        namespaces: true  # Namespace management
+        limitranges: true  # Resource limits
+        resourcequotas: true  # Resource quotas
         customresourcedefinitions: true  # CRD management
       extraItems: []
 
@@ -276,7 +276,7 @@ sidebars:
 
     # ArgoCD resources within the namespace/project
     argocd:
-      enabled: false
+      enabled: true
       items:
         applications: true
         applicationset: true
@@ -285,7 +285,7 @@ sidebars:
 
     # HBF resources within the namespace
     hbf:
-      enabled: false
+      enabled: true
       items:
         hosts: true
         networks: true
@@ -296,7 +296,7 @@ sidebars:
 
     # HBF system resources within the namespace
     hbfSystem:
-      enabled: false
+      enabled: true
       items:
         hostbindings: true
         networkbindings: true
@@ -308,7 +308,7 @@ sidebars:
 
     # Workloads within the namespace
     workloads:
-      enabled: false
+      enabled: true
       items:
         pods: true
         deployments: true
@@ -326,7 +326,7 @@ sidebars:
 
     # Networking within the namespace
     networking:
-      enabled: false
+      enabled: true
       items:
         services: true
         networkpolicies: true
@@ -335,7 +335,7 @@ sidebars:
 
     # Storage resources within the namespace
     storage:
-      enabled: false
+      enabled: true
       items:
         persistentvolumes: true
         persistentvolumeclaims: true  # Namespace-scoped PVCs
@@ -344,14 +344,14 @@ sidebars:
 
     # Compute resources (typically cluster-scoped, but visible in context)
     compute:
-      enabled: false
+      enabled: true
       items:
         nodes: true
       extraItems: []
 
     # User management within the namespace
     usermanagement:
-      enabled: false
+      enabled: true
       items:
         serviceaccounts: true  # Namespace-scoped service accounts
         roles: true  # Namespace-scoped roles
@@ -362,7 +362,7 @@ sidebars:
 
     # Administration within the namespace
     administration:
-      enabled: false
+      enabled: true
       items:
         namespaces: true  # Current namespace management
         limitranges: true  # Namespace resource limits
@@ -469,14 +469,14 @@ sidebars:
     storage:
       enabled: true
       items:
-        persistentvolumes: false  # Typically cluster-scoped
+        persistentvolumes: true  # Typically cluster-scoped
         persistentvolumeclaims: true  # Instance namespace PVCs
-        storageclasses: false  # Typically cluster-scoped
+        storageclasses: true  # Typically cluster-scoped
       extraItems: []
 
     # Compute resources (cluster-scoped but visible)
     compute:
-      enabled: false
+      enabled: true
       items:
         nodes: true
       extraItems: []
@@ -488,16 +488,16 @@ sidebars:
         serviceaccounts: true  # Instance namespace service accounts
         roles: true  # Instance namespace roles
         rolebindings: true  # Instance namespace role bindings
-        clusterroles: false  # Typically not instance-scoped
-        clusterrolebindings: false  # Typically not instance-scoped
+        clusterroles: true  # Typically not instance-scoped
+        clusterrolebindings: true  # Typically not instance-scoped
       extraItems: []
 
     # Administration for the instance namespace
     administration:
       enabled: true
       items:
-        namespaces: false  # Instance uses existing namespace
+        namespaces: true  # Instance uses existing namespace
         limitranges: true  # Instance namespace limits
         resourcequotas: true  # Instance namespace quotas
-        customresourcedefinitions: false  # Typically cluster-scoped
+        customresourcedefinitions: true  # Typically cluster-scoped
       extraItems: []

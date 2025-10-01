@@ -1,7 +1,7 @@
 {{ include "incloud-web-resources.factory.manifets.service-details" (dict
   "key" "service-details"
   "resName" "{6}"
-  "podFactoryName" "factory-node-details-/v1/pods"
+  "podFactoryName" "stock-namespace-/v1/pods"
   "trivyEnabled" .Values.addons.trivy.enabled
   "basePrefix" .Values.basePrefix
 ) }}
@@ -10,7 +10,7 @@
 {{ include "incloud-web-resources.factory.manifets.service-details" (dict
   "key" "instance-service-details"
   "resName" "{7}"
-  "podFactoryName" "factory-instance-pods-details"
+  "podFactoryName" "stock-namespace-/v1/pods"
   "trivyEnabled" .Values.addons.trivy.enabled
   "basePrefix" .Values.basePrefix
 ) }}

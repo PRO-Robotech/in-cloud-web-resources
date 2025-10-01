@@ -1,7 +1,7 @@
 {{ include "incloud-web-resources.factory.manifets.replicationcontroller-details" (dict
   "key" "replicationcontroller-details"
   "resName" "{6}"
-  "podFactoryName" "factory-/v1/pods"
+  "podFactoryName" "stock-namespace-/v1/pods"
   "basePrefix" .Values.basePrefix
 ) }}
 
@@ -9,7 +9,7 @@
 {{ include "incloud-web-resources.factory.manifets.replicationcontroller-details" (dict
   "key" "instance-replicationcontroller-details"
   "resName" "{7}"
-  "podFactoryName" "factory-instance-pods-details"
+  "podFactoryName" "stock-namespace-/v1/pods"
   "basePrefix" .Values.basePrefix
 ) }}
 {{- end }}

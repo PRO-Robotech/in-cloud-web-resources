@@ -29,8 +29,8 @@ spec:
         }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Namespace"
-      "text" "NS"
-      "title" "namespace"
+      "text" "N"
+      "title" "Namespace"
       "backgroundColor" "#a25792ff"
       "reqIndex" 0
       "type" "namespace"
