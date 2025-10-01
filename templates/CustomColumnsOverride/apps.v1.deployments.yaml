@@ -56,12 +56,9 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
-    - key: Pod Selector
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Labels
       value: "-"
@@ -104,12 +101,9 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
-    - key: Pod Selector
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Labels
       value: "-"
@@ -125,12 +119,9 @@ metadata:
 spec:
   additionalPrinterColumns: *deploymentsColumns
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
-    - key: Pod Selector
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Labels
       value: "-"
@@ -173,12 +164,9 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
-    - key: Pod Selector
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Labels
       value: "-"

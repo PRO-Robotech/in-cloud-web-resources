@@ -36,10 +36,8 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Namespace
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.namespace" . | nindent 4 }}
   id: stock-cluster-/rbac.authorization.k8s.io/v1/roles
 
 {{ if .Values.namespaceNavigation }}
@@ -69,10 +67,8 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Namespace
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.namespace" . | nindent 4 }}
   id: stock-namespace-/rbac.authorization.k8s.io/v1/roles
 {{ else }}
 ---
@@ -101,10 +97,8 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Namespace
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.namespace" . | nindent 4 }}
   id: stock-project-/rbac.authorization.k8s.io/v1/roles
 
 ---
@@ -134,9 +128,7 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Namespace
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.namespace" . | nindent 4 }}
   id: stock-instance-/rbac.authorization.k8s.io/v1/roles
 {{ end }}

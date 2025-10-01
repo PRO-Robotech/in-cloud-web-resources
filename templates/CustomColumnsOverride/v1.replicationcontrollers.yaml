@@ -38,10 +38,8 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
   id: "stock-cluster-/v1/replicationcontrollers"
 
 {{ if .Values.namespaceNavigation }}
@@ -77,10 +75,8 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
   id: "stock-namespace-/v1/replicationcontrollers"
 {{ else }}
 ---
@@ -115,10 +111,8 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
   id: "stock-project-/v1/replicationcontrollers"
 
 ---
@@ -154,10 +148,8 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
   id: "stock-instance-/v1/replicationcontrollers"
 {{ end }}
 ---

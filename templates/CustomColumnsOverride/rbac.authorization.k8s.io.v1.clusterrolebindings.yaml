@@ -34,6 +34,9 @@ spec:
       "jsonPath" ".metadata.creationTimestamp"
     ) | nindent 4
     }}
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.rbac-role-ref" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Role ref
       value: "-"
@@ -45,9 +48,4 @@ spec:
       value: "-"
     - key: Namespace
       value: "All namespaces"
-  additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Role ref
-      value: 64
   id: stock-cluster-/rbac.authorization.k8s.io/v1/clusterrolebindings

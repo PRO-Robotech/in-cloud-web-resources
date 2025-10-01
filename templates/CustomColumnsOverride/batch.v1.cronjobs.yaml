@@ -48,8 +48,7 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Namespace
       value: "-"
@@ -96,8 +95,7 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Namespace
       value: "-"
@@ -143,8 +141,7 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Namespace
       value: "-"
@@ -191,8 +188,7 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Namespace
       value: "-"

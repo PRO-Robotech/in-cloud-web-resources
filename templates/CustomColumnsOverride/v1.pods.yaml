@@ -62,8 +62,7 @@ spec:
     - key: Pod IP
       value: NotAllocated
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   id: "factory-node-details-/v1/pods"
 
 ---
@@ -142,8 +141,7 @@ spec:
     - key: Pod IP
       value: NotAllocated
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   id: "stock-cluster-/v1/pods"
 
 {{ if .Values.namespaceNavigation }}
@@ -211,8 +209,7 @@ spec:
     - key: Pod IP
       value: NotAllocated
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   id: "stock-namespace-/v1/pods"
 {{ else }}
 ---
@@ -279,8 +276,7 @@ spec:
     - key: Pod IP
       value: NotAllocated
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   id: "stock-project-/v1/pods"
 
 ---
@@ -348,8 +344,7 @@ spec:
     - key: Pod IP
       value: NotAllocated
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   id: "stock-instance-/v1/pods"
 
 ---
@@ -417,8 +412,7 @@ spec:
     - key: Pod IP
       value: NotAllocated
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   id: "factory-instance-pods-details"
 {{ end }}
 ---
@@ -479,12 +473,11 @@ spec:
       "jsonPath" ".metadata.creationTimestamp"
     ) | nindent 4
     }}
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Node
       value: Unschedulable
     - key: Pod IP
       value: NotAllocated
-  additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
   id: "factory-/v1/pods"

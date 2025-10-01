@@ -26,10 +26,8 @@ spec:
       type: array
 
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Resources
-      value: 10
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.rbac-resources" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Api groups
       value: "-"

@@ -40,8 +40,7 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues: []
   id: "stock-project-/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
 
@@ -84,8 +83,7 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues: []
   id: factory-project-instance-details
 {{ end }}

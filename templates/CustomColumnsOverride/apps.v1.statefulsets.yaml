@@ -53,12 +53,9 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
-    - key: Pod Selector
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   id: "stock-cluster-/apps/v1/statefulsets"
 
 {{ if .Values.namespaceNavigation }}
@@ -93,12 +90,9 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
-    - key: Pod Selector
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   id: "stock-namespace-/apps/v1/statefulsets"
 {{ else }}
 ---
@@ -132,12 +126,9 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
-    - key: Pod Selector
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   id: "stock-project-/apps/v1/statefulsets"
 
 ---
@@ -172,11 +163,8 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
-    - key: Pod Selector
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   id: "stock-instance-/apps/v1/statefulsets"
 {{ end }}

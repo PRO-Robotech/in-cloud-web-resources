@@ -55,12 +55,9 @@ spec:
     - key: Pod Selector
       value: "-"
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
-    - key: Pod Selector
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   id: stock-cluster-/v1/services
 
 {{ if .Values.namespaceNavigation }}
@@ -109,12 +106,9 @@ spec:
     - key: Pod Selector
       value: "-"
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
-    - key: Pod Selector
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   id: stock-namespace-/v1/services
 {{ else }}
 ---
@@ -162,12 +156,9 @@ spec:
     - key: Pod Selector
       value: "-"
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
-    - key: Pod Selector
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   id: stock-project-/v1/services
 
 ---
@@ -216,12 +207,9 @@ spec:
     - key: Pod Selector
       value: "-"
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
-    - key: Pod Selector
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   id: stock-instance-/v1/services
 {{ end }}
 ---

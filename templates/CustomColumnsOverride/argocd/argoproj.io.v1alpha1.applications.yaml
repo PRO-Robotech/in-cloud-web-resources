@@ -283,8 +283,7 @@ spec:
       type: string
 
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
     - key: Message
       value: 64
   additionalPrinterColumnsUndefinedValues:
@@ -318,8 +317,7 @@ spec:
       name: Status
       type: string
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Namespace
       value: "-"
@@ -363,8 +361,7 @@ spec:
       name: Revision
       type: string
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Namespace
       value: "-"

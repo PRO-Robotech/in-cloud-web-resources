@@ -34,10 +34,8 @@ spec:
       value: "-"
 
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 63
-    - key: Image
-      value: 63
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.container-image" . | nindent 4 }}
   id: "container-status-init-containers-list"
 
 ---
@@ -76,10 +74,8 @@ spec:
       value: "-"
 
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 63
-    - key: Image
-      value: 63
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.container-image" . | nindent 4 }}
   id: "container-status-containers-list"
 
 ---
@@ -102,8 +98,7 @@ spec:
       name: Resources limits
       type: array
   additionalPrinterColumnsTrimLengths:
-    - key: Image
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.container-image" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Name
       value: "-"
@@ -138,8 +133,7 @@ spec:
       name: Ports
       type: array
   additionalPrinterColumnsTrimLengths:
-    - key: Image
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.container-image" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Name
       value: "-"
