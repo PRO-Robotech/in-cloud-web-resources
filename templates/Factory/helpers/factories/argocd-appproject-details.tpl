@@ -150,6 +150,7 @@ spec:
                                 children:
                                  {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/appprojects/{{ $resName }}"
+                                      "linkPrefix" "/openapi-ui/{2}/search?kinds=argoproj.io~v1alpha1~appprojects&labels="
                                     ) | nindent 34
                                   }}
 

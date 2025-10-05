@@ -15,7 +15,7 @@
 
 {{- define "incloud-web-resources.cco.columns-trim-lengths.pod-selector" -}}
 - key: Pod Selector
-  value: 1
+  value: 5
 {{- end -}}
 
 {{- define "incloud-web-resources.cco.columns-trim-lengths.container-image" -}}

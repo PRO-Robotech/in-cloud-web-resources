@@ -31,7 +31,12 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
-    {{ include "incloud-web-resources.cco.columns.owner" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.template.metadata.labels"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -64,7 +69,12 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
-    {{ include "incloud-web-resources.cco.columns.owner" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.template.metadata.labels"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -117,7 +127,12 @@ spec:
           ) | nindent 12 
         }}
     {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
-    {{ include "incloud-web-resources.cco.columns.owner" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.template.metadata.labels"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -150,7 +165,12 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
-    {{ include "incloud-web-resources.cco.columns.owner" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.template.metadata.labels"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -182,7 +202,12 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
-    {{ include "incloud-web-resources.cco.columns.owner" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.template.metadata.labels"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -218,7 +243,12 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
-    {{ include "incloud-web-resources.cco.columns.owner" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.template.metadata.labels"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"

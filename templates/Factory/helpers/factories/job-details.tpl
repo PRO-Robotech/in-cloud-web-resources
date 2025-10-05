@@ -165,6 +165,7 @@ spec:
                                 children:
                                  {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{{ $resName }}"
+                                      "linkPrefix" "/openapi-ui/{2}/search?kinds=batch~v1~jobs&labels="
                                     ) | nindent 34
                                   }}
 

@@ -205,6 +205,7 @@ spec:
                                 children:
                                  {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/api/v1/nodes/{5}"
+                                      "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~nodes&labels="
                                     ) | nindent 34
                                   }}
 

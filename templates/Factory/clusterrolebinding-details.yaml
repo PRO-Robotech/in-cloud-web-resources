@@ -20,26 +20,14 @@ spec:
         style:
           marginBottom: 24px
       children:
-        # Service badge
-        - type: antdText
+        # resource badge
+        - type: ResourceBadge
           data:
-            id: badge-service
-            text: RB
-            title: clusterrolebindings
+            id: factory-resource-badge
+            value: "{reqsJsonPath[0]['.kind']['-']}"
             style:
               fontSize: 20px
-              lineHeight: 24px
-              padding: "0 9px"
-              borderRadius: "20px"
-              minWidth: 24
-              display: inline-block
-              textAlign: center
-              whiteSpace: nowrap
-              color: "#fff"
-              backgroundColor: "#6ca100"
-              fontFamily: RedHatDisplay, Overpass, overpass, helvetica, arial, sans-serif
-              fontWeight: 400
-        # Service name
+        # resource name
         - type: parsedText
           data:
             id: service-name
@@ -120,6 +108,7 @@ spec:
                                 children:
                                  {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{5}"
+                                      "linkPrefix" "/openapi-ui/{2}/search?kinds=rbac.authorization.k8s.io~v1~clusterrolebindings&labels="
                                     ) | nindent 34
                                   }}
 

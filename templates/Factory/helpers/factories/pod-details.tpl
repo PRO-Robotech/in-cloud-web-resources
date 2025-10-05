@@ -32,7 +32,8 @@ spec:
           data:
             id: factory-resource-badge
             value: "{reqsJsonPath[0]['.kind']['-']}"
-
+            style:
+              fontSize: 20px
         # Pod name next to badge
         - type: parsedText
           data:
@@ -157,6 +158,7 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{{ $resName }}"
+                                      "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
                                     ) | nindent 34
                                   }}
 
@@ -178,7 +180,7 @@ spec:
                                       "type" "node"
                                       "jsonPath" ".spec.template.spec.nodeSelector"
                                       "basePrefix" $basePrefix
-                                      "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~nodes&labels="
+                                      "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~nodes&labels="
                                     ) | nindent 34
                                   }}
 

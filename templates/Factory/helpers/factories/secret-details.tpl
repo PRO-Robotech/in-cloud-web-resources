@@ -151,6 +151,7 @@ spec:
                                 children:
                                  {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/secrets/{{ $resName }}"
+                                      "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~secrets&labels="
                                     ) | nindent 34
                                   }}
 

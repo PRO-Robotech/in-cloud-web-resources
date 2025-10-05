@@ -28,24 +28,11 @@ spec:
           marginBottom: 24px
       children:
         # CRD badge
-        - type: antdText
+        - type: ResourceBadge
           data:
-            id: header-badge
-            text: CRD
-            title: CRD
-            style:
-              backgroundColor: "#2b9af3"
-              borderRadius: 20px
-              color: "#fff"
-              display: inline-block
-              fontFamily: RedHatDisplay, Overpass, overpass, helvetica, arial, sans-serif
-              fontSize: 20px
-              fontWeight: 400
-              lineHeight: 24px
-              minWidth: 24
-              padding: 0 9px
-              textAlign: center
-              whiteSpace: nowrap
+            id: factory-resource-badge
+            value: "{reqsJsonPath[0]['.kind']['-']}"
+
         # CRD name
         - type: parsedText
           data:
@@ -134,6 +121,7 @@ spec:
                                 children:
                                  {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/apiextensions.k8s.io/v1/customresourcedefinitions/{5}"
+                                      "linkPrefix" "/openapi-ui/{2}/search?kinds=apiextensions.k8s.io~v1~customresourcedefinitions&labels="
                                     ) | nindent 34
                                   }}
 

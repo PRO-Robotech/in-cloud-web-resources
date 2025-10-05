@@ -43,7 +43,12 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
-    {{ include "incloud-web-resources.cco.columns.pod-selector" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.template.metadata.labels"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
     - jsonPath: .status.conditions[?(@.type=="Available")].status
       name: Status
       type: string
@@ -80,7 +85,12 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
-    {{ include "incloud-web-resources.cco.columns.pod-selector" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.template.metadata.labels"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
     - jsonPath: .status.conditions[?(@.type=="Available")].status
       name: Status
       type: string
@@ -116,7 +126,12 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
-    {{ include "incloud-web-resources.cco.columns.pod-selector" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.template.metadata.labels"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
     - jsonPath: .status.conditions[?(@.type=="Available")].status
       name: Status
       type: string
@@ -153,7 +168,12 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
-    {{ include "incloud-web-resources.cco.columns.pod-selector" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.template.metadata.labels"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
     - jsonPath: .status.conditions[?(@.type=="Available")].status
       name: Status
       type: string

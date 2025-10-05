@@ -13,6 +13,7 @@
 {{- $modalDescriptionText := (default "" .modalDescriptionText) -}}
 {{- $inputLabel := (default "" .inputLabel) -}}
 {{- $containerMarginTop := (default "-30px" .containerMarginTop) -}}
+{{- $linkPrefix := (default "" .linkPrefix) -}}
 - type: antdText
   data:
     id: {{ printf "%s-title" $type }}
@@ -39,6 +40,7 @@
     pathToValue: "{{ $pathToValue }}"
     editModalWidth: 650
     paddingContainerEnd: "24px"
+    linkPrefix: "{{ $linkPrefix }}"
 {{- end -}}
 
 {{- define "incloud-web-resources.factory.labels.base.selector" -}}

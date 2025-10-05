@@ -149,6 +149,7 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/horizontalpodautoscalers/{{ $resName }}"
+                                      "linkPrefix" "/openapi-ui/{2}/search?kinds=autoscaling~v2~horizontalpodautoscalers&labels="
                                     ) | nindent 34
                                   }}
 

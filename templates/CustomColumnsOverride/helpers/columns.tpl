@@ -86,16 +86,24 @@
 {{- end -}}
 
 {{- define "incloud-web-resources.cco.columns.pod-selector" -}}
-- name: Pod selector
+{{- $i := (default 0 .reqIndex) -}}
+{{- $type := (default "pod-selector" .type) -}}
+{{- $title := (default "Pod selector" .title) -}}
+{{- $jsonPath := (default ".spec.template.metadata.labels" .jsonPath) -}}
+{{- $basePrefix := (default "openapi-ui" .basePrefix) -}}
+
+- jsonPath: "{{ $jsonPath }}"
+  name: Pod Selector
   type: factory
   customProps:
     disableEventBubbling: true
     items:
-    {{- include "incloud-web-resources.factory.labels.base.selector" (dict
-        "type" "pod"
-        "jsonPath" ".spec.template.metadata.labels"
-        "basePrefix" "openapi-ui"
-        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
-      ) | nindent 6
-    }}
+      - type: LabelsToSearchParams
+        data:
+          id: {{ printf "%s-to-search-params" $type }}
+          reqIndex: {{$i}}
+          jsonPathToLabels: "{{ $jsonPath }}"
+          linkPrefix: "{{ .linkPrefix }}"
+          errorText: "No selector"
+          maxTextLength: 48
 {{- end -}}
