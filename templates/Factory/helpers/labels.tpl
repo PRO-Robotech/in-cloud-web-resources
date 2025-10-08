@@ -56,4 +56,5 @@
     jsonPathToLabels: "{{ $jsonPath }}"
     linkPrefix: "{{ .linkPrefix | default "/{{ $basePrefix }}/{2}/search" }}"
     errorText: "No selector"
+    # textLink: Search
 {{- end -}}

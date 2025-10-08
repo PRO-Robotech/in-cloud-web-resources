@@ -34,6 +34,8 @@ spec:
           data:
             id: factory-resource-badge
             value: "{reqsJsonPath[0]['.kind']['-']}"
+            style:
+              fontSize: 20px
 
         # StatefulSet name
         - type: parsedText

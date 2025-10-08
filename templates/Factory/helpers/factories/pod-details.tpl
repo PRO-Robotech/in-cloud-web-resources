@@ -34,6 +34,7 @@ spec:
             value: "{reqsJsonPath[0]['.kind']['-']}"
             style:
               fontSize: 20px
+
         # Pod name next to badge
         - type: parsedText
           data:
@@ -568,8 +569,8 @@ spec:
                   # Items path for Pods list
                   pathToItems: ".items[*].report.vulnerabilities"
 
-          - key: cfg-reports
-            label: CFG reports
+          - key: config-reports
+            label: Config reports
             children:
               - type: EnrichedTable
                 data:

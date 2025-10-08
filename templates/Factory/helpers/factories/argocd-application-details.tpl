@@ -32,6 +32,8 @@ spec:
           data:
             id: factory-resource-badge
             value: "{reqsJsonPath[0]['.kind']['-']}"
+            style:
+              fontSize: 20px
         - type: parsedText
           data:
             id: header-name

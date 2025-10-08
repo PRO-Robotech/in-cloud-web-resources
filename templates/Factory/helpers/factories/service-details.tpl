@@ -33,6 +33,8 @@ spec:
           data:
             id: factory-resource-badge
             value: "{reqsJsonPath[0]['.kind']['-']}"
+            style:
+              fontSize: 20px
 
         # Service name
         - type: parsedText
@@ -415,8 +417,8 @@ spec:
                       pathToItems: ".items"
 
   {{- if $trivyEnabled }}
-          - key: cfg-reports
-            label: CFG reports
+          - key: config-reports
+            label: Config reports
             children:
               - type: EnrichedTable
                 data:

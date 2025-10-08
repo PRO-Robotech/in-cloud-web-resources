@@ -33,6 +33,8 @@ spec:
           data:
             id: factory-resource-badge
             value: "{reqsJsonPath[0]['.kind']['-']}"
+            style:
+              fontSize: 20px
 
         # ReplicaSet name
         - type: parsedText
@@ -459,8 +461,8 @@ spec:
                   # Items path for Pods list
                   pathToItems: ".items[*].report.vulnerabilities"
 
-          - key: cfg-reports
-            label: CFG reports
+          - key: config-reports
+            label: Config reports
             children:
               - type: EnrichedTable
                 data:
@@ -477,5 +479,22 @@ spec:
                   # Items path for Pods list
                   pathToItems: ".items[*].report.checks"
 
+          - key: sbom-reports
+            label: SBOM reports
+            children:
+              - type: EnrichedTable
+                data:
+                  id: sbom-table
+                  fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/namespaces/{3}/sbomreports"
+                  clusterNamePartOfUrl: "{2}"
+                  customizationId: factory-aquasecurity.github.io.v1alpha1.sbomreports
+                  baseprefix: "/{{ $basePrefix }}"
+                  withoutControls: true
+                  # Build label selector from pod template labels
+                  labelsSelector:
+                    trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                    trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
+                  # Items path for Pods list
+                  pathToItems: ".items[*].report.components.components"
   {{- end -}}
 {{- end -}}

@@ -27,6 +27,7 @@ spec:
             value: "{reqsJsonPath[0]['.kind']['-']}"
             style:
               fontSize: 20px
+
         # resource name
         - type: parsedText
           data:

@@ -31,3 +31,38 @@ spec:
   additionalPrinterColumnsTrimLengths:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   id: stock-cluster-/v1/nodes
+
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: stock-namespace-v1.nodes
+spec:
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "text" "N"
+      "title" "Node"
+      "backgroundColor" "#8476d1"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "factory" "node-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    - name: Status
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.factory.statuses.node" . | nindent 8 }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+  id: stock-namespace-/v1/nodes

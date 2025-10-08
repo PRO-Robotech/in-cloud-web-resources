@@ -31,6 +31,8 @@ spec:
           data:
             id: factory-resource-badge
             value: "{reqsJsonPath[0]['.kind']['-']}"
+            style:
+              fontSize: 20px
 
         # role binding name
         - type: parsedText

@@ -98,6 +98,14 @@
   customProps:
     disableEventBubbling: true
     items:
+      # - type: antdText
+      #   data:
+      #     id: search-icon
+      #     text: "🔎"
+      #     strong: true
+      #     style:
+      #       fontSize: 14
+
       - type: LabelsToSearchParams
         data:
           id: {{ printf "%s-to-search-params" $type }}
@@ -105,5 +113,53 @@
           jsonPathToLabels: "{{ $jsonPath }}"
           linkPrefix: "{{ .linkPrefix }}"
           errorText: "No selector"
-          maxTextLength: 48
+          maxTextLength: 11
+          textLink: Search
+{{- end -}}
+
+{{- define "incloud-web-resources.cco.columns.labels-new" -}}
+{{- $i := (default 0 .reqIndex) -}}
+{{- $type := (default "labels" .type) -}}
+{{- $title := (default "Labels" .title) -}}
+{{- $jsonPath := (default ".metadata.labels" .jsonPath) -}}
+{{- $endpoint := (default "" .endpoint) -}}
+{{- $pathToValue := (default "/metadata/labels" .pathToValue) -}}
+{{- $maxTagTextLength := (default 35 .maxTagTextLength) -}}
+{{- $maxEditTagTextLength := (default 35 .maxEditTagTextLength) -}}
+{{- $notificationSuccessMessage := (default "Updated successfully" .notificationSuccessMessage) -}}
+{{- $notificationSuccessMessageDescription := (default "Labels have been updated" .notificationSuccessMessageDescription) -}}
+{{- $modalTitle := (default "Edit labels" .modalTitle) -}}
+{{- $modalDescriptionText := (default "" .modalDescriptionText) -}}
+{{- $inputLabel := (default "false" .inputLabel) -}}
+{{- $containerMarginTop := (default "-30px" .containerMarginTop) -}}
+{{- $linkPrefix := (default "" .linkPrefix) -}}
+
+- jsonPath: "{{ $jsonPath }}"
+  name: Labels
+  type: factory
+  customProps:
+    disableEventBubbling: true
+    items:
+      - type: Labels
+        data:
+          id: {{ printf "%s-editor" $type }}
+          reqIndex: {{ $i }}
+          jsonPathToLabels: "{{ $jsonPath }}"
+          selectProps:
+            maxTagTextLength: {{ $maxTagTextLength }}
+          notificationSuccessMessage: "{{ $notificationSuccessMessage }}"
+          notificationSuccessMessageDescription: "{{ $notificationSuccessMessageDescription }}"
+          modalTitle: "{{ $modalTitle }}"
+          modalDescriptionText: "{{ $modalDescriptionText }}"
+          inputLabel: "{{ $inputLabel }}"
+          containerStyle:
+            marginTop: "{{ $containerMarginTop }}"
+          maxEditTagTextLength: {{ $maxEditTagTextLength }}
+          endpoint: "{{ $endpoint }}"
+          pathToValue: "{{ $pathToValue }}"
+          editModalWidth: 650
+          paddingContainerEnd: "24px"
+          linkPrefix: "{{ $linkPrefix }}"
+          verticalViewList: true
+          readOnly: false
 {{- end -}}

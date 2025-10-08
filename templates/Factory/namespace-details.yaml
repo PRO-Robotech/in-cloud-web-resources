@@ -27,25 +27,13 @@ spec:
         style:
           marginBottom: 24px
       children:
-        # Badge with resource short name
-        - type: antdText
+        # factory badge
+        - type: ResourceBadge
           data:
-            id: header-badge
-            text: "NS"
-            title: Namespace
+            id: factory-resource-badge
+            value: "{reqsJsonPath[0]['.kind']['-']}"
             style:
               fontSize: 20px
-              lineHeight: 24px
-              padding: "0 9px"
-              borderRadius: "20px"
-              minWidth: 24
-              display: inline-block
-              textAlign: center
-              whiteSpace: nowrap
-              color: "#fff"
-              backgroundColor: "#a25792ff"
-              fontFamily: RedHatDisplay, Overpass, overpass, helvetica, arial, sans-serif
-              fontWeight: 400
 
         # Namespace name
         - type: parsedText

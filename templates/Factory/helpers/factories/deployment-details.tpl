@@ -42,6 +42,8 @@ spec:
           data:
             id: factory-resource-badge
             value: "{reqsJsonPath[0]['.kind']['-']}"
+            style:
+              fontSize: 20px
 
         # Center: deployment name from the fetched object
         - type: parsedText
