@@ -1,8 +1,6 @@
 {{- define "incloud-web-resources.cco.columns.icon-link-block" -}}
 {{- $columnName       := (default ""            .columnName)      -}}
-{{- $text             := (default ""            .text)            -}}
 {{- $title            := (default ""            .title)           -}}
-{{- $backgroundColor  := (default "#a25792ff" .backgroundColor) -}}
 {{- $reqIndex         := (default 0             .reqIndex)        -}}
 {{- $type             := (default ""            .type)            -}}
 {{- $jsonPath         := (default ""            .jsonPath)        -}}
@@ -152,8 +150,8 @@
           modalTitle: "{{ $modalTitle }}"
           modalDescriptionText: "{{ $modalDescriptionText }}"
           inputLabel: "{{ $inputLabel }}"
-          containerStyle:
-            marginTop: "{{ $containerMarginTop }}"
+          #containerStyle:
+          #  marginTop: "{{ $containerMarginTop }}"
           maxEditTagTextLength: {{ $maxEditTagTextLength }}
           endpoint: "{{ $endpoint }}"
           pathToValue: "{{ $pathToValue }}"
@@ -161,5 +159,5 @@
           paddingContainerEnd: "24px"
           linkPrefix: "{{ $linkPrefix }}"
           verticalViewList: true
-          readOnly: false
+          readOnly: true
 {{- end -}}

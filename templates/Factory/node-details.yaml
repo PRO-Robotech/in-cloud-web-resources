@@ -426,7 +426,6 @@ spec:
                           clusterNamePartOfUrl: "{2}"
                           customizationId: "factory-status-conditions"
                           baseprefix: "/{{ .Values.basePrefix }}"
-                          withoutControls: true
                           pathToItems: ".status.conditions"
 
                   # IMAGES SECTION
@@ -451,7 +450,7 @@ spec:
                           clusterNamePartOfUrl: "{2}"
                           customizationId: "factory-node-images"
                           baseprefix: "/{{ .Values.basePrefix }}"
-                          withoutControls: true
+                          
                           pathToItems: ".status.images"
 
           # ------ YAML TAB ------
@@ -481,7 +480,6 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "factory-node-details-/v1/pods"
                   baseprefix: "/{{ .Values.basePrefix }}"
-                  withoutControls: true
                   fieldSelector:
                     fieldName: "spec.nodeName"
                     parsedText: "{reqsJsonPath[0]['.metadata.name']['-']}"
@@ -511,12 +509,17 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.clusterinfraassessmentreports
                   baseprefix: "/{{ .Values.basePrefix }}"
-                  withoutControls: true
                   # Build label selector from pod template labels
                   labelsSelector:
                     trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
                     trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
                   # Items path for Pods list
                   pathToItems: ".items[*].report.checks"
+                  namespace: "{3}"
+                  isNamespaced: false
+                  dataForControls:
+                    resource: clusterinfraassessmentreports
+                    apiVersion: v1alpha1
+                    apiGroup: aquasecurity.github.io
 
 {{- end -}}

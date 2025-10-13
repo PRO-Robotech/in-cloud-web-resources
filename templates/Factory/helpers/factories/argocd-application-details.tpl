@@ -314,7 +314,6 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "factory-argocd-application-status-resources"
                   baseprefix: "/{{ $basePrefix }}"
-                  withoutControls: true
                   pathToItems: ".status.resources"
 
           # ------ SYNC RESOURCES TAB ------
@@ -456,7 +455,6 @@ spec:
                           clusterNamePartOfUrl: "{2}"
                           customizationId: "factory-argocd-application-resources"
                           baseprefix: "/{{ $basePrefix }}"
-                          withoutControls: true
                           pathToItems: ".status.operationState.syncResult.resources"
 
           # ------ HISTORY TAB ------
@@ -470,6 +468,5 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "factory-argocd-application-status-history"
                   baseprefix: "/{{ $basePrefix }}"
-                  withoutControls: true
                   pathToItems: ".status.history"
 {{- end }}

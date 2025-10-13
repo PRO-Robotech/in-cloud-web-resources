@@ -373,8 +373,13 @@ spec:
                               clusterNamePartOfUrl: "{2}"
                               customizationId: factory-status-conditions
                               baseprefix: "/{{ $basePrefix }}"
-                              withoutControls: true
                               pathToItems: ".status.conditions"
+                              namespace: "{3}"
+                              isNamespaced: true
+                              dataForControls:
+                                resource: horizontalpodautoscalers
+                                apiVersion: v2
+                                apiGroup: autoscaling
 
           # --- YAML tab -----------------------------------------------------
           - key: "yaml"

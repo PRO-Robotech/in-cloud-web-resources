@@ -7,9 +7,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "P"
-      "title" "pod"
-      "backgroundColor" "#009596"
+      "title" "Pod"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".targetRef.name"

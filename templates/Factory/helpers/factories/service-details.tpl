@@ -345,7 +345,6 @@ spec:
                                       clusterNamePartOfUrl: "{2}"
                                       customizationId: "factory-service-details-port-mapping"
                                       baseprefix: "/{{ $basePrefix }}"
-                                      withoutControls: true
                                       pathToItems: ".spec.ports"
 
                               # Pod serving
@@ -373,11 +372,9 @@ spec:
                                           clusterNamePartOfUrl: "{2}"
                                           customizationId: "factory-service-details-endpointslice"
                                           baseprefix: "/{{ $basePrefix }}"
-                                          withoutControls: true
                                           labelsSelector:
                                             kubernetes.io/service-name: "{reqsJsonPath[0]['.metadata.name']['-']}"
                                           pathToItems: ".items[*].endpoints"
-
           # YAML tab
           - key: "yaml"
             label: "YAML"
@@ -409,12 +406,17 @@ spec:
                       clusterNamePartOfUrl: "{2}"
                       customizationId: "{{ $podFactoryName }}"
                       baseprefix: "/{{ $basePrefix }}"
-                      withoutControls: false
+                      
                       labelsSelectorFull:
                         reqIndex: 0
                         # TODO требуется обработка нулевого значения
                         pathToLabels: ".spec.selector"
                       pathToItems: ".items"
+                      namespace: "{3}"
+                      isNamespaced: true
+                      dataForControls:
+                        resource: pods
+                        apiVersion: v1
 
   {{- if $trivyEnabled }}
           - key: config-reports
@@ -427,12 +429,18 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.configauditreports
                   baseprefix: "/{{ $basePrefix }}"
-                  withoutControls: true
+                  
                   # Build label selector from pod template labels
                   labelsSelector:
                     trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
                     trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
                   # Items path for Pods list
                   pathToItems: ".items[*].report.checks"
+                  namespace: "{3}"
+                  isNamespaced: true
+                  dataForControls:
+                    resource: configauditreports
+                    apiVersion: v1alpha1
+                    apiGroup: aquasecurity.github.io
   {{- end -}}
 {{- end -}}

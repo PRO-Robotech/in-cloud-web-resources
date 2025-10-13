@@ -7,9 +7,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "N"
       "title" "Node"
-      "backgroundColor" "#8476d1"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -42,9 +40,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "N"
       "title" "Node"
-      "backgroundColor" "#8476d1"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"

@@ -7,9 +7,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "PDB"
       "title" "PodDisruptionBudget"
-      "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -20,15 +18,19 @@ spec:
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Namespace"
-      "text" "N"
       "title" "Namespace"
-      "backgroundColor" "#a25792ff"
       "reqIndex" 0
       "type" "namespace"
       "jsonPath" ".metadata.namespace"
       "factory" "namespace-details"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.selector.matchLabels"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
@@ -52,9 +54,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "PDB"
       "title" "PodDisruptionBudget"
-      "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -62,6 +62,12 @@ spec:
       "factory" "poddisruptionbudget-details"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.selector.matchLabels"
+        "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
@@ -84,9 +90,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "PDB"
       "title" "PodDisruptionBudget"
-      "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -94,6 +98,12 @@ spec:
       "factory" "poddisruptionbudget-details"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.selector.matchLabels"
+        "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
@@ -116,9 +126,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "PDB"
       "title" "PodDisruptionBudget"
-      "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -127,6 +135,12 @@ spec:
       "factory" "instance-poddisruptionbudget-details"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.selector.matchLabels"
+        "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"

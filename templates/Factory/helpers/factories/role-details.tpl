@@ -224,7 +224,6 @@ spec:
                           clusterNamePartOfUrl: "{2}"
                           customizationId: factory-k8s-rbac-rules
                           baseprefix: "/{{ $basePrefix }}"
-                          withoutControls: true
                           pathToItems: ".rules"
 
           # YAML tab

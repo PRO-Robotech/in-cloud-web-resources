@@ -340,7 +340,7 @@ spec:
                   #             clusterNamePartOfUrl: "{2}"
                   #             customizationId: factory-replicaset-details-volume-list
                   #             baseprefix: "/{{ $basePrefix }}"
-                  #             withoutControls: true
+                  #             
                   #             pathToItems:
                   #               - spec
                   #               - template
@@ -435,11 +435,11 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $podFactoryName }}"
                   baseprefix: "/{{ $basePrefix }}"
-                  withoutControls: true
                   labelsSelectorFull:
                     reqIndex: 0
                     pathToLabels: ".spec.template.metadata.labels"
                   pathToItems: ".items"
+
 
   {{- if $trivyEnabled }}
           # ------ PODS TAB ------
@@ -453,14 +453,13 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.vulnerabilityreports
                   baseprefix: "/{{ $basePrefix }}"
-                  withoutControls: true
                   # Build label selector from pod template labels
                   labelsSelector:
                     trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
                     trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
                   # Items path for Pods list
                   pathToItems: ".items[*].report.vulnerabilities"
-
+                    
           - key: config-reports
             label: Config reports
             children:
@@ -471,7 +470,6 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.configauditreports
                   baseprefix: "/{{ $basePrefix }}"
-                  withoutControls: true
                   # Build label selector from pod template labels
                   labelsSelector:
                     trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
@@ -489,12 +487,12 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.sbomreports
                   baseprefix: "/{{ $basePrefix }}"
-                  withoutControls: true
                   # Build label selector from pod template labels
                   labelsSelector:
                     trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
                     trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
                   # Items path for Pods list
                   pathToItems: ".items[*].report.components.components"
+
   {{- end -}}
 {{- end -}}

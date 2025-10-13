@@ -7,9 +7,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "RB"
       "title" "RoleBinding"
-      "backgroundColor" "#008bad"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -20,9 +18,7 @@ spec:
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Namespace"
-      "text" "N"
       "title" "Namespace"
-      "backgroundColor" "#a25792ff"
       "reqIndex" 0
       "type" "namespace"
       "jsonPath" ".metadata.namespace"
@@ -30,9 +26,15 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    - jsonPath: .roleRef.name
-      name: Role ref
-      type: string
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Role"
+      "title" "Role"
+      "jsonPath" ".roleRef.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "role-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     - jsonPath: .subjects[?(@.kind=="ServiceAccount")].name
       name: Service accounts
       type: array
@@ -73,9 +75,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "RB"
       "title" "RoleBinding"
-      "backgroundColor" "#008bad"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -84,9 +84,15 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    - jsonPath: .roleRef.name
-      name: Role ref
-      type: string
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Role"
+      "title" "Role"
+      "jsonPath" ".roleRef.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "role-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     - jsonPath: .subjects[?(@.kind=="ServiceAccount")].name
       name: Service accounts
       type: string
@@ -126,9 +132,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "RB"
       "title" "RoleBinding"
-      "backgroundColor" "#008bad"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -137,9 +141,15 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    - jsonPath: .roleRef.name
-      name: Role ref
-      type: string
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Role"
+      "title" "Role"
+      "jsonPath" ".roleRef.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "role-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     - jsonPath: .subjects[?(@.kind=="ServiceAccount")].name
       name: Service accounts
       type: string
@@ -179,9 +189,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "RB"
       "title" "RoleBinding"
-      "backgroundColor" "#008bad"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -191,9 +199,15 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    - jsonPath: .roleRef.name
-      name: Role ref
-      type: string
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Role"
+      "title" "Role"
+      "jsonPath" ".roleRef.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "role-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     - jsonPath: .subjects[?(@.kind=="ServiceAccount")].name
       name: Service accounts
       type: string

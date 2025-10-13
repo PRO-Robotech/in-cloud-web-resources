@@ -350,7 +350,6 @@ spec:
                   #             clusterNamePartOfUrl: "{2}"
                   #             customizationId: factory-daemonset-details-volume-list
                   #             baseprefix: "/{{ $basePrefix }}"
-                  #             withoutControls: true
                   #             pathToItems: ".spec.template.spec.volumes"
 
                   # ---- INIT CONTAINERS SECTION ----
@@ -442,7 +441,6 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $podFactoryName }}"
                   baseprefix: "/{{ $basePrefix }}"
-                  withoutControls: true
                   # Build label selector from pod template labels
                   labelsSelectorFull:
                     reqIndex: 0
@@ -462,7 +460,6 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.vulnerabilityreports
                   baseprefix: "/{{ $basePrefix }}"
-                  withoutControls: true
                   # Build label selector from pod template labels
                   labelsSelector:
                     trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']}"
@@ -480,12 +477,12 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.configauditreports
                   baseprefix: "/{{ $basePrefix }}"
-                  withoutControls: true
                   # Build label selector from pod template labels
                   labelsSelector:
                     trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
                     trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
                   # Items path for Pods list
                   pathToItems: ".items[*].report.checks"
+
   {{- end -}}
 {{- end -}}

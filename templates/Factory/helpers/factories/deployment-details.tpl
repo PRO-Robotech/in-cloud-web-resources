@@ -429,7 +429,6 @@ spec:
                   #             clusterNamePartOfUrl: "{2}"
                   #             customizationId: factory-deployment-details-volume-list
                   #             baseprefix: /{{ $basePrefix }}
-                  #             withoutControls: true
                   #             # Path in the fetched object to the volumes array
                   #             pathToItems: ".spec.template.spec.volumes"
 
@@ -524,7 +523,6 @@ spec:
                               clusterNamePartOfUrl: "{2}"
                               customizationId: factory-status-conditions
                               baseprefix: /{{ $basePrefix }}
-                              withoutControls: true
                               # Path in the fetched object to the conditions array
                               pathToItems: ".status.conditions"
 
@@ -562,7 +560,6 @@ spec:
                     pathToLabels: ".spec.template.metadata.labels"
                   # Path to items list in the response
                   pathToItems: ".items"
-                  withoutControls: true
 
           # ------ PODS TAB ------
           - key: pods
@@ -581,5 +578,5 @@ spec:
                     pathToLabels: ".spec.template.metadata.labels"
                   # Path to items list in the response
                   pathToItems: ".items"
-                  withoutControls: true
+
 {{- end -}}

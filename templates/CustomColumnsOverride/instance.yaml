@@ -10,9 +10,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "I"
       "title" "Instance"
-      "backgroundColor" "#535db1ff"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -24,9 +22,7 @@ spec:
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Project"
-      "text" "P"
       "title" "Project"
-      "backgroundColor" "#516dcaff"
       "reqIndex" 0
       "type" "project"
       "jsonPath" ".metadata.namespace"
@@ -53,9 +49,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "I"
       "title" "Instance"
-      "backgroundColor" "#535db1ff"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -67,9 +61,7 @@ spec:
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Project"
-      "text" "P"
       "title" "Project"
-      "backgroundColor" "#516dcaff"
       "reqIndex" 0
       "type" "project"
       "jsonPath" ".metadata.namespace"

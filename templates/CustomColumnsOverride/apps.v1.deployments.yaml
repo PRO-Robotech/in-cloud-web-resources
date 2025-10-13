@@ -19,9 +19,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "D"
       "title" "Deployment"
-      "backgroundColor" "#004080"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -32,9 +30,7 @@ spec:
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Namespace"
-      "text" "N"
       "title" "Namespace"
-      "backgroundColor" "#a25792ff"
       "reqIndex" 0
       "type" "namespace"
       "jsonPath" ".metadata.namespace"
@@ -42,13 +38,11 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-
     {{ include "incloud-web-resources.cco.columns.labels-new" (dict
-          "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{{ $resName }}"
-          "linkPrefix" "/openapi-ui/{2}/search?kinds=apps~v1~replicasets&labels="
+          "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/deployments/{{ $resName }}"
+          "linkPrefix" "/openapi-ui/{2}/search?kinds=apps~v1~deployments&labels="
         ) | nindent 4
     }}
-
     {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
         "type" "pod"
         "jsonPath" ".spec.template.metadata.labels"
@@ -87,9 +81,7 @@ spec:
   additionalPrinterColumns: &deploymentsColumns
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "D"
       "title" "Deployment"
-      "backgroundColor" "#004080"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -98,7 +90,11 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/deployments/{{ $resName }}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=apps~v1~deployments&labels="
+        ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
         "type" "pod"
         "jsonPath" ".spec.template.metadata.labels"
@@ -154,9 +150,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "D"
       "title" "Deployment"
-      "backgroundColor" "#004080"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -166,7 +160,11 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/deployments/{{ $resName }}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=apps~v1~deployments&labels="
+        ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
         "type" "pod"
         "jsonPath" ".spec.template.metadata.labels"

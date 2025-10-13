@@ -7,11 +7,8 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "CRD"
       "title" "CustomResourceDefinition"
-      "backgroundColor" "#2b9af3"
       "reqIndex" 0
-      "type" "name"
       "jsonPath" ".metadata.name"
       "factory" "crd-details"
       "basePrefix" .Values.basePrefix

@@ -7,9 +7,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "CJ"
       "title" "CronJob"
-      "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -20,15 +18,18 @@ spec:
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Namespace"
-      "text" "N"
       "title" "Namespace"
-      "backgroundColor" "#a25792ff"
       "reqIndex" 0
       "type" "namespace"
       "jsonPath" ".metadata.namespace"
       "factory" "namespace-details"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/cronjobs/{{ $resName }}"
+          "linkPrefix" "/openapi-ui/{2}/search?kinds=batch~v1~cronjobs&labels="
+        ) | nindent 4
     }}
     - jsonPath: .spec.schedule
       name: Schedule
@@ -66,9 +67,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "CJ"
       "title" "CronJob"
-      "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -76,6 +75,11 @@ spec:
       "factory" "cronjob-details"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/cronjobs/{{ $resName }}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=batch~v1~cronjobs&labels="
+        ) | nindent 4
     }}
     - jsonPath: .spec.schedule
       name: Schedule
@@ -112,9 +116,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "CJ"
       "title" "CronJob"
-      "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -122,6 +124,11 @@ spec:
       "factory" "cronjob-details"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/cronjobs/{{ $resName }}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=batch~v1~cronjobs&labels="
+        ) | nindent 4
     }}
     - jsonPath: .spec.schedule
       name: Schedule
@@ -158,9 +165,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "CJ"
       "title" "CronJob"
-      "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -169,6 +174,11 @@ spec:
       "factory" "instance-cronjob-details"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/cronjobs/{{ $resName }}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=batch~v1~cronjobs&labels="
+        ) | nindent 4
     }}
     - jsonPath: .spec.schedule
       name: Schedule

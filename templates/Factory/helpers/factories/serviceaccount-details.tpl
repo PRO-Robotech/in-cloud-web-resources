@@ -243,9 +243,12 @@ spec:
                                   clusterNamePartOfUrl: "{2}"
                                   customizationId: factory-serviceaccount-secrets
                                   baseprefix: "/{{ $basePrefix }}"
-                                  withoutControls: true
                                   pathToItems: ".secrets"
-
+                                  namespace: "{3}"
+                                  isNamespaced: true
+                                  dataForControls:
+                                    resource: serviceaccounts
+                                    apiVersion: v1
           # YAML tab
           - key: yaml
             label: YAML

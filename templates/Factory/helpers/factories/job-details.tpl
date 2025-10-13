@@ -422,7 +422,7 @@ spec:
                   #             clusterNamePartOfUrl: "{2}"
                   #             customizationId: factory-job-details-volume-list
                   #             baseprefix: "/{{ $basePrefix }}"
-                  #             withoutControls: true
+                  #             
                   #             pathToItems: ".spec.template.spec.volumes"
 
                   # ---- INIT CONTAINERS SECTION ----
@@ -516,7 +516,6 @@ spec:
                               clusterNamePartOfUrl: "{2}"
                               customizationId: factory-status-conditions
                               baseprefix: "/{{ $basePrefix }}"
-                              withoutControls: true
                               pathToItems: ".status.conditions"
 
           # ------ YAML TAB ------
@@ -544,10 +543,10 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $podFactoryName }}"
                   baseprefix: "/{{ $basePrefix }}"
-                  withoutControls: true
                   # Build label selector from Job's pod template labels
                   labelsSelectorFull:
                     reqIndex: 0
                     pathToLabels: ".spec.template.metadata.labels"
                   pathToItems: ".items"
+
 {{- end -}}

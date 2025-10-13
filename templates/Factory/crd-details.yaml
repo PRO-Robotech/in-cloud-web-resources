@@ -262,7 +262,6 @@ spec:
                               clusterNamePartOfUrl: "{2}"
                               customizationId: factory-status-conditions
                               baseprefix: "/{{ .Values.basePrefix }}"
-                              withoutControls: true
                               pathToItems: ".status.conditions"
 
                   # Versions section
@@ -296,8 +295,13 @@ spec:
                               clusterNamePartOfUrl: "{2}"
                               customizationId: versions-apiextensions.k8s.io.v1.customresourcedefinitions
                               baseprefix: "/{{ .Values.basePrefix }}"
-                              withoutControls: true
                               pathToItems: ".spec.versions"
+                              namespace: "{3}"
+                              isNamespaced: false
+                              dataForControls:
+                                resource: customresourcedefinitions
+                                apiVersion: v1
+                                apiGroup: apiextensions.k8s.io
 
           # --- YAML TAB ---
           - key: yaml
@@ -326,5 +330,10 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: instances-crd
                   baseprefix: "/{{ .Values.basePrefix }}"
-                  withoutControls: true
                   pathToItems: ".items"
+                  # namespace: "{3}"
+                  isNamespaced: true
+                  dataForControls:
+                    resource: "{reqsJsonPath[0]['.spec.names.plural']['-']}"
+                    apiVersion: "{reqsJsonPath[0]['.status.storedVersions[0]']['-']}"
+                    apiGroup: "{reqsJsonPath[0]['.spec.group']['-']}"

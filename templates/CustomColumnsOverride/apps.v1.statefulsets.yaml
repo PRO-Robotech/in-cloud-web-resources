@@ -19,9 +19,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "SS"
       "title" "StatefulSet"
-      "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -32,9 +30,7 @@ spec:
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Namespace"
-      "text" "N"
       "title" "Namespace"
-      "backgroundColor" "#a25792ff"
       "reqIndex" 0
       "type" "namespace"
       "jsonPath" ".metadata.namespace"
@@ -42,16 +38,17 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/statefulsets/{{ $resName }}"
+      "linkPrefix" "/openapi-ui/{2}/search?kinds=apps~v1~statefulsets&labels="
+      ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
         "type" "pod"
         "jsonPath" ".spec.template.metadata.labels"
         "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
       ) | nindent 4
     }}
-    - jsonPath: .status.conditions[?(@.type=="Available")].status
-      name: Status
-      type: string
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -73,9 +70,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "SS"
       "title" "StatefulSet"
-      "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -84,16 +79,17 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/statefulsets/{{ $resName }}"
+      "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=apps~v1~statefulsets&labels="
+      ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
         "type" "pod"
         "jsonPath" ".spec.template.metadata.labels"
-        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+        "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
       ) | nindent 4
     }}
-    - jsonPath: .status.conditions[?(@.type=="Available")].status
-      name: Status
-      type: string
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -114,27 +110,26 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "SS"
       "title" "StatefulSet"
-      "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
       "factory" "statefulset-details"
       "basePrefix" .Values.basePrefix
-    ) | nindent 4
+      ) | nindent 4
     }}
-    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/statefulsets/{{ $resName }}"
+      "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=apps~v1~statefulsets&labels="
+      ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
         "type" "pod"
         "jsonPath" ".spec.template.metadata.labels"
-        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+        "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
       ) | nindent 4
     }}
-    - jsonPath: .status.conditions[?(@.type=="Available")].status
-      name: Status
-      type: string
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -155,9 +150,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "SS"
       "title" "StatefulSet"
-      "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -167,16 +160,17 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/statefulsets/{{ $resName }}"
+      "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=apps~v1~statefulsets&labels="
+      ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
         "type" "pod"
         "jsonPath" ".spec.template.metadata.labels"
-        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+        "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
       ) | nindent 4
     }}
-    - jsonPath: .status.conditions[?(@.type=="Available")].status
-      name: Status
-      type: string
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"

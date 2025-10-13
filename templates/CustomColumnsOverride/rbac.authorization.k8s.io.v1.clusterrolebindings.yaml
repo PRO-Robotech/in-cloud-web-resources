@@ -7,9 +7,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "CRB"
       "title" "ClusterRoleBinding"
-      "backgroundColor" "#008bad"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -17,9 +15,14 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    - jsonPath: .roleRef.name
-      name: Role ref
-      type: string
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Role"
+      "title" "ClusterRole"
+      "jsonPath" ".roleRef.name"
+      "factory" "clusterrole-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     - jsonPath: .subjects[?(@.kind=="ServiceAccount")].name
       name: Service accounts
       type: array

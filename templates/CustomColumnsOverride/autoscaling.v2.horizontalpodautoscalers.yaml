@@ -7,9 +7,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "HPA"
       "title" "HorizontalPodAutoscaler"
-      "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -20,9 +18,7 @@ spec:
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Namespace"
-      "text" "N"
       "title" "Namespace"
-      "backgroundColor" "#a25792ff"
       "reqIndex" 0
       "type" "namespace"
       "jsonPath" ".metadata.namespace"
@@ -30,7 +26,11 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/autoscaling/v2/horizontalpodautoscalers/{{ $resName }}"
+          "linkPrefix" "/openapi-ui/{2}/search?kinds=autoscaling~v2~horizontalpodautoscalers&labels="
+        ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.parsed-text" (dict
       "columnName" "Min replicas"
       "jsonPath" ".metadata.labels"
@@ -70,9 +70,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "HPA"
       "title" "HorizontalPodAutoscaler"
-      "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -81,7 +79,11 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/autoscaling/v2/namespaces/{3}/horizontalpodautoscalers/{{ $resName }}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=autoscaling~v2~horizontalpodautoscalers&labels="
+        ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.parsed-text" (dict
       "columnName" "Min replicas"
       "jsonPath" ".metadata.labels"
@@ -120,9 +122,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "HPA"
       "title" "HorizontalPodAutoscaler"
-      "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -131,7 +131,11 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/autoscaling/v2/namespaces/{3}/horizontalpodautoscalers/{{ $resName }}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=autoscaling~v2~horizontalpodautoscalers&labels="
+        ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.parsed-text" (dict
       "columnName" "Min replicas"
       "jsonPath" ".metadata.labels"
@@ -170,9 +174,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "HPA"
       "title" "HorizontalPodAutoscaler"
-      "backgroundColor" "#2b9af3"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -182,7 +184,11 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/autoscaling/v2/namespaces/{3}/horizontalpodautoscalers/{{ $resName }}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=autoscaling~v2~horizontalpodautoscalers&labels="
+        ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.parsed-text" (dict
       "columnName" "Min replicas"
       "jsonPath" ".metadata.labels"

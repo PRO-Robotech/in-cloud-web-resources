@@ -408,7 +408,6 @@ spec:
                   #             clusterNamePartOfUrl: "{2}"
                   #             customizationId: factory-cronjob-details-volume-list
                   #             baseprefix: "/{{ $basePrefix }}"
-                  #             withoutControls: true
                   #             # Path inside CronJob manifest where volumes are located
                   #             pathToItems: ".spec.volumes"
 
@@ -507,7 +506,6 @@ spec:
                               clusterNamePartOfUrl: "{2}"
                               customizationId: factory-status-conditions
                               baseprefix: "/{{ $basePrefix }}"
-                              withoutControls: true
                               # Path to conditions array
                               pathToItems: ".status.conditions"
 
@@ -538,13 +536,13 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $podFactoryName }}"
                   baseprefix: "/{{ $basePrefix }}"
-                  withoutControls: true
                   # Build label selector from job template's pod labels
                   labelsSelectorFull:
                     reqIndex: 0
                     pathToLabels: ".spec.jobTemplate.spec.template.metadata.labels"
                   # Items path for Pods list
                   pathToItems: ".items"
+
 
           # ------ JOBS TAB ------
           - key: jobs
@@ -558,7 +556,6 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $jobFactoryName }}"
                   baseprefix: "/{{ $basePrefix }}"
-                  withoutControls: true
                   # Build label selector from CronJob's job template metadata.labels
                   labelsSelectorFull:
                     reqIndex: 0

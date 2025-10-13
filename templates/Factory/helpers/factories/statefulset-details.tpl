@@ -340,7 +340,6 @@ spec:
                   #             clusterNamePartOfUrl: "{2}"
                   #             customizationId: factory-statefulset-details-volume-list
                   #             baseprefix: "{{ $basePrefix }}"
-                  #             withoutControls: true
                   #             pathToItems: ".spec.template.spec.volumes"
 
 
@@ -430,7 +429,6 @@ spec:
                   fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods"
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $podFactoryName }}"
-                  withoutControls: true
                   labelsSelectorFull:
                     reqIndex: 0
                     pathToLabels: ".spec.template.metadata.labels"
@@ -448,13 +446,18 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.clusterinfraassessmentreports
                   baseprefix: "/{{ $basePrefix }}"
-                  withoutControls: true
                   # Build label selector from pod template labels
                   labelsSelector:
                     trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
                     trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
                   # Items path for Pods list
                   pathToItems: ".items[*].report.checks"
+                  namespace: "{3}"
+                  isNamespaced: false
+                  dataForControls:
+                    resource: clusterinfraassessmentreports
+                    apiVersion: v1alpha1
+                    apiGroup: aquasecurity.github.io
 
   {{- end -}}
 {{- end -}}

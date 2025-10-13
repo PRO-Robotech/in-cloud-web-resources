@@ -7,9 +7,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "J"
       "title" "Job"
-      "backgroundColor" "#004080"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -20,15 +18,18 @@ spec:
     }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Namespace"
-      "text" "N"
       "title" "Namespace"
-      "backgroundColor" "#a25792ff"
       "reqIndex" 0
       "type" "namespace"
       "jsonPath" ".metadata.namespace"
       "factory" "namespace-details"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/jobs/{{ $resName }}"
+          "linkPrefix" "/openapi-ui/{2}/search?kinds=batch~v1~jobs&labels="
+        ) | nindent 4
     }}
     - jsonPath: .spec.manualSelector
       name: Manual selector
@@ -78,9 +79,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "J"
       "title" "Job"
-      "backgroundColor" "#004080"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -88,6 +87,11 @@ spec:
       "factory" "job-details"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{{ $resName }}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=batch~v1~jobs&labels="
+        ) | nindent 4
     }}
     - jsonPath: .spec.manualSelector
       name: Manual selector
@@ -136,9 +140,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "J"
       "title" "Job"
-      "backgroundColor" "#004080"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -146,6 +148,11 @@ spec:
       "factory" "job-details"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{{ $resName }}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=batch~v1~jobs&labels="
+        ) | nindent 4
     }}
     - jsonPath: .spec.manualSelector
       name: Manual selector
@@ -194,9 +201,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "J"
       "title" "Job"
-      "backgroundColor" "#004080"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -205,6 +210,11 @@ spec:
       "factory" "instance-job-details"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{{ $resName }}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=batch~v1~jobs&labels="
+        ) | nindent 4
     }}
     - jsonPath: .spec.manualSelector
       name: Manual selector
@@ -253,9 +263,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "J"
       "title" "Job"
-      "backgroundColor" "#004080"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -264,6 +272,11 @@ spec:
       "factory" "instance-job-details"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{{ $resName }}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=batch~v1~jobs&labels="
+        ) | nindent 4
     }}
     - jsonPath: .spec.manualSelector
       name: Manual selector
@@ -315,9 +328,7 @@ spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "text" "J"
       "title" "Job"
-      "backgroundColor" "#004080"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
@@ -325,6 +336,11 @@ spec:
       "factory" "job-details"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+        "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{{ $resName }}"
+        "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=batch~v1~jobs&labels="
+      ) | nindent 4
     }}
     - jsonPath: .spec.manualSelector
       name: Manual selector

@@ -338,7 +338,6 @@ spec:
                   #             clusterNamePartOfUrl: "{2}"
                   #             customizationId: factory-replicationcontroller-details-volume-list
                   #             baseprefix: "/{{ $basePrefix }}"
-                  #             withoutControls: true
                   #             pathToItems:
                   #               - spec
                   #               - template
@@ -431,9 +430,14 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $podFactoryName }}"
                   baseprefix: "/{{ $basePrefix }}"
-                  withoutControls: true
                   labelsSelectorFull:
                     reqIndex: 0
                     pathToLabels: ".spec.template.metadata.labels"
                   pathToItems: ".items"
+                  namespace: "{3}"
+                  isNamespaced: true
+                  dataForControls:
+                    resource: pods
+                    apiVersion: v1
+
 {{- end -}}
