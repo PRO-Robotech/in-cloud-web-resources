@@ -32,7 +32,11 @@ spec:
     - jsonPath: .spec.loadBalancerIP
       name: LoadbalancerIP
       type: string
-    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/api/v1/services/{6}"
+          "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~services&labels="
+        ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
         "type" "pod"
         "jsonPath" ".spec.selector"
@@ -84,7 +88,11 @@ spec:
     - jsonPath: .spec.loadBalancerIP
       name: LoadbalancerIP
       type: string
-    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/services/{6}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~services&labels="
+        ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
         "type" "pod"
         "jsonPath" ".spec.selector"
@@ -135,7 +143,11 @@ spec:
     - jsonPath: .spec.loadBalancerIP
       name: LoadbalancerIP
       type: string
-    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/services/{6}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~services&labels="
+        ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
         "type" "pod"
         "jsonPath" ".spec.selector"
@@ -187,7 +199,11 @@ spec:
     - jsonPath: .spec.loadBalancerIP
       name: LoadbalancerIP
       type: string
-    {{ include "incloud-web-resources.cco.columns.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/services/{6}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~services&labels="
+        ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
         "type" "pod"
         "jsonPath" ".spec.selector"

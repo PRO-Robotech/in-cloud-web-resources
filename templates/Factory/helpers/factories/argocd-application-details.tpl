@@ -15,7 +15,7 @@ spec:
     - argocd-applications-sidebar
   withScrollableMainContentCard: true
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{{ $resName }}"
+    - "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{6}"
 
   data:
     # === HEADER ROW ===
@@ -142,7 +142,7 @@ spec:
                                   gap: 8
                                 children:
                                   {{ include "incloud-web-resources.factory.labels" (dict
-                                      "endpoint" "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{{ $resName }}"
+                                      "endpoint" "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{6}"
                                       "linkPrefix" "/openapi-ui/{2}/search?kinds=argoproj.io~v1alpha1~applications&labels="
                                     ) | nindent 34
                                   }}
@@ -155,7 +155,7 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
-                                      "endpoint" "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{{ $resName }}"
+                                      "endpoint" "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{6}"
                                     ) | nindent 34
                                   }}
 
@@ -310,7 +310,7 @@ spec:
               - type: EnrichedTable
                 data:
                   id: resources-table
-                  fetchUrl: "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{{ $resName }}"
+                  fetchUrl: "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{6}"
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "factory-argocd-application-status-resources"
                   baseprefix: "/{{ $basePrefix }}"
@@ -451,7 +451,7 @@ spec:
                       - type: EnrichedTable
                         data:
                           id: last-synced-table
-                          fetchUrl: "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{{ $resName }}"
+                          fetchUrl: "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{6}"
                           clusterNamePartOfUrl: "{2}"
                           customizationId: "factory-argocd-application-resources"
                           baseprefix: "/{{ $basePrefix }}"
@@ -464,7 +464,7 @@ spec:
               - type: EnrichedTable
                 data:
                   id: history-table
-                  fetchUrl: "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{{ $resName }}"
+                  fetchUrl: "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{6}"
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "factory-argocd-application-status-history"
                   baseprefix: "/{{ $basePrefix }}"

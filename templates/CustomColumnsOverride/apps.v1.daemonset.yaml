@@ -27,7 +27,7 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels-new" (dict
-        "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/daemonsets/{{ $resName }}"
+        "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/daemonsets/{6}"
         "linkPrefix" "/openapi-ui/{2}/search?kinds=apps~v1~daemonsets&labels="
       ) | nindent 4
     }}
@@ -70,7 +70,7 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels-new" (dict
-          "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{{ $resName }}"
+          "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{6}"
           "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=apps~v1~daemonsets&labels="
         ) | nindent 4
     }}
@@ -128,7 +128,7 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels-new" (dict
-          "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{{ $resName }}"
+          "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{6}"
           "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=apps~v1~daemonsets&labels="
         ) | nindent 4
     }}

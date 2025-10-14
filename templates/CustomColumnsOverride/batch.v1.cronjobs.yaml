@@ -27,7 +27,7 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels-new" (dict
-          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/cronjobs/{{ $resName }}"
+          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/cronjobs/{6}"
           "linkPrefix" "/openapi-ui/{2}/search?kinds=batch~v1~cronjobs&labels="
         ) | nindent 4
     }}
@@ -77,7 +77,7 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels-new" (dict
-          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/cronjobs/{{ $resName }}"
+          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/cronjobs/{6}"
           "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=batch~v1~cronjobs&labels="
         ) | nindent 4
     }}
@@ -126,7 +126,7 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels-new" (dict
-          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/cronjobs/{{ $resName }}"
+          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/cronjobs/{6}"
           "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=batch~v1~cronjobs&labels="
         ) | nindent 4
     }}
@@ -176,7 +176,7 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels-new" (dict
-          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/cronjobs/{{ $resName }}"
+          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/cronjobs/{6}"
           "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=batch~v1~cronjobs&labels="
         ) | nindent 4
     }}

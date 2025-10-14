@@ -15,7 +15,7 @@ spec:
     - pods-sidebar
   withScrollableMainContentCard: true
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{{ $resName }}"
+    - "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{6}"
 
   # Header row with badge, pod name, and status
   data:
@@ -158,7 +158,7 @@ spec:
                                   gap: 8
                                 children:
                                   {{ include "incloud-web-resources.factory.labels" (dict
-                                      "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{{ $resName }}"
+                                      "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{6}"
                                       "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
                                     ) | nindent 34
                                   }}
@@ -193,7 +193,7 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.tolerations.block" (dict 
-                                    "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{{ $resName }}"
+                                    "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{6}"
                                     "jsonPathToArray" ".spec.tolerations"
                                     "pathToValue" "/spec/tolerations"
                                     ) | nindent 34
@@ -207,7 +207,7 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
-                                      "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{{ $resName }}"
+                                      "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{6}"
                                     ) | nindent 34
                                   }}
 
@@ -424,7 +424,7 @@ spec:
                   #         - type: EnrichedTable
                   #           data:
                   #             id: volumes-table
-                  #             fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{{ $resName }}"
+                  #             fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{6}"
                   #             clusterNamePartOfUrl: "{2}"
                   #             customizationId: factory-pod-details-volume-list
                   #             baseprefix: "/{{ $basePrefix }}"
@@ -503,7 +503,7 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: conditions-table
-                              fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{{ $resName }}"
+                              fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{6}"
                               clusterNamePartOfUrl: "{2}"
                               customizationId: factory-status-conditions
                               baseprefix: "/{{ $basePrefix }}"

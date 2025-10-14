@@ -23,7 +23,7 @@ spec:
 
   # API endpoint for fetching DaemonSet details--
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{{ $resName }}"
+    - "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{6}"
 
   data:
     # === HEADER ROW ===
@@ -161,7 +161,7 @@ spec:
                                   gap: 8
                                 children:
                                  {{ include "incloud-web-resources.factory.labels" (dict
-                                      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{{ $resName }}"
+                                      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{6}"
                                       "linkPrefix" "/openapi-ui/{2}/search?kinds=apps~v1~daemonsets&labels="
                                     ) | nindent 34
                                   }}
@@ -219,7 +219,7 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.tolerations.block" (dict 
-                                    "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{{ $resName }}"
+                                    "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{6}"
                                     "jsonPathToArray" ".spec.template.spec.tolerations"
                                     "pathToValue" "/spec/template/spec/tolerations"
                                     ) | nindent 34
@@ -233,7 +233,7 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
-                                      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{{ $resName }}"
+                                      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{6}"
                                     ) | nindent 34
                                   }}
 
@@ -346,7 +346,7 @@ spec:
                   #         - type: EnrichedTable
                   #           data:
                   #             id: ds-volumes-table
-                  #             fetchUrl: "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{{ $resName }}"
+                  #             fetchUrl: "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{6}"
                   #             clusterNamePartOfUrl: "{2}"
                   #             customizationId: factory-daemonset-details-volume-list
                   #             baseprefix: "/{{ $basePrefix }}"

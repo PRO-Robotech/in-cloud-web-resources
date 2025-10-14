@@ -14,7 +14,7 @@ spec:
     - secret-sidebar
   withScrollableMainContentCard: true
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/secrets/{{ $resName }}"
+    - "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/secrets/{6}"
 
   # Header row with badge and Secret name
   data:
@@ -152,7 +152,7 @@ spec:
                                   gap: 8
                                 children:
                                  {{ include "incloud-web-resources.factory.labels" (dict
-                                      "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/secrets/{{ $resName }}"
+                                      "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/secrets/{6}"
                                       "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~secrets&labels="
                                     ) | nindent 34
                                   }}
@@ -165,7 +165,7 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
-                                      "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/secrets/{{ $resName }}"
+                                      "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/secrets/{6}"
                                     ) | nindent 34
                                   }}
 

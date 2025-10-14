@@ -27,7 +27,7 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels-new" (dict
-      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/replicasets/{{ $resName }}"
+      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/replicasets/{6}"
       "linkPrefix" "/openapi-ui/{2}/search?kinds=apps~v1~replicasets&labels="
       ) | nindent 4
     }}
@@ -67,7 +67,7 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels-new" (dict
-      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{{ $resName }}"
+      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{6}"
       "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=apps~v1~replicasets&labels="
       ) | nindent 4
     }}
@@ -106,7 +106,7 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels-new" (dict
-      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{{ $resName }}"
+      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{6}"
       "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=apps~v1~replicasets&labels="
       ) | nindent 4
     }}
@@ -146,7 +146,7 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels-new" (dict
-      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{{ $resName }}"
+      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{6}"
       "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=apps~v1~replicasets&labels="
       ) | nindent 4
     }}
@@ -185,7 +185,7 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels-new" (dict
-      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{{ $resName }}"
+      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{6}"
       "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=apps~v1~replicasets&labels="
       ) | nindent 4
     }}
@@ -228,7 +228,7 @@ spec:
     ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.labels-new" (dict
-      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{{ $resName }}"
+      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{6}"
       "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=apps~v1~replicasets&labels="
       ) | nindent 4
     }}

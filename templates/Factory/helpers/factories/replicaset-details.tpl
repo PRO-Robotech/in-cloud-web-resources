@@ -16,7 +16,7 @@ spec:
     - replicaset-sidebar
   withScrollableMainContentCard: true
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{{ $resName }}"
+    - "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{6}"
 
   # Header row with badge and ReplicaSet name
   data:
@@ -154,7 +154,7 @@ spec:
                                   gap: 8
                                 children:
                                  {{ include "incloud-web-resources.factory.labels" (dict
-                                      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{{ $resName }}"
+                                      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{6}"
                                       "linkPrefix" "/openapi-ui/{2}/search?kinds=apps~v1~replicasets&labels="
                                     ) | nindent 34
                                   }}
@@ -211,7 +211,7 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.tolerations.block" (dict 
-                                    "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{{ $resName }}"
+                                    "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{6}"
                                     "jsonPathToArray" ".spec.tolerations"
                                     "pathToValue" "/spec/tolerations"
                                     ) | nindent 34
@@ -225,7 +225,7 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
-                                      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{{ $resName }}"
+                                      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{6}"
                                     ) | nindent 34
                                   }}
 
@@ -336,7 +336,7 @@ spec:
                   #         - type: EnrichedTable
                   #           data:
                   #             id: volumes-table
-                  #             fetchUrl: "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{{ $resName }}"
+                  #             fetchUrl: "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{6}"
                   #             clusterNamePartOfUrl: "{2}"
                   #             customizationId: factory-replicaset-details-volume-list
                   #             baseprefix: "/{{ $basePrefix }}"

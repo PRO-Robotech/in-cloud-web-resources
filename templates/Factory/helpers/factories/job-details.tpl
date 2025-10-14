@@ -23,7 +23,7 @@ spec:
 
   # API endpoint to fetch Job resource
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{{ $resName }}"
+    - "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{6}"
 
   data:
     # === Header with icon, name, and job status ===
@@ -166,7 +166,7 @@ spec:
                                   gap: 8
                                 children:
                                  {{ include "incloud-web-resources.factory.labels" (dict
-                                      "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{{ $resName }}"
+                                      "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{6}"
                                       "linkPrefix" "/openapi-ui/{2}/search?kinds=batch~v1~jobs&labels="
                                     ) | nindent 34
                                   }}
@@ -179,7 +179,7 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
-                                      "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{{ $resName }}"
+                                      "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{6}"
                                     ) | nindent 34
                                   }}
 
@@ -418,7 +418,7 @@ spec:
                   #         - type: EnrichedTable
                   #           data:
                   #             id: volumes-table
-                  #             fetchUrl: "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{{ $resName }}"
+                  #             fetchUrl: "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{6}"
                   #             clusterNamePartOfUrl: "{2}"
                   #             customizationId: factory-job-details-volume-list
                   #             baseprefix: "/{{ $basePrefix }}"
@@ -512,7 +512,7 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: conditions-table
-                              fetchUrl: "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{{ $resName }}"
+                              fetchUrl: "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{6}"
                               clusterNamePartOfUrl: "{2}"
                               customizationId: factory-status-conditions
                               baseprefix: "/{{ $basePrefix }}"

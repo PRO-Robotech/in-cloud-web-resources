@@ -14,7 +14,7 @@ spec:
     - argocd-appprojects-sidebar
   withScrollableMainContentCard: true
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/appprojects/{{ $resName }}"
+    - "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/appprojects/{6}"
 
   # Header row with badge and appprojects name
   data:
@@ -152,7 +152,7 @@ spec:
                                   gap: 8
                                 children:
                                  {{ include "incloud-web-resources.factory.labels" (dict
-                                      "endpoint" "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/appprojects/{{ $resName }}"
+                                      "endpoint" "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/appprojects/{6}"
                                       "linkPrefix" "/openapi-ui/{2}/search?kinds=argoproj.io~v1alpha1~appprojects&labels="
                                     ) | nindent 34
                                   }}
@@ -165,7 +165,7 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
-                                      "endpoint" "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/appprojects/{{ $resName }}"
+                                      "endpoint" "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/appprojects/{6}"
                                     ) | nindent 34
                                   }}
 
