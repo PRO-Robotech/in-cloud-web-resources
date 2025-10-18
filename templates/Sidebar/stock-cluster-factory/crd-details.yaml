@@ -7,6 +7,6 @@ spec:
   id: stock-cluster-factory-crd-details
   keysAndTags:
     customresourcedefinitions:
-      - customresourcedefinitions-sidebar
+      - customresourcedefinitions-details
   menuItems:
     {{ include "incloud-web-resources.sidebar.menu.items.cluster" . | nindent 4 }}

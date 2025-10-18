@@ -2,17 +2,17 @@
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
 metadata:
-  name: stock-cluster-v1.services
+  name: stock-cluster-networking.k8s.io.v1.networkpolicies
 spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "title" "Service"
+      "title" "NetworkPolicy"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "service-details"
+      "factory" "networkpolicy-details"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -26,34 +26,14 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    - customProps:
-        disableEventBubbling: true
-        items:
-        - type: parsedText
-          data:
-            id: loadbalancerip-value
-            text: "{reqsJsonPath[0]['.spec.clusterIP']['-']}"
-      name: ClusterIP
-      jsonPath: .spec.clusterIP
-      type: factory
-    - customProps:
-        disableEventBubbling: true
-        items:
-        - type: parsedText
-          data:
-            id: loadbalancerip-value
-            text: "{reqsJsonPath[0]['.status.loadBalancer.ingress[0].ip']['-']}"
-      name: LoadbalancerIP
-      jsonPath: .status.loadBalancer.ingress[0].ip
-      type: factory
     {{ include "incloud-web-resources.cco.columns.labels-new" (dict
-          "endpoint" "/api/clusters/{2}/k8s/api/v1/services/{6}"
-          "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~services&labels="
+          "endpoint" "/api/clusters/{2}/k8s/api/networking.k8s.io/v1/networkpolicies/{6}"
+          "linkPrefix" "/openapi-ui/{2}/search?kinds=networking.k8s.io~v1~networkpolicies&labels="
         ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
         "type" "pod"
-        "jsonPath" ".spec.selector"
+        "jsonPath" ".spec.podSelector.matchLabels"
         "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
       ) | nindent 4
     }}
@@ -75,55 +55,35 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
-  id: stock-cluster-/v1/services
+  id: stock-cluster-/networking.k8s.io/v1/networkpolicies
 
 {{ if .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
 metadata:
-  name: stock-namespace-v1.services
+  name: stock-namespace-networking.k8s.io.v1.networkpolicies
 spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "title" "Service"
+      "title" "NetworkPolicy"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "service-details"
+      "factory" "networkpolicy-details"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    - customProps:
-        disableEventBubbling: true
-        items:
-        - type: parsedText
-          data:
-            id: loadbalancerip-value
-            text: "{reqsJsonPath[0]['.spec.clusterIP']['-']}"
-      name: ClusterIP
-      jsonPath: .spec.clusterIP
-      type: factory
-    - customProps:
-        disableEventBubbling: true
-        items:
-        - type: parsedText
-          data:
-            id: loadbalancerip-value
-            text: "{reqsJsonPath[0]['.status.loadBalancer.ingress[0].ip']['-']}"
-      name: LoadbalancerIP
-      jsonPath: .status.loadBalancer.ingress[0].ip
-      type: factory
     {{ include "incloud-web-resources.cco.columns.labels-new" (dict
           "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/services/{6}"
-          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~services&labels="
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=networking.k8s.io~v1~networkpolicies&labels="
         ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
         "type" "pod"
-        "jsonPath" ".spec.selector"
+        "jsonPath" ".spec.podSelector.matchLabels"
         "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
       ) | nindent 4
     }}
@@ -133,10 +93,6 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsUndefinedValues:
-    - key: ClusterIP
-      value: "-"
-    - key: LoadbalancerIP
-      value: "-"
     - key: Labels
       value: "-"
     - key: Pod Selector
@@ -145,53 +101,34 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
-  id: stock-namespace-/v1/services
+  id: stock-namespace-/networking.k8s.io/v1/networkpolicies
 {{ else }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
 metadata:
-  name: stock-project-v1.services
+  name: stock-project-networking.k8s.io.v1.networkpolicies
 spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "title" "Service"
+      "title" "NetworkPolicy"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "service-details"
+      "factory" "networkpolicy-details"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    - customProps:
-        disableEventBubbling: true
-        items:
-        - type: parsedText
-          data:
-            id: loadbalancerip-value
-            text: "{reqsJsonPath[0]['.spec.clusterIP']['-']}"
-      name: ClusterIP
-      jsonPath: .spec.clusterIP
-      type: factory
-    - customProps:
-        disableEventBubbling: true
-        items:
-        - type: parsedText
-          data:
-            id: loadbalancerip-value
-            text: "{reqsJsonPath[0]['.status.loadBalancer.ingress[0].ip']['-']}"
-      name: LoadbalancerIP
-      type: factory
     {{ include "incloud-web-resources.cco.columns.labels-new" (dict
           "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/services/{6}"
-          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~services&labels="
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=networking.k8s.io~v1~networkpolicies&labels="
         ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
         "type" "pod"
-        "jsonPath" ".spec.selector"
+        "jsonPath" ".spec.podSelector.matchLabels"
         "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
       ) | nindent 4
     }}
@@ -201,10 +138,6 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsUndefinedValues:
-    - key: ClusterIP
-      value: "-"
-    - key: LoadbalancerIP
-      value: "-"
     - key: Labels
       value: "-"
     - key: Pod Selector
@@ -213,54 +146,35 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
-  id: stock-project-/v1/services
+  id: stock-project-/networking.k8s.io/v1/networkpolicies
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
 metadata:
-  name: stock-instance-v1.services
+  name: stock-instance-networking.k8s.io.v1.networkpolicies
 spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
-      "title" "Service"
+      "title" "NetworkPolicy"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
       "project" "{4}"
-      "factory" "instance-service-details"
+      "factory" "instance-networkpolicy-details"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    - customProps:
-        disableEventBubbling: true
-        items:
-        - type: parsedText
-          data:
-            id: loadbalancerip-value
-            text: "{reqsJsonPath[0]['.spec.clusterIP']['-']}"
-      name: ClusterIP
-      jsonPath: .spec.clusterIP
-      type: factory
-    - customProps:
-        disableEventBubbling: true
-        items:
-        - type: parsedText
-          data:
-            id: loadbalancerip-value
-            text: "{reqsJsonPath[0]['.status.loadBalancer.ingress[0].ip']['-']}"
-      name: LoadbalancerIP
-      type: factory
     {{ include "incloud-web-resources.cco.columns.labels-new" (dict
           "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/services/{6}"
-          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~services&labels="
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=networking.k8s.io~v1~networkpolicies&labels="
         ) | nindent 4
     }}
     {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
         "type" "pod"
-        "jsonPath" ".spec.selector"
+        "jsonPath" ".spec.podSelector.matchLabels"
         "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
       ) | nindent 4
     }}
@@ -270,10 +184,6 @@ spec:
     ) | nindent 4
     }}
   additionalPrinterColumnsUndefinedValues:
-    - key: ClusterIP
-      value: "-"
-    - key: LoadbalancerIP
-      value: "-"
     - key: Labels
       value: "-"
     - key: Pod Selector
@@ -282,13 +192,13 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
-  id: stock-instance-/v1/services
+  id: stock-instance-/networking.k8s.io/v1/networkpolicies
 {{ end }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
 metadata:
-  name: factory-service-details-port-mapping
+  name: factory-networkpolicy-details-port-mapping
 spec:
   additionalPrinterColumns:
     - jsonPath: .name
@@ -303,4 +213,4 @@ spec:
     - jsonPath: .targetPort
       name: Pod port or name
       type: string
-  id: factory-service-details-port-mapping
+  id: factory-networkpolicy-details-port-mapping

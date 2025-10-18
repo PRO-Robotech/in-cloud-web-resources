@@ -12,7 +12,7 @@ metadata:
 spec:
   key: "{{ $key }}"
   sidebarTags:
-    - argocd-applications-sidebar
+    - argocd-applications-details
   withScrollableMainContentCard: true
   urlsToFetch:
     - "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{6}"

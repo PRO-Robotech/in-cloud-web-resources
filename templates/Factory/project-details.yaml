@@ -15,7 +15,7 @@ metadata:
 spec:
   key: project-details
   sidebarTags:
-    - clusterrole-sidebar
+    - clusterrole-details
   withScrollableMainContentCard: true
   urlsToFetch:
     - "/api/clusters/{2}/k8s/apis/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}/{3}"

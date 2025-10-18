@@ -8,7 +8,7 @@ spec:
 
   # Sidebar tag for grouping in UI
   sidebarTags:
-    - customresourcedefinitions-sidebar
+    - customresourcedefinitions-details
 
   # URL for fetching CRD details
   urlsToFetch:
@@ -325,9 +325,11 @@ spec:
                   customizationId: instances-crd
                   baseprefix: "/{{ .Values.basePrefix }}"
                   pathToItems: ".items"
-                  # namespace: "{3}"
-                  isNamespaced: true
                   dataForControls:
+                    resource: "{reqsJsonPath[0]['.spec.names.plural']['-']}"
+                    apiVersion: "{reqsJsonPath[0]['.status.storedVersions[0]']['-']}"
+                    apiGroup: "{reqsJsonPath[0]['.spec.group']['-']}"
+                  k8sResource:
                     resource: "{reqsJsonPath[0]['.spec.names.plural']['-']}"
                     apiVersion: "{reqsJsonPath[0]['.status.storedVersions[0]']['-']}"
                     apiGroup: "{reqsJsonPath[0]['.spec.group']['-']}"

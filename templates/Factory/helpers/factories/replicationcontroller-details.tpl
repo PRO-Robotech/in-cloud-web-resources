@@ -12,7 +12,7 @@ metadata:
 spec:
   key: "{{ $key }}"
   sidebarTags:
-    - replicationcontroller-sidebar
+    - replicationcontroller-details
   withScrollableMainContentCard: true
   urlsToFetch:
     - "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/replicationcontrollers/{6}"
@@ -434,10 +434,6 @@ spec:
                     reqIndex: 0
                     pathToLabels: ".spec.template.metadata.labels"
                   pathToItems: ".items"
-                  namespace: "{3}"
-                  isNamespaced: true
-                  dataForControls:
-                    resource: pods
-                    apiVersion: v1
+
 
 {{- end -}}

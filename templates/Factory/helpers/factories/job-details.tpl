@@ -16,7 +16,7 @@ spec:
 
   # Tags for sidebar navigation
   sidebarTags:
-    - jobs-sidebar
+    - jobs-details
 
   # Enables scrolling in the main content area
   withScrollableMainContentCard: true

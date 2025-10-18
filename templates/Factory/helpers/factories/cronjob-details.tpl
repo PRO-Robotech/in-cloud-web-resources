@@ -15,7 +15,7 @@ spec:
 
   # Sidebar category tags
   sidebarTags:
-    - cronjobs-sidebar
+    - cronjobs-details
 
   # Enable scrollable content card for main section
   withScrollableMainContentCard: true

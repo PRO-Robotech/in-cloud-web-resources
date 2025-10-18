@@ -1,7 +1,9 @@
-{{- define "incloud-web-resources.factory.manifets.poddisruptionbudget-details" -}}
-{{- $key        := (default "poddisruptionbudget-details" .key) -}}
-{{- $resName    := (default "{6}" .resName) -}}
-{{- $basePrefix := (default "openapi-ui" .basePrefix) -}}
+{{- define "incloud-web-resources.factory.manifets.networkpolicy-details" -}}
+{{- $key            := (default "networkpolicy-details" .key) -}}
+{{- $trivyEnabled   := (default false .trivyEnabled) -}}
+{{- $resName        := (default "{6}" .resName) -}}
+{{- $podFactoryName := (default "factory-node-details-/v1/pods" .podFactoryName) -}}
+{{- $basePrefix     := (default "openapi-ui" .basePrefix) -}}
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -12,13 +14,12 @@ spec:
   key: "{{ $key }}"
   withScrollableMainContentCard: true
   sidebarTags:
-    - poddisruptionbudget-details
+    - networkpolicy-details
   urlsToFetch:
-    # API call to fetch HPA details by cluster, namespace, and name
-    - "/api/clusters/{2}/k8s/apis/policy/v1/namespaces/{3}/poddisruptionbudgets/{6}"
+    - "/api/clusters/{2}/k8s/apis/networking.k8s.io/v1/namespaces/{3}/networkpolicies/{6}"
 
+  # Header row with badge and networkpolicy name
   data:
-    # --- Header section -----------------------------------------------------
     - type: antdFlex
       data:
         id: header-row
@@ -35,23 +36,23 @@ spec:
             style:
               fontSize: 20px
 
-        # Resource name
+        # networkpolicy name
         - type: parsedText
           data:
-            id: poddisruptionbudget-name
+            id: networkpolicy-name
             text: "{reqsJsonPath[0]['.metadata.name']['-']}"
             style:
               fontSize: 20px
               lineHeight: 24px
               fontFamily: RedHatDisplay, Overpass, overpass, helvetica, arial, sans-serif
 
-    # --- Tabs section (Details, YAML, etc.) --------------------------------
+    # Tabs with Details, YAML, and Pods
     - type: antdTabs
       data:
-        id: poddisruptionbudget-tabs
+        id: networkpolicy-tabs
         defaultActiveKey: "details"
         items:
-          # --- Details tab --------------------------------------------------
+          # Details tab
           - key: "details"
             label: "Details"
             children:
@@ -66,7 +67,7 @@ spec:
                       id: details-grid
                       gutter: [48, 12]
                     children:
-                      # --- Left column: metadata & config -------------------
+                      # Left column: metadata and config
                       - type: antdCol
                         data:
                           id: col-left
@@ -75,24 +76,22 @@ spec:
                           - type: antdText
                             data:
                               id: details-title
-                              text: "PodDisruptionBudget details"
+                              text: "NetworkPolicy details"
                               strong: true
                               style:
                                 fontSize: 20
                                 marginBottom: 12px
-
                           - type: Spacer
                             data:
                               id: details-spacer
                               "$space": 16
-
                           - type: antdFlex
                             data:
                               id: col-left-stack
                               vertical: true
                               gap: 24
                             children:
-                              # Resource name
+                              # Name block
                               - type: antdFlex
                                 data:
                                   id: meta-name-block
@@ -109,7 +108,7 @@ spec:
                                       id: meta-name-value
                                       text: "{reqsJsonPath[0]['.metadata.name']['-']}"
 
-                              # Namespace link (navigates to namespace details)
+                              # Namespace link
                               - type: antdFlex
                                 data:
                                   id: meta-namespace-block
@@ -142,16 +141,16 @@ spec:
                                         ) | nindent 38
                                       }}
 
-                              # Labels (key/value list with chips)
+                              # Labels
                               - type: antdFlex
                                 data:
                                   id: meta-labels-block
                                   vertical: true
                                   gap: 8
                                 children:
-                                  {{ include "incloud-web-resources.factory.labels" (dict
-                                      "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/poddisruptionbudgets/{6}"
-                                      "linkPrefix" "/openapi-ui/{2}/search?kinds=policy~v1~poddisruptionbudgets&labels="
+                                 {{ include "incloud-web-resources.factory.labels" (dict
+                                      "endpoint" "/api/clusters/{2}/k8s/apis/networking.k8s.io/v1/namespaces/{3}/networkpolicies/{6}"
+                                      "linkPrefix" "/openapi-ui/{2}/search?kinds=networking.k8s.io~v1~networkpolicies&labels="
                                     ) | nindent 34
                                   }}
 
@@ -171,13 +170,14 @@ spec:
                                         fontSize: 14
                                   {{ include "incloud-web-resources.factory.labels.base.selector" (dict
                                       "type" "pod"
-                                      "jsonPath" ".spec.selector.matchLabels"
+                                      "jsonPath" ".spec.podSelector.matchLabels"
                                       "basePrefix" $basePrefix
                                       "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
                                     ) | nindent 34
                                   }}
 
-                              # Annotations (counter with expandable view)
+
+                              # Annotations counter block
                               - type: antdFlex
                                 data:
                                   id: ds-annotations
@@ -185,11 +185,11 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
-                                      "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/poddisruptionbudgets/{6}"
+                                      "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/networkpolicys/{6}"
                                     ) | nindent 34
                                   }}
 
-                              # Creation timestamp
+                              # Created timestamp
                               - type: antdFlex
                                 data:
                                   id: meta-created-block
@@ -202,106 +202,49 @@ spec:
                                     ) | nindent 34
                                   }}
 
-                              # Owner section (commented, not yet implemented)
-                              # Could show controller/parent resource
+                              # Owner
+                              # - type: antdFlex
+                              #   data:
+                              #     id: meta-owner-block
+                              #     vertical: true
+                              #     gap: 4
+                              #   children:
+                              #     - type: antdText
+                              #       data:
+                              #         id: meta-owner-label
+                              #         strong: true
+                              #         text: "Owner"
+                              #     - type: antdFlex
+                              #       data:
+                              #         id: meta-owner-flex
+                              #         gap: 6
+                              #         align: center
+                              #       children:
+                              #         - type: antdText
+                              #           data:
+                              #             id: meta-owner-fallback
+                              #             text: "No owner"
+                              #             style:
+                              #               color: "#FF0000"
 
-                      # --- Right column: scaling settings -------------------
-                      - type: antdCol
-                        data:
-                          id: col-right
-                          span: 12
-                        children:
-                          - type: antdText
-                            data:
-                              id: routing-title
-                              text: "Settings"
-                              strong: true
-                              style:
-                                fontSize: 20
-                                marginBottom: 12px
+                      # Right column: routing and ports
+                      # - type: antdCol
+                      #   data:
+                      #     id: col-right
+                      #     span: 12
+                      #   children:
+                      #     - type: antdText
+                      #       data:
+                      #         id: routing-title
+                      #         text: "networkpolicy rules"
+                      #         strong: true
+                      #         style:
+                      #           fontSize: 20
+                      #           marginBottom: 12px
 
-                          - type: Spacer
-                            data:
-                              id: routing-spacer
-                              "$space": 16
 
-                          - type: antdFlex
-                            data:
-                              id: col-right-stack
-                              vertical: true
-                              gap: 24
-                            children:
-                              - type: antdFlex
-                                data:
-                                  id: poddisruptionbudget-max-unavailable-block
-                                  vertical: true
-                                  gap: 4
-                                children:
-                                  - type: antdText
-                                    data:
-                                      id: poddisruptionbudget-max-unavailable-label
-                                      strong: true
-                                      text: "Max unavailable"
-                                  - type: parsedText
-                                    data:
-                                      id: poddisruptionbudget-max-unavailable-value
-                                      text: "{reqsJsonPath[0]['.spec.maxUnavailable']['-']}"
 
-                              - type: antdFlex
-                                data:
-                                  id: col-right-stack
-                                  vertical: true
-                                  gap: 24
-                                children:
-                                  - type: antdFlex
-                                    data:
-                                      id: poddisruptionbudget-disruptions-allowed-block
-                                      vertical: true
-                                      gap: 4
-                                    children:
-                                      - type: antdText
-                                        data:
-                                          id: poddisruptionbudget-disruptions-allowed-label
-                                          strong: true
-                                          text: "Max unavailable"
-                                      - type: parsedText
-                                        data:
-                                          id: poddisruptionbudget-disruptions-allowed-value
-                                          text: "{reqsJsonPath[0]['.status.disruptionsAllowed']['-']}"
-
-                  # === Conditions table ===
-                  - type: antdCol
-                    data:
-                      id: conditions-column
-                      style:
-                        marginTop: 10
-                        padding: 10
-                    children:
-                      - type: VisibilityContainer
-                        data:
-                          id: conditions-container
-                          value: "{reqsJsonPath[0]['.status.conditions']['-']}"
-                          style:
-                            margin: 0
-                            padding: 0
-                        children:
-                          - type: antdText
-                            data:
-                              id: conditions-title
-                              text: "Conditions"
-                              strong: true
-                              style:
-                                fontSize: 22
-                          - type: EnrichedTable
-                            data:
-                              id: conditions-table
-                              fetchUrl: "/api/clusters/{2}/k8s/apis/policy/v1/namespaces/{3}/poddisruptionbudgets/{6}"
-                              clusterNamePartOfUrl: "{2}"
-                              customizationId: factory-status-conditions
-                              baseprefix: "/{{ $basePrefix }}"
-                              pathToItems: ".status.conditions"
-
-          # --- YAML tab -----------------------------------------------------
+          # YAML tab
           - key: "yaml"
             label: "YAML"
             children:
@@ -311,7 +254,30 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: "builtin"
-                  typeName: poddisruptionbudgets
+                  typeName: networkpolicys
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
+
+          # Pods tab
+          - key: "pods"
+            label: "Pod Selector"
+            children:
+              - type: VisibilityContainer
+                data:
+                  id: networkpolicy-pod-serving-vis
+                  value: "{reqsJsonPath[0]['.spec.podSelector.matchLabels']['-']}"
+                  style: { margin: 0, padding: 0 }
+                children:
+                  - type: EnrichedTable
+                    data:
+                      id: pods-table
+                      fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods"
+                      clusterNamePartOfUrl: "{2}"
+                      customizationId: "{{ $podFactoryName }}"
+                      baseprefix: "/{{ $basePrefix }}"
+                      labelsSelectorFull:
+                        reqIndex: 0
+                        pathToLabels: ".spec.podSelector.matchLabels"
+                      pathToItems: ".items"
+
 {{- end -}}

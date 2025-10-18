@@ -14,7 +14,7 @@ spec:
   key: "{{ $key }}"
 
   sidebarTags:
-    - statefulset-sidebar
+    - statefulset-details
   withScrollableMainContentCard: true
   urlsToFetch:
     - "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/statefulsets/{6}"
@@ -452,12 +452,7 @@ spec:
                     trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
                   # Items path for Pods list
                   pathToItems: ".items[*].report.checks"
-                  namespace: "{3}"
-                  isNamespaced: false
-                  dataForControls:
-                    resource: clusterinfraassessmentreports
-                    apiVersion: v1alpha1
-                    apiGroup: aquasecurity.github.io
+
 
   {{- end -}}
 {{- end -}}

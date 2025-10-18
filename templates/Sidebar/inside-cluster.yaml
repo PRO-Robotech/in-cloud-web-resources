@@ -37,23 +37,3 @@ spec:
   id: inside-cluster-builtin-table
   menuItems:
     {{ include "incloud-web-resources.sidebar.menu.items.cluster" . | nindent 4 }}
-
----
-apiVersion: front.in-cloud.io/v1alpha1
-kind: Sidebar
-metadata:
-  name: inside-cluster-crd-form
-spec:
-  id: inside-cluster-crd-form
-  menuItems:
-    {{ include "incloud-web-resources.sidebar.menu.items.cluster" . | nindent 4 }}
-
----
-apiVersion: front.in-cloud.io/v1alpha1
-kind: Sidebar
-metadata:
-  name: inside-cluster-crd-table
-spec:
-  id: inside-cluster-crd-table
-  menuItems:
-    {{ include "incloud-web-resources.sidebar.menu.items.cluster" . | nindent 4 }}

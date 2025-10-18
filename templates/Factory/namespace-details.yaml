@@ -8,7 +8,7 @@ spec:
 
   # Sidebar category tags
   sidebarTags:
-    - namespace-sidebar
+    - namespace-details
 
   # Enable scrollable content card for main section
   withScrollableMainContentCard: true

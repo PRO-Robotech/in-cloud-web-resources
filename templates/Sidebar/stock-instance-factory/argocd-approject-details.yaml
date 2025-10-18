@@ -13,7 +13,7 @@ spec:
   id: "stock-instance-factory-{{ $factoryID }}"
   keysAndTags:
     argocd-appprojects:
-      - argocd-appprojects-sidebar
+      - argocd-appprojects-details
   menuItems:
   {{ if .Values.namespaceNavigation }}
     {{ include "incloud-web-resources.sidebar.menu.items.namespaced" . | nindent 4 }}

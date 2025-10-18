@@ -17,7 +17,7 @@ spec:
 
   # Sidebar categorization
   sidebarTags:
-    - deployment-sidebar
+    - deployment-details
 
   # API request used to fetch the target Deployment
   urlsToFetch:

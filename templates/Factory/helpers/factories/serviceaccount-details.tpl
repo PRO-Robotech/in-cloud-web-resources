@@ -11,7 +11,7 @@ metadata:
 spec:
   key: "{{ $key }}"
   sidebarTags:
-    - serviceaccount-sidebar
+    - serviceaccount-details
   withScrollableMainContentCard: true
   urlsToFetch:
     - "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/serviceaccounts/{6}"
@@ -244,11 +244,7 @@ spec:
                                   customizationId: factory-serviceaccount-secrets
                                   baseprefix: "/{{ $basePrefix }}"
                                   pathToItems: ".secrets"
-                                  namespace: "{3}"
-                                  isNamespaced: true
-                                  dataForControls:
-                                    resource: serviceaccounts
-                                    apiVersion: v1
+
           # YAML tab
           - key: yaml
             label: YAML

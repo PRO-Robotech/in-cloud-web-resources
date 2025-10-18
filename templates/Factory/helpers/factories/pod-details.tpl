@@ -12,7 +12,7 @@ metadata:
 spec:
   key: "{{ $key }}"
   sidebarTags:
-    - pods-sidebar
+    - pods-details
   withScrollableMainContentCard: true
   urlsToFetch:
     - "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{6}"
@@ -566,12 +566,6 @@ spec:
                     trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
                   # Items path for Pods list
                   pathToItems: ".items[*].report.vulnerabilities"
-                  namespace: "{3}"
-                  isNamespaced: true
-                  dataForControls:
-                    resource: vulnerabilityreports
-                    apiVersion: v1alpha1
-                    apiGroup: aquasecurity.github.io
 
           - key: config-reports
             label: Config reports
@@ -589,12 +583,6 @@ spec:
                     trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
                   # Items path for Pods list
                   pathToItems: ".items[*].report.checks"
-                  namespace: "{3}"
-                  isNamespaced: true
-                  dataForControls:
-                    resource: configauditreports
-                    apiVersion: v1alpha1
-                    apiGroup: aquasecurity.github.io
 
   {{- end -}}
 {{- end -}}

@@ -16,7 +16,7 @@ spec:
 
   # Sidebar category tags
   sidebarTags:
-    - daemonset-sidebar
+    - daemonset-details
 
   # Enable scrollable content card for main section
   withScrollableMainContentCard: true

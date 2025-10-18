@@ -11,7 +11,7 @@ metadata:
 spec:
   key: "{{ $key }}"
   sidebarTags:
-    - secret-sidebar
+    - secret-details
   withScrollableMainContentCard: true
   urlsToFetch:
     - "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/secrets/{6}"

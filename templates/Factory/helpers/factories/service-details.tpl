@@ -14,7 +14,7 @@ spec:
   key: "{{ $key }}"
   withScrollableMainContentCard: true
   sidebarTags:
-    - service-sidebar
+    - service-details
   urlsToFetch:
     - "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/services/{6}"
 
@@ -412,11 +412,7 @@ spec:
                         # TODO требуется обработка нулевого значения
                         pathToLabels: ".spec.selector"
                       pathToItems: ".items"
-                      namespace: "{3}"
-                      isNamespaced: true
-                      dataForControls:
-                        resource: pods
-                        apiVersion: v1
+  
 
   {{- if $trivyEnabled }}
           - key: config-reports
@@ -436,11 +432,6 @@ spec:
                     trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
                   # Items path for Pods list
                   pathToItems: ".items[*].report.checks"
-                  namespace: "{3}"
-                  isNamespaced: true
-                  dataForControls:
-                    resource: configauditreports
-                    apiVersion: v1alpha1
-                    apiGroup: aquasecurity.github.io
+
   {{- end -}}
 {{- end -}}

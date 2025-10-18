@@ -11,7 +11,7 @@ metadata:
 spec:
   key: "{{ $key }}"
   sidebarTags:
-    - rolebinding-sidebar
+    - rolebinding-details
   withScrollableMainContentCard: true
   urlsToFetch:
     - "/api/clusters/{2}/k8s/apis/rbac.authorization.k8s.io/v1/namespaces/{3}/rolebindings/{6}"

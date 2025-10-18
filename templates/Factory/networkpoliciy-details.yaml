@@ -1,0 +1,17 @@
+{{ include "incloud-web-resources.factory.manifets.networkpolicy-details" (dict
+  "key" "networkpolicy-details"
+  "resName" "{6}"
+  "podFactoryName" "stock-namespace-/v1/pods"
+  "trivyEnabled" .Values.addons.trivy.enabled
+  "basePrefix" .Values.basePrefix
+) }}
+
+{{- if not .Values.namespaceNavigation }}
+{{ include "incloud-web-resources.factory.manifets.networkpolicy-details" (dict
+  "key" "instance-networkpolicy-details"
+  "resName" "{7}"
+  "podFactoryName" "stock-namespace-/v1/pods"
+  "trivyEnabled" .Values.addons.trivy.enabled
+  "basePrefix" .Values.basePrefix
+) }}
+{{- end }}

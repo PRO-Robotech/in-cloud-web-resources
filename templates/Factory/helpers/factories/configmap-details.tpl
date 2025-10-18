@@ -14,7 +14,7 @@ spec:
 
   # Sidebar category tags
   sidebarTags:
-    - configmap-sidebar
+    - configmap-details
 
   # Enable scrollable content card for main section
   withScrollableMainContentCard: true

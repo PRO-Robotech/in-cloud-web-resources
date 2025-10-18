@@ -5,7 +5,7 @@ metadata:
 spec:
   key: clusterrole-details
   sidebarTags:
-    - clusterrole-sidebar
+    - clusterrole-details
   withScrollableMainContentCard: true
   urlsToFetch:
     - "/api/clusters/{2}/k8s/apis/rbac.authorization.k8s.io/v1/clusterroles/{5}"

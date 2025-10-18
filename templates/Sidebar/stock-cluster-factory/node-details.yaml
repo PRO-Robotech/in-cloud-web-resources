@@ -7,6 +7,6 @@ spec:
   id: stock-cluster-factory-node-details
   keysAndTags:
     nodes:
-      - node-sidebar
+      - node-details
   menuItems:
     {{ include "incloud-web-resources.sidebar.menu.items.cluster" . | nindent 4 }}

@@ -12,7 +12,7 @@ spec:
   key: "{{ $key }}"
   withScrollableMainContentCard: true
   sidebarTags:
-    - horizontalpodautoscaler-sidebar
+    - horizontalpodautoscaler-details
   urlsToFetch:
     # API call to fetch HPA details by cluster, namespace, and name
     - "/api/clusters/{2}/k8s/apis/autoscaling/v2/namespaces/{3}/horizontalpodautoscalers/{6}"
@@ -374,12 +374,6 @@ spec:
                               customizationId: factory-status-conditions
                               baseprefix: "/{{ $basePrefix }}"
                               pathToItems: ".status.conditions"
-                              namespace: "{3}"
-                              isNamespaced: true
-                              dataForControls:
-                                resource: horizontalpodautoscalers
-                                apiVersion: v2
-                                apiGroup: autoscaling
 
           # --- YAML tab -----------------------------------------------------
           - key: "yaml"

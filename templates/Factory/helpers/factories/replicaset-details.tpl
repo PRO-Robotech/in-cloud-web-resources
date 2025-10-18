@@ -13,7 +13,7 @@ metadata:
 spec:
   key: "{{ $key }}"
   sidebarTags:
-    - replicaset-sidebar
+    - replicaset-details
   withScrollableMainContentCard: true
   urlsToFetch:
     - "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{6}"

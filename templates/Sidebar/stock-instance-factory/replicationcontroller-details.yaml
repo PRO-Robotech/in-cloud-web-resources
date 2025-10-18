@@ -12,7 +12,7 @@ spec:
   id: "stock-instance-factory-{{ $factoryID }}"
   keysAndTags:
     replicationcontrollers:
-      - replicationcontroller-sidebar
+      - replicationcontroller-details
   menuItems:
   {{ if .Values.namespaceNavigation }}
     {{ include "incloud-web-resources.sidebar.menu.items.namespaced" . | nindent 4 }}
