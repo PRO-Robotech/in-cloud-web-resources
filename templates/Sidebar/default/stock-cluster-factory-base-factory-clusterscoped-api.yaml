@@ -1,0 +1,67 @@
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Sidebar
+metadata:
+  name: stock-cluster-factory-base-factory-clusterscoped-api
+spec:
+  id: stock-cluster-factory-base-factory-clusterscoped-api
+  keysAndTags:
+    {{- if .Values.addons.hbf.enabled }}
+    hbf-hosts:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hosts"
+    hbf-hostbindings:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hostbindings"
+    hbf-networks:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/networks"
+    hbf-addressgroups:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroups"
+    hbf-networkbindings:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/networkbindings"
+    hbf-servicealiases:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/servicealiases"
+    hbf-services:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/services"
+    hbf-addressgroupbindings:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupbindings"
+    hbf-rules2ses:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/rules2s"
+    hbf-addressgroupportmappings:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupportmappings"
+    hbf-ieagagrules:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/ieagagrules"
+    {{- end }}
+    deployments:
+      - apps/v1/deployments
+    statefulsets:
+      - apps/v1/statefulsets
+    daemonsets:
+      - apps/v1/daemonsets
+    cronjobs:
+      - batch/v1/cronjobs
+    jobs:
+      - batch/v1/jobs
+    replicasets:
+      - apps/v1/replicasets
+    horizontalpodautoscalers:
+      - autoscaling/v1/horizontalpodautoscalers
+    poddisruptionbudgets:
+      - policy/v1/poddisruptionbudgets
+    networkpolicies:
+      - networking.k8s.io/v1/networkpolicies
+    ingresses:
+      - networking.k8s.io/v1/ingresses
+    storageclasses:
+      - storage.k8s.io/v1/storageclasses
+    roles:
+      - rbac.authorization.k8s.io/v1/roles
+    rolebindings:
+      - rbac.authorization.k8s.io/v1/rolebindings
+    clusterroles:
+      - rbac.authorization.k8s.io/v1/clusterroles
+    clusterrolebindings:
+      - rbac.authorization.k8s.io/v1/clusterrolebindings
+    customresourcedefinitions:
+      - apiextensions.k8s.io/v1/customresourcedefinitions
+    
+  menuItems:
+    {{ include "incloud-web-resources.sidebar.menu.items.cluster" . | nindent 4 }}
