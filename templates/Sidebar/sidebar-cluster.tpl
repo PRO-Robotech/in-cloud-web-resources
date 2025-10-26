@@ -133,7 +133,7 @@
     {{ if .items.rules2ses }}
     - key: hbf-rules2ses
       label: RuleS2S
-      link: "/{{ $.Values.basePrefix }}/{clusterName}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/rules2s"
+      link: "/{{ $.Values.basePrefix }}/{clusterName}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/svcsvcrules"
     {{ end }}
     {{ with .extraItems }}
       {{ . | toYaml | nindent 4 }}
@@ -155,16 +155,6 @@
     - key: hbf-networkbindings
       label: NetworkBindings
       link: "/{{ $.Values.basePrefix }}/{clusterName}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/networkbindings"
-    {{ end }}
-    {{ if .items.ieagagrules }}
-    - key: hbf-ieagagrules
-      label: RuleAG2AG
-      link: "/{{ $.Values.basePrefix }}/{clusterName}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/ieagagrules"
-    {{ end }}
-    {{ if .items.servicealiases }}
-    - key: hbf-servicealiases
-      label: ServiceAliases
-      link: "/{{ $.Values.basePrefix }}/{clusterName}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/servicealiases"
     {{ end }}
     {{ if .items.addressgroupbindings }}
     - key: hbf-addressgroupbindings

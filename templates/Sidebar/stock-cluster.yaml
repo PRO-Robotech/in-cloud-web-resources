@@ -24,7 +24,7 @@ spec:
     hbf-addressgroupbindings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupbindings"
     hbf-rules2ses:
-      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/rules2s"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcsvcrules"
     hbf-addressgroupportmappings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupportmappings"
     hbf-ieagagrules:

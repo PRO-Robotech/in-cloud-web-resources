@@ -169,8 +169,6 @@ sidebars:
       items:
         hostbindings: true
         networkbindings: true
-        ieagagrules: true
-        servicealiases: true
         addressgroupbindings: true
         addressgroupportmappings: true
       extraItems: []
