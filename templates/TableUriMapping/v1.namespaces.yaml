@@ -1,9 +1,0 @@
-# ---
-# apiVersion: front.in-cloud.io/v1alpha1
-# kind: TableUriMapping
-# metadata:
-#   name: stock-cluster-namespace-details
-# spec:
-#   keysToParse: ".metadata.name"
-#   id: "stock-cluster-/v1/namespaces"
-#   pathToNavigate: "/{{ .Values.basePrefix }}/{clusterName}/factory/namespace-details/~recordValue~"
