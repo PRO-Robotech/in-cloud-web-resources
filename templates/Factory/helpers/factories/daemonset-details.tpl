@@ -448,6 +448,29 @@ spec:
                   # Items path for Pods list
                   pathToItems: ".items"
 
+          - key: events
+            label: Events
+            children:
+              - type: Events
+                data:
+                  id: events
+                  baseprefix: "/openapi-ui"
+                  clusterNamePartOfUrl: "{2}"
+                  wsUrl: "/api/clusters/{2}/openapi-bff-ws/events/eventsWs"
+                  pageSize: 50
+                  substractHeight: 315
+                  limit: 40
+                  fieldSelector:
+                    regarding.kind: "{reqsJsonPath[0]['.kind']['-']}"
+                    regarding.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                    regarding.namespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+                    regarding.apiVersion: "{reqsJsonPath[0]['.apiVersion']['-']}"
+                  baseFactoryNamespacedAPIKey: base-factory-namespaced-api
+                  baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
+                  baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
+                  baseFactoryClusterSceopedBuiltinKey: base-factory-clusterscoped-builtin
+                  baseNamespaceFactoryKey: namespace-details
+
   {{- if $trivyEnabled }}
           # ------ PODS TAB ------
           - key: reports

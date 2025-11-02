@@ -23,7 +23,7 @@ spec:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/services"
     hbf-addressgroupbindings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupbindings"
-    hbf-rules2ses:
+    hbf-svcsvcrules:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcsvcrules"
     hbf-addressgroupportmappings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupportmappings"
@@ -155,7 +155,7 @@ spec:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/services"
     hbf-addressgroupbindings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupbindings"
-    hbf-rules2ses:
+    hbf-svcsvcrules:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcsvcrules"
     hbf-addressgroupportmappings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupportmappings"

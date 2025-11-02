@@ -107,8 +107,8 @@
       label: Services
       link: "/{{ $.Values.basePrefix }}/{clusterName}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/services"
     {{ end }}
-    {{ if .items.rules2ses }}
-    - key: hbf-rules2ses
+    {{ if .items.svcsvcrules }}
+    - key: hbf-svcsvcrules
       label: RuleS2S
       link: "/{{ $.Values.basePrefix }}/{clusterName}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/svcsvcrules"
     {{ end }}

@@ -160,7 +160,7 @@ sidebars:
         networks: true
         addressgroups: true
         services: true
-        rules2ses: true
+        svcsvcrules: true
       extraItems: []
 
     # HBF system configuration section
@@ -289,7 +289,7 @@ sidebars:
         networks: true
         addressgroups: true
         services: true
-        rules2ses: true
+        svcsvcrules: true
       extraItems: []
 
     # HBF system resources within the namespace
@@ -421,7 +421,7 @@ sidebars:
         networks: true
         addressgroups: true
         services: true
-        rules2ses: true
+        svcsvcrules: true
       extraItems: []
 
     # HBF system resources for the instance

@@ -95,7 +95,7 @@ spec:
     }}
     - jsonPath: .subjects[?(@.kind=="ServiceAccount")].name
       name: Service accounts
-      type: string
+      type: array
     - jsonPath: .subjects[?(@.kind=="User")].name
       name: Users
       type: array
