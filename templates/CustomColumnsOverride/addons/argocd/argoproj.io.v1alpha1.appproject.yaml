@@ -6,27 +6,17 @@ metadata:
   name: "stock-cluster-argoproj.io.v1alpha1.appprojects"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "AP"
-            "title" "appprojects"
-            "backgroundColor" "#436853ff"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "argocd-appproject-details"
-            "basePrefix" .Values.basePrefix
-        ) | nindent 12 
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "AppProject"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "argocd-appproject-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Namespace"
       "title" "Namespace"
@@ -53,27 +43,17 @@ metadata:
   name: "stock-namespace-argoproj.io.v1alpha1.appprojects"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "AP"
-            "title" "appprojects"
-            "backgroundColor" "#436853ff"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "argocd-appproject-details"
-            "basePrefix" .Values.basePrefix
-        ) | nindent 12 
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "AppProject"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "argocd-appproject-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -90,27 +70,17 @@ metadata:
   name: "stock-project-argoproj.io.v1alpha1.appprojects"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "AP"
-            "title" "appprojects"
-            "backgroundColor" "#436853ff"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "argocd-appproject-details"
-            "basePrefix" .Values.basePrefix
-        ) | nindent 12 
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "AppProject"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "argocd-appproject-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -127,28 +97,17 @@ metadata:
   name: "stock-instance-argoproj.io.v1alpha1.appprojects"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "AP"
-            "title" "appprojects"
-            "backgroundColor" "#436853ff"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "project" "{4}"
-            "factory" "instance-argocd-appproject-details"
-            "basePrefix" .Values.basePrefix
-        ) | nindent 12 
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "AppProject"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "argocd-appproject-details"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
