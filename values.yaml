@@ -161,6 +161,7 @@ sidebars:
         addressgroups: true
         services: true
         svcsvcrules: true
+        svcfqdnrules: true
       extraItems: []
 
     # HBF system configuration section
@@ -290,6 +291,7 @@ sidebars:
         addressgroups: true
         services: true
         svcsvcrules: true
+        svcfqdnrules: true
       extraItems: []
 
     # HBF system resources within the namespace
@@ -422,6 +424,7 @@ sidebars:
         addressgroups: true
         services: true
         svcsvcrules: true
+        svcfqdnrules: true
       extraItems: []
 
     # HBF system resources for the instance

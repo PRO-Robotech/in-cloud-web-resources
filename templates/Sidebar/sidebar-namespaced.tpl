@@ -109,8 +109,13 @@
     {{ end }}
     {{ if .items.svcsvcrules }}
     - key: hbf-svcsvcrules
-      label: RuleS2S
+      label: SvcSvcRules
       link: "/{{ $.Values.basePrefix }}/{clusterName}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/svcsvcrules"
+    {{ end }}
+    {{ if .items.svcfqdnrules }}
+    - key: hbf-svcfqdnrules
+      label: SvcFqdnRules
+      link: "/{{ $.Values.basePrefix }}/{clusterName}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/svcfqdnrules"
     {{ end }}
     {{ with .extraItems }}
       {{ . | toYaml | nindent 4 }}
