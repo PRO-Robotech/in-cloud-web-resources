@@ -39,7 +39,7 @@ spec:
         - type: parsedText
           data:
             id: header-name
-            text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+            text: "{reqsJsonPath[0]['.spec.names.plural']['-']}"
             style:
               fontFamily: RedHatDisplay, Overpass, overpass, helvetica, arial, sans-serif
               fontSize: 20px
