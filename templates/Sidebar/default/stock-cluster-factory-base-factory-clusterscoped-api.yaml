@@ -23,6 +23,8 @@ spec:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupbindings"
     hbf-svcsvcrules:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcsvcrules"
+    hbf-svcfqdnrules:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcfqdnrules"
     hbf-addressgroupportmappings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupportmappings"
     {{- end }}

@@ -1,0 +1,47 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: incloud-web
+  namespace: incloud-argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/PRO-Robotech/incloud-web-chart.git
+    targetRevision: dev
+    path: .
+    helm:
+      values: |-
+        incloud-web-resources:
+          enabled: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: incloud-web
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: incloud-web-resources
+  namespace: incloud-argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/PRO-Robotech/incloud-web-resources.git
+    targetRevision: dev
+    path: .
+    helm:
+      values: |-
+        addons:
+          hbf:
+            enabled: true
+            apiVersion: v1beta1
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: incloud-web
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
