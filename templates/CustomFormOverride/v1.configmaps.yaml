@@ -12,6 +12,7 @@ spec:
     - - immutable
     - - binaryData
   sort:
+    - - data
     - - metadata
       - name
     - - metadata
@@ -20,7 +21,6 @@ spec:
       - annotations
     - - metadata
       - labels
-    - - data
   schema:
     properties:
       data:

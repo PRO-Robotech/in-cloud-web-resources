@@ -8,7 +8,7 @@ spec:
     - jsonPath: .name
       name: Name
       type: string
-    - jsonPath: .imageID
+    - jsonPath: .image
       name: Image
       type: string
     - jsonPath: .started
@@ -48,7 +48,7 @@ spec:
     - jsonPath: .name
       name: Name
       type: string
-    - jsonPath: .imageID
+    - jsonPath: .image
       name: Image
       type: string
     - jsonPath: .started
