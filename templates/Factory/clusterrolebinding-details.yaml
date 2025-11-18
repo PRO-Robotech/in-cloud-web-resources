@@ -8,7 +8,12 @@ spec:
     - clusterrolebinding-details
   withScrollableMainContentCard: true
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{5}"
+    - cluster: "{2}"
+      group: "rbac.authorization.k8s.io"
+      version: "v1"
+      namespace: "{3}"
+      plural: "clusterrolebindings"
+      fieldSelector: "metadata.name={6}"
 
   # Header row with badge and clusterrolebinding name
   data:

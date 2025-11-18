@@ -18,7 +18,12 @@ spec:
     - clusterrole-details
   withScrollableMainContentCard: true
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}/{3}"
+    - cluster: "{2}"
+      group: "{{ $projRes.apiGroup }}"
+      version: "{{ $projRes.apiVersion }}"
+      namespace: "{3}"
+      plural: "{{ $projRes.resourceName }}"
+      fieldSelector: "metadata.name={6}"
 
   # Header row with badge and project name
   data:

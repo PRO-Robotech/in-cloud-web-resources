@@ -14,7 +14,11 @@ spec:
     - secret-details
   withScrollableMainContentCard: true
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/secrets/{6}"
+    - cluster: "{2}"
+      version: "v1"
+      namespace: "{3}"
+      plural: "secrets"
+      fieldSelector: "metadata.name={6}"
 
   # Header row with badge and Secret name
   data:

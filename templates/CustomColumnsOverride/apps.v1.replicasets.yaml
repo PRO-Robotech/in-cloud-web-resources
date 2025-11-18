@@ -37,6 +37,38 @@ spec:
         "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
       ) | nindent 4
     }}
+    - jsonPath: .metadata.ownerReferences
+      name: ownerRef
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+          - type: OwnerRefs
+            data:
+              id: refs
+              baseprefix: /openapi-ui
+              clusterNamePartOfUrl: '{2}'
+              forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+              reqIndex: 0
+              errorText: error getting refs
+              notArrayErrorText: refs on path are not arr
+              emptyArrayErrorText: no refs
+              isNotRefsArrayErrorText: objects in arr are not refs
+              # containerStyle:
+              #   border: "1px solid red"
+              #   padding: "10px"
+              # listFlexProps: 
+              #   gap: 10
+              jsonPathToArrayOfRefs: ".metadata.ownerReferences"
+              # keysToForcedLabel?: string | string[] // j
+              baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
+              baseFactoryClusterSceopedBuiltinKey: base-factory-clusterscoped-builtin
+              baseFactoryNamespacedAPIKey: base-factory-namespaced-api
+              baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
+              baseNamespaceFactoryKey: namespace-details
+              baseNavigationPluralName: navigations
+              baseNavigationSpecificName: navigation
+
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -77,6 +109,38 @@ spec:
         "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
       ) | nindent 4
     }}
+    - jsonPath: .metadata.ownerReferences
+      name: ownerRef
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+          - type: OwnerRefs
+            data:
+              id: refs
+              baseprefix: /openapi-ui
+              clusterNamePartOfUrl: '{2}'
+              forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+              reqIndex: 0
+              errorText: error getting refs
+              notArrayErrorText: refs on path are not arr
+              emptyArrayErrorText: no refs
+              isNotRefsArrayErrorText: objects in arr are not refs
+              # containerStyle:
+              #   border: "1px solid red"
+              #   padding: "10px"
+              # listFlexProps: 
+              #   gap: 10
+              jsonPathToArrayOfRefs: ".metadata.ownerReferences"
+              # keysToForcedLabel?: string | string[] // j
+              baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
+              baseFactoryClusterSceopedBuiltinKey: base-factory-clusterscoped-builtin
+              baseFactoryNamespacedAPIKey: base-factory-namespaced-api
+              baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
+              baseNamespaceFactoryKey: namespace-details
+              baseNavigationPluralName: navigations
+              baseNavigationSpecificName: navigation
+
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -116,6 +180,38 @@ spec:
         "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
       ) | nindent 4
     }}
+    - jsonPath: .metadata.ownerReferences
+      name: ownerRef
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+          - type: OwnerRefs
+            data:
+              id: refs
+              baseprefix: /openapi-ui
+              clusterNamePartOfUrl: '{2}'
+              forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+              reqIndex: 0
+              errorText: error getting refs
+              notArrayErrorText: refs on path are not arr
+              emptyArrayErrorText: no refs
+              isNotRefsArrayErrorText: objects in arr are not refs
+              # containerStyle:
+              #   border: "1px solid red"
+              #   padding: "10px"
+              # listFlexProps: 
+              #   gap: 10
+              jsonPathToArrayOfRefs: ".metadata.ownerReferences"
+              # keysToForcedLabel?: string | string[] // j
+              baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
+              baseFactoryClusterSceopedBuiltinKey: base-factory-clusterscoped-builtin
+              baseFactoryNamespacedAPIKey: base-factory-namespaced-api
+              baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
+              baseNamespaceFactoryKey: namespace-details
+              baseNavigationPluralName: navigations
+              baseNavigationSpecificName: navigation
+
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -156,6 +252,38 @@ spec:
         "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
       ) | nindent 4
     }}
+    - jsonPath: .metadata.ownerReferences
+      name: ownerRef
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+          - type: OwnerRefs
+            data:
+              id: refs
+              baseprefix: /openapi-ui
+              clusterNamePartOfUrl: '{2}'
+              forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+              reqIndex: 0
+              errorText: error getting refs
+              notArrayErrorText: refs on path are not arr
+              emptyArrayErrorText: no refs
+              isNotRefsArrayErrorText: objects in arr are not refs
+              # containerStyle:
+              #   border: "1px solid red"
+              #   padding: "10px"
+              # listFlexProps: 
+              #   gap: 10
+              jsonPathToArrayOfRefs: ".metadata.ownerReferences"
+              # keysToForcedLabel?: string | string[] // j
+              baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
+              baseFactoryClusterSceopedBuiltinKey: base-factory-clusterscoped-builtin
+              baseFactoryNamespacedAPIKey: base-factory-namespaced-api
+              baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
+              baseNamespaceFactoryKey: namespace-details
+              baseNavigationPluralName: navigations
+              baseNavigationSpecificName: navigation
+
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -195,6 +323,38 @@ spec:
         "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
       ) | nindent 4
     }}
+    - jsonPath: .metadata.ownerReferences
+      name: ownerRef
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+          - type: OwnerRefs
+            data:
+              id: refs
+              baseprefix: /openapi-ui
+              clusterNamePartOfUrl: '{2}'
+              forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+              reqIndex: 0
+              errorText: error getting refs
+              notArrayErrorText: refs on path are not arr
+              emptyArrayErrorText: no refs
+              isNotRefsArrayErrorText: objects in arr are not refs
+              # containerStyle:
+              #   border: "1px solid red"
+              #   padding: "10px"
+              # listFlexProps: 
+              #   gap: 10
+              jsonPathToArrayOfRefs: ".metadata.ownerReferences"
+              # keysToForcedLabel?: string | string[] // j
+              baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
+              baseFactoryClusterSceopedBuiltinKey: base-factory-clusterscoped-builtin
+              baseFactoryNamespacedAPIKey: base-factory-namespaced-api
+              baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
+              baseNamespaceFactoryKey: namespace-details
+              baseNavigationPluralName: navigations
+              baseNavigationSpecificName: navigation
+
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"

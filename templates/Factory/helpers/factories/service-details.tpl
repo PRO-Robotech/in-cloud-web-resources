@@ -16,7 +16,11 @@ spec:
   sidebarTags:
     - service-details
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/services/{6}"
+    - cluster: "{2}"
+      version: "v1"
+      namespace: "{3}"
+      plural: "services"
+      fieldSelector: "metadata.name={6}"
 
   # Header row with badge and Service name
   data:
@@ -407,7 +411,7 @@ spec:
                       customizationId: "{{ $podFactoryName }}"
                       baseprefix: "/{{ $basePrefix }}"
                       
-                      labelsSelectorFull:
+                      labelSelectorFull:
                         reqIndex: 0
                         # TODO требуется обработка нулевого значения
                         pathToLabels: ".spec.selector"

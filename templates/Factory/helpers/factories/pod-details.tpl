@@ -211,6 +211,44 @@ spec:
                                     ) | nindent 34
                                   }}
 
+                              - type: antdFlex
+                                data:
+                                  id: ref-link-block
+                                  vertical: true
+                                  gap: 8
+                                children:
+                                  - type: antdText
+                                    data:
+                                      id: meta-ref
+                                      text: OwnerRef
+                                      strong: true
+
+                                  - type: OwnerRefs
+                                    data:
+                                      id: refs
+                                      baseprefix: /openapi-ui
+                                      clusterNamePartOfUrl: '{2}'
+                                      forcedNamespace: '{3}'
+                                      reqIndex: 0
+                                      errorText: error getting refs
+                                      notArrayErrorText: refs on path are not arr
+                                      emptyArrayErrorText: no refs
+                                      isNotRefsArrayErrorText: objects in arr are not refs
+                                      # containerStyle:
+                                      #   border: "1px solid red"
+                                      #   padding: "10px"
+                                      # listFlexProps: 
+                                      #   gap: 10
+                                      jsonPathToArrayOfRefs: ".metadata.ownerReferences"
+                                      # keysToForcedLabel?: string | string[] // j
+                                      baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
+                                      baseFactoryClusterSceopedBuiltinKey: base-factory-clusterscoped-builtin
+                                      baseFactoryNamespacedAPIKey: base-factory-namespaced-api
+                                      baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
+                                      baseNamespaceFactoryKey: namespace-details
+                                      baseNavigationPluralName: navigations
+                                      baseNavigationSpecificName: navigation
+
                               # Created timestamp (kept as include)
                               - type: antdFlex
                                 data:

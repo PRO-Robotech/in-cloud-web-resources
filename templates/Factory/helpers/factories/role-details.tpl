@@ -14,7 +14,12 @@ spec:
     - role-details
   withScrollableMainContentCard: true
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/rbac.authorization.k8s.io/v1/namespaces/{3}/roles/{6}"
+    - cluster: "{2}"
+      group: "rbac.authorization.k8s.io"
+      version: "v1"
+      namespace: "{3}"
+      plural: "roles"
+      fieldSelector: "metadata.name={6}"
 
   # Header row with badge and role name
   data:

@@ -14,7 +14,12 @@ spec:
     - argocd-appprojects-details
   withScrollableMainContentCard: true
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/appprojects/{6}"
+    - cluster: "{2}"
+      group: "argoproj.io"
+      version: "v1alpha1"
+      namespace: "{3}"
+      plural: "appprojects"
+      fieldSelector: "metadata.name={6}"
 
   # Header row with badge and appprojects name
   data:
@@ -218,7 +223,11 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: builtin
-                  typeName: appprojectss
+                  typeName: appprojects
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
+                  pathToData: .items.0
+                  forcedKind: AppProject
+                  apiGroup: argoproj.io
+                  apiVersion: v1alpha1
 {{- end -}}

@@ -4,7 +4,7 @@
     id: header-status
     # 1) Collect all possible Deployment conditions
     values:
-      - "{reqsJsonPath[0]['.status.conditions[*].reason']['-']}"
+      - "{reqsJsonPath[0]['.items.0.status.conditions[*].reason']['-']}"
 
     # 2) Criteria: positive / negative; neutral goes to fallback
     criteriaSuccess: equals

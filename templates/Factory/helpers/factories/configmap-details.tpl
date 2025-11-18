@@ -21,7 +21,11 @@ spec:
 
   # API endpoint for fetching ConfigMap details
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/configmaps/{6}"
+    - cluster: "{2}"
+      version: "v1"
+      namespace: "{3}"
+      plural: "configmaps"
+      fieldSelector: "metadata.name={6}"
 
   data:
     # === HEADER ROW ===

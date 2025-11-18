@@ -14,7 +14,12 @@ spec:
     - certificate-details
   withScrollableMainContentCard: true
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/cert-manager.io/v1/namespaces/{3}/certificates/{6}"
+    - cluster: "{2}"
+      group: "cert-manager.io"
+      version: "v1"
+      namespace: "{3}"
+      plural: "certificates"
+      fieldSelector: "metadata.name={6}"
 
   # Header row with badge and certificate name
   data:

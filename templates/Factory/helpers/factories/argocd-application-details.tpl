@@ -15,7 +15,12 @@ spec:
     - argocd-applications-details
   withScrollableMainContentCard: true
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{6}"
+    - cluster: "{2}"
+      group: "argoproj.io"
+      version: "v1alpha1"
+      namespace: "{3}"
+      plural: "applications"
+      fieldSelector: "metadata.name={6}"
 
   data:
     # === HEADER ROW ===
@@ -37,7 +42,7 @@ spec:
         - type: parsedText
           data:
             id: header-name
-            text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
             style:
               fontSize: 20px
               lineHeight: 24px
@@ -102,7 +107,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: field-name-value
-                                      text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
                               - type: antdFlex
                                 data:
                                   id: meta-namespace-block
@@ -129,7 +134,7 @@ spec:
                                       {{ include "incloud-web-resources.factory.linkblock" (dict
                                           "reqIndex" 0
                                           "type" "namespace"
-                                          "jsonPath" ".metadata.namespace"
+                                          "jsonPath" ".items.0.metadata.namespace"
                                           "factory" "namespace-details"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
@@ -166,7 +171,7 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.time.create" (dict
-                                    "req" ".metadata.creationTimestamp"
+                                    "req" ".items.0.metadata.creationTimestamp"
                                     "text" "Created"
                                     ) | nindent 38
                                   }}
@@ -196,7 +201,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: health-value
-                                      text: "{reqsJsonPath[0]['.status.health.status']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.status.health.status']['-']}"
                               - type: antdFlex
                                 data:
                                   id: sync-status-block
@@ -219,11 +224,11 @@ spec:
                                       - type: parsedText
                                         data:
                                           id: sync-status-value
-                                          text: "{reqsJsonPath[0]['.status.sync.status']['-']}"
+                                          text: "{reqsJsonPath[0]['.items.0.status.sync.status']['-']}"
                                       - type: parsedText
                                         data:
                                           id: sync-revision-value
-                                          text: "{reqsJsonPath[0]['.status.sync.revision']['-']}"
+                                          text: "{reqsJsonPath[0]['.items.0.status.sync.revision']['-']}"
                               - type: antdFlex
                                 data:
                                   id: target-revision-block
@@ -238,7 +243,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: target-revision-value
-                                      text: "{reqsJsonPath[0]['.spec.source.targetRevision']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.source.targetRevision']['-']}"
                               - type: antdFlex
                                 data:
                                   id: project-block
@@ -249,7 +254,7 @@ spec:
                                       "reqIndex" 0
                                       "type" "project"
                                       "title" "Project"
-                                      "jsonPath" ".spec.project"
+                                      "jsonPath" ".items.0.spec.project"
                                       "factory" "argocd-appproject-details"
                                       "basePrefix" $basePrefix
                                       "namespace" "{3}"
@@ -270,7 +275,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: destination-value
-                                      text: "{reqsJsonPath[0]['.spec.destination.server']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.destination.server']['-']}"
                               - type: antdFlex
                                 data:
                                   id: sync-policy-block
@@ -285,7 +290,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: sync-policy-value
-                                      text: "{reqsJsonPath[0]['.spec.syncPolicy']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.syncPolicy']['-']}"
 
           # ------ YAML TAB ------
           - key: "yaml"
@@ -368,7 +373,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: phase-value
-                                      text: "{reqsJsonPath[0]['.status.operationState.phase']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.status.operationState.phase']['-']}"
                               - type: antdFlex
                                 data:
                                   id: message-block
@@ -383,7 +388,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: message-value
-                                      text: "{reqsJsonPath[0]['.status.operationState.message']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.status.operationState.message']['-']}"
                               - type: antdFlex
                                 data:
                                   id: initiated-by-block
@@ -398,7 +403,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: initiated-by-value
-                                      text: "{reqsJsonPath[0]['.status.operationState.operation.initiatedBy.username']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.status.operationState.operation.initiatedBy.username']['-']}"
                       - type: antdCol
                         data:
                           id: sync-col-right

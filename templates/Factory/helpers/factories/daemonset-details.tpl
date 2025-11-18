@@ -23,7 +23,12 @@ spec:
 
   # API endpoint for fetching DaemonSet details--
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{6}"
+    - cluster: "{2}"
+      group: "apps"
+      version: "v1"
+      namespace: "{3}"
+      plural: "daemonsets"
+      fieldSelector: "metadata.name={6}"
 
   data:
     # === HEADER ROW ===
@@ -442,7 +447,7 @@ spec:
                   customizationId: "{{ $podFactoryName }}"
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels
-                  labelsSelectorFull:
+                  labelSelectorFull:
                     reqIndex: 0
                     pathToLabels: ".spec.template.metadata.labels"
                   # Items path for Pods list

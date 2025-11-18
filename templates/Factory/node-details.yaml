@@ -15,7 +15,11 @@ spec:
 
   # API endpoint for fetching Node details
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/api/v1/nodes/{5}"
+    - cluster: "{2}"
+      version: "v1"
+      namespace: "{3}"
+      plural: "nodes"
+      fieldSelector: "metadata.name={6}"
 
   data:
     # === HEADER ROW ===

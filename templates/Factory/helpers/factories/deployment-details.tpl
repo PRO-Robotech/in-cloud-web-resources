@@ -21,7 +21,13 @@ spec:
 
   # API request used to fetch the target Deployment
   urlsToFetch:
-    - /api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/deployments/{6}
+    # - /api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/deployments/{6}
+    - cluster: "{2}"
+      group: "apps"
+      version: "v1"
+      namespace: "{3}"
+      plural: "deployments"
+      fieldSelector: "metadata.name={6}"
 
   # Enables scrollable main content area
   withScrollableMainContentCard: true
@@ -41,7 +47,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: "{reqsJsonPath[0]['.kind']['-']}"
+            value: "Deployment"
             style:
               fontSize: 20px
 
@@ -49,7 +55,7 @@ spec:
         - type: parsedText
           data:
             id: header-name
-            text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
             style:
               fontSize: 20px
               lineHeight: 24px
@@ -129,7 +135,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: name-value
-                                      text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
 
                               # Namespace link block (rendered by include)
                               - type: antdFlex
@@ -157,7 +163,7 @@ spec:
                                       {{ include "incloud-web-resources.factory.linkblock" (dict
                                           "reqIndex" 0
                                           "type" "namespace"
-                                          "jsonPath" ".metadata.namespace"
+                                          "jsonPath" ".items.0.metadata.namespace"
                                           "factory" "namespace-details"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
@@ -173,6 +179,7 @@ spec:
                                  {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/deployments/{6}"
                                       "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=apps~v1~deployments&labels="
+                                      "jsonPath" ".items.0.metadata.labels"
                                     ) | nindent 34
                                   }}
 
@@ -192,7 +199,7 @@ spec:
                                         fontSize: 14
                                   {{ include "incloud-web-resources.factory.labels.base.selector" (dict
                                       "type" "node"
-                                      "jsonPath" ".spec.template.spec.nodeSelector"
+                                      "jsonPath" ".items.0.spec.template.spec.nodeSelector"
                                       "basePrefix" $basePrefix
                                       "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~nodes&labels="
                                     ) | nindent 34
@@ -214,7 +221,7 @@ spec:
                                         fontSize: 14
                                   {{ include "incloud-web-resources.factory.labels.base.selector" (dict
                                       "type" "pod"
-                                      "jsonPath" ".spec.template.metadata.labels"
+                                      "jsonPath" ".items.0.spec.template.metadata.labels"
                                       "basePrefix" $basePrefix
                                       "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
                                     ) | nindent 34
@@ -230,7 +237,7 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.tolerations.block" (dict 
                                     "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/deployments/{6}"
-                                    "jsonPathToArray" ".spec.template.spec.tolerations"
+                                    "jsonPathToArray" ".items.0.spec.template.spec.tolerations"
                                     "pathToValue" "/spec/template/spec/tolerations"
                                     ) | nindent 34
                                   }}
@@ -244,6 +251,8 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/deployments/{6}"
+                                      "jsonPath" ".items.0.metadata.annotations"
+                                      "pathToValue" "/metadata/annotations"
                                     ) | nindent 34
                                   }}
 
@@ -255,7 +264,7 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.time.create" (dict
-                                    "req" ".metadata.creationTimestamp"
+                                    "req" ".items.0.metadata.creationTimestamp"
                                     "text" "Created"
                                   ) | nindent 38 
                                   }}
@@ -327,7 +336,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: update-strategy-value
-                                      text: "{reqsJsonPath[0]['.spec.strategy.type']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.strategy.type']['-']}"
 
                               # MaxUnavailable value
                               - type: antdFlex
@@ -344,7 +353,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: max-unavailable-value
-                                      text: "{reqsJsonPath[0]['.spec.strategy.rollingUpdate.maxUnavailable']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.strategy.rollingUpdate.maxUnavailable']['-']}"
 
                               # MaxSurge value
                               - type: antdFlex
@@ -361,7 +370,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: max-surge-value
-                                      text: "{reqsJsonPath[0]['.spec.strategy.rollingUpdate.maxSurge']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.strategy.rollingUpdate.maxSurge']['-']}"
 
                               # ProgressDeadlineSeconds
                               - type: antdFlex
@@ -378,7 +387,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: progress-deadline-value
-                                      text: "{reqsJsonPath[0]['.spec.progressDeadlineSeconds']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.progressDeadlineSeconds']['-']}"
 
                               # MinReadySeconds
                               - type: antdFlex
@@ -395,7 +404,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: min-ready-seconds-value
-                                      text: "{reqsJsonPath[0]['.spec.minReadySeconds']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.minReadySeconds']['-']}"
 
                   # === Volumes table (visible only if volumes exist) ===
                   # TODO to be done
@@ -409,7 +418,7 @@ spec:
                   #     - type: VisibilityContainer
                   #       data:
                   #         id: volumes-container
-                  #         value: "{reqsJsonPath[0]['.spec.template.spec.volumes']['-']}"
+                  #         value: "{reqsJsonPath[0]['.items.0.spec.template.spec.volumes']['-']}"
                   #         style:
                   #           margin: 0
                   #           padding: 0
@@ -443,7 +452,7 @@ spec:
                       - type: VisibilityContainer
                         data:
                           id: ds-init-containers-container
-                          value: "{reqsJsonPath[0]['.spec.template.spec.initContainers']['-']}"
+                          value: "{reqsJsonPath[0]['.items.0.spec.template.spec.initContainers']['-']}"
                           style:
                             margin: 0
                             padding: 0
@@ -456,7 +465,7 @@ spec:
                               "kind" "deployments"
                               "resourceName" $resName
                               "namespace" "{3}"
-                              "jsonPath" ".spec.template.spec.initContainers"
+                              "jsonPath" ".items.0.spec.template.spec.initContainers"
                               "pathToItems" "['spec','template','spec','initContainers']"
                               "basePrefix" $basePrefix
                             ) | nindent 26
@@ -473,7 +482,7 @@ spec:
                       - type: VisibilityContainer
                         data:
                           id: ds-containers-container
-                          value: "{reqsJsonPath[0]['.spec.template.spec.containers']['-']}"
+                          value: "{reqsJsonPath[0]['.items.0.spec.template.spec.containers']['-']}"
                           style:
                             margin: 0
                             padding: 0
@@ -486,7 +495,7 @@ spec:
                               "kind" "deployments"
                               "resourceName" $resName
                               "namespace" "{3}"
-                              "jsonPath" ".spec.template.spec.containers"
+                              "jsonPath" ".items.0.spec.template.spec.containers"
                               "pathToItems" "['spec','template','spec','containers']"
                               "basePrefix" $basePrefix
                             ) | nindent 26
@@ -503,7 +512,7 @@ spec:
                       - type: VisibilityContainer
                         data:
                           id: conditions-container
-                          value: "{reqsJsonPath[0]['.status.conditions']['-']}"
+                          value: "{reqsJsonPath[0]['.items.0.status.conditions']['-']}"
                           style:
                             margin: 0
                             padding: 0
@@ -534,14 +543,16 @@ spec:
               - type: YamlEditorSingleton
                 data:
                   id: yaml-editor
-                  apiGroup: apps
-                  apiVersion: v1
                   cluster: "{2}"
                   isNameSpaced: true
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   type: apis
                   typeName: deployments
+                  pathToData: .items.0
+                  forcedKind: Deployment
+                  apiGroup: apps
+                  apiVersion: v1
 
           # ------ REPLICASETS TAB ------
           - key: replicasets
@@ -551,13 +562,18 @@ spec:
               - type: EnrichedTable
                 data:
                   id: replicasets-table
-                  fetchUrl: /api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets
+                  # fetchUrl: /api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets
                   baseprefix: /{{ $basePrefix }}
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $rsFactoryName }}"
-                  labelsSelectorFull:
+                  k8sResourceToFetch: 
+                    version: "v1"
+                    group: "apps"
+                    plural: "replicasets"
+                    namespace: "{3}"
+                  labelSelectorFull:
                     reqIndex: 0
-                    pathToLabels: ".spec.template.metadata.labels"
+                    pathToLabels: ".items.0.spec.template.metadata.labels"
                   # Path to items list in the response
                   pathToItems: ".items"
 
@@ -569,15 +585,23 @@ spec:
               - type: EnrichedTable
                 data:
                   id: pods-table
-                  fetchUrl: /api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods
+                  # fetchUrl: /api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods
                   baseprefix: /{{ $basePrefix }}
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $podFactoryName }}"
-                  labelsSelectorFull:
+                  k8sResourceToFetch: 
+                    version: "v1"
+                    plural: "pods"
+                    namespace: "{3}"
+                  dataForControls:
+                    resource: pods
+                    apiVersion: v1
+                  labelSelectorFull:
                     reqIndex: 0
-                    pathToLabels: ".spec.template.metadata.labels"
+                    pathToLabels:  '.items.0.spec.template.metadata.labels'
                   # Path to items list in the response
                   pathToItems: ".items"
+                  withoutControls: false
 
           - key: events
             label: Events
@@ -592,10 +616,10 @@ spec:
                   substractHeight: 315
                   limit: 40
                   fieldSelector:
-                    regarding.kind: "{reqsJsonPath[0]['.kind']['-']}"
-                    regarding.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
-                    regarding.namespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-                    regarding.apiVersion: "{reqsJsonPath[0]['.apiVersion']['-']}"
+                    regarding.kind: "Deployment"
+                    regarding.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+                    regarding.namespace: "{reqsJsonPath[0]['.items.0.metadata.namespace']['-']}"
+                    regarding.apiVersion: "apps/v1"
                   baseFactoryNamespacedAPIKey: base-factory-namespaced-api
                   baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
                   baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin

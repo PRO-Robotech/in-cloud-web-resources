@@ -15,7 +15,12 @@ spec:
     - horizontalpodautoscaler-details
   urlsToFetch:
     # API call to fetch HPA details by cluster, namespace, and name
-    - "/api/clusters/{2}/k8s/apis/autoscaling/v2/namespaces/{3}/horizontalpodautoscalers/{6}"
+    - cluster: "{2}"
+      group: "autoscaling"
+      version: "v2"
+      namespace: "{3}"
+      plural: "horizontalpodautoscalers"
+      fieldSelector: "metadata.name={6}"
 
   data:
     # --- Header section -----------------------------------------------------

@@ -22,7 +22,12 @@ spec:
 
   # API endpoint for fetching CronJob details
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/cronjobs/{6}"
+    - cluster: "{2}"
+      group: "batch"
+      version: "v1"
+      namespace: "{3}"
+      plural: "cronjobs"
+      fieldSelector: "metadata.name={6}"
 
   data:
     # === HEADER ROW ===
@@ -537,7 +542,7 @@ spec:
                   customizationId: "{{ $podFactoryName }}"
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from job template's pod labels
-                  labelsSelectorFull:
+                  labelSelectorFull:
                     reqIndex: 0
                     pathToLabels: ".spec.jobTemplate.spec.template.metadata.labels"
                   # Items path for Pods list
@@ -557,7 +562,7 @@ spec:
                   customizationId: "{{ $jobFactoryName }}"
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from CronJob's job template metadata.labels
-                  labelsSelectorFull:
+                  labelSelectorFull:
                     reqIndex: 0
                     pathToLabels: ".spec.jobTemplate.metadata.labels"
                   # Items path for Jobs list

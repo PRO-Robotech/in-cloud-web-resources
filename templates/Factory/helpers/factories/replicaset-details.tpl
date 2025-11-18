@@ -16,7 +16,12 @@ spec:
     - replicaset-details
   withScrollableMainContentCard: true
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{6}"
+    - cluster: "{2}"
+      group: "apps"
+      version: "v1"
+      namespace: "{3}"
+      plural: "replicasets"
+      fieldSelector: "metadata.name={6}"
 
   # Header row with badge and ReplicaSet name
   data:
@@ -435,7 +440,7 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $podFactoryName }}"
                   baseprefix: "/{{ $basePrefix }}"
-                  labelsSelectorFull:
+                  labelSelectorFull:
                     reqIndex: 0
                     pathToLabels: ".spec.template.metadata.labels"
                   pathToItems: ".items"

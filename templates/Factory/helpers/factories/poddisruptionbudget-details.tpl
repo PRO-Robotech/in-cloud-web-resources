@@ -15,7 +15,12 @@ spec:
     - poddisruptionbudget-details
   urlsToFetch:
     # API call to fetch HPA details by cluster, namespace, and name
-    - "/api/clusters/{2}/k8s/apis/policy/v1/namespaces/{3}/poddisruptionbudgets/{6}"
+    - cluster: "{2}"
+      group: "policy"
+      version: "v1"
+      namespace: "{3}"
+      plural: "poddisruptionbudgets"
+      fieldSelector: "metadata.name={6}"
 
   data:
     # --- Header section -----------------------------------------------------

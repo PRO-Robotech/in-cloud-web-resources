@@ -16,7 +16,12 @@ spec:
   sidebarTags:
     - networkpolicy-details
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/networking.k8s.io/v1/namespaces/{3}/networkpolicies/{6}"
+    - cluster: "{2}"
+      group: "networking.k8s.io"
+      version: "v1"
+      namespace: "{3}"
+      plural: "networkpolicies"
+      fieldSelector: "metadata.name={6}"
 
   # Header row with badge and networkpolicy name
   data:
@@ -275,7 +280,7 @@ spec:
                       clusterNamePartOfUrl: "{2}"
                       customizationId: "{{ $podFactoryName }}"
                       baseprefix: "/{{ $basePrefix }}"
-                      labelsSelectorFull:
+                      labelSelectorFull:
                         reqIndex: 0
                         pathToLabels: ".spec.podSelector.matchLabels"
                       pathToItems: ".items"

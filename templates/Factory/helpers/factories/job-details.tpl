@@ -23,7 +23,12 @@ spec:
 
   # API endpoint to fetch Job resource
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{6}"
+    - cluster: "{2}"
+      group: "batch"
+      version: "v1"
+      namespace: "{3}"
+      plural: "jobs"
+      fieldSelector: "metadata.name={6}"
 
   data:
     # === Header with icon, name, and job status ===
@@ -544,7 +549,7 @@ spec:
                   customizationId: "{{ $podFactoryName }}"
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from Job's pod template labels
-                  labelsSelectorFull:
+                  labelSelectorFull:
                     reqIndex: 0
                     pathToLabels: ".spec.template.metadata.labels"
                   pathToItems: ".items"

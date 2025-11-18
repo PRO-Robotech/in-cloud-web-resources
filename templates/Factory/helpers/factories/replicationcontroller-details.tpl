@@ -15,7 +15,11 @@ spec:
     - replicationcontroller-details
   withScrollableMainContentCard: true
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/replicationcontrollers/{6}"
+    - cluster: "{2}"
+      version: "v1"
+      namespace: "{3}"
+      plural: "replicationcontrollers"
+      fieldSelector: "metadata.name={6}"
 
   # Header row with badge and ReplicationController name
   data:
@@ -430,7 +434,7 @@ spec:
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $podFactoryName }}"
                   baseprefix: "/{{ $basePrefix }}"
-                  labelsSelectorFull:
+                  labelSelectorFull:
                     reqIndex: 0
                     pathToLabels: ".spec.template.metadata.labels"
                   pathToItems: ".items"
