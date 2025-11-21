@@ -15,7 +15,7 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      version: "v1"
+      apiVersion: "v1"
       namespace: "{3}"
       plural: "serviceaccounts"
       fieldSelector: "metadata.name={6}"
@@ -220,14 +220,14 @@ spec:
                               - type: EnrichedTable
                                 data:
                                   id: secrets-table
-                                  clusterNamePartOfUrl: "{2}"
+                                  cluster: "{2}"
                                   customizationId: factory-serviceaccount-secrets
                                   baseprefix: "/{{ $basePrefix }}"
                                   fieldSelector:
                                     metadata.name: "{6}"
                                   pathToItems: ".items.0.secrets"
                                   k8sResourceToFetch: 
-                                    version: "v1"
+                                    apiVersion: "v1"
                                     plural: "pods"
                                     namespace: "{3}"
           # YAML tab
@@ -240,7 +240,7 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: builtin
-                  typeName: serviceaccounts
+                  plural: serviceaccounts
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   pathToData: .items.0

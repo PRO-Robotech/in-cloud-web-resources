@@ -16,8 +16,8 @@ spec:
   urlsToFetch:
     # API call to fetch HPA details by cluster, namespace, and name
     - cluster: "{2}"
-      group: "autoscaling"
-      version: "v2"
+      apiGroup: "autoscaling"
+      apiVersion: "v2"
       namespace: "{3}"
       plural: "horizontalpodautoscalers"
       fieldSelector: "metadata.name={6}"
@@ -375,7 +375,7 @@ spec:
                             data:
                               id: conditions-table
                               fetchUrl: "/api/clusters/{2}/k8s/apis/autoscaling/v2/namespaces/{3}/horizontalpodautoscalers/{6}"
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: factory-status-conditions
                               baseprefix: "/{{ $basePrefix }}"
                               pathToItems: ".status.conditions"
@@ -390,7 +390,7 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: "builtin"
-                  typeName: horizontalpodautoscalers
+                  plural: horizontalpodautoscalers
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
 
@@ -401,7 +401,7 @@ spec:
                 data:
                   id: events
                   baseprefix: "/openapi-ui"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   wsUrl: "/api/clusters/{2}/openapi-bff-ws/events/eventsWs"
                   pageSize: 50
                   substractHeight: 315

@@ -9,8 +9,8 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      group: "rbac.authorization.k8s.io"
-      version: "v1"
+      apiGroup: "rbac.authorization.k8s.io"
+      apiVersion: "v1"
       plural: "clusterroles"
       fieldSelector: "metadata.name={5}"
 
@@ -163,13 +163,13 @@ spec:
                       - type: EnrichedTable
                         data:
                           id: conditions-table
-                          clusterNamePartOfUrl: "{2}"
+                          cluster: "{2}"
                           customizationId: factory-k8s-rbac-rules
                           baseprefix: "/{{ .Values.basePrefix }}"
                           pathToItems: ".items.0.rules"
                           k8sResourceToFetch: 
-                            version: "v1"
-                            group: "rbac.authorization.k8s.io"
+                            apiVersion: "v1"
+                            apiGroup: "rbac.authorization.k8s.io"
                             plural: "clusterroles"
                           fieldSelector:
                             metadata.name: "{5}"
@@ -187,7 +187,7 @@ spec:
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   pathToData: .items.0
-                  typeName: clusterroles
+                  plural: clusterroles
                   forcedKind: ClusterRole
                   apiGroup:  "rbac.authorization.k8s.io"
                   apiVersion: v1

@@ -16,8 +16,8 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      group: "argoproj.io"
-      version: "v1alpha1"
+      apiGroup: "argoproj.io"
+      apiVersion: "v1alpha1"
       namespace: "{3}"
       plural: "applications"
       fieldSelector: "metadata.name={6}"
@@ -302,7 +302,7 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: "apis"
-                  typeName: applications
+                  plural: applications
                   apiGroup: argoproj.io
                   apiVersion: v1alpha1
                   prefillValuesRequestIndex: 0
@@ -316,7 +316,7 @@ spec:
                 data:
                   id: resources-table
                   fetchUrl: "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{6}"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: "factory-argocd-application-status-resources"
                   baseprefix: "/{{ $basePrefix }}"
                   pathToItems: ".status.resources"
@@ -457,7 +457,7 @@ spec:
                         data:
                           id: last-synced-table
                           fetchUrl: "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{6}"
-                          clusterNamePartOfUrl: "{2}"
+                          cluster: "{2}"
                           customizationId: "factory-argocd-application-resources"
                           baseprefix: "/{{ $basePrefix }}"
                           pathToItems: ".status.operationState.syncResult.resources"
@@ -470,7 +470,7 @@ spec:
                 data:
                   id: history-table
                   fetchUrl: "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{6}"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: "factory-argocd-application-status-history"
                   baseprefix: "/{{ $basePrefix }}"
                   pathToItems: ".status.history"

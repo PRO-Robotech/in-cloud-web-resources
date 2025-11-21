@@ -23,8 +23,8 @@ spec:
   # API endpoint for fetching CronJob details
   urlsToFetch:
     - cluster: "{2}"
-      group: "batch"
-      version: "v1"
+      apiGroup: "batch"
+      apiVersion: "v1"
       namespace: "{3}"
       plural: "cronjobs"
       fieldSelector: "metadata.name={6}"
@@ -470,7 +470,7 @@ spec:
                             data:
                               id: conditions-table
                               fetchUrl: "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/cronjobs/{6}"
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: factory-status-conditions
                               baseprefix: "/{{ $basePrefix }}"
                               # Path to conditions array
@@ -487,7 +487,7 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: "builtin"
-                  typeName: cronjobs
+                  plural: cronjobs
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
 
@@ -500,7 +500,7 @@ spec:
                 data:
                   id: pods-table
                   fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: "{{ $podFactoryName }}"
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from job template's pod labels
@@ -520,7 +520,7 @@ spec:
                 data:
                   id: jobs-table
                   fetchUrl: "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: "{{ $jobFactoryName }}"
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from CronJob's job template metadata.labels
@@ -537,7 +537,7 @@ spec:
                 data:
                   id: events
                   baseprefix: "/openapi-ui"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   wsUrl: "/api/clusters/{2}/openapi-bff-ws/events/eventsWs"
                   pageSize: 50
                   substractHeight: 315

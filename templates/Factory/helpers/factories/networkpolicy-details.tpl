@@ -17,8 +17,8 @@ spec:
     - networkpolicy-details
   urlsToFetch:
     - cluster: "{2}"
-      group: "networking.k8s.io"
-      version: "v1"
+      apiGroup: "networking.k8s.io"
+      apiVersion: "v1"
       namespace: "{3}"
       plural: "networkpolicies"
       fieldSelector: "metadata.name={6}"
@@ -259,7 +259,7 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: "builtin"
-                  typeName: networkpolicys
+                  plural: networkpolicys
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
 
@@ -277,7 +277,7 @@ spec:
                     data:
                       id: pods-table
                       fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods"
-                      clusterNamePartOfUrl: "{2}"
+                      cluster: "{2}"
                       customizationId: "{{ $podFactoryName }}"
                       baseprefix: "/{{ $basePrefix }}"
                       labelSelectorFull:

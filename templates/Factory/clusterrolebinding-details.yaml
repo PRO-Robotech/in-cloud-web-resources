@@ -9,8 +9,8 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      group: "rbac.authorization.k8s.io"
-      version: "v1"
+      apiGroup: "rbac.authorization.k8s.io"
+      apiVersion: "v1"
       plural: "clusterrolebindings"
       fieldSelector: "metadata.name={5}"
 
@@ -233,7 +233,7 @@ spec:
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   pathToData: .items.0
-                  typeName: clusterrolebindings
+                  plural: clusterrolebindings
                   forcedKind: ClusterRoleBinding
                   apiGroup:  "rbac.authorization.k8s.io"
                   apiVersion: v1

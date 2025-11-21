@@ -7,7 +7,7 @@ spec:
   id: "stock-cluster-api-table"
   breadcrumbItems:
     - key: api
-      label: "{apiGroup}/{apiVersion}/{typeName}"
+      label: "{apiGroup}/{apiVersion}/{plural}"
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -18,9 +18,9 @@ spec:
   id: "stock-cluster-api-form"
   breadcrumbItems:
     - key: create-api-res-namespaced-table
-      label: "{apiGroup}/{apiVersion}/{typeName}"
-      link: "/{{ .Values.basePrefix }}/{clusterName}/api-table/{apiGroup}/{apiVersion}/{typeName}"
-    - key: create-api-res-namespaced-typename
+      label: "{apiGroup}/{apiVersion}/{plural}"
+      link: "/{{ .Values.basePrefix }}/{cluster}/api-table/{apiGroup}/{apiVersion}/{plural}"
+    - key: create-api-res-namespaced-plural
       label: Create
 
 ---
@@ -32,7 +32,7 @@ spec:
   id: "stock-cluster-api-form-edit"
   breadcrumbItems:
     - key: create-api-res-namespaced-table
-      label: "{apiGroup}/{apiVersion}/{typeName}"
-      link: "/{{ .Values.basePrefix }}/{clusterName}/api-table/{apiGroup}/{apiVersion}/{typeName}"
-    - key: create-api-res-namespaced-typename
+      label: "{apiGroup}/{apiVersion}/{plural}"
+      link: "/{{ .Values.basePrefix }}/{cluster}/api-table/{apiGroup}/{apiVersion}/{plural}"
+    - key: create-api-res-namespaced-plural
       label: Update

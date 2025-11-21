@@ -16,7 +16,7 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      version: "v1"
+      apiVersion: "v1"
       namespace: "{3}"
       plural: "pods"
       fieldSelector: "metadata.name={6}"
@@ -234,7 +234,7 @@ spec:
                                     data:
                                       id: refs
                                       baseprefix: /openapi-ui
-                                      clusterNamePartOfUrl: '{2}'
+                                      cluster: '{2}'
                                       forcedNamespace: '{3}'
                                       reqIndex: 0
                                       errorText: error getting refs
@@ -248,8 +248,8 @@ spec:
                                       baseFactoryNamespacedAPIKey: base-factory-namespaced-api
                                       baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
                                       baseNamespaceFactoryKey: namespace-details
-                                      baseNavigationPluralName: navigations
-                                      baseNavigationSpecificName: navigation
+                                      baseNavigationPlural: navigations
+                                      baseNavigationName: navigation
 
                               # Created timestamp (kept as include)
                               - type: antdFlex
@@ -441,13 +441,13 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: containers-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: "container-status-init-containers-list"
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: .items.0.status.initContainerStatuses
                               k8sResourceToFetch: 
-                                version: "v1"
+                                apiVersion: "v1"
                                 plural: "pods"
                                 namespace: "{3}"
                               fieldSelector: 
@@ -480,13 +480,13 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: containers-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: "container-status-containers-list"
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: .items.0.status.containerStatuses
                               k8sResourceToFetch: 
-                                version: "v1"
+                                apiVersion: "v1"
                                 plural: "pods"
                                 namespace: "{3}"
                               fieldSelector: 
@@ -520,13 +520,13 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: conditions-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: factory-status-conditions
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: ".items.0.status.conditions"
                               k8sResourceToFetch: 
-                                version: "v1"
+                                apiVersion: "v1"
                                 plural: "pods"
                                 namespace: "{3}"
                               fieldSelector: 
@@ -542,7 +542,7 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: "builtin"
-                  typeName: pods
+                  plural: pods
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   pathToData: .items.0
@@ -580,7 +580,7 @@ spec:
                 data:
                   id: events
                   baseprefix: "/openapi-ui"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   wsUrl: "/api/clusters/{2}/openapi-bff-ws/events/eventsWs"
                   pageSize: 50
                   substractHeight: 315
@@ -605,7 +605,7 @@ spec:
                 data:
                   id: ds-pods-table
                   fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/namespaces/{3}/vulnerabilityreports"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.vulnerabilityreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels
@@ -622,7 +622,7 @@ spec:
                 data:
                   id: ds-pods-table
                   fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/namespaces/{3}/configauditreports"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.configauditreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels

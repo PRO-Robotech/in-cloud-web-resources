@@ -15,8 +15,8 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      group: "cert-manager.io"
-      version: "v1"
+      apiGroup: "cert-manager.io"
+      apiVersion: "v1"
       namespace: "{3}"
       plural: "certificates"
       fieldSelector: "metadata.name={6}"
@@ -266,7 +266,7 @@ spec:
                             data:
                               id: conditions-table
                               fetchUrl: "/api/clusters/{2}/k8s/apis/cert-manager.io/v1/namespaces/{3}/certificates/{6}"
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: factory-status-conditions
                               baseprefix: /{{ $basePrefix }}
                               # Path in the fetched object to the conditions array
@@ -282,7 +282,7 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: builtin
-                  typeName: certificates
+                  plural: certificates
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
 {{- end -}}

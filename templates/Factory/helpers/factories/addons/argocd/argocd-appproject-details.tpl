@@ -15,8 +15,8 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      group: "argoproj.io"
-      version: "v1alpha1"
+      apiGroup: "argoproj.io"
+      apiVersion: "v1alpha1"
       namespace: "{3}"
       plural: "appprojects"
       fieldSelector: "metadata.name={6}"
@@ -223,7 +223,7 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: builtin
-                  typeName: appprojects
+                  plural: appprojects
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   pathToData: .items.0

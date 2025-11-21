@@ -8,7 +8,7 @@ spec:
   breadcrumbItems:
     - key: jobs
       label: "batch/v1/jobs"
-      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/api-table/batch/v1/jobs"
+      link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/api-table/batch/v1/jobs"
     - key: job
       label: "{6}"
 
@@ -23,7 +23,7 @@ spec:
   breadcrumbItems:
     - key: jobs
       label: "batch/v1/jobs"
-      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/batch/v1/jobs"
+      link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/batch/v1/jobs"
     - key: job
       label: "{7}"
 {{- end -}}

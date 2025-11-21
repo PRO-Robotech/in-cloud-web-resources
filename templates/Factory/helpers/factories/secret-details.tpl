@@ -15,7 +15,7 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      version: "v1"
+      apiVersion: "v1"
       namespace: "{3}"
       plural: "secrets"
       fieldSelector: "metadata.name={6}"
@@ -250,7 +250,7 @@ spec:
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   pathToData: .items.0
-                  typeName: secrets
+                  plural: secrets
                   forcedKind: Secret
                   apiVersion: v1
 {{- end -}}

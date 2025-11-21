@@ -24,8 +24,8 @@ spec:
   # API endpoint for fetching DaemonSet details--
   urlsToFetch:
     - cluster: "{2}"
-      group: "apps"
-      version: "v1"
+      apiGroup: "apps"
+      apiVersion: "v1"
       namespace: "{3}"
       plural: "daemonsets"
       fieldSelector: "metadata.name={6}"
@@ -394,7 +394,7 @@ spec:
                   type: apis
                   apiGroup: apps
                   apiVersion: v1
-                  typeName: daemonsets
+                  plural: daemonsets
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
 
@@ -407,7 +407,7 @@ spec:
                 data:
                   id: ds-pods-table
                   fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: "{{ $podFactoryName }}"
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels
@@ -424,7 +424,7 @@ spec:
                 data:
                   id: events
                   baseprefix: "/openapi-ui"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   wsUrl: "/api/clusters/{2}/openapi-bff-ws/events/eventsWs"
                   pageSize: 50
                   substractHeight: 315
@@ -449,7 +449,7 @@ spec:
                 data:
                   id: ds-pods-table
                   fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/namespaces/{3}/vulnerabilityreports"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.vulnerabilityreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels
@@ -466,7 +466,7 @@ spec:
                 data:
                   id: ds-pods-table
                   fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/namespaces/{3}/configauditreports"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.configauditreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels

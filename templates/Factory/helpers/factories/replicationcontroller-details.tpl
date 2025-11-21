@@ -16,7 +16,7 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      version: "v1"
+      apiVersion: "v1"
       namespace: "{3}"
       plural: "replicationcontrollers"
       fieldSelector: "metadata.name={6}"
@@ -340,14 +340,14 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: containers-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: "container-spec-containers-list"
                               baseprefix: "/{{ $basePrefix }}"
                               withoutControls: true
                               pathToItems: .items.0.spec.template.spec.initContainers
                               k8sResourceToFetch: 
-                                group: "apps"
-                                version: "v1"
+                                apiGroup: "apps"
+                                apiVersion: "v1"
                                 plural: "replicasets"
                                 namespace: "{3}"
                               fieldSelector: 
@@ -380,14 +380,14 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: containers-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: "container-spec-containers-list"
                               baseprefix: "/{{ $basePrefix }}"
                               withoutControls: true
                               pathToItems: .items.0.spec.template.spec.containers
                               k8sResourceToFetch: 
-                                group: "apps"
-                                version: "v1"
+                                apiGroup: "apps"
+                                apiVersion: "v1"
                                 plural: "replicasets"
                                 namespace: "{3}"
                               fieldSelector: 
@@ -403,7 +403,7 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: apis
-                  typeName: replicationcontrollers
+                  plural: replicationcontrollers
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   pathToData: .items.0
@@ -419,14 +419,14 @@ spec:
                 data:
                   id: pods-table
                   baseprefix: /{{ $basePrefix }}
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: "{{ $podFactoryName }}"
                   k8sResourceToFetch: 
-                    version: "v1"
+                    apiVersion: "v1"
                     plural: "pods"
                     namespace: "{3}"
                   dataForControls:
-                    resource: pods
+                    plural: pods
                     apiVersion: v1
                   labelSelectorFull:
                     reqIndex: 0
@@ -442,7 +442,7 @@ spec:
                 data:
                   id: events
                   baseprefix: "/{{ $basePrefix }}"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   wsUrl: "/api/clusters/{2}/openapi-bff-ws/events/eventsWs"
                   pageSize: 50
                   substractHeight: 315

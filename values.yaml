@@ -113,7 +113,7 @@ sidebars:
     #   children:                  # Optional nested items array
     #     - key: child-unique-id
     #       label: "Child Name"
-    #       link: /openapi-ui/{clusterName}/api-table/apiGroup/apiVersion/resourceName
+    #       link: /openapi-ui/{cluster}/api-table/apiGroup/apiVersion/resourceName
     #     - key: child-unique-id
     #       label: "Child Name"
     #       link: /openapi-ui/{2}/api-table/apiGroup/apiVersion/resourceName
@@ -122,7 +122,7 @@ sidebars:
     # Example paths:
     # /openapi-ui/cluster-name/builtin-table/namespaces
     #   {1} = "openapi-ui", {2} = "cluster-name", {3} = "builtin-table", {4} = "namespaces"
-    #   {clusterName} = "cluster-name"
+    #   {cluster} = "cluster-name"
     customItems: []
     # Search sidebar section
     search:
@@ -250,7 +250,7 @@ sidebars:
     #   children:                  # Optional nested items array
     #     - key: child-unique-id
     #       label: "Child Name"
-    #       link: /openapi-ui/{clusterName}/{namespace}/api-table/apiGroup/apiVersion/resourceName
+    #       link: /openapi-ui/{cluster}/{namespace}/api-table/apiGroup/apiVersion/resourceName
     #     - key: child-unique-id
     #       label: "Child Name"
     #       link: /openapi-ui/{2}/{3}/api-table/apiGroup/apiVersion/resourceName
@@ -259,7 +259,7 @@ sidebars:
     # Example paths:
     # /openapi-ui/cluster-name/namespace/builtin-table/pods
     #   {1} = "openapi-ui", {2} = "cluster-name", {3} = "namespace", etc.
-    #   {clusterName} = "cluster-name"
+    #   {cluster} = "cluster-name"
     #   {namespace} = "namespace"
     customItems: []
     # Search sidebar section
@@ -382,7 +382,7 @@ sidebars:
     #   children:                  # Optional nested items array
     #     - key: child-unique-id
     #       label: "Child Name"
-    #       link: /openapi-ui/{clusterName}/{namespace}/{syntheticProject}/api-table/apiGroup/apiVersion/resourceName
+    #       link: /openapi-ui/{cluster}/{namespace}/{syntheticProject}/api-table/apiGroup/apiVersion/resourceName
     #     - key: child-unique-id
     #       label: "Child Name"
     #       link: /openapi-ui/{2}/{3}/{4}/api-table/apiGroup/apiVersion/resourceName
@@ -391,7 +391,7 @@ sidebars:
     # Example paths:
     # /openapi-ui/cluster-name/namespace/project-name/builtin-table/pods
     #   {1} = "openapi-ui", {2} = "cluster-name", {3} = "namespace", etc.
-    #   {clusterName} = "cluster-name"
+    #   {cluster} = "cluster-name"
     #   {namespace} = "namespace"
     #   {syntheticProject} = "project-name"
     customItems: []

@@ -8,7 +8,7 @@ spec:
   breadcrumbItems:
     - key: roles
       label: "rbac.authorization.k8s.io/v1/roles"
-      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/api-table/rbac.authorization.k8s.io/v1/roles"
+      link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/api-table/rbac.authorization.k8s.io/v1/roles"
     - key: role
       label: "{6}"
 
@@ -23,7 +23,7 @@ spec:
   breadcrumbItems:
     - key: roles
       label: "rbac.authorization.k8s.io/v1/roles"
-      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/rbac.authorization.k8s.io/v1/roles"
+      link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/rbac.authorization.k8s.io/v1/roles"
     - key: role
       label: "{7}"
 {{- end -}}

@@ -17,7 +17,7 @@ spec:
     - service-details
   urlsToFetch:
     - cluster: "{2}"
-      version: "v1"
+      apiVersion: "v1"
       namespace: "{3}"
       plural: "services"
       fieldSelector: "metadata.name={6}"
@@ -323,12 +323,12 @@ spec:
                                   - type: EnrichedTable
                                     data:
                                       id: service-port-mapping-table
-                                      clusterNamePartOfUrl: "{2}"
+                                      cluster: "{2}"
                                       customizationId: "factory-service-details-port-mapping"
                                       baseprefix: "/{{ $basePrefix }}"
                                       pathToItems: ".items.0.spec.ports"
                                       k8sResourceToFetch: 
-                                        version: "v1"
+                                        apiVersion: "v1"
                                         plural: "services"
                                         namespace: "{3}"
                                       fieldSelector:
@@ -355,15 +355,15 @@ spec:
                                       - type: EnrichedTable
                                         data:
                                           id: service-pod-serving-table
-                                          clusterNamePartOfUrl: "{2}"
+                                          cluster: "{2}"
                                           customizationId: "factory-service-details-endpointslice"
                                           baseprefix: "/{{ $basePrefix }}"
                                           labelSelector:
                                             kubernetes.io/service-name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
                                           pathToItems: ".items[*].endpoints"
                                           k8sResourceToFetch: 
-                                            version: "v1"
-                                            group: "discovery.k8s.io"
+                                            apiVersion: "v1"
+                                            apiGroup: "discovery.k8s.io"
                                             plural: "endpointslices"
                                             namespace: "{3}"
           # YAML tab
@@ -379,7 +379,7 @@ spec:
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   pathToData: .items.0
-                  typeName: services
+                  plural: services
                   forcedKind: Service
                   apiVersion: v1
 
@@ -397,7 +397,7 @@ spec:
                   - type: EnrichedTable
                     data:
                       id: pods-table
-                      clusterNamePartOfUrl: "{2}"
+                      cluster: "{2}"
                       customizationId: "{{ $podFactoryName }}"
                       baseprefix: "/{{ $basePrefix }}"
                       labelSelectorFull:
@@ -405,7 +405,7 @@ spec:
                         pathToLabels: ".items.0.spec.selector"
                       pathToItems: ".items"
                       k8sResourceToFetch: 
-                        version: "v1"
+                        apiVersion: "v1"
                         plural: "pods"
                         namespace: "{3}"
 
@@ -418,7 +418,7 @@ spec:
                 data:
                   id: ds-pods-table
                   fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/namespaces/{3}/configauditreports"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.configauditreports
                   baseprefix: "/{{ $basePrefix }}"
                   

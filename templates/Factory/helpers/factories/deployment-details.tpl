@@ -22,8 +22,8 @@ spec:
   # API request used to fetch the target Deployment
   urlsToFetch:
     - cluster: "{2}"
-      group: "apps"
-      version: "v1"
+      apiGroup: "apps"
+      apiVersion: "v1"
       namespace: "{3}"
       plural: "deployments"
       fieldSelector: "metadata.name={6}"
@@ -432,14 +432,14 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: containers-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: "container-spec-containers-list"
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: .items.0.spec.template.spec.initContainers
                               k8sResourceToFetch: 
-                                group: "apps"
-                                version: "v1"
+                                apiGroup: "apps"
+                                apiVersion: "v1"
                                 plural: "deployments"
                                 namespace: "{3}"
                               fieldSelector: 
@@ -472,14 +472,14 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: containers-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: "container-spec-containers-list"
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: .items.0.spec.template.spec.containers
                               k8sResourceToFetch: 
-                                group: "apps"
-                                version: "v1"
+                                apiGroup: "apps"
+                                apiVersion: "v1"
                                 plural: "deployments"
                                 namespace: "{3}"
                               fieldSelector: 
@@ -512,14 +512,14 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: conditions-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: factory-status-conditions
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: ".items.0.status.conditions"
                               k8sResourceToFetch: 
-                                version: "v1"
-                                group: "apps"
+                                apiVersion: "v1"
+                                apiGroup: "apps"
                                 plural: "deployments"
                                 namespace: "{3}"
                               fieldSelector: 
@@ -538,7 +538,7 @@ spec:
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   type: apis
-                  typeName: deployments
+                  plural: deployments
                   pathToData: .items.0
                   forcedKind: Deployment
                   apiGroup: apps
@@ -553,11 +553,11 @@ spec:
                 data:
                   id: replicasets-table
                   baseprefix: /{{ $basePrefix }}
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: "{{ $rsFactoryName }}"
                   k8sResourceToFetch: 
-                    version: "v1"
-                    group: "apps"
+                    apiVersion: "v1"
+                    apiGroup: "apps"
                     plural: "replicasets"
                     namespace: "{3}"
                   labelSelectorFull:
@@ -575,14 +575,14 @@ spec:
                 data:
                   id: pods-table
                   baseprefix: /{{ $basePrefix }}
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: "{{ $podFactoryName }}"
                   k8sResourceToFetch: 
-                    version: "v1"
+                    apiVersion: "v1"
                     plural: "pods"
                     namespace: "{3}"
                   dataForControls:
-                    resource: pods
+                    plural: pods
                     apiVersion: v1
                   labelSelectorFull:
                     reqIndex: 0
@@ -598,7 +598,7 @@ spec:
                 data:
                   id: events
                   baseprefix: "/openapi-ui"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   wsUrl: "/api/clusters/{2}/openapi-bff-ws/events/eventsWs"
                   pageSize: 50
                   substractHeight: 315

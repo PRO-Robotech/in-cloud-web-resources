@@ -8,7 +8,7 @@ spec:
   breadcrumbItems:
     - key: configmaps
       label: "v1/configmaps"
-      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/builtin-table/configmaps"
+      link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/builtin-table/configmaps"
     - key: configmap
       label: "{6}"
 
@@ -23,7 +23,7 @@ spec:
   breadcrumbItems:
     - key: configmaps
       label: "v1/configmaps"
-      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/builtin-table/configmaps"
+      link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/configmaps"
     - key: configmap
       label: "{7}"
 {{- end }}

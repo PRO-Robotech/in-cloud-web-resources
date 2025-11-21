@@ -18,8 +18,8 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      group: "apps"
-      version: "v1"
+      apiGroup: "apps"
+      apiVersion: "v1"
       namespace: "{3}"
       plural: "statefulsets"
       fieldSelector: "metadata.name={6}"
@@ -368,7 +368,7 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: apis
-                  typeName: statefulsets
+                  plural: statefulsets
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   pathToData: .items.0
@@ -383,14 +383,14 @@ spec:
               - type: EnrichedTable
                 data:
                   id: pods-table
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: "{{ $podFactoryName }}"
                   labelSelectorFull:
                     reqIndex: 0
                     pathToLabels: ".items.0.spec.template.metadata.labels"
                   pathToItems: ".items"
                   k8sResourceToFetch: 
-                    version: "v1"
+                    apiVersion: "v1"
                     plural: "pods"
                     namespace: "{3}"
 
@@ -401,7 +401,7 @@ spec:
                 data:
                   id: events
                   baseprefix: "/openapi-ui"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   wsUrl: "/api/clusters/{2}/openapi-bff-ws/events/eventsWs"
                   pageSize: 50
                   substractHeight: 315
@@ -426,7 +426,7 @@ spec:
                 data:
                   id: ds-pods-table
                   fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/clusterinfraassessmentreports"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.clusterinfraassessmentreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels
@@ -436,8 +436,8 @@ spec:
                   # Items path for Pods list
                   pathToItems: ".items[*].report.checks"
                   k8sResourceToFetch: 
-                    version: "v1alpha1"
-                    group: "aquasecurity.github.io"
+                    apiVersion: "v1alpha1"
+                    apiGroup: "aquasecurity.github.io"
                     plural: "clusterinfraassessmentreports"
 
   {{- end -}}

@@ -22,7 +22,7 @@ spec:
   # API endpoint for fetching ConfigMap details
   urlsToFetch:
     - cluster: "{2}"
-      version: "v1"
+      apiVersion: "v1"
       namespace: "{3}"
       plural: "configmaps"
       fieldSelector: "metadata.name={6}"
@@ -225,7 +225,7 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: builtin
-                  typeName: configmaps
+                  plural: configmaps
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
 {{- end -}}

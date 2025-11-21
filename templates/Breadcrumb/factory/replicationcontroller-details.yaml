@@ -8,7 +8,7 @@ spec:
   breadcrumbItems:
     - key: replicationcontrollers
       label: "v1/replicationcontrollers"
-      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/builtin-table/replicationcontrollers"
+      link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/builtin-table/replicationcontrollers"
     - key: replicationcontroller
       label: "{6}"
 
@@ -23,7 +23,7 @@ spec:
   breadcrumbItems:
     - key: replicationcontrollers
       label: "v1/replicationcontrollers"
-      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/builtin-table/replicationcontrollers"
+      link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/replicationcontrollers"
     - key: replicationcontroller
       label: "{7}"
 {{- end -}}

@@ -16,8 +16,8 @@ spec:
   urlsToFetch:
     # API call to fetch HPA details by cluster, namespace, and name
     - cluster: "{2}"
-      group: "policy"
-      version: "v1"
+      apiGroup: "policy"
+      apiVersion: "v1"
       namespace: "{3}"
       plural: "poddisruptionbudgets"
       fieldSelector: "metadata.name={6}"
@@ -305,11 +305,11 @@ spec:
                             data:
                               id: conditions-table
                               baseprefix: /{{ $basePrefix }}
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: factory-status-conditions
                               k8sResourceToFetch: 
-                                version: "v1"
-                                group: "policy"
+                                apiVersion: "v1"
+                                apiGroup: "policy"
                                 plural: "poddisruptionbudgets"
                                 namespace: "{3}"
                               fieldSelector: 
@@ -327,7 +327,7 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: apis
-                  typeName: poddisruptionbudgets
+                  plural: poddisruptionbudgets
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   pathToData: .items.0
