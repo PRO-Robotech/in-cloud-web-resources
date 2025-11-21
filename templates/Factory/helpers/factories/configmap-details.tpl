@@ -41,7 +41,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: "{reqsJsonPath[0]['.kind']['-']}"
+            value: ConfigMap
             style:
               fontSize: 20px
 
@@ -49,7 +49,7 @@ spec:
         - type: parsedText
           data:
             id: header-name
-            text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
             style:
               fontSize: 20px
               lineHeight: 24px
@@ -121,7 +121,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: field-name-value
-                                      text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
 
                               # Namespace link block
                               - type: antdFlex
@@ -150,7 +150,7 @@ spec:
                                       {{ include "incloud-web-resources.factory.linkblock" (dict
                                           "reqIndex" 0
                                           "type" "namespace"
-                                          "jsonPath" ".metadata.namespace"
+                                          "jsonPath" ".items.0.metadata.namespace"
                                           "factory" "namespace-details"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
@@ -166,6 +166,7 @@ spec:
                                  {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/configmaps/{6}"
                                       "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~configmaps&labels="
+                                      "jsonPath" ".items.0.metadata.labels"
                                     ) | nindent 34
                                   }}
 
@@ -178,54 +179,39 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/configmaps/{6}"
+                                      "jsonPath" ".items.0.metadata.annotations"
+                                      "pathToValue" "/metadata/annotations"
+
                                     ) | nindent 34
                                   }}
 
-                              # Creation time block
+                             # Created timestamp
                               - type: antdFlex
                                 data:
-                                  id: created-time-block
+                                  id: meta-created-block
                                   vertical: true
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.time.create" (dict
-                                    "req" ".metadata.creationTimestamp"
+                                    "req" ".items.0.metadata.creationTimestamp"
                                     "text" "Created"
-                                    ) | nindent 30
+                                  ) | nindent 38
                                   }}
-
-                              # Owner information block
-                              # - type: antdFlex
-                              #   data:
-                              #     id: owner-block
-                              #     vertical: true
-                              #     gap: 4
-                              #   children:
-                              #     - type: antdText
-                              #       data:
-                              #         id: owner-label
-                              #         text: Owner
-                              #         strong: true
-                              #     - type: parsedText
-                              #       data:
-                              #         id: owner-value
-                              #         strong: true
-                              #         text: "No owner"
-                              #         style:
-                              #           color: red
-
-          # ------ YAML TAB ------
+          # YAML tab
           - key: yaml
             label: YAML
             children:
-              # YAML editor for resource manifest
               - type: YamlEditorSingleton
                 data:
                   id: yaml-editor
                   cluster: "{2}"
                   isNameSpaced: true
                   type: builtin
-                  typeName: configmaps
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
+                  pathToData: .items.0
+                  typeName: configmaps
+                  forcedKind: ConfigMap
+                  apiVersion: v1
+
 {{- end -}}

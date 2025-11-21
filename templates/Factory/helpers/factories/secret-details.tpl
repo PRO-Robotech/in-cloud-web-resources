@@ -253,4 +253,5 @@ spec:
                   typeName: secrets
                   forcedKind: Secret
                   apiVersion: v1
+
 {{- end -}}
