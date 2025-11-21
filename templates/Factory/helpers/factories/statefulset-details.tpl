@@ -314,19 +314,29 @@ spec:
                             margin: 0
                             padding: 0
                         children:
-                          {{ include "incloud-web-resources.factory.containers.table" (dict
-                              "title" "Init containers"
-                              "customizationId" "container-spec-init-containers-list"
-                              "type" "init-containers"
-                              "apiGroup" "apis/apps/v1"
-                              "kind" "statefulsets"
-                              "resourceName" $resName
-                              "namespace" "{3}"
-                              "jsonPath" ".items.0.spec.template.spec.initContainers"
-                              "pathToItems" "['spec','template','spec','initContainers']"
-                              "basePrefix" $basePrefix
-                            ) | nindent 26
-                          }}
+                          - type: antdText
+                            data:
+                              id: init-containers-title
+                              text: Init containers
+                              strong: true
+                              style:
+                                fontSize: 22
+                                marginBottom: 32px
+                          - type: EnrichedTable
+                            data:
+                              id: containers-table
+                              clusterNamePartOfUrl: "{2}"
+                              customizationId: "container-spec-containers-list"
+                              baseprefix: "/openapi-ui"
+                              withoutControls: true
+                              pathToItems: .items.0.spec.template.spec.initContainers
+                              k8sResourceToFetch: 
+                                group: "apps"
+                                version: "v1"
+                                plural: "statefulsets"
+                                namespace: "{3}"
+                              fieldSelector: 
+                                metadata.name: "{6}"
 
                   # ---- CONTAINERS SECTION ----
                   - type: antdCol
@@ -344,19 +354,29 @@ spec:
                             margin: 0
                             padding: 0
                         children:
-                          {{ include "incloud-web-resources.factory.containers.table" (dict
-                              "title" "Containers"
-                              "customizationId" "container-spec-containers-list"
-                              "type" "containers"
-                              "apiGroup" "apis/apps/v1"
-                              "kind" "statefulsets"
-                              "resourceName" $resName
-                              "namespace" "{3}"
-                              "jsonPath" ".items.0.spec.template.spec.containers"
-                              "pathToItems" "['spec','template','spec','containers']"
-                              "basePrefix" $basePrefix
-                            ) | nindent 26
-                          }}
+                          - type: antdText
+                            data:
+                              id: init-containers-title
+                              text: Containers
+                              strong: true
+                              style:
+                                fontSize: 22
+                                marginBottom: 32px
+                          - type: EnrichedTable
+                            data:
+                              id: containers-table
+                              clusterNamePartOfUrl: "{2}"
+                              customizationId: "container-spec-containers-list"
+                              baseprefix: "/openapi-ui"
+                              withoutControls: true
+                              pathToItems: .items.0.spec.template.spec.containers
+                              k8sResourceToFetch: 
+                                group: "apps"
+                                version: "v1"
+                                plural: "statefulsets"
+                                namespace: "{3}"
+                              fieldSelector: 
+                                metadata.name: "{6}"
 
           # YAML tab
           - key: yaml
