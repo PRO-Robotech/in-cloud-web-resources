@@ -326,7 +326,7 @@ spec:
                   id: yaml-editor
                   cluster: "{2}"
                   isNameSpaced: true
-                  type: apis
+                  type: api
                   plural: poddisruptionbudgets
                   prefillValuesRequestIndex: 0
                   substractHeight: 400

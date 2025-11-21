@@ -268,26 +268,6 @@ spec:
                                   ) | nindent 38 
                                   }}
 
-                              # Owner reference (fallback text if no owner)
-                              # - type: antdFlex
-                              #   data:
-                              #     id: owner-block
-                              #     vertical: true
-                              #     gap: 4
-                              #   children:
-                              #     - type: antdText
-                              #       data:
-                              #         id: owner-label
-                              #         text: Owner
-                              #         strong: true
-                              #     - type: parsedText
-                              #       data:
-                              #         id: owner-value
-                              #         strong: true
-                              #         text: "No owner"
-                              #         style:
-                              #           color: red
-
                       # === RIGHT COLUMN: Rollout and timing settings ===
                       - type: antdCol
                         data:

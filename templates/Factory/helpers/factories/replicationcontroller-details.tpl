@@ -402,7 +402,7 @@ spec:
                   id: yaml-editor
                   cluster: "{2}"
                   isNameSpaced: true
-                  type: apis
+                  type: api
                   plural: replicationcontrollers
                   prefillValuesRequestIndex: 0
                   substractHeight: 400

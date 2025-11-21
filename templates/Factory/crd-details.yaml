@@ -309,7 +309,7 @@ spec:
                   isNameSpaced: false
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
-                  type: apis
+                  type: api
                   plural: customresourcedefinitions
                   pathToData: .items.0
                   forcedKind: CustomResourceDefinition
