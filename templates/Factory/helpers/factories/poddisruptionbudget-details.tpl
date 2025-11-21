@@ -36,7 +36,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: "{reqsJsonPath[0]['.kind']['-']}"
+            value: PodDisruptionBudget
             style:
               fontSize: 20px
 
@@ -44,7 +44,7 @@ spec:
         - type: parsedText
           data:
             id: poddisruptionbudget-name
-            text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
             style:
               fontSize: 20px
               lineHeight: 24px
@@ -112,7 +112,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: meta-name-value
-                                      text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
 
                               # Namespace link (navigates to namespace details)
                               - type: antdFlex
@@ -141,7 +141,7 @@ spec:
                                       {{ include "incloud-web-resources.factory.linkblock" (dict
                                           "reqIndex" 0
                                           "type" "namespace"
-                                          "jsonPath" ".metadata.namespace"
+                                          "jsonPath" ".items.0.metadata.namespace"
                                           "factory" "namespace-details"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
@@ -157,6 +157,7 @@ spec:
                                   {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/poddisruptionbudgets/{6}"
                                       "linkPrefix" "/openapi-ui/{2}/search?kinds=policy~v1~poddisruptionbudgets&labels="
+                                      "jsonPath" ".items.0.metadata.labels"
                                     ) | nindent 34
                                   }}
 
@@ -176,7 +177,7 @@ spec:
                                         fontSize: 14
                                   {{ include "incloud-web-resources.factory.labels.base.selector" (dict
                                       "type" "pod"
-                                      "jsonPath" ".spec.selector.matchLabels"
+                                      "jsonPath" ".items.0.spec.selector.matchLabels"
                                       "basePrefix" $basePrefix
                                       "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
                                     ) | nindent 34
@@ -191,6 +192,8 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/poddisruptionbudgets/{6}"
+                                      "jsonPath" ".items.0.metadata.annotations"
+                                      "pathToValue" "/metadata/annotations"
                                     ) | nindent 34
                                   }}
 
@@ -202,7 +205,7 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.time.create" (dict
-                                    "req" ".metadata.creationTimestamp"
+                                    "req" ".items.0.metadata.creationTimestamp"
                                     "text" "Created"
                                     ) | nindent 34
                                   }}
@@ -250,7 +253,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: poddisruptionbudget-max-unavailable-value
-                                      text: "{reqsJsonPath[0]['.spec.maxUnavailable']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.maxUnavailable']['-']}"
 
                               - type: antdFlex
                                 data:
@@ -272,7 +275,7 @@ spec:
                                       - type: parsedText
                                         data:
                                           id: poddisruptionbudget-disruptions-allowed-value
-                                          text: "{reqsJsonPath[0]['.status.disruptionsAllowed']['-']}"
+                                          text: "{reqsJsonPath[0]['.items.0.status.disruptionsAllowed']['-']}"
 
                   # === Conditions table ===
                   - type: antdCol
@@ -285,7 +288,7 @@ spec:
                       - type: VisibilityContainer
                         data:
                           id: conditions-container
-                          value: "{reqsJsonPath[0]['.status.conditions']['-']}"
+                          value: "{reqsJsonPath[0]['.items.0.status.conditions']['-']}"
                           style:
                             margin: 0
                             padding: 0
@@ -297,26 +300,39 @@ spec:
                               strong: true
                               style:
                                 fontSize: 22
+
                           - type: EnrichedTable
                             data:
                               id: conditions-table
-                              fetchUrl: "/api/clusters/{2}/k8s/apis/policy/v1/namespaces/{3}/poddisruptionbudgets/{6}"
+                              baseprefix: /{{ $basePrefix }}
                               clusterNamePartOfUrl: "{2}"
                               customizationId: factory-status-conditions
-                              baseprefix: "/{{ $basePrefix }}"
-                              pathToItems: ".status.conditions"
+                              k8sResourceToFetch: 
+                                version: "v1"
+                                group: "policy"
+                                plural: "poddisruptionbudgets"
+                                namespace: "{3}"
+                              fieldSelector: 
+                                metadata.name: "{6}"
+                              pathToItems: ".items.0.status.conditions"
+                              withoutControls: true
 
-          # --- YAML tab -----------------------------------------------------
-          - key: "yaml"
-            label: "YAML"
+          # YAML tab
+          - key: yaml
+            label: YAML
             children:
               - type: YamlEditorSingleton
                 data:
                   id: yaml-editor
                   cluster: "{2}"
                   isNameSpaced: true
-                  type: "builtin"
+                  type: apis
                   typeName: poddisruptionbudgets
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
+                  pathToData: .items.0
+                  forcedKind: PodDisruptionBudget
+                  apiVersion: v1
+                  apiGroup: "policy"
+
 {{- end -}}

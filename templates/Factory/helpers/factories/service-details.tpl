@@ -36,7 +36,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: "{reqsJsonPath[0]['.kind']['-']}"
+            value: Service
             style:
               fontSize: 20px
 
@@ -44,7 +44,7 @@ spec:
         - type: parsedText
           data:
             id: service-name
-            text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
             style:
               fontSize: 20px
               lineHeight: 24px
@@ -110,7 +110,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: meta-name-value
-                                      text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
 
                               # Namespace link
                               - type: antdFlex
@@ -155,6 +155,7 @@ spec:
                                  {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/services/{6}"
                                       "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~services&labels="
+                                      "jsonPath" ".items.0.metadata.labels"
                                     ) | nindent 34
                                   }}
 
@@ -174,7 +175,7 @@ spec:
                                         fontSize: 14
                                   {{ include "incloud-web-resources.factory.labels.base.selector" (dict
                                       "type" "pod"
-                                      "jsonPath" ".spec.selector"
+                                      "jsonPath" ".items.0.spec.selector"
                                       "basePrefix" $basePrefix
                                       "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
                                     ) | nindent 34
@@ -190,6 +191,8 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/services/{6}"
+                                      "jsonPath" ".items.0.metadata.annotations"
+                                      "pathToValue" "/metadata/annotations"
                                     ) | nindent 34
                                   }}
 
@@ -208,7 +211,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: meta-session-affinity-value
-                                      text: "{reqsJsonPath[0]['.spec.sessionAffinity']['Not configured']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.sessionAffinity']['Not configured']}"
 
                               # Created timestamp
                               - type: antdFlex
@@ -218,35 +221,10 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.time.create" (dict
-                                    "req" ".metadata.creationTimestamp"
+                                    "req" ".items.0.metadata.creationTimestamp"
                                     "text" "Created"
                                     ) | nindent 34
                                   }}
-
-                              # Owner
-                              # - type: antdFlex
-                              #   data:
-                              #     id: meta-owner-block
-                              #     vertical: true
-                              #     gap: 4
-                              #   children:
-                              #     - type: antdText
-                              #       data:
-                              #         id: meta-owner-label
-                              #         strong: true
-                              #         text: "Owner"
-                              #     - type: antdFlex
-                              #       data:
-                              #         id: meta-owner-flex
-                              #         gap: 6
-                              #         align: center
-                              #       children:
-                              #         - type: antdText
-                              #           data:
-                              #             id: meta-owner-fallback
-                              #             text: "No owner"
-                              #             style:
-                              #               color: "#FF0000"
 
                       # Right column: routing and ports
                       - type: antdCol
@@ -287,7 +265,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: service-hostname-value
-                                      text: "{reqsJsonPath[0]['.metadata.name']['-']}.{reqsJsonPath[0]['.metadata.namespace']['-']}.svc.cluster.local"
+                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}.{reqsJsonPath[0]['.items.0.metadata.namespace']['-']}.svc.cluster.local"
 
                               # IP addresses block
                               - type: antdFlex
@@ -311,7 +289,7 @@ spec:
                                       - type: parsedText
                                         data:
                                           id: clusterip-value
-                                          text: "{reqsJsonPath[0]['.spec.clusterIP']['-']}"
+                                          text: "{reqsJsonPath[0]['.items.0.spec.clusterIP']['-']}"
 
                                   # LoadBalancerIP
                                   - type: antdFlex
@@ -328,7 +306,7 @@ spec:
                                       - type: parsedText
                                         data:
                                           id: loadbalancerip-value
-                                          text: "{reqsJsonPath[0]['.status.loadBalancer.ingress[0].ip']['Not Configured']}"
+                                          text: "{reqsJsonPath[0]['.items.0.status.loadBalancer.ingress[0].ip']['Not Configured']}"
 
                               # Service port mapping
                               - type: antdFlex
@@ -345,17 +323,22 @@ spec:
                                   - type: EnrichedTable
                                     data:
                                       id: service-port-mapping-table
-                                      fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/services/{6}"
                                       clusterNamePartOfUrl: "{2}"
                                       customizationId: "factory-service-details-port-mapping"
                                       baseprefix: "/{{ $basePrefix }}"
-                                      pathToItems: ".spec.ports"
+                                      pathToItems: ".items.0.spec.ports"
+                                      k8sResourceToFetch: 
+                                        version: "v1"
+                                        plural: "services"
+                                        namespace: "{3}"
+                                      fieldSelector:
+                                        metadata.name: "{6}"
 
                               # Pod serving
                               - type: VisibilityContainer
                                 data:
                                   id: service-pod-serving-vis
-                                  value: "{reqsJsonPath[0]['.spec.selector']['-']}"
+                                  value: "{reqsJsonPath[0]['.items.0.spec.selector']['-']}"
                                   style: { margin: 0, padding: 0 }
                                 children:
                                   - type: antdFlex
@@ -372,13 +355,17 @@ spec:
                                       - type: EnrichedTable
                                         data:
                                           id: service-pod-serving-table
-                                          fetchUrl: "/api/clusters/{2}/k8s/apis/discovery.k8s.io/v1/namespaces/{3}/endpointslices"
                                           clusterNamePartOfUrl: "{2}"
                                           customizationId: "factory-service-details-endpointslice"
                                           baseprefix: "/{{ $basePrefix }}"
-                                          labelsSelector:
-                                            kubernetes.io/service-name: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                                          labelSelector:
+                                            kubernetes.io/service-name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
                                           pathToItems: ".items[*].endpoints"
+                                          k8sResourceToFetch: 
+                                            version: "v1"
+                                            group: "discovery.k8s.io"
+                                            plural: "endpointslices"
+                                            namespace: "{3}"
           # YAML tab
           - key: "yaml"
             label: "YAML"
@@ -389,9 +376,13 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: "builtin"
-                  typeName: services
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
+                  pathToData: .items.0
+                  typeName: services
+                  forcedKind: Service
+                  apiVersion: v1
+
 
           # Pods tab
           - key: "pods"
@@ -400,23 +391,24 @@ spec:
               - type: VisibilityContainer
                 data:
                   id: service-pod-serving-vis
-                  value: "{reqsJsonPath[0]['.spec.selector']['-']}"
+                  value: "{reqsJsonPath[0]['.items.0.spec.selector']['-']}"
                   style: { margin: 0, padding: 0 }
                 children:
                   - type: EnrichedTable
                     data:
                       id: pods-table
-                      fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods"
                       clusterNamePartOfUrl: "{2}"
                       customizationId: "{{ $podFactoryName }}"
                       baseprefix: "/{{ $basePrefix }}"
-                      
                       labelSelectorFull:
                         reqIndex: 0
-                        # TODO требуется обработка нулевого значения
-                        pathToLabels: ".spec.selector"
+                        pathToLabels: ".items.0.spec.selector"
                       pathToItems: ".items"
-  
+                      k8sResourceToFetch: 
+                        version: "v1"
+                        plural: "pods"
+                        namespace: "{3}"
+
 
   {{- if $trivyEnabled }}
           - key: config-reports
@@ -431,9 +423,9 @@ spec:
                   baseprefix: "/{{ $basePrefix }}"
                   
                   # Build label selector from pod template labels
-                  labelsSelector:
-                    trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
-                    trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
+                  labelSelector:
+                    trivy-operator.resource.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+                    trivy-operator.resource.kind: "{reqsJsonPath[0]['.items.0.kind']['-']}"
                   # Items path for Pods list
                   pathToItems: ".items[*].report.checks"
 

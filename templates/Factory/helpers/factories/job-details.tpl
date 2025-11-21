@@ -395,41 +395,6 @@ spec:
                                       id: failed-pods-value
                                       text: "{reqsJsonPath[0]['.status.failed']['-']}"
 
-                  # === Volumes table ===
-                  # TODO to be done
-                  # - type: antdCol
-                  #   data:
-                  #     id: volumes-column
-                  #     style:
-                  #       marginTop: 10
-                  #       padding: 10
-                  #   children:
-                  #     - type: VisibilityContainer
-                  #       data:
-                  #         id: volumes-container
-                  #         value: "{reqsJsonPath[0]['.spec.volumes']['-']}"
-                  #         style:
-                  #           margin: 0
-                  #           padding: 0
-                  #       children:
-                  #         - type: antdText
-                  #           data:
-                  #             id: volumes-title
-                  #             text: "Volumes"
-                  #             strong: true
-                  #             style:
-                  #               fontSize: 22
-                  #               marginBottom: 32px
-                  #         - type: EnrichedTable
-                  #           data:
-                  #             id: volumes-table
-                  #             fetchUrl: "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{6}"
-                  #             clusterNamePartOfUrl: "{2}"
-                  #             customizationId: factory-job-details-volume-list
-                  #             baseprefix: "/{{ $basePrefix }}"
-                  #             
-                  #             pathToItems: ".spec.template.spec.volumes"
-
                   # ---- INIT CONTAINERS SECTION ----
                   - type: antdCol
                     data:

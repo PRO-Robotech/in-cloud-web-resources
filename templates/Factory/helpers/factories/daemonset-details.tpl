@@ -321,42 +321,6 @@ spec:
                                       id: ds-desired-count-value
                                       text: "{reqsJsonPath[0]['.status.desiredNumberScheduled']['-']}"
 
-                  # ---- VOLUMES SECTION ----
-                  # TODO to be done
-                  # - type: antdCol
-                  #   data:
-                  #     id: ds-volumes-col
-                  #     style:
-                  #       marginTop: 10
-                  #       padding: 10
-                  #   children:
-                  #     - type: VisibilityContainer
-                  #       data:
-                  #         id: ds-volumes-container
-                  #         value: "{reqsJsonPath[0]['.spec.template.spec.volumes']['-']}"
-                  #         style:
-                  #           margin: 0
-                  #           padding: 0
-                  #       children:
-                  #         # Section title
-                  #         - type: antdText
-                  #           data:
-                  #             id: ds-volumes-label
-                  #             text: Volumes
-                  #             strong: true
-                  #             style:
-                  #               fontSize: 22
-                  #               marginBottom: 32px
-                  #         # Table rendering volumes
-                  #         - type: EnrichedTable
-                  #           data:
-                  #             id: ds-volumes-table
-                  #             fetchUrl: "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/daemonsets/{6}"
-                  #             clusterNamePartOfUrl: "{2}"
-                  #             customizationId: factory-daemonset-details-volume-list
-                  #             baseprefix: "/{{ $basePrefix }}"
-                  #             pathToItems: ".spec.template.spec.volumes"
-
                   # ---- INIT CONTAINERS SECTION ----
                   - type: antdCol
                     data:
@@ -489,7 +453,7 @@ spec:
                   customizationId: factory-aquasecurity.github.io.v1alpha1.vulnerabilityreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels
-                  labelsSelector:
+                  labelSelector:
                     trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']}"
                     trivy-operator.container.name: "{reqsJsonPath[0]['.spec.template.spec.containers[0].name']}"
                   # Items path for Pods list
@@ -506,7 +470,7 @@ spec:
                   customizationId: factory-aquasecurity.github.io.v1alpha1.configauditreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels
-                  labelsSelector:
+                  labelSelector:
                     trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
                     trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
                   # Items path for Pods list

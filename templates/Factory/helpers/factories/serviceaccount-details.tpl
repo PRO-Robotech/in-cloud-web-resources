@@ -185,36 +185,10 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.time.create" (dict
-                                    "req" ".metadata.creationTimestamp"
+                                    "req" ".items.0.metadata.creationTimestamp"
                                     "text" "Created"
                                   ) | nindent 38
                                   }}
-
-                              # Owner block
-                              # - type: antdFlex
-                              #   data:
-                              #     id: meta-owner-block
-                              #     vertical: true
-                              #     gap: 4
-                              #   children:
-                              #     - type: antdText
-                              #       data:
-                              #         id: meta-owner-label
-                              #         strong: true
-                              #         text: "Owner"
-                              #     - type: antdFlex
-                              #       data:
-                              #         id: meta-owner-flex
-                              #         gap: 6
-                              #         align: center
-                              #       children:
-                              #         - type: parsedText
-                              #           data:
-                              #             id: owner-value
-                              #             strong: true
-                              #             text: "No owner"
-                              #             style:
-                              #               color: red
 
                       - type: antdCol
                         data:

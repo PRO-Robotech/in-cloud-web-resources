@@ -15,8 +15,12 @@ spec:
     - pods-details
   withScrollableMainContentCard: true
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{6}"
-
+    - cluster: "{2}"
+      version: "v1"
+      namespace: "{3}"
+      plural: "pods"
+      fieldSelector: "metadata.name={6}"
+      
   # Header row with badge, pod name, and status
   data:
     - type: antdFlex
@@ -31,7 +35,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: "{reqsJsonPath[0]['.kind']['-']}"
+            value: Pod
             style:
               fontSize: 20px
 
@@ -39,7 +43,7 @@ spec:
         - type: parsedText
           data:
             id: header-pod-name
-            text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
             style:
               fontSize: 20px
               lineHeight: 24px
@@ -117,7 +121,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: meta-name-value
-                                      text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
 
                               # Namespace link (kept as include)
                               - type: antdFlex
@@ -145,7 +149,7 @@ spec:
                                       {{ include "incloud-web-resources.factory.linkblock" (dict
                                           "reqIndex" 0
                                           "type" "namespace"
-                                          "jsonPath" ".metadata.namespace"
+                                          "jsonPath" ".items.0.metadata.namespace"
                                           "factory" "namespace-details"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
@@ -160,6 +164,7 @@ spec:
                                   {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{6}"
                                       "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+                                      "jsonPath" ".items.0.metadata.labels"
                                     ) | nindent 34
                                   }}
 
@@ -179,7 +184,7 @@ spec:
                                         fontSize: 14
                                   {{ include "incloud-web-resources.factory.labels.base.selector" (dict
                                       "type" "node"
-                                      "jsonPath" ".spec.template.spec.nodeSelector"
+                                      "jsonPath" ".items.0.spec.template.spec.nodeSelector"
                                       "basePrefix" $basePrefix
                                       "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~nodes&labels="
                                     ) | nindent 34
@@ -194,7 +199,7 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.tolerations.block" (dict 
                                     "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{6}"
-                                    "jsonPathToArray" ".spec.tolerations"
+                                    "jsonPathToArray" ".items.0.spec.tolerations"
                                     "pathToValue" "/spec/tolerations"
                                     ) | nindent 34
                                   }}
@@ -208,6 +213,8 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{6}"
+                                      "jsonPath" ".items.0.metadata.annotations"
+                                      "pathToValue" "/metadata/annotations"
                                     ) | nindent 34
                                   }}
 
@@ -234,12 +241,7 @@ spec:
                                       notArrayErrorText: refs on path are not arr
                                       emptyArrayErrorText: no refs
                                       isNotRefsArrayErrorText: objects in arr are not refs
-                                      # containerStyle:
-                                      #   border: "1px solid red"
-                                      #   padding: "10px"
-                                      # listFlexProps: 
-                                      #   gap: 10
-                                      jsonPathToArrayOfRefs: ".metadata.ownerReferences"
+                                      jsonPathToArrayOfRefs: ".items.0.metadata.ownerReferences"
                                       # keysToForcedLabel?: string | string[] // j
                                       baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
                                       baseFactoryClusterSceopedBuiltinKey: base-factory-clusterscoped-builtin
@@ -257,30 +259,10 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.time.create" (dict
-                                    "req" ".metadata.creationTimestamp"
+                                    "req" ".items.0.metadata.creationTimestamp"
                                     "text" "Created"
                                   ) | nindent 38
                                   }}
-
-                              # Owner information (fallback when absent)
-                              # - type: antdFlex
-                              #   data:
-                              #     id: meta-owner-block
-                              #     vertical: true
-                              #     gap: 4
-                              #   children:
-                              #     - type: antdText
-                              #       data:
-                              #         id: meta-owner-label
-                              #         strong: true
-                              #         text: "Owner"
-                              #     - type: parsedText
-                              #       data:
-                              #         id: meta-owner-fallback
-                              #         strong: true
-                              #         text: "No owner"
-                              #         style:
-                              #           color: red
 
                       # Right column: status and runtime info
                       - type: antdCol
@@ -330,7 +312,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: restart-policy-value
-                                      text: "{reqsJsonPath[0]['.spec.restartPolicy']['-']} restart"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.restartPolicy']['-']} restart"
 
                               # Active deadline seconds
                               - type: antdFlex
@@ -347,7 +329,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: active-deadline-value
-                                      text: "{reqsJsonPath[0]['.spec.activeDeadlineSeconds']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.activeDeadlineSeconds']['-']}"
 
                               # Pod IP
                               - type: antdFlex
@@ -364,7 +346,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: pod-ip-value
-                                      text: "{reqsJsonPath[0]['.status.podIP']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.status.podIP']['-']}"
 
                               # Host IP
                               - type: antdFlex
@@ -381,7 +363,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: host-ip-value
-                                      text: "{reqsJsonPath[0]['.status.hostIP']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.status.hostIP']['-']}"
 
                               # Node details link (kept as include)
                               - type: antdFlex
@@ -409,7 +391,7 @@ spec:
                                       {{ include "incloud-web-resources.factory.linkblock" (dict
                                           "reqIndex" 0
                                           "type" "name"
-                                          "jsonPath" ".spec.nodeName"
+                                          "jsonPath" ".items.0.spec.nodeName"
                                           "factory" "node-details"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
@@ -430,88 +412,85 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: qos-class-value
-                                      text: "{reqsJsonPath[0]['.status.qosClass']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.status.qosClass']['-']}"
 
-                  # Volumes section (table is hidden if no volumes)
-                  # TODO to be done
-                  # - type: antdCol
-                  #   data:
-                  #     id: volumes-col
-                  #     style:
-                  #       marginTop: 10
-                  #       padding: 10
-                  #   children:
-                  #     - type: VisibilityContainer
-                  #       data:
-                  #         id: volumes-visibility
-                  #         value: "{reqsJsonPath[0]['.spec.volumes']['-']}"
-                  #         style:
-                  #           margin: 0
-                  #           padding: 0
-                  #       children:
-                  #         # Volumes title
-                  #         - type: antdText
-                  #           data:
-                  #             id: volumes-title
-                  #             text: "Volumes"
-                  #             strong: true
-                  #             style:
-                  #               fontSize: 22
-                  #               marginBottom: 32px
-                  #         # Volumes table
-                  #         - type: EnrichedTable
-                  #           data:
-                  #             id: volumes-table
-                  #             fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{6}"
-                  #             clusterNamePartOfUrl: "{2}"
-                  #             customizationId: factory-pod-details-volume-list
-                  #             baseprefix: "/{{ $basePrefix }}"
-                  #             pathToItems: ".spec.volumes"
-
-
-                  # Init containers section (hidden if none)
+                  # ---- INIT CONTAINERS SECTION ----
                   - type: antdCol
                     data:
-                      id: init-containers-col
+                      id: ds-init-containers-col
                       style:
                         marginTop: 10
                         padding: 10
                     children:
-                      {{ include "incloud-web-resources.factory.containers.table" (dict
-                          "title" "Init containers"
-                          "customizationId" "container-status-init-containers-list"
-                          "type" "init-containers"
-                          "apiGroup" "api/v1"
-                          "kind" "pods"
-                          "resourceName" $resName
-                          "namespace" "{3}"
-                          "jsonPath" ".status.initContainerStatuses"
-                          "pathToItems" "['status','initContainerStatuses']"
-                          "basePrefix" $basePrefix
-                        ) | nindent 22 
-                      }}
+                      - type: VisibilityContainer
+                        data:
+                          id: ds-init-containers-container
+                          value: "{reqsJsonPath[0]['.items.0.status.initContainerStatuses']['-']}"
+                          style:
+                            margin: 0
+                            padding: 0
+                        children:
+                          - type: antdText
+                            data:
+                              id: init-containers-title
+                              text: Init containers
+                              strong: true
+                              style:
+                                fontSize: 22
+                                marginBottom: 32px
+                          - type: EnrichedTable
+                            data:
+                              id: containers-table
+                              clusterNamePartOfUrl: "{2}"
+                              customizationId: "container-status-init-containers-list"
+                              baseprefix: "/openapi-ui"
+                              withoutControls: true
+                              pathToItems: .items.0.status.initContainerStatuses
+                              k8sResourceToFetch: 
+                                version: "v1"
+                                plural: "pods"
+                                namespace: "{3}"
+                              fieldSelector: 
+                                metadata.name: "{6}"
 
-                  # Containers section (hidden if none)
+                  # ---- CONTAINERS SECTION ----
                   - type: antdCol
                     data:
-                      id: containers-col
+                      id: ds-containers-col
                       style:
                         marginTop: 10
                         padding: 10
                     children:
-                      {{ include "incloud-web-resources.factory.containers.table" (dict
-                          "title" "Containers"
-                          "customizationId" "container-status-containers-list"
-                          "type" "containers"
-                          "apiGroup" "api/v1"
-                          "kind" "pods"
-                          "resourceName" $resName
-                          "namespace" "{3}"
-                          "jsonPath" ".status.containerStatuses"
-                          "pathToItems" "['status','containerStatuses']"
-                          "basePrefix" $basePrefix
-                        ) | nindent 22 
-                      }}
+                      - type: VisibilityContainer
+                        data:
+                          id: ds-containers-container
+                          value: "{reqsJsonPath[0]['.items.0.status.containerStatuses']['-']}"
+                          style:
+                            margin: 0
+                            padding: 0
+                        children:
+                          - type: antdText
+                            data:
+                              id: init-containers-title
+                              text: Containers
+                              strong: true
+                              style:
+                                fontSize: 22
+                                marginBottom: 32px
+                          - type: EnrichedTable
+                            data:
+                              id: containers-table
+                              clusterNamePartOfUrl: "{2}"
+                              customizationId: "container-status-containers-list"
+                              baseprefix: "/openapi-ui"
+                              withoutControls: true
+                              pathToItems: .items.0.status.containerStatuses
+                              k8sResourceToFetch: 
+                                version: "v1"
+                                plural: "pods"
+                                namespace: "{3}"
+                              fieldSelector: 
+                                metadata.name: "{6}"
 
                   # Conditions section (hidden if none)
                   - type: antdCol
@@ -524,7 +503,7 @@ spec:
                       - type: VisibilityContainer
                         data:
                           id: conditions-visibility
-                          value: "{reqsJsonPath[0]['.status.conditions']['-']}"
+                          value: "{reqsJsonPath[0]['.items.0.status.conditions']['-']}"
                           style:
                             margin: 0
                             padding: 0
@@ -537,16 +516,21 @@ spec:
                               strong: true
                               style:
                                 fontSize: 22
-                          # Conditions table
+
                           - type: EnrichedTable
                             data:
                               id: conditions-table
-                              fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{6}"
                               clusterNamePartOfUrl: "{2}"
                               customizationId: factory-status-conditions
-                              baseprefix: "/{{ $basePrefix }}"
-                              
-                              pathToItems: ".status.conditions"
+                              baseprefix: "/openapi-ui"
+                              withoutControls: true
+                              pathToItems: ".items.0.status.conditions"
+                              k8sResourceToFetch: 
+                                version: "v1"
+                                plural: "pods"
+                                namespace: "{3}"
+                              fieldSelector: 
+                                metadata.name: "{6}"
 
           # YAML tab with inline editor
           - key: "yaml"
@@ -561,6 +545,9 @@ spec:
                   typeName: pods
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
+                  pathToData: .items.0
+                  forcedKind: Pod
+                  apiVersion: v1
 
           # Logs tab with live pod logs
           - key: "logs"
@@ -570,8 +557,8 @@ spec:
                 data:
                   id: pod-logs
                   cluster: "{2}"
-                  namespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-                  podName: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                  namespace: "{reqsJsonPath[0]['.items.0.metadata.namespace']['-']}"
+                  podName: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
                   substractHeight: 400
 
           # Terminal tab with exec into pod
@@ -582,8 +569,8 @@ spec:
                 data:
                   id: pod-terminal
                   cluster: "{2}"
-                  namespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-                  podName: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                  namespace: "{reqsJsonPath[0]['.items.0.metadata.namespace']['-']}"
+                  podName: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
                   substractHeight: 400
 
           - key: events
@@ -599,10 +586,10 @@ spec:
                   substractHeight: 315
                   limit: 40
                   fieldSelector:
-                    regarding.kind: "{reqsJsonPath[0]['.kind']['-']}"
-                    regarding.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
-                    regarding.namespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-                    regarding.apiVersion: "{reqsJsonPath[0]['.apiVersion']['-']}"
+                    regarding.kind: "{reqsJsonPath[0]['.items.0.kind']['-']}"
+                    regarding.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+                    regarding.namespace: "{reqsJsonPath[0]['.items.0.metadata.namespace']['-']}"
+                    regarding.apiVersion: "{reqsJsonPath[0]['.items.0.apiVersion']['-']}"
                   baseFactoryNamespacedAPIKey: base-factory-namespaced-api
                   baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
                   baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
@@ -622,9 +609,9 @@ spec:
                   customizationId: factory-aquasecurity.github.io.v1alpha1.vulnerabilityreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels
-                  labelsSelector:
-                    trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
-                    trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
+                  labelSelector:
+                    trivy-operator.resource.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+                    trivy-operator.resource.kind: "{reqsJsonPath[0]['.items.0.kind']['-']}"
                   # Items path for Pods list
                   pathToItems: ".items[*].report.vulnerabilities"
 
@@ -639,9 +626,9 @@ spec:
                   customizationId: factory-aquasecurity.github.io.v1alpha1.configauditreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels
-                  labelsSelector:
-                    trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
-                    trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
+                  labelSelector:
+                    trivy-operator.resource.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+                    trivy-operator.resource.kind: "{reqsJsonPath[0]['.items.0.kind']['-']}"
                   # Items path for Pods list
                   pathToItems: ".items[*].report.checks"
 

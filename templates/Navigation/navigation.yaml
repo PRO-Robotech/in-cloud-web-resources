@@ -33,3 +33,6 @@ spec:
     clear: "/{{ .Values.basePrefix }}/clusters/{selectedCluster}"
     change: "/{{ .Values.basePrefix }}/clusters/{selectedCluster}/{{ $projRes.resourceName }}/{value}"
 {{ end }}
+  baseFactoriesMapping:
+    base-factory-clusterscoped-api-apps-v1-deployments: deployment-details
+    base-factory-namespaced-api-apps-v1-deployments: deployment-details

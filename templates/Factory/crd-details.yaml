@@ -15,9 +15,8 @@ spec:
     - cluster: "{2}"
       group: "apiextensions.k8s.io"
       version: "v1"
-      namespace: "{3}"
       plural: "customresourcedefinitions"
-      fieldSelector: "metadata.name={6}"
+      fieldSelector: "metadata.name={5}"
 
   # Enable scrollable main content
   withScrollableMainContentCard: true
@@ -36,7 +35,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: "{reqsJsonPath[0]['.kind']['-']}"
+            value: CustomResourceDefinition
             style:
               fontSize: 20px
 
@@ -44,7 +43,7 @@ spec:
         - type: parsedText
           data:
             id: header-name
-            text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
             style:
               fontFamily: RedHatDisplay, Overpass, overpass, helvetica, arial, sans-serif
               fontSize: 20px
@@ -56,7 +55,6 @@ spec:
         id: tabs-root
         defaultActiveKey: details
         items:
-
           # --- DETAILS TAB ---
           - key: details
             label: Details
@@ -118,7 +116,8 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: field-name-value
-                                      text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+
                               # Labels block
                               - type: antdFlex
                                 data:
@@ -129,6 +128,7 @@ spec:
                                  {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/apiextensions.k8s.io/v1/customresourcedefinitions/{5}"
                                       "linkPrefix" "/openapi-ui/{2}/search?kinds=apiextensions.k8s.io~v1~customresourcedefinitions&labels="
+                                      "jsonPath" ".items.0.metadata.labels"
                                     ) | nindent 34
                                   }}
 
@@ -141,6 +141,8 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/apiextensions.k8s.io/v1/customresourcedefinitions/{5}"
+                                      "jsonPath" ".items.0.metadata.annotations"
+                                      "pathToValue" "/metadata/annotations"
                                     ) | nindent 34
                                   }}
 
@@ -152,28 +154,10 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.time.create" (dict
-                                    "req" ".metadata.creationTimestamp"
+                                    "req" ".items.0.metadata.creationTimestamp"
                                     "text" "Created"
                                     ) | nindent 30
                                   }}
-                              # Owner info
-                              # - type: antdFlex
-                              #   data:
-                              #     id: owner-block
-                              #     vertical: true
-                              #     gap: 4
-                              #   children:
-                              #     - type: antdText
-                              #       data:
-                              #         id: owner-label
-                              #         text: Owner
-                              #         strong: true
-                              #     - type: parsedText
-                              #       data:
-                              #         id: owner-value
-                              #         text: "No owner"
-                              #         style:
-                              #           color: red
 
                       # RIGHT COLUMN — CRD spec info
                       - type: antdCol
@@ -202,7 +186,8 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: group-value
-                                      text: "{reqsJsonPath[0]['.spec.group']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.group']['-']}"
+
                               # Scope field
                               - type: antdFlex
                                 data:
@@ -218,7 +203,8 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: scope-value
-                                      text: "{reqsJsonPath[0]['.spec.scope']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.scope']['-']}"
+
                               # Latest stored version
                               - type: antdFlex
                                 data:
@@ -234,7 +220,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: latest-version-value
-                                      text: "{reqsJsonPath[0]['.status.storedVersions[0]']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.status.storedVersions[0]']['-']}"
 
                   # Conditions section
                   - type: antdCol
@@ -247,7 +233,7 @@ spec:
                       - type: VisibilityContainer
                         data:
                           id: conditions-container
-                          value: "{reqsJsonPath[0]['.status.conditions']['-']}"
+                          value: "{reqsJsonPath[0]['.items.0.status.conditions']['-']}"
                           style:
                             margin: 0
                             padding: 0
@@ -263,11 +249,16 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: conditions-table
-                              fetchUrl: "/api/clusters/{2}/k8s/apis/apiextensions.k8s.io/v1/customresourcedefinitions/{5}"
                               clusterNamePartOfUrl: "{2}"
                               customizationId: factory-status-conditions
                               baseprefix: "/{{ .Values.basePrefix }}"
-                              pathToItems: ".status.conditions"
+                              pathToItems: ".items.0.status.conditions"
+                              k8sResourceToFetch: 
+                                version: "v1"
+                                group: "apiextensions.k8s.io"
+                                plural: "customresourcedefinitions"
+                              fieldSelector:
+                                metadata.name: "{5}"
 
                   # Versions section
                   - type: antdCol
@@ -280,7 +271,7 @@ spec:
                       - type: VisibilityContainer
                         data:
                           id: versions-container
-                          value: "{reqsJsonPath[0]['.spec.versions']['-']}"
+                          value: "{reqsJsonPath[0]['.items.0.spec.versions']['-']}"
                           style:
                             margin: 0
                             padding: 0
@@ -296,11 +287,16 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: versions-table
-                              fetchUrl: "/api/clusters/{2}/k8s/apis/apiextensions.k8s.io/v1/customresourcedefinitions/{5}"
                               clusterNamePartOfUrl: "{2}"
                               customizationId: versions-apiextensions.k8s.io.v1.customresourcedefinitions
                               baseprefix: "/{{ .Values.basePrefix }}"
-                              pathToItems: ".spec.versions"
+                              pathToItems: ".items.0.spec.versions"
+                              k8sResourceToFetch: 
+                                version: "v1"
+                                group: "apiextensions.k8s.io"
+                                plural: "customresourcedefinitions"
+                              fieldSelector:
+                                metadata.name: "{5}"
 
           # --- YAML TAB ---
           - key: yaml
@@ -309,14 +305,17 @@ spec:
               - type: YamlEditorSingleton
                 data:
                   id: yaml-editor
-                  apiGroup: apiextensions.k8s.io
-                  apiVersion: v1
                   cluster: "{2}"
                   isNameSpaced: false
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   type: apis
                   typeName: customresourcedefinitions
+                  pathToData: .items.0
+                  forcedKind: CustomResourceDefinition
+                  apiGroup:  "apiextensions.k8s.io"
+                  apiVersion: v1
+
 
           # --- INSTANCES TAB ---
           - key: instance
@@ -325,16 +324,19 @@ spec:
               - type: EnrichedTable
                 data:
                   id: instances-table
-                  fetchUrl: "/api/clusters/{2}/k8s/apis/{reqsJsonPath[0]['.spec.group']['-']}/{reqsJsonPath[0]['.status.storedVersions[0]']['-']}/{reqsJsonPath[0]['.spec.names.plural']['-']}"
                   clusterNamePartOfUrl: "{2}"
                   customizationId: instances-crd
                   baseprefix: "/{{ .Values.basePrefix }}"
                   pathToItems: ".items"
                   dataForControls:
-                    resource: "{reqsJsonPath[0]['.spec.names.plural']['-']}"
-                    apiVersion: "{reqsJsonPath[0]['.status.storedVersions[0]']['-']}"
-                    apiGroup: "{reqsJsonPath[0]['.spec.group']['-']}"
+                    resource:   "{reqsJsonPath[0]['.items.0.spec.names.plural']['-']}"
+                    apiVersion: "{reqsJsonPath[0]['.items.0.status.storedVersions[0]']['-']}"
+                    apiGroup:   "{reqsJsonPath[0]['.items.0.spec.group']['-']}"
                   k8sResource:
-                    resource: "{reqsJsonPath[0]['.spec.names.plural']['-']}"
-                    apiVersion: "{reqsJsonPath[0]['.status.storedVersions[0]']['-']}"
-                    apiGroup: "{reqsJsonPath[0]['.spec.group']['-']}"
+                    resource:   "{reqsJsonPath[0]['.items.0.spec.names.plural']['-']}"
+                    apiVersion: "{reqsJsonPath[0]['.items.0.status.storedVersions[0]']['-']}"
+                    apiGroup:   "{reqsJsonPath[0]['.items.0.spec.group']['-']}"
+                  k8sResourceToFetch: 
+                    version:    "{reqsJsonPath[0]['.items.0.status.storedVersions[0]']['-']}"
+                    group:      "{reqsJsonPath[0]['.items.0.spec.group']['-']}"
+                    plural:     "{reqsJsonPath[0]['.items.0.spec.names.plural']['-']}"

@@ -35,7 +35,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: "{reqsJsonPath[0]['.kind']['-']}"
+            value: RoleBinding
             style:
               fontSize: 20px
 
@@ -43,7 +43,7 @@ spec:
         - type: parsedText
           data:
             id: service-name
-            text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
             style:
               fontSize: 20px
               lineHeight: 24px
@@ -109,7 +109,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: meta-name-value
-                                      text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
 
                               # Namespace link (kept as include)
                               - type: antdFlex
@@ -138,7 +138,7 @@ spec:
                                       {{ include "incloud-web-resources.factory.linkblock" (dict
                                           "reqIndex" 0
                                           "type" "namespace"
-                                          "jsonPath" ".metadata.namespace"
+                                          "jsonPath" ".items.0.metadata.namespace"
                                           "factory" "namespace-details"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
@@ -154,6 +154,7 @@ spec:
                                  {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/rbac.authorization.k8s.io/v1/namespaces/{3}/rolebindings/{6}"
                                       "linkPrefix" "/openapi-ui/{2}/search?kinds=rbac.authorization.k8s.io~v1~rolebindings&labels="
+                                      "jsonPath" ".items.0.metadata.labels"
                                     ) | nindent 34
                                   }}
 
@@ -166,6 +167,8 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/rbac.authorization.k8s.io/v1/namespaces/{3}/rolebindings/{6}"
+                                      "jsonPath" ".items.0.metadata.annotations"
+                                      "pathToValue" "/metadata/annotations"
                                     ) | nindent 34
                                   }}
 
@@ -177,37 +180,11 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.time.create" (dict
-                                    "req" ".metadata.creationTimestamp"
+                                    "req" ".items.0.metadata.creationTimestamp"
                                     "text" "Created"
                                     ) | nindent 34
                                   }}
 
-                              # Owner
-                              # - type: antdFlex
-                              #   data:
-                              #     id: meta-owner-block
-                              #     vertical: true
-                              #     gap: 4
-                              #   children:
-                              #     - type: antdText
-                              #       data:
-                              #         id: meta-owner-label
-                              #         strong: true
-                              #         text: "Owner"
-                              #     - type: antdFlex
-                              #       data:
-                              #         id: meta-owner-flex
-                              #         gap: 6
-                              #         align: center
-                              #       children:
-                              #         - type: antdText
-                              #           data:
-                              #             id: meta-owner-fallback
-                              #             text: "No owner"
-                              #             style:
-                              #               color: "#FF0000"
-
-          
                       # Left column: metadata and config
                       - type: antdCol
                         data:
@@ -243,7 +220,7 @@ spec:
                                   - type: VisibilityContainer
                                     data:
                                       id: conditions-visibility
-                                      value: "{reqsJsonPath[0]['.roleRef.kind']['-']}"
+                                      value: "{reqsJsonPath[0]['.items.0.roleRef.kind']['-']}"
                                       style:
                                         margin: 0
                                         padding: 0
@@ -252,8 +229,8 @@ spec:
                                             "reqIndex" 0
                                             "type" "role"
                                             "title" "TODO"
-                                            "namespace" "{reqsJsonPath[0]['.metadata.namespace']}"
-                                            "jsonPath" ".roleRef.name"
+                                            "namespace" "{reqsJsonPath[0]['.items.0.metadata.namespace']}"
+                                            "jsonPath" ".items.0.roleRef.name"
                                             "factory" "role-details"
                                             "basePrefix" $basePrefix
                                           ) | nindent 40 
@@ -263,7 +240,7 @@ spec:
                                   - type: VisibilityContainer
                                     data:
                                       id: conditions-visibility
-                                      value: "{reqsJsonPath[0]['.roleRef.kind']['-']}"
+                                      value: "{reqsJsonPath[0]['.items.0.roleRef.kind']['-']}"
                                       style:
                                         margin: 0
                                         padding: 0
@@ -272,7 +249,7 @@ spec:
                                             "reqIndex" 0
                                             "type" "cluster-role"
                                             "title" "ClusterRole"
-                                            "jsonPath" ".roleRef.name"
+                                            "jsonPath" ".items.0.roleRef.name"
                                             "factory" "clusterrole-details"
                                             "basePrefix" $basePrefix
                                           ) | nindent 40 
@@ -287,8 +264,12 @@ spec:
                   id: yaml-editor
                   cluster: "{2}"
                   isNameSpaced: true
-                  type: "builtin"
+                  type: "apis"
                   typeName: rolebindings
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
+                  pathToData: .items.0
+                  forcedKind: RoleBinding
+                  apiVersion: v1
+                  apiGroup: rbac.authorization.k8s.io
 {{- end -}}

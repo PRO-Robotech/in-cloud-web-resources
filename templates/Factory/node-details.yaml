@@ -17,9 +17,8 @@ spec:
   urlsToFetch:
     - cluster: "{2}"
       version: "v1"
-      namespace: "{3}"
       plural: "nodes"
-      fieldSelector: "metadata.name={6}"
+      fieldSelector: "metadata.name={5}"
 
   data:
     # === HEADER ROW ===
@@ -35,7 +34,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: "{reqsJsonPath[0]['.kind']['-']}"
+            value: Node
             style:
               fontSize: 20px
 
@@ -43,7 +42,7 @@ spec:
         - type: parsedText
           data:
             id: header-name
-            text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
             style:
               fontSize: 20px
               lineHeight: 24px
@@ -123,7 +122,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: name-value
-                                      text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
 
                               # External ID block
                               - type: antdFlex
@@ -140,25 +139,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: external-id-value
-                                      text: "{reqsJsonPath[0]['.spec.externalID']['-']}"
-
-                              # Uptime block (placeholder for future calculated value)
-                              # TODO To be done
-                              # - type: antdFlex
-                              #   data:
-                              #     id: uptime-block
-                              #     vertical: true
-                              #     gap: 4
-                              #   children:
-                              #     - type: antdText
-                              #       data:
-                              #         id: uptime-label
-                              #         strong: true
-                              #         text: "Uptime"
-                              #     - type: parsedText
-                              #       data:
-                              #         id: uptime-value
-                              #         text: "Function needed to calculate uptime"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.externalID']['-']}"
 
                               # Node address block
                               - type: antdFlex
@@ -198,6 +179,7 @@ spec:
                                  {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/api/v1/nodes/{5}"
                                       "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~nodes&labels="
+                                      "jsonPath" ".items.0.metadata.labels"
                                     ) | nindent 34
                                   }}
 
@@ -210,7 +192,7 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.taints.block" (dict 
                                     "endpoint" "/api/clusters/{2}/k8s/api/v1/nodes/{5}"
-                                    "jsonPathToArray" ".spec.taints"
+                                    "jsonPathToArray" ".items.0.spec.taints"
                                     "pathToValue" "/spec/taints"
                                     ) | nindent 34
                                   }}
@@ -224,6 +206,8 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/api/v1/nodes/{5}"
+                                      "jsonPath" ".items.0.metadata.annotations"
+                                      "pathToValue" "/metadata/annotations"
                                     ) | nindent 34
                                   }}
 
@@ -242,7 +226,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: provider-id-value
-                                      text: "{reqsJsonPath[0]['.spec.providerID']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.providerID']['-']}"
 
                               # Creation time block
                               - type: antdFlex
@@ -252,7 +236,7 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.time.create" (dict
-                                    "req" ".metadata.creationTimestamp"
+                                    "req" ".items.0.metadata.creationTimestamp"
                                     "text" "Created"
                                     ) | nindent 38
                                   }}
@@ -304,7 +288,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: operating-system-value
-                                      text: "{reqsJsonPath[0]['.status.nodeInfo.operatingSystem']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.status.nodeInfo.operatingSystem']['-']}"
 
                               # OS image block
                               - type: antdFlex
@@ -321,7 +305,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: os-image-value
-                                      text: "{reqsJsonPath[0]['.status.nodeInfo.osImage']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.status.nodeInfo.osImage']['-']}"
 
                               # Architecture block
                               - type: antdFlex
@@ -338,7 +322,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: architecture-value
-                                      text: "{reqsJsonPath[0]['.status.nodeInfo.architecture']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.status.nodeInfo.architecture']['-']}"
 
                               # Kernel version block
                               - type: antdFlex
@@ -355,7 +339,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: kernel-version-value
-                                      text: "{reqsJsonPath[0]['.status.nodeInfo.kernelVersion']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.status.nodeInfo.kernelVersion']['-']}"
 
                               # Boot ID block
                               - type: antdFlex
@@ -372,7 +356,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: boot-id-value
-                                      text: "{reqsJsonPath[0]['.status.nodeInfo.bootID']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.status.nodeInfo.bootID']['-']}"
 
                               # Container runtime block
                               - type: antdFlex
@@ -389,7 +373,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: container-runtime-value
-                                      text: "{reqsJsonPath[0]['.status.nodeInfo.containerRuntimeVersion']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.status.nodeInfo.containerRuntimeVersion']['-']}"
 
                               # Kubelet version block
                               - type: antdFlex
@@ -406,7 +390,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: kubelet-version-value
-                                      text: "{reqsJsonPath[0]['.status.nodeInfo.kubeletVersion']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.status.nodeInfo.kubeletVersion']['-']}"
 
                   # CONDITIONS SECTION
                   - type: antdCol
@@ -426,11 +410,15 @@ spec:
                       - type: EnrichedTable
                         data:
                           id: conditions-table
-                          fetchUrl: "/api/clusters/{2}/k8s/api/v1/nodes/{5}"
                           clusterNamePartOfUrl: "{2}"
                           customizationId: "factory-status-conditions"
                           baseprefix: "/{{ .Values.basePrefix }}"
-                          pathToItems: ".status.conditions"
+                          pathToItems: ".items.0.status.conditions"
+                          k8sResourceToFetch: 
+                            version: "v1"
+                            plural: "nodes"
+                          fieldSelector:
+                            metadata.name: "{5}"
 
                   # IMAGES SECTION
                   - type: antdCol
@@ -450,12 +438,15 @@ spec:
                       - type: EnrichedTable
                         data:
                           id: images-table
-                          fetchUrl: "/api/clusters/{2}/k8s/api/v1/nodes/{5}"
                           clusterNamePartOfUrl: "{2}"
                           customizationId: "factory-node-images"
                           baseprefix: "/{{ .Values.basePrefix }}"
-                          
-                          pathToItems: ".status.images"
+                          pathToItems: ".items.0.status.images"
+                          k8sResourceToFetch: 
+                            version: "v1"
+                            plural: "nodes"
+                          fieldSelector:
+                            metadata.name: "{5}"
 
           # ------ YAML TAB ------
           - key: "yaml"
@@ -468,9 +459,12 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: false
                   type: "builtin"
-                  typeName: nodes
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
+                  typeName: nodes
+                  pathToData: .items.0
+                  forcedKind: Node
+                  apiVersion: v1
 
           # ------ PODS TAB ------
           - key: "pods"
@@ -480,14 +474,16 @@ spec:
               - type: EnrichedTable
                 data:
                   id: pods-table
-                  fetchUrl: "/api/clusters/{2}/k8s/api/v1/pods"
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "factory-node-details-/v1/pods"
                   baseprefix: "/{{ .Values.basePrefix }}"
                   fieldSelector:
-                    fieldName: "spec.nodeName"
-                    parsedText: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                    spec.nodeName: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
                   pathToItems: ".items"
+                  k8sResourceToFetch: 
+                    version: "v1"
+                    plural: "pods"
+
 
           # ------ TERMINAL TAB ------
           - key: "terminal"
@@ -498,7 +494,7 @@ spec:
                 data:
                   id: terminal
                   cluster: "{2}"
-                  nodeName: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                  nodeName: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
                   substractHeight: 400
 
           - key: events
@@ -514,9 +510,9 @@ spec:
                   substractHeight: 315
                   limit: 40
                   fieldSelector:
-                    regarding.kind: "{reqsJsonPath[0]['.kind']['-']}"
-                    regarding.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
-                    regarding.apiVersion: "{reqsJsonPath[0]['.apiVersion']['-']}"
+                    regarding.kind: Node
+                    regarding.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+                    regarding.apiVersion: v1
                   baseFactoryNamespacedAPIKey: base-factory-namespaced-api
                   baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
                   baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
@@ -536,11 +532,9 @@ spec:
                   customizationId: factory-aquasecurity.github.io.v1alpha1.clusterinfraassessmentreports
                   baseprefix: "/{{ .Values.basePrefix }}"
                   # Build label selector from pod template labels
-                  labelsSelector:
-                    trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
-                    trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
+                  labelSelector:
+                    trivy-operator.resource.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+                    trivy-operator.resource.kind: "{reqsJsonPath[0]['.items.0.kind']['-']}"
                   # Items path for Pods list
                   pathToItems: ".items[*].report.checks"
-
-
 {{- end -}}

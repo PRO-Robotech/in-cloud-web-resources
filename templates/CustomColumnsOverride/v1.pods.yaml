@@ -46,7 +46,7 @@ spec:
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.factory.statuses.pod" . | nindent 8 }}
+        {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 8 }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -119,7 +119,7 @@ spec:
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.factory.statuses.pod" . | nindent 8 }}
+        {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 8 }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -183,7 +183,7 @@ spec:
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.factory.statuses.pod" . | nindent 8 }}
+        {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 8 }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -246,7 +246,7 @@ spec:
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.factory.statuses.pod" . | nindent 8 }}
+        {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 8 }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -310,7 +310,7 @@ spec:
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.factory.statuses.pod" . | nindent 8 }}
+        {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 8 }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -374,7 +374,7 @@ spec:
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.factory.statuses.pod" . | nindent 8 }}
+        {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 8 }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -437,7 +437,7 @@ spec:
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.factory.statuses.pod" . | nindent 8 }}
+        {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 8 }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"

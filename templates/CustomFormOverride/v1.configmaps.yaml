@@ -9,5 +9,12 @@ spec:
     {{ include "incloud-web-resources.customformoverride.hidden.metadata.system" . | nindent 4 }}
     {{ include "incloud-web-resources.customformoverride.hidden.metadata.api" . | nindent 4 }}
     {{ include "incloud-web-resources.customformoverride.hidden.status" . | nindent 4 }}
-  schema: {}
+    - - binaryData
+    - - immutable
+  schema:
+    properties:
+      data:
+        type: object
+        additionalProperties:
+          type: multilineString
   strategy: merge

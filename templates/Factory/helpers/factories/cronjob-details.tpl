@@ -378,44 +378,6 @@ spec:
                                       id: active-deadline-value
                                       text: "{reqsJsonPath[0]['.spec.activeDeadlineSeconds']['Not configured']}"
 
-                  # ---- VOLUMES SECTION ----
-                  # TODO to be done
-                  # - type: antdCol
-                  #   data:
-                  #     id: volumes-section
-                  #     style:
-                  #       marginTop: 10
-                  #       padding: 10
-                  #   children:
-                  #     # Hide block if no volumes
-                  #     - type: VisibilityContainer
-                  #       data:
-                  #         id: volumes-container
-                  #         value: "{reqsJsonPath[0]['.spec.volumes']['-']}"
-                  #         style:
-                  #           margin: 0
-                  #           padding: 0
-                  #       children:
-                  #         # Section title
-                  #         - type: antdText
-                  #           data:
-                  #             id: volumes-title
-                  #             text: "Volumes"
-                  #             strong: true
-                  #             style:
-                  #               fontSize: 22
-                  #               marginBottom: 32px
-                  #         # Generic table rendering volumes list
-                  #         - type: EnrichedTable
-                  #           data:
-                  #             id: volumes-table
-                  #             fetchUrl: "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/cronjobs/{6}"
-                  #             clusterNamePartOfUrl: "{2}"
-                  #             customizationId: factory-cronjob-details-volume-list
-                  #             baseprefix: "/{{ $basePrefix }}"
-                  #             # Path inside CronJob manifest where volumes are located
-                  #             pathToItems: ".spec.volumes"
-
                   # ---- INIT CONTAINERS SECTION ----
                   - type: antdCol
                     data:

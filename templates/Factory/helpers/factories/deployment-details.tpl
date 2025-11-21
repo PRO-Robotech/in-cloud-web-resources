@@ -21,7 +21,6 @@ spec:
 
   # API request used to fetch the target Deployment
   urlsToFetch:
-    # - /api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/deployments/{6}
     - cluster: "{2}"
       group: "apps"
       version: "v1"
@@ -406,41 +405,6 @@ spec:
                                       id: min-ready-seconds-value
                                       text: "{reqsJsonPath[0]['.items.0.spec.minReadySeconds']['-']}"
 
-                  # === Volumes table (visible only if volumes exist) ===
-                  # TODO to be done
-                  # - type: antdCol
-                  #   data:
-                  #     id: volumes-column
-                  #     style:
-                  #       marginTop: 16
-                  #       padding: 10
-                  #   children:
-                  #     - type: VisibilityContainer
-                  #       data:
-                  #         id: volumes-container
-                  #         value: "{reqsJsonPath[0]['.items.0.spec.template.spec.volumes']['-']}"
-                  #         style:
-                  #           margin: 0
-                  #           padding: 0
-                  #       children:
-                  #         - type: antdText
-                  #           data:
-                  #             id: volumes-title
-                  #             text: Volumes
-                  #             strong: true
-                  #             style:
-                  #               fontSize: 22px
-                  #               marginBottom: 16px
-                  #         - type: EnrichedTable
-                  #           data:
-                  #             id: volumes-table
-                  #             fetchUrl: /api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/deployments/{6}
-                  #             clusterNamePartOfUrl: "{2}"
-                  #             customizationId: factory-deployment-details-volume-list
-                  #             baseprefix: /{{ $basePrefix }}
-                  #             # Path in the fetched object to the volumes array
-                  #             pathToItems: ".spec.template.spec.volumes"
-
                   # ---- INIT CONTAINERS SECTION ----
                   - type: antdCol
                     data:
@@ -457,19 +421,29 @@ spec:
                             margin: 0
                             padding: 0
                         children:
-                          {{ include "incloud-web-resources.factory.containers.table" (dict
-                              "title" "Init containers"
-                              "customizationId" "container-spec-init-containers-list"
-                              "type" "init-containers"
-                              "apiGroup" "apis/apps/v1"
-                              "kind" "deployments"
-                              "resourceName" $resName
-                              "namespace" "{3}"
-                              "jsonPath" ".items.0.spec.template.spec.initContainers"
-                              "pathToItems" "['spec','template','spec','initContainers']"
-                              "basePrefix" $basePrefix
-                            ) | nindent 26
-                          }}
+                          - type: antdText
+                            data:
+                              id: init-containers-title
+                              text: Init containers
+                              strong: true
+                              style:
+                                fontSize: 22
+                                marginBottom: 32px
+                          - type: EnrichedTable
+                            data:
+                              id: containers-table
+                              clusterNamePartOfUrl: "{2}"
+                              customizationId: "container-spec-containers-list"
+                              baseprefix: "/openapi-ui"
+                              withoutControls: true
+                              pathToItems: .items.0.spec.template.spec.initContainers
+                              k8sResourceToFetch: 
+                                group: "apps"
+                                version: "v1"
+                                plural: "deployments"
+                                namespace: "{3}"
+                              fieldSelector: 
+                                metadata.name: "{6}"
 
                   # ---- CONTAINERS SECTION ----
                   - type: antdCol
@@ -487,19 +461,29 @@ spec:
                             margin: 0
                             padding: 0
                         children:
-                          {{ include "incloud-web-resources.factory.containers.table" (dict
-                              "title" "Containers"
-                              "customizationId" "container-spec-containers-list"
-                              "type" "containers"
-                              "apiGroup" "apis/apps/v1"
-                              "kind" "deployments"
-                              "resourceName" $resName
-                              "namespace" "{3}"
-                              "jsonPath" ".items.0.spec.template.spec.containers"
-                              "pathToItems" "['spec','template','spec','containers']"
-                              "basePrefix" $basePrefix
-                            ) | nindent 26
-                          }}
+                          - type: antdText
+                            data:
+                              id: init-containers-title
+                              text: Containers
+                              strong: true
+                              style:
+                                fontSize: 22
+                                marginBottom: 32px
+                          - type: EnrichedTable
+                            data:
+                              id: containers-table
+                              clusterNamePartOfUrl: "{2}"
+                              customizationId: "container-spec-containers-list"
+                              baseprefix: "/openapi-ui"
+                              withoutControls: true
+                              pathToItems: .items.0.spec.template.spec.containers
+                              k8sResourceToFetch: 
+                                group: "apps"
+                                version: "v1"
+                                plural: "deployments"
+                                namespace: "{3}"
+                              fieldSelector: 
+                                metadata.name: "{6}"
 
                   # === Conditions table (visible only if status.conditions exist) ===
                   - type: antdCol
@@ -528,12 +512,18 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: conditions-table
-                              fetchUrl: /api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/deployments/{6}
                               clusterNamePartOfUrl: "{2}"
                               customizationId: factory-status-conditions
-                              baseprefix: /{{ $basePrefix }}
-                              # Path in the fetched object to the conditions array
-                              pathToItems: ".status.conditions"
+                              baseprefix: "/openapi-ui"
+                              withoutControls: true
+                              pathToItems: ".items.0.status.conditions"
+                              k8sResourceToFetch: 
+                                version: "v1"
+                                group: "apps"
+                                plural: "deployments"
+                                namespace: "{3}"
+                              fieldSelector: 
+                                metadata.name: "{6}"
 
           # ------ YAML TAB ------
           - key: yaml
@@ -562,7 +552,6 @@ spec:
               - type: EnrichedTable
                 data:
                   id: replicasets-table
-                  # fetchUrl: /api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets
                   baseprefix: /{{ $basePrefix }}
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $rsFactoryName }}"
@@ -585,7 +574,6 @@ spec:
               - type: EnrichedTable
                 data:
                   id: pods-table
-                  # fetchUrl: /api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods
                   baseprefix: /{{ $basePrefix }}
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $podFactoryName }}"

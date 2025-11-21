@@ -298,41 +298,6 @@ spec:
                                       id: desired-count-value
                                       text: "{reqsJsonPath[0]['.items.0.spec.replicas']['-']}"
 
-                  # Volumes section
-                  # TODO to be done
-                  # - type: antdCol
-                  #   data:
-                  #     id: volumes-section-col
-                  #     style:
-                  #       marginTop: 10
-                  #       padding: 10
-                  #   children:
-                  #     - type: VisibilityContainer
-                  #       data:
-                  #         id: volumes-visibility
-                  #         value: "{reqsJsonPath[0]['.spec.template.spec.volumes']['-']}"
-                  #         style:
-                  #           margin: 0
-                  #           padding: 0
-                  #       children:
-                  #         - type: antdText
-                  #           data:
-                  #             id: volumes-title
-                  #             text: Volumes
-                  #             strong: true
-                  #             style:
-                  #               fontSize: 22px
-                  #               marginBottom: 32px
-                  #         - type: EnrichedTable
-                  #           data:
-                  #             id: volumes-table
-                  #             fetchUrl: "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/statefulsets/{6}"
-                  #             clusterNamePartOfUrl: "{2}"
-                  #             customizationId: factory-statefulset-details-volume-list
-                  #             baseprefix: "{{ $basePrefix }}"
-                  #             pathToItems: ".spec.template.spec.volumes"
-
-
                   # ---- INIT CONTAINERS SECTION ----
                   - type: antdCol
                     data:
@@ -465,12 +430,15 @@ spec:
                   customizationId: factory-aquasecurity.github.io.v1alpha1.clusterinfraassessmentreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels
-                  labelsSelector:
+                  labelSelector:
                     trivy-operator.resource.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
                     trivy-operator.resource.kind: "StatefulSet"
                   # Items path for Pods list
                   pathToItems: ".items[*].report.checks"
-
+                  k8sResourceToFetch: 
+                    version: "v1alpha1"
+                    group: "aquasecurity.github.io"
+                    plural: "clusterinfraassessmentreports"
 
   {{- end -}}
 {{- end -}}

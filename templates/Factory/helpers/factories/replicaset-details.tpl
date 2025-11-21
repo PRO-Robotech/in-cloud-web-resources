@@ -37,7 +37,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: "{reqsJsonPath[0]['.kind']['-']}"
+            value: ReplicaSet
             style:
               fontSize: 20px
 
@@ -45,7 +45,7 @@ spec:
         - type: parsedText
           data:
             id: rs-name
-            text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
             style:
               fontSize: 20px
               lineHeight: 24px
@@ -116,7 +116,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: meta-name-value
-                                      text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
 
                               # Namespace link
                               - type: antdFlex
@@ -145,7 +145,7 @@ spec:
                                       {{ include "incloud-web-resources.factory.linkblock" (dict
                                           "reqIndex" 0
                                           "type" "namespace"
-                                          "jsonPath" ".metadata.namespace"
+                                          "jsonPath" ".items.0.metadata.namespace"
                                           "factory" "namespace-details"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
@@ -161,6 +161,7 @@ spec:
                                  {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{6}"
                                       "linkPrefix" "/openapi-ui/{2}/search?kinds=apps~v1~replicasets&labels="
+                                      "jsonPath" ".items.0.metadata.labels"
                                     ) | nindent 34
                                   }}
 
@@ -180,7 +181,7 @@ spec:
                                         fontSize: 14
                                   {{ include "incloud-web-resources.factory.labels.base.selector" (dict
                                       "type" "node"
-                                      "jsonPath" ".spec.template.spec.nodeSelector"
+                                      "jsonPath" ".items.0.spec.template.spec.nodeSelector"
                                       "basePrefix" $basePrefix
                                       "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~nodes&labels="
                                     ) | nindent 34
@@ -202,7 +203,7 @@ spec:
                                         fontSize: 14
                                   {{ include "incloud-web-resources.factory.labels.base.selector" (dict
                                       "type" "pod"
-                                      "jsonPath" ".spec.template.metadata.labels"
+                                      "jsonPath" ".items.0.spec.template.metadata.labels"
                                       "basePrefix" $basePrefix
                                       "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
                                     ) | nindent 34
@@ -217,7 +218,7 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.tolerations.block" (dict 
                                     "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{6}"
-                                    "jsonPathToArray" ".spec.tolerations"
+                                    "jsonPathToArray" ".items.0.spec.tolerations"
                                     "pathToValue" "/spec/tolerations"
                                     ) | nindent 34
                                   }}
@@ -231,6 +232,8 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{6}"
+                                      "jsonPath" ".items.0.metadata.annotations"
+                                      "pathToValue" "/metadata/annotations"
                                     ) | nindent 34
                                   }}
 
@@ -242,30 +245,48 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.time.create" (dict
-                                    "req" ".metadata.creationTimestamp"
+                                    "req" ".items.0.metadata.creationTimestamp"
                                     "text" "Created"
                                     ) | nindent 38
                                   }}
 
-                              # Owner block
-                              # - type: antdFlex
-                              #   data:
-                              #     id: meta-owner-block
-                              #     vertical: true
-                              #     gap: 4
-                              #   children:
-                              #     - type: antdText
-                              #       data:
-                              #         id: meta-owner-label
-                              #         text: Owner
-                              #         strong: true
-                              #     - type: parsedText
-                              #       data:
-                              #         id: meta-owner-fallback
-                              #         strong: true
-                              #         text: "No owner"
-                              #         style:
-                              #           color: red
+                              - type: antdFlex
+                                data:
+                                  id: ref-link-block
+                                  vertical: true
+                                  gap: 8
+                                children:
+                                  - type: antdText
+                                    data:
+                                      id: meta-ref
+                                      text: OwnerRef
+                                      strong: true
+
+                                  - type: OwnerRefs
+                                    data:
+                                      id: refs
+                                      baseprefix: /openapi-ui
+                                      clusterNamePartOfUrl: '{2}'
+                                      forcedNamespace: '{3}'
+                                      reqIndex: 0
+                                      errorText: error getting refs
+                                      notArrayErrorText: refs on path are not arr
+                                      emptyArrayErrorText: no refs
+                                      isNotRefsArrayErrorText: objects in arr are not refs
+                                      # containerStyle:
+                                      #   border: "1px solid red"
+                                      #   padding: "10px"
+                                      # listFlexProps: 
+                                      #   gap: 10
+                                      jsonPathToArrayOfRefs: ".items.0.metadata.ownerReferences"
+                                      # keysToForcedLabel?: string | string[] // j
+                                      baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
+                                      baseFactoryClusterSceopedBuiltinKey: base-factory-clusterscoped-builtin
+                                      baseFactoryNamespacedAPIKey: base-factory-namespaced-api
+                                      baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
+                                      baseNamespaceFactoryKey: namespace-details
+                                      baseNavigationPluralName: navigations
+                                      baseNavigationSpecificName: navigation
 
                       # Right column: replica counts
                       - type: antdCol
@@ -294,7 +315,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: replicas-current-value
-                                      text: "{reqsJsonPath[0]['.status.replicas']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.status.replicas']['-']}"
 
                               # Desired replicas
                               - type: antdFlex
@@ -311,47 +332,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: replicas-desired-value
-                                      text: "{reqsJsonPath[0]['.spec.replicas']['-']}"
-
-                  # Volumes section
-                  # TODO to be done
-                  # - type: antdCol
-                  #   data:
-                  #     id: volumes-col
-                  #     style:
-                  #       marginTop: 10
-                  #       padding: 10
-                  #   children:
-                      # - type: VisibilityContainer
-                      #   data:
-                      #     id: volumes-visibility
-                      #     value: "{reqsJsonPath[0]['.spec.template.spec.volumes']['-']}"
-                      #     style:
-                      #       margin: 0
-                      #       padding: 0
-                      #   children:
-                  #         - type: antdText
-                  #           data:
-                  #             id: volumes-title
-                  #             text: Volumes
-                  #             strong: true
-                  #             style:
-                  #               fontSize: 22px
-                  #               marginBottom: 32px
-                  #         - type: EnrichedTable
-                  #           data:
-                  #             id: volumes-table
-                  #             fetchUrl: "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/replicasets/{6}"
-                  #             clusterNamePartOfUrl: "{2}"
-                  #             customizationId: factory-replicaset-details-volume-list
-                  #             baseprefix: "/{{ $basePrefix }}"
-                  #             
-                  #             pathToItems:
-                  #               - spec
-                  #               - template
-                  #               - spec
-                  #               - volumes
-
+                                      text: "{reqsJsonPath[0]['.items.0.spec.replicas']['-']}"
 
                   # ---- INIT CONTAINERS SECTION ----
                   - type: antdCol
@@ -364,24 +345,34 @@ spec:
                       - type: VisibilityContainer
                         data:
                           id: ds-init-containers-container
-                          value: "{reqsJsonPath[0]['.spec.template.spec.initContainers']['-']}"
+                          value: "{reqsJsonPath[0]['.items.0.spec.template.spec.initContainers']['-']}"
                           style:
                             margin: 0
                             padding: 0
                         children:
-                          {{ include "incloud-web-resources.factory.containers.table" (dict
-                              "title" "Init containers"
-                              "customizationId" "container-spec-init-containers-list"
-                              "type" "init-containers"
-                              "apiGroup" "apis/apps/v1"
-                              "kind" "replicasets"
-                              "resourceName" $resName
-                              "namespace" "{3}"
-                              "jsonPath" ".spec.template.spec.initContainers"
-                              "pathToItems" "['spec','template','spec','initContainers']"
-                              "basePrefix" $basePrefix
-                            ) | nindent 26
-                          }}
+                          - type: antdText
+                            data:
+                              id: init-containers-title
+                              text: Init containers
+                              strong: true
+                              style:
+                                fontSize: 22
+                                marginBottom: 32px
+                          - type: EnrichedTable
+                            data:
+                              id: containers-table
+                              clusterNamePartOfUrl: "{2}"
+                              customizationId: "container-spec-containers-list"
+                              baseprefix: "/openapi-ui"
+                              withoutControls: true
+                              pathToItems: .items.0.spec.template.spec.initContainers
+                              k8sResourceToFetch: 
+                                group: "apps"
+                                version: "v1"
+                                plural: "replicasets"
+                                namespace: "{3}"
+                              fieldSelector: 
+                                metadata.name: "{6}"
 
                   # ---- CONTAINERS SECTION ----
                   - type: antdCol
@@ -394,24 +385,34 @@ spec:
                       - type: VisibilityContainer
                         data:
                           id: ds-containers-container
-                          value: "{reqsJsonPath[0]['.spec.template.spec.containers']['-']}"
+                          value: "{reqsJsonPath[0]['.items.0.spec.template.spec.containers']['-']}"
                           style:
                             margin: 0
                             padding: 0
                         children:
-                          {{ include "incloud-web-resources.factory.containers.table" (dict
-                              "title" "Containers"
-                              "customizationId" "container-spec-containers-list"
-                              "type" "containers"
-                              "apiGroup" "apis/apps/v1"
-                              "kind" "replicasets"
-                              "resourceName" $resName
-                              "namespace" "{3}"
-                              "jsonPath" ".spec.template.spec.containers"
-                              "pathToItems" "['spec','template','spec','containers']"
-                              "basePrefix" $basePrefix
-                            ) | nindent 26
-                          }}
+                          - type: antdText
+                            data:
+                              id: init-containers-title
+                              text: Containers
+                              strong: true
+                              style:
+                                fontSize: 22
+                                marginBottom: 32px
+                          - type: EnrichedTable
+                            data:
+                              id: containers-table
+                              clusterNamePartOfUrl: "{2}"
+                              customizationId: "container-spec-containers-list"
+                              baseprefix: "/openapi-ui"
+                              withoutControls: true
+                              pathToItems: .items.0.spec.template.spec.containers
+                              k8sResourceToFetch: 
+                                group: "apps"
+                                version: "v1"
+                                plural: "replicasets"
+                                namespace: "{3}"
+                              fieldSelector: 
+                                metadata.name: "{6}"
 
           # YAML tab
           - key: yaml
@@ -423,27 +424,38 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: apis
-                  apiGroup: apps
-                  apiVersion: v1
                   typeName: replicasets
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
+                  pathToData: .items.0
+                  forcedKind: ReplicaSet
+                  apiGroup: apps
+                  apiVersion: v1
 
           # Pods tab
           - key: pods
             label: Pods
             children:
+              # Table filtered by Deployment's Pod template labels
               - type: EnrichedTable
                 data:
                   id: pods-table
-                  fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods"
+                  baseprefix: /{{ $basePrefix }}
                   clusterNamePartOfUrl: "{2}"
                   customizationId: "{{ $podFactoryName }}"
-                  baseprefix: "/{{ $basePrefix }}"
+                  k8sResourceToFetch: 
+                    version: "v1"
+                    plural: "pods"
+                    namespace: "{3}"
+                  dataForControls:
+                    resource: pods
+                    apiVersion: v1
                   labelSelectorFull:
                     reqIndex: 0
-                    pathToLabels: ".spec.template.metadata.labels"
+                    pathToLabels:  '.items.0.spec.template.metadata.labels'
+                  # Path to items list in the response
                   pathToItems: ".items"
+                  withoutControls: false
 
           - key: events
             label: Events
@@ -458,10 +470,10 @@ spec:
                   substractHeight: 315
                   limit: 40
                   fieldSelector:
-                    regarding.kind: "{reqsJsonPath[0]['.kind']['-']}"
-                    regarding.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
-                    regarding.namespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-                    regarding.apiVersion: "{reqsJsonPath[0]['.apiVersion']['-']}"
+                    regarding.kind: "{reqsJsonPath[0]['.items.0.kind']['-']}"
+                    regarding.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+                    regarding.namespace: "{reqsJsonPath[0]['.items.0.metadata.namespace']['-']}"
+                    regarding.apiVersion: "{reqsJsonPath[0]['.items.0.apiVersion']['-']}"
                   baseFactoryNamespacedAPIKey: base-factory-namespaced-api
                   baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
                   baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
@@ -481,9 +493,9 @@ spec:
                   customizationId: factory-aquasecurity.github.io.v1alpha1.vulnerabilityreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels
-                  labelsSelector:
-                    trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
-                    trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
+                  labelSelector:
+                    trivy-operator.resource.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+                    trivy-operator.resource.kind: "{reqsJsonPath[0]['.items.0.kind']['-']}"
                   # Items path for Pods list
                   pathToItems: ".items[*].report.vulnerabilities"
                     
@@ -498,9 +510,9 @@ spec:
                   customizationId: factory-aquasecurity.github.io.v1alpha1.configauditreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels
-                  labelsSelector:
-                    trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
-                    trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
+                  labelSelector:
+                    trivy-operator.resource.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+                    trivy-operator.resource.kind: "{reqsJsonPath[0]['.items.0.kind']['-']}"
                   # Items path for Pods list
                   pathToItems: ".items[*].report.checks"
 
@@ -515,9 +527,9 @@ spec:
                   customizationId: factory-aquasecurity.github.io.v1alpha1.sbomreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels
-                  labelsSelector:
-                    trivy-operator.resource.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
-                    trivy-operator.resource.kind: "{reqsJsonPath[0]['.kind']['-']}"
+                  labelSelector:
+                    trivy-operator.resource.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+                    trivy-operator.resource.kind: "{reqsJsonPath[0]['.items.0.kind']['-']}"
                   # Items path for Pods list
                   pathToItems: ".items[*].report.components.components"
 
