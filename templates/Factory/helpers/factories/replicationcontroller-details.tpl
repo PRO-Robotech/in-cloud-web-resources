@@ -16,10 +16,10 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      apiVersion: "v1"
+      apiVersion: "{6}"
       namespace: "{3}"
-      plural: "replicationcontrollers"
-      fieldSelector: "metadata.name={6}"
+      plural: "{7}"
+      fieldSelector: "metadata.name={8}"
 
   # Header row with badge and ReplicationController name
   data:
@@ -35,7 +35,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: ReplicationController
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -144,7 +144,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "namespace"
                                           "jsonPath" ".items.0.metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -351,7 +351,7 @@ spec:
                                 plural: "replicasets"
                                 namespace: "{3}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{9}"
 
                   # ---- CONTAINERS SECTION ----
                   - type: antdCol
@@ -391,7 +391,7 @@ spec:
                                 plural: "replicasets"
                                 namespace: "{3}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{9}"
 
           # YAML tab
           - key: yaml

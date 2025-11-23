@@ -10,4 +10,4 @@ spec:
       label: "v1/nodes"
       link: "/{{ .Values.basePrefix }}/{cluster}/builtin-table/nodes"
     - key: node
-      label: "{5}"
+      label: "-{7}"

@@ -12,7 +12,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "certificate-details"
+      "factory" "certificate-details/cert-manager.io/v1"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -22,7 +22,7 @@ spec:
       "reqIndex" 0
       "type" "namespace"
       "jsonPath" ".metadata.namespace"
-      "factory" "namespace-details"
+      "factory" "namespace-details/v1/namespaces"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -31,7 +31,7 @@ spec:
       "title" "Secret"
       "jsonPath" ".spec.secretName"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "secret-details"
+      "factory" "secret-details/v1/secrets"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -61,7 +61,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "certificate-details"
+      "factory" "certificate-details/cert-manager.io/v1"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -70,7 +70,7 @@ spec:
       "title" "Secret"
       "jsonPath" ".spec.secretName"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "secret-details"
+      "factory" "secret-details/v1/secrets"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}

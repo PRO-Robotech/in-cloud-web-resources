@@ -16,10 +16,10 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      apiVersion: "v1"
+      apiVersion: "{6}"
       namespace: "{3}"
-      plural: "pods"
-      fieldSelector: "metadata.name={6}"
+      plural: "{7}"
+      fieldSelector: "metadata.name={8}"
       
   # Header row with badge, pod name, and status
   data:
@@ -35,7 +35,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: Pod
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -150,7 +150,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "namespace"
                                           "jsonPath" ".items.0.metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -392,7 +392,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "name"
                                           "jsonPath" ".items.0.spec.nodeName"
-                                          "factory" "node-details"
+                                          "factory" "node-details/v1/nodes"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -451,7 +451,7 @@ spec:
                                 plural: "pods"
                                 namespace: "{3}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{8}"
 
                   # ---- CONTAINERS SECTION ----
                   - type: antdCol
@@ -486,11 +486,11 @@ spec:
                               withoutControls: true
                               pathToItems: .items.0.status.containerStatuses
                               k8sResourceToFetch: 
-                                apiVersion: "v1"
-                                plural: "pods"
+                                apiVersion: "{6}"
                                 namespace: "{3}"
+                                plural: "{7}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{8}"
 
                   # Conditions section (hidden if none)
                   - type: antdCol
@@ -526,11 +526,11 @@ spec:
                               withoutControls: true
                               pathToItems: ".items.0.status.conditions"
                               k8sResourceToFetch: 
-                                apiVersion: "v1"
-                                plural: "pods"
+                                apiVersion: "{6}"
                                 namespace: "{3}"
+                                plural: "{7}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{8}"
 
           # YAML tab with inline editor
           - key: "yaml"

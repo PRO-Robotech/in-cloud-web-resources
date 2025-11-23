@@ -10,7 +10,7 @@ spec:
       label: "v1/configmaps"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/builtin-table/configmaps"
     - key: configmap
-      label: "{6}"
+      label: "{8}"
 
 {{- if not .Values.namespaceNavigation }}
 ---

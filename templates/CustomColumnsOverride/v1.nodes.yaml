@@ -11,7 +11,7 @@ spec:
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
-      "factory" "node-details"
+      "factory" "node-details/v1/nodes"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -20,7 +20,7 @@ spec:
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.factory.statuses.node" . | nindent 8 }}
+        {{ include "incloud-web-resources.cco.statuses.node" . | nindent 8 }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -44,7 +44,7 @@ spec:
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
-      "factory" "node-details"
+      "factory" "node-details/v1/nodes"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -53,7 +53,7 @@ spec:
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.factory.statuses.node" . | nindent 8 }}
+        {{ include "incloud-web-resources.cco.statuses.node" . | nindent 8 }}
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"

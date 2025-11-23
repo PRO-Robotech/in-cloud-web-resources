@@ -9,10 +9,10 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      apiGroup: "rbac.authorization.k8s.io"
-      apiVersion: "v1"
-      plural: "clusterroles"
-      fieldSelector: "metadata.name={5}"
+      apiGroup: "{5}"
+      apiVersion: "{6}"
+      plural: "{7}"
+      fieldSelector: "metadata.name={8}"
 
   # Header row with badge and clusterrole name
   data:
@@ -28,7 +28,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: ClusterRole
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -172,7 +172,7 @@ spec:
                             apiGroup: "rbac.authorization.k8s.io"
                             plural: "clusterroles"
                           fieldSelector:
-                            metadata.name: "{5}"
+                            metadata.name: "{8}"
 
           # YAML tab
           - key: "yaml"

@@ -15,11 +15,11 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      apiGroup: "cert-manager.io"
-      apiVersion: "v1"
+      apiGroup: "{6}"
+      apiVersion: "{7}"
       namespace: "{3}"
-      plural: "certificates"
-      fieldSelector: "metadata.name={6}"
+      plural: "{8}"
+      fieldSelector: "metadata.name={9}"
 
   # Header row with badge and certificate name
   data:
@@ -35,7 +35,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: "{reqsJsonPath[0]['.kind']['-']}"
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -144,7 +144,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "namespace"
                                           "jsonPath" ".metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -234,7 +234,7 @@ spec:
                                               "type" "namespace"
                                               "jsonPath" ".spec.secretName"
                                               "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-                                              "factory" "secret-details"
+                                              "factory" "secret-details/v1/secrets"
                                               "basePrefix" $basePrefix
                                             ) | nindent 42
                                           }}

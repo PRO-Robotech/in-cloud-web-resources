@@ -16,9 +16,9 @@ spec:
   # API endpoint for fetching Node details
   urlsToFetch:
     - cluster: "{2}"
-      apiVersion: "v1"
-      plural: "nodes"
-      fieldSelector: "metadata.name={5}"
+      apiVersion: "{5}"
+      plural: "{6}"
+      fieldSelector: "metadata.name={7}"
 
   data:
     # === HEADER ROW ===
@@ -34,7 +34,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: Node
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -418,7 +418,7 @@ spec:
                             apiVersion: "v1"
                             plural: "nodes"
                           fieldSelector:
-                            metadata.name: "{5}"
+                            metadata.name: "{7}"
 
                   # IMAGES SECTION
                   - type: antdCol
@@ -446,7 +446,7 @@ spec:
                             apiVersion: "v1"
                             plural: "nodes"
                           fieldSelector:
-                            metadata.name: "{5}"
+                            metadata.name: "{7}"
 
           # ------ YAML TAB ------
           - key: "yaml"
@@ -463,7 +463,7 @@ spec:
                   substractHeight: 400
                   plural: nodes
                   pathToData: .items.0
-                  forcedKind: Node
+                  # forcedKind: Node
                   apiVersion: v1
 
           # ------ PODS TAB ------

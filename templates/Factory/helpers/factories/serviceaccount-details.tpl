@@ -2,6 +2,7 @@
 {{- $key        := (default "serviceaccount-details" .key) -}}
 {{- $resName    := (default "{6}" .resName) -}}
 {{- $basePrefix := (default "openapi-ui" .basePrefix) -}}
+{{- $podFactoryName := (default "factory-/v1/pods" .podFactoryName) -}}
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -15,10 +16,10 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      apiVersion: "v1"
+      apiVersion: "{6}"
       namespace: "{3}"
-      plural: "serviceaccounts"
-      fieldSelector: "metadata.name={6}"
+      plural: "{7}"
+      fieldSelector: "metadata.name={8}"
 
   # Header row with badge and serviceaccount name
   data:
@@ -34,7 +35,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: "ServiceAccount"
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -143,7 +144,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "namespace"
                                           "jsonPath" ".items.0.metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -224,7 +225,7 @@ spec:
                                   customizationId: factory-serviceaccount-secrets
                                   baseprefix: "/{{ $basePrefix }}"
                                   fieldSelector:
-                                    metadata.name: "{6}"
+                                    metadata.name: "{9}"
                                   pathToItems: ".items.0.secrets"
                                   k8sResourceToFetch: 
                                     apiVersion: "v1"
@@ -246,4 +247,26 @@ spec:
                   pathToData: .items.0
                   forcedKind: ServiceAccount
                   apiVersion: v1
+
+          # Pods tab
+          - key: pods
+            label: Pods
+            children:
+              # Table filtered by Deployment's Pod template labels
+              - type: EnrichedTable
+                data:
+                  id: pods-table
+                  baseprefix: /{{ $basePrefix }}
+                  cluster: "{2}"
+                  customizationId: "{{ $podFactoryName }}"
+                  k8sResourceToFetch: 
+                    apiVersion: "v1"
+                    plural: "pods"
+                    namespace: "{3}"
+                  fieldSelector: 
+                    spec.serviceAccountName: "{8}"
+                  # Path to items list in the response
+                  pathToItems: ".items"
+                  withoutControls: false
+
 {{- end -}}

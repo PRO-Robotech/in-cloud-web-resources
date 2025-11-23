@@ -23,11 +23,11 @@ spec:
   # API endpoint for fetching CronJob details
   urlsToFetch:
     - cluster: "{2}"
-      apiGroup: "batch"
-      apiVersion: "v1"
+      apiGroup: "{6}"
+      apiVersion: "{7}"
       namespace: "{3}"
-      plural: "cronjobs"
-      fieldSelector: "metadata.name={6}"
+      plural: "{8}"
+      fieldSelector: "metadata.name={9}"
 
   data:
     # === HEADER ROW ===
@@ -154,7 +154,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "namespace"
                                           "jsonPath" ".metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}

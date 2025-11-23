@@ -10,7 +10,7 @@ spec:
       label: "batch/v1/cronjobs"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/api-table/batch/v1/cronjobs"
     - key: cronjob
-      label: "{6}"
+      label: "{9}"
 
 {{- if not .Values.namespaceNavigation }}
 ---
@@ -25,5 +25,5 @@ spec:
       label: "batch/v1/cronjobs"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/batch/v1/cronjobs"
     - key: cronjob
-      label: "{7}"
+      label: "{10}"
 {{- end }}

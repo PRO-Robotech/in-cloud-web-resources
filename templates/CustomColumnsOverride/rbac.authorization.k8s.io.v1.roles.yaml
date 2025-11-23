@@ -12,7 +12,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "role-details"
+      "factory" "role-details/rbac.authorization.k8s.io/v1/roles"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -22,7 +22,7 @@ spec:
       "reqIndex" 0
       "type" "namespace"
       "jsonPath" ".metadata.namespace"
-      "factory" "namespace-details"
+      "factory" "namespace-details/v1/namespaces"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -51,7 +51,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "role-details"
+      "factory" "role-details/rbac.authorization.k8s.io/v1/roles"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -79,7 +79,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "role-details"
+      "factory" "role-details/rbac.authorization.k8s.io/v1/roles"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -108,7 +108,7 @@ spec:
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
       "project" "{4}"
-      "factory" "role-details"
+      "factory" "role-details/rbac.authorization.k8s.io/v1/roles"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}

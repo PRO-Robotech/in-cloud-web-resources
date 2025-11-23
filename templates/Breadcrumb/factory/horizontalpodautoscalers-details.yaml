@@ -10,7 +10,7 @@ spec:
       label: "autoscaling/v2/horizontalpodautoscalers"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/api-table/autoscaling/v2/horizontalpodautoscalers"
     - key: horizontalpodautoscaler
-      label: "{6}"
+      label: "{9}"
 
 {{- if not .Values.namespaceNavigation }}
 ---
@@ -25,5 +25,5 @@ spec:
       label: "autoscaling/v2/horizontalpodautoscalers"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/autoscaling/v2/horizontalpodautoscalers"
     - key: horizontalpodautoscaler
-      label: "{7}"
+      label: "{10}"
 {{- end -}}

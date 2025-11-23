@@ -17,10 +17,10 @@ spec:
     - service-details
   urlsToFetch:
     - cluster: "{2}"
-      apiVersion: "v1"
+      apiVersion: "{6}"
       namespace: "{3}"
-      plural: "services"
-      fieldSelector: "metadata.name={6}"
+      plural: "{7}"
+      fieldSelector: "metadata.name={8}"
 
   # Header row with badge and Service name
   data:
@@ -36,7 +36,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: Service
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -139,8 +139,8 @@ spec:
                                       {{ include "incloud-web-resources.factory.linkblock" (dict
                                           "reqIndex" 0
                                           "type" "namespace"
-                                          "jsonPath" ".metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "jsonPath" ".items.0.metadata.namespace"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -328,11 +328,11 @@ spec:
                                       baseprefix: "/{{ $basePrefix }}"
                                       pathToItems: ".items.0.spec.ports"
                                       k8sResourceToFetch: 
-                                        apiVersion: "v1"
-                                        plural: "services"
+                                        apiVersion: "{6}"
                                         namespace: "{3}"
+                                        plural: "{7}"
                                       fieldSelector:
-                                        metadata.name: "{6}"
+                                        metadata.name: "{8}"
 
                               # Pod serving
                               - type: VisibilityContainer

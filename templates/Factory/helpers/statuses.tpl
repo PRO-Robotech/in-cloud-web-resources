@@ -264,7 +264,41 @@
     # --- Collected values from Node status ----------------------------------
     values:
       # Node phase and conditions
-      - "{reqsJsonPath[0]['.items.0.items.0.status.conditions[?(@.status=='True')].reason']['-']}"
+      - "{reqsJsonPath[0]['.items.0.status.conditions[?(@.status=='True')].reason']['-']}"
+
+    # --- Success criteria ---------------------------------------------------
+    criteriaSuccess: equals
+    stategySuccess: every
+    valueToCompareSuccess:
+      "KubeletReady"
+
+    # --- Error criteria -----------------------------------------------------
+    criteriaError: equals
+    strategyError: every
+    valueToCompareError:
+      # Node condition failures
+      - "KernelDeadlock"
+      - "ReadonlyFilesystem"
+      - "NetworkUnavailable"
+      - "MemoryPressure"
+      - "DiskPressure"
+      - "PIDPressure"
+
+    # --- Output text rendering ----------------------------------------------
+    successText:  "Available"
+    errorText:    "Unavailable"
+    fallbackText: "Progressing"
+{{- end -}}
+
+{{- define "incloud-web-resources.cco.statuses.node" -}}
+- type: StatusText
+  data:
+    id: node-status
+
+    # --- Collected values from Node status ----------------------------------
+    values:
+      # Node phase and conditions
+      - "{reqsJsonPath[0]['.status.conditions[?(@.status=='True')].reason']['-']}"
 
     # --- Success criteria ---------------------------------------------------
     criteriaSuccess: equals

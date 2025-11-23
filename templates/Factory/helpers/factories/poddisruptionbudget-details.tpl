@@ -14,13 +14,12 @@ spec:
   sidebarTags:
     - poddisruptionbudget-details
   urlsToFetch:
-    # API call to fetch HPA details by cluster, namespace, and name
     - cluster: "{2}"
-      apiGroup: "policy"
-      apiVersion: "v1"
+      apiGroup: "{6}"
+      apiVersion: "{7}"
       namespace: "{3}"
-      plural: "poddisruptionbudgets"
-      fieldSelector: "metadata.name={6}"
+      plural: "{8}"
+      fieldSelector: "metadata.name={9}"
 
   data:
     # --- Header section -----------------------------------------------------
@@ -36,7 +35,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: PodDisruptionBudget
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -142,7 +141,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "namespace"
                                           "jsonPath" ".items.0.metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -313,7 +312,7 @@ spec:
                                 plural: "poddisruptionbudgets"
                                 namespace: "{3}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{9}"
                               pathToItems: ".items.0.status.conditions"
                               withoutControls: true
 

@@ -13,7 +13,7 @@ spec:
       label: "{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
       link: "/{{ .Values.basePrefix }}/{cluster}/api-table/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
     - key: project
-      label: "{5}"
+      label: "-{7}"
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1

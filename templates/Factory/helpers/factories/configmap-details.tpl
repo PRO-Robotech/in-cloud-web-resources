@@ -22,10 +22,10 @@ spec:
   # API endpoint for fetching ConfigMap details
   urlsToFetch:
     - cluster: "{2}"
-      apiVersion: "v1"
+      apiVersion: "{6}"
       namespace: "{3}"
-      plural: "configmaps"
-      fieldSelector: "metadata.name={6}"
+      plural: "{7}"
+      fieldSelector: "metadata.name={8}"
 
   data:
     # === HEADER ROW ===
@@ -41,7 +41,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: ConfigMap
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -151,7 +151,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "namespace"
                                           "jsonPath" ".items.0.metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}

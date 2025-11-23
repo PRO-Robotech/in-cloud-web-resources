@@ -13,10 +13,10 @@ spec:
   # URL for fetching CRD details
   urlsToFetch:
     - cluster: "{2}"
-      apiGroup: "apiextensions.k8s.io"
-      apiVersion: "v1"
-      plural: "customresourcedefinitions"
-      fieldSelector: "metadata.name={5}"
+      apiGroup: "{5}"
+      apiVersion: "{6}"
+      plural: "{7}"
+      fieldSelector: "metadata.name={8}"
 
   # Enable scrollable main content
   withScrollableMainContentCard: true
@@ -35,7 +35,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: CustomResourceDefinition
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -258,7 +258,7 @@ spec:
                                 apiGroup: "apiextensions.k8s.io"
                                 plural: "customresourcedefinitions"
                               fieldSelector:
-                                metadata.name: "{5}"
+                                metadata.name: "{8}"
 
                   # Versions section
                   - type: antdCol
@@ -296,7 +296,7 @@ spec:
                                 apiGroup: "apiextensions.k8s.io"
                                 plural: "customresourcedefinitions"
                               fieldSelector:
-                                metadata.name: "{5}"
+                                metadata.name: "{8}"
 
           # --- YAML TAB ---
           - key: yaml

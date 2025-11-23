@@ -10,7 +10,7 @@ spec:
       label: "v1/services"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/builtin-table/services"
     - key: service
-      label: "{6}"
+      label: "{8}"
 
 {{- if not .Values.namespaceNavigation }}
 ---
@@ -25,5 +25,5 @@ spec:
       label: "v1/services"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/services"
     - key: service
-      label: "{7}"
+      label: "{9}"
 {{- end -}}

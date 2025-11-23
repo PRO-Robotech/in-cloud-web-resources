@@ -24,11 +24,11 @@ spec:
   # API endpoint for fetching DaemonSet details--
   urlsToFetch:
     - cluster: "{2}"
-      apiGroup: "apps"
-      apiVersion: "v1"
+      apiGroup: "{6}"
+      apiVersion: "{7}"
       namespace: "{3}"
-      plural: "daemonsets"
-      fieldSelector: "metadata.name={6}"
+      plural: "{8}"
+      fieldSelector: "metadata.name={9}"
 
   data:
     # === HEADER ROW ===
@@ -44,7 +44,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: DaemonSet
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -154,7 +154,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "namespace"
                                           "jsonPath" ".items.0.metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -337,12 +337,12 @@ spec:
                               withoutControls: true
                               pathToItems: .items.0.spec.template.spec.initContainers
                               k8sResourceToFetch: 
-                                group: "apps"
-                                version: "v1"
-                                plural: "deployments"
+                                apiGroup: "apps"
+                                apiVersion: "v1"
+                                plural: "daemonsets"
                                 namespace: "{3}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{9}"
 
                   # ---- CONTAINERS SECTION ----
                   - type: antdCol
@@ -377,12 +377,12 @@ spec:
                               withoutControls: true
                               pathToItems: .items.0.spec.template.spec.containers
                               k8sResourceToFetch: 
-                                group: "apps"
-                                version: "v1"
-                                plural: "deployments"
+                                apiGroup: "apps"
+                                apiVersion: "v1"
+                                plural: "daemonsets"
                                 namespace: "{3}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{9}"
 
           # ------ YAML TAB ------
           - key: yaml
@@ -394,15 +394,11 @@ spec:
                   id: yaml-editor
                   cluster: "{2}"
                   isNameSpaced: true
-                  type: apis
-                  apiGroup: apps
-                  apiVersion: v1
-                  plural: daemonsets
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   type: api
-                  typeName: deployments
                   pathToData: .items.0
+                  plural: daemonsets
                   forcedKind: DaemonSet
                   apiGroup: apps
                   apiVersion: v1
