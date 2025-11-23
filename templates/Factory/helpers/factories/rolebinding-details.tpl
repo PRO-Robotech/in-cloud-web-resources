@@ -15,11 +15,11 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      group: "rbac.authorization.k8s.io"
-      version: "v1"
+      apiGroup: "{6}"
+      apiVersion: "{7}"
       namespace: "{3}"
-      plural: "rolebindings"
-      fieldSelector: "metadata.name={6}"
+      plural: "{8}"
+      fieldSelector: "metadata.name={9}"
 
   # Header row with badge and rolebinding name
   data:
@@ -35,7 +35,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: RoleBinding
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -139,7 +139,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "namespace"
                                           "jsonPath" ".items.0.metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -231,7 +231,7 @@ spec:
                                             "title" "TODO"
                                             "namespace" "{reqsJsonPath[0]['.items.0.metadata.namespace']}"
                                             "jsonPath" ".items.0.roleRef.name"
-                                            "factory" "role-details"
+                                            "factory" "role-details/rbac.authorization.k8s.io/v1/roles"
                                             "basePrefix" $basePrefix
                                           ) | nindent 40 
                                         }}
@@ -250,7 +250,7 @@ spec:
                                             "type" "cluster-role"
                                             "title" "ClusterRole"
                                             "jsonPath" ".items.0.roleRef.name"
-                                            "factory" "clusterrole-details"
+                                            "factory" "clusterrole-details/rbac.authorization.k8s.io/v1/clusterroles"
                                             "basePrefix" $basePrefix
                                           ) | nindent 40 
                                         }}
@@ -265,7 +265,7 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: "apis"
-                  typeName: rolebindings
+                  plural: rolebindings
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   pathToData: .items.0

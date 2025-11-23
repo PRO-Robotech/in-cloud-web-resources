@@ -18,5 +18,5 @@ spec:
   - instance
   - namespace
   type: nonCrd
-  typeName: "{{ $instRes.resourceName }}"
+  plural: "{{ $instRes.resourceName }}"
 {{ end }}

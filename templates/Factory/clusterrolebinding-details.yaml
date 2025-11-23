@@ -9,10 +9,10 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      group: "rbac.authorization.k8s.io"
-      version: "v1"
-      plural: "clusterrolebindings"
-      fieldSelector: "metadata.name={5}"
+      apiGroup: "{5}"
+      apiVersion: "{6}"
+      plural: "{7}"
+      fieldSelector: "metadata.name={8}"
 
   # Header row with badge and clusterrolebinding name
   data:
@@ -28,7 +28,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: ClusterRoleBinding
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -215,7 +215,7 @@ spec:
                                             "type" "cluster-role"
                                             "title" "ClusterRole"
                                             "jsonPath" ".items.0.roleRef.name"
-                                            "factory" "clusterrole-details"
+                                            "factory" "clusterrole-details/rbac.authorization.k8s.io/v1/clusterroles"
                                             "basePrefix" .Values.basePrefix
                                           ) | nindent 40 
                                         }}
@@ -233,7 +233,7 @@ spec:
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   pathToData: .items.0
-                  typeName: clusterrolebindings
+                  plural: clusterrolebindings
                   forcedKind: ClusterRoleBinding
                   apiGroup:  "rbac.authorization.k8s.io"
                   apiVersion: v1

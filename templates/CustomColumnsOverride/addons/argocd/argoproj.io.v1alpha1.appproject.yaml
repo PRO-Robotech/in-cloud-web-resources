@@ -13,7 +13,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "argocd-appproject-details"
+      "factory" "argocd-appproject-details/argoproj.io/v1alpha1/appprojects"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -22,7 +22,7 @@ spec:
       "title" "Namespace"
       "type" "namespace"
       "jsonPath" ".metadata.namespace"
-      "factory" "namespace-details"
+      "factory" "namespace-details/v1/namespaces"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -50,7 +50,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "argocd-appproject-details"
+      "factory" "argocd-appproject-details/argoproj.io/v1alpha1/appprojects"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -77,7 +77,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "argocd-appproject-details"
+      "factory" "argocd-appproject-details/argoproj.io/v1alpha1/appprojects"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -104,7 +104,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "argocd-appproject-details"
+      "factory" "argocd-appproject-details/argoproj.io/v1alpha1/appprojects"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}

@@ -13,10 +13,10 @@ spec:
   # URL for fetching CRD details
   urlsToFetch:
     - cluster: "{2}"
-      group: "apiextensions.k8s.io"
-      version: "v1"
-      plural: "customresourcedefinitions"
-      fieldSelector: "metadata.name={5}"
+      apiGroup: "{5}"
+      apiVersion: "{6}"
+      plural: "{7}"
+      fieldSelector: "metadata.name={8}"
 
   # Enable scrollable main content
   withScrollableMainContentCard: true
@@ -35,7 +35,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: CustomResourceDefinition
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -249,16 +249,16 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: conditions-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: factory-status-conditions
                               baseprefix: "/{{ .Values.basePrefix }}"
                               pathToItems: ".items.0.status.conditions"
                               k8sResourceToFetch: 
-                                version: "v1"
-                                group: "apiextensions.k8s.io"
+                                apiVersion: "v1"
+                                apiGroup: "apiextensions.k8s.io"
                                 plural: "customresourcedefinitions"
                               fieldSelector:
-                                metadata.name: "{5}"
+                                metadata.name: "{8}"
 
                   # Versions section
                   - type: antdCol
@@ -287,16 +287,16 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: versions-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: versions-apiextensions.k8s.io.v1.customresourcedefinitions
                               baseprefix: "/{{ .Values.basePrefix }}"
                               pathToItems: ".items.0.spec.versions"
                               k8sResourceToFetch: 
-                                version: "v1"
-                                group: "apiextensions.k8s.io"
+                                apiVersion: "v1"
+                                apiGroup: "apiextensions.k8s.io"
                                 plural: "customresourcedefinitions"
                               fieldSelector:
-                                metadata.name: "{5}"
+                                metadata.name: "{8}"
 
           # --- YAML TAB ---
           - key: yaml
@@ -309,8 +309,8 @@ spec:
                   isNameSpaced: false
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
-                  type: apis
-                  typeName: customresourcedefinitions
+                  type: api
+                  plural: customresourcedefinitions
                   pathToData: .items.0
                   forcedKind: CustomResourceDefinition
                   apiGroup:  "apiextensions.k8s.io"
@@ -324,19 +324,19 @@ spec:
               - type: EnrichedTable
                 data:
                   id: instances-table
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: instances-crd
                   baseprefix: "/{{ .Values.basePrefix }}"
                   pathToItems: ".items"
                   dataForControls:
-                    resource:   "{reqsJsonPath[0]['.items.0.spec.names.plural']['-']}"
+                    plural:   "{reqsJsonPath[0]['.items.0.spec.names.plural']['-']}"
                     apiVersion: "{reqsJsonPath[0]['.items.0.status.storedVersions[0]']['-']}"
                     apiGroup:   "{reqsJsonPath[0]['.items.0.spec.group']['-']}"
                   k8sResource:
-                    resource:   "{reqsJsonPath[0]['.items.0.spec.names.plural']['-']}"
+                    plural:   "{reqsJsonPath[0]['.items.0.spec.names.plural']['-']}"
                     apiVersion: "{reqsJsonPath[0]['.items.0.status.storedVersions[0]']['-']}"
                     apiGroup:   "{reqsJsonPath[0]['.items.0.spec.group']['-']}"
                   k8sResourceToFetch: 
-                    version:    "{reqsJsonPath[0]['.items.0.status.storedVersions[0]']['-']}"
-                    group:      "{reqsJsonPath[0]['.items.0.spec.group']['-']}"
+                    apiVersion:    "{reqsJsonPath[0]['.items.0.status.storedVersions[0]']['-']}"
+                    apiGroup:      "{reqsJsonPath[0]['.items.0.spec.group']['-']}"
                     plural:     "{reqsJsonPath[0]['.items.0.spec.names.plural']['-']}"

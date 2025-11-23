@@ -22,7 +22,7 @@
 - children:
     - key: search
       label: Search
-      link: /openapi-ui/{clusterName}/search
+      link: /openapi-ui/{cluster}/search
   key: home
   label: Home
   {{ end }}
@@ -34,7 +34,7 @@
 - children:
     - key: projects
       label: Projects
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}
   key: projects
   label: Projects
   {{ end }}
@@ -45,7 +45,7 @@
 - children:
     - key: instances
       label: Instances
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}
   key: instances
   label: Instances
   {{ end }}
@@ -59,17 +59,17 @@
     {{ if .items.applications }}
     - key: argocd-application
       label: Applications
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/argoproj.io/v1alpha1/applications
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/argoproj.io/v1alpha1/applications
     {{ end }}
     {{ if .items.applicationset }}
     - key: argocd-applicationset
       label: ApplicationSets
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/argoproj.io/v1alpha1/applicationsets
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/argoproj.io/v1alpha1/applicationsets
     {{ end }}
     {{ if .items.appprojects }}
     - key: argocd-appprojects
       label: Projects
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/argoproj.io/v1alpha1/appprojects
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/argoproj.io/v1alpha1/appprojects
     {{ end }}
     {{ with .extraItems }}
       {{ . | toYaml | nindent 4 }}
@@ -89,32 +89,32 @@
     {{ if .items.hosts }}
     - key: hbf-hosts
       label: Hosts
-      link: "/{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/hosts"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/hosts"
     {{ end }}
     {{ if .items.networks }}
     - key: hbf-networks
       label: Networks
-      link: "/{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/networks"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/networks"
     {{ end }}
     {{ if .items.addressgroups }}
     - key: hbf-addressgroups
       label: AddressGroups
-      link: "/{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/addressgroups"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/addressgroups"
     {{ end }}
     {{ if .items.services }}
     - key: hbf-services
       label: Services
-      link: "/{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/services"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/services"
     {{ end }}
     {{ if .items.svcsvcrules }}
     - key: hbf-svcsvcrules
       label: SvcSvcRules
-      link: "/{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/svcsvcrules"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/svcsvcrules"
     {{ end }}
     {{ if .items.svcfqdnrules }}
     - key: hbf-svcfqdnrules
       label: SvcFqdnRules
-      link: "/{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/svcfqdnrules"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/svcfqdnrules"
     {{ end }}
     {{ with .extraItems }}
       {{ . | toYaml | nindent 4 }}
@@ -130,22 +130,22 @@
     {{ if .items.hostbindings }}
     - key: hbf-hostbindings
       label: HostBindings
-      link: "/{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/hostbindings"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/hostbindings"
     {{ end }}
     {{ if .items.networkbindings }}
     - key: hbf-networkbindings
       label: NetworkBindings
-      link: "/{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/networkbindings"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/networkbindings"
     {{ end }}
     {{ if .items.addressgroupbindings }}
     - key: hbf-addressgroupbindings
       label: AddressGroupBindings
-      link: "/{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/addressgroupbindings"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/addressgroupbindings"
     {{ end }}
     {{ if .items.addressgroupportmappings }}
     - key: hbf-addressgroupportmappings
       label: AddressGroupPortMappings
-      link: "/{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/addressgroupportmappings"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/addressgroupportmappings"
     {{ end }}
     {{ with .extraItems }}
       {{ . | toYaml | nindent 4 }}
@@ -160,62 +160,62 @@
     {{ if .items.pods }}
     - key: pods
       label: Pods
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/builtin-table/pods
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/pods
     {{ end }}
     {{ if .items.deployments }}
     - key: deployments
       label: Deployments
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/apps/v1/deployments
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/apps/v1/deployments
     {{ end }}
     {{ if .items.statefulsets }}
     - key: statefulsets
       label: Statefulsets
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/apps/v1/statefulsets
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/apps/v1/statefulsets
     {{ end }}
     {{ if .items.secrets }}
     - key: secrets
       label: Secrets
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/builtin-table/secrets
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/secrets
     {{ end }}
     {{ if .items.configmaps }}
     - key: configmaps
       label: ConfigMaps
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/builtin-table/configmaps
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/configmaps
     {{ end }}
     {{ if .items.cronjobs }}
     - key: cronjobs
       label: CronJobs
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/batch/v1/cronjobs
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/batch/v1/cronjobs
     {{ end }}
     {{ if .items.jobs }}
     - key: jobs
       label: Jobs
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/batch/v1/jobs
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/batch/v1/jobs
     {{ end }}
     {{ if .items.daemonsets }}
     - key: daemonsets
       label: Daemonsets
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/apps/v1/daemonsets
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/apps/v1/daemonsets
     {{ end }}
     {{ if .items.replicasets }}
     - key: replicasets
       label: ReplicaSets
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/apps/v1/replicasets
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/apps/v1/replicasets
     {{ end }}
     {{ if .items.replicationcontrollers }}
     - key: replicationcontrollers
       label: ReplicationControllers
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/builtin-table/replicationcontrollers
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/replicationcontrollers
     {{ end }}
     {{ if .items.horizontalpodautoscalers }}
     - key: horizontalpodautoscalers
       label: HorizontalPodAutoscalers
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/autoscaling/v2/horizontalpodautoscalers
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/autoscaling/v2/horizontalpodautoscalers
     {{ end }}
     {{ if .items.poddisruptionbudgets }}
     - key: poddisruptionbudgets
       label: PodDisruptionBudgets
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/policy/v1/poddisruptionbudgets
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/policy/v1/poddisruptionbudgets
     {{ end }}
     {{ with .extraItems }}
       {{ . | toYaml | nindent 4 }}
@@ -231,17 +231,17 @@
     {{ if .items.services }}
     - key: services
       label: Services
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/builtin-table/services
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/services
     {{ end }}
     {{ if .items.networkpolicies }}
     - key: networkpolicies
       label: NetworkPolicies
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/networking.k8s.io/v1/networkpolicies
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/networking.k8s.io/v1/networkpolicies
     {{ end }}
     {{ if .items.ingresses }}
     - key: ingresses
       label: Ingresses
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/networking.k8s.io/v1/ingresses
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/networking.k8s.io/v1/ingresses
     {{ end }}
     {{ with .extraItems }}
       {{ . | toYaml | nindent 4 }}
@@ -257,17 +257,17 @@
     {{ if .items.persistentvolumes }}
     - key: persistentvolumes
       label: PersistentVolumes
-      link: /{{ $.Values.basePrefix }}/{clusterName}/builtin-table/persistentvolumes
+      link: /{{ $.Values.basePrefix }}/{cluster}/builtin-table/persistentvolumes
     {{ end }}
     {{ if .items.persistentvolumeclaims }}
     - key: persistentvolumeclaims
       label: PersistentVolumeClaims
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/builtin-table/persistentvolumeclaims
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/persistentvolumeclaims
     {{ end }}
     {{ if .items.storageclasses }}
     - key: storageclasses
       label: StorageClasses
-      link: /{{ $.Values.basePrefix }}/{clusterName}/api-table/storage.k8s.io/v1/storageclasses
+      link: /{{ $.Values.basePrefix }}/{cluster}/api-table/storage.k8s.io/v1/storageclasses
     {{ end }}
     {{ with .extraItems }}
       {{ . | toYaml | nindent 4 }}
@@ -283,7 +283,7 @@
     {{ if .items.nodes }}
     - key: nodes
       label: Nodes
-      link: /{{ $.Values.basePrefix }}/{clusterName}/builtin-table/nodes
+      link: /{{ $.Values.basePrefix }}/{cluster}/builtin-table/nodes
     {{ end }}
     {{ with .extraItems }}
       {{ . | toYaml | nindent 4 }}
@@ -299,27 +299,27 @@
     {{ if .items.serviceaccounts }}
     - key: serviceaccounts
       label: ServiceAccounts
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/builtin-table/serviceaccounts
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/serviceaccounts
     {{ end }}
     {{ if .items.roles }}
     - key: roles
       label: Roles
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/rbac.authorization.k8s.io/v1/roles
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/rbac.authorization.k8s.io/v1/roles
     {{ end }}
     {{ if .items.rolebindings }}
     - key: rolebindings
       label: RoleBindings
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/rbac.authorization.k8s.io/v1/rolebindings
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/rbac.authorization.k8s.io/v1/rolebindings
     {{ end }}
     {{ if .items.clusterroles }}
     - key: clusterroles
       label: ClusterRoles
-      link: /{{ $.Values.basePrefix }}/{clusterName}/api-table/rbac.authorization.k8s.io/v1/clusterroles
+      link: /{{ $.Values.basePrefix }}/{cluster}/api-table/rbac.authorization.k8s.io/v1/clusterroles
     {{ end }}
     {{ if .items.clusterrolebindings }}
     - key: clusterrolebindings
       label: ClusterRoleBindings
-      link: /{{ $.Values.basePrefix }}/{clusterName}/api-table/rbac.authorization.k8s.io/v1/clusterrolebindings
+      link: /{{ $.Values.basePrefix }}/{cluster}/api-table/rbac.authorization.k8s.io/v1/clusterrolebindings
     {{ end }}
     {{ with .extraItems }}
       {{ . | toYaml | nindent 4 }}
@@ -335,22 +335,22 @@
     {{ if .items.namespaces }}
     - key: namespaces
       label: Namespaces
-      link: /{{ $.Values.basePrefix }}/{clusterName}/builtin-table/namespaces
+      link: /{{ $.Values.basePrefix }}/{cluster}/builtin-table/namespaces
     {{ end }}
     {{ if .items.limitranges }}
     - key: limitranges
       label: LimitRanges
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/builtin-table/limitranges
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/limitranges
     {{ end }}
     {{ if .items.resourcequotas }}
     - key: resourcequotas
       label: ResourceQuotas
-      link: /{{ $.Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/builtin-table/resourcequotas
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/resourcequotas
     {{ end }}
     {{ if .items.customresourcedefinitions }}
     - key: customresourcedefinitions
       label: CustomResourceDefinitions
-      link: /{{ $.Values.basePrefix }}/{clusterName}/api-table/apiextensions.k8s.io/v1/customresourcedefinitions
+      link: /{{ $.Values.basePrefix }}/{cluster}/api-table/apiextensions.k8s.io/v1/customresourcedefinitions
     {{ end }}
     {{ with .extraItems }}
       {{ . | toYaml | nindent 4 }}

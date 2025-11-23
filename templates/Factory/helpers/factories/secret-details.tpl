@@ -15,10 +15,10 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      version: "v1"
+      apiVersion: "{6}"
       namespace: "{3}"
-      plural: "secrets"
-      fieldSelector: "metadata.name={6}"
+      plural: "{7}"
+      fieldSelector: "metadata.name={8}"
 
   # Header row with badge and Secret name
   data:
@@ -34,7 +34,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: Secret
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -143,7 +143,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "namespace"
                                           "jsonPath" ".items.0.metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -232,7 +232,7 @@ spec:
                                       "title" "ServiceAccount"
                                       "jsonPath" ".items.0.metadata.annotations['kubernetes.io/service-account.name']"
                                       "namespace" "{3}"
-                                      "factory" "serviceaccount-details"
+                                      "factory" "serviceaccount-details/v1/serviceaccounts"
                                       "basePrefix" $basePrefix
                                     ) | nindent 34 
                                   }}
@@ -250,7 +250,7 @@ spec:
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   pathToData: .items.0
-                  typeName: secrets
+                  plural: secrets
                   forcedKind: Secret
                   apiVersion: v1
 

@@ -14,13 +14,12 @@ spec:
   sidebarTags:
     - horizontalpodautoscaler-details
   urlsToFetch:
-    # API call to fetch HPA details by cluster, namespace, and name
     - cluster: "{2}"
-      group: "autoscaling"
-      version: "v2"
+      apiGroup: "{6}"
+      apiVersion: "{7}"
       namespace: "{3}"
-      plural: "horizontalpodautoscalers"
-      fieldSelector: "metadata.name={6}"
+      plural: "{8}"
+      fieldSelector: "metadata.name={9}"
 
   data:
     # --- Header section -----------------------------------------------------
@@ -36,7 +35,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: "{reqsJsonPath[0]['.kind']['-']}"
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -142,7 +141,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "namespace"
                                           "jsonPath" ".metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -375,7 +374,7 @@ spec:
                             data:
                               id: conditions-table
                               fetchUrl: "/api/clusters/{2}/k8s/apis/autoscaling/v2/namespaces/{3}/horizontalpodautoscalers/{6}"
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: factory-status-conditions
                               baseprefix: "/{{ $basePrefix }}"
                               pathToItems: ".status.conditions"
@@ -390,7 +389,7 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: "builtin"
-                  typeName: horizontalpodautoscalers
+                  plural: horizontalpodautoscalers
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
 
@@ -401,7 +400,7 @@ spec:
                 data:
                   id: events
                   baseprefix: "/openapi-ui"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   wsUrl: "/api/clusters/{2}/openapi-bff-ws/events/eventsWs"
                   pageSize: 50
                   substractHeight: 315

@@ -33,7 +33,7 @@
       data:
         id: {{ printf "%s-table" $type }}
         fetchUrl: "/api/clusters/{2}/k8s/{{ $apiGroup }}/{{$namespacePart}}{{ $kind }}/{{$resourceName}}"
-        clusterNamePartOfUrl: "{2}"
+        cluster: "{2}"
         customizationId: {{ .customizationId | default ("") }}
         baseprefix: "/{{ $basePrefix }}"
         withoutControls: {{ default true .withoutControls }}

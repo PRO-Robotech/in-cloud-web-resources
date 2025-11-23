@@ -16,11 +16,11 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      group: "argoproj.io"
-      version: "v1alpha1"
+      apiGroup: "{6}"
+      apiVersion: "{7}"
       namespace: "{3}"
-      plural: "applications"
-      fieldSelector: "metadata.name={6}"
+      plural: "{8}"
+      fieldSelector: "metadata.name={9}"
 
   data:
     # === HEADER ROW ===
@@ -36,9 +36,10 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: "{reqsJsonPath[0]['.kind']['-']}"
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
+
         - type: parsedText
           data:
             id: header-name
@@ -135,7 +136,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "namespace"
                                           "jsonPath" ".items.0.metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -255,7 +256,7 @@ spec:
                                       "type" "project"
                                       "title" "Project"
                                       "jsonPath" ".items.0.spec.project"
-                                      "factory" "argocd-appproject-details"
+                                      "factory" "argocd-appproject-details/argoproj.io/v1alpha1/appprojects"
                                       "basePrefix" $basePrefix
                                       "namespace" "{3}"
                                     ) | nindent 34 
@@ -302,7 +303,7 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: "apis"
-                  typeName: applications
+                  plural: applications
                   apiGroup: argoproj.io
                   apiVersion: v1alpha1
                   prefillValuesRequestIndex: 0
@@ -316,7 +317,7 @@ spec:
                 data:
                   id: resources-table
                   fetchUrl: "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{6}"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: "factory-argocd-application-status-resources"
                   baseprefix: "/{{ $basePrefix }}"
                   pathToItems: ".status.resources"
@@ -457,7 +458,7 @@ spec:
                         data:
                           id: last-synced-table
                           fetchUrl: "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{6}"
-                          clusterNamePartOfUrl: "{2}"
+                          cluster: "{2}"
                           customizationId: "factory-argocd-application-resources"
                           baseprefix: "/{{ $basePrefix }}"
                           pathToItems: ".status.operationState.syncResult.resources"
@@ -470,7 +471,7 @@ spec:
                 data:
                   id: history-table
                   fetchUrl: "/api/clusters/{2}/k8s/apis/argoproj.io/v1alpha1/namespaces/{3}/applications/{6}"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: "factory-argocd-application-status-history"
                   baseprefix: "/{{ $basePrefix }}"
                   pathToItems: ".status.history"

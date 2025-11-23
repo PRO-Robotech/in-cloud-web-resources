@@ -8,9 +8,9 @@ spec:
   breadcrumbItems:
     - key: statefulsets
       label: "apps/v1/statefulsets"
-      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/api-table/apps/v1/statefulsets"
+      link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/api-table/apps/v1/statefulsets"
     - key: statefulset
-      label: "{6}"
+      label: "{9}"
 
 {{- if not .Values.namespaceNavigation }}
 ---
@@ -23,7 +23,7 @@ spec:
   breadcrumbItems:
     - key: statefulsets
       label: "apps/v1/statefulsets"
-      link: "/{{ .Values.basePrefix }}/{clusterName}/{namespace}/{syntheticProject}/api-table/apps/v1/statefulsets"
+      link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/apps/v1/statefulsets"
     - key: statefulset
-      label: "{7}"
+      label: "{10}"
 {{- end -}}

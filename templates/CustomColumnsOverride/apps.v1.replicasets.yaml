@@ -12,7 +12,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "replicaset-details"
+      "factory" "replicaset-details/apps/v1/replicasets"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -22,7 +22,7 @@ spec:
       "reqIndex" 0
       "type" "namespace"
       "jsonPath" ".metadata.namespace"
-      "factory" "namespace-details"
+      "factory" "namespace-details/v1/namespaces"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -47,12 +47,12 @@ spec:
             data:
               id: refs
               baseprefix: /openapi-ui
-              clusterNamePartOfUrl: '{2}'
+              cluster: '{2}'
               forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
               reqIndex: 0
               errorText: error getting refs
               notArrayErrorText: refs on path are not arr
-              emptyArrayErrorText: no refs
+              emptyArrayErrorText: "-"
               isNotRefsArrayErrorText: objects in arr are not refs
               # containerStyle:
               #   border: "1px solid red"
@@ -66,8 +66,8 @@ spec:
               baseFactoryNamespacedAPIKey: base-factory-namespaced-api
               baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
               baseNamespaceFactoryKey: namespace-details
-              baseNavigationPluralName: navigations
-              baseNavigationSpecificName: navigation
+              baseNavigationPlural: navigations
+              baseNavigationName: navigation
 
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
@@ -94,7 +94,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "replicaset-details"
+      "factory" "replicaset-details/apps/v1/replicasets"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -119,12 +119,12 @@ spec:
             data:
               id: refs
               baseprefix: /openapi-ui
-              clusterNamePartOfUrl: '{2}'
+              cluster: '{2}'
               forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
               reqIndex: 0
               errorText: error getting refs
               notArrayErrorText: refs on path are not arr
-              emptyArrayErrorText: no refs
+              emptyArrayErrorText: "-"
               isNotRefsArrayErrorText: objects in arr are not refs
               # containerStyle:
               #   border: "1px solid red"
@@ -138,8 +138,8 @@ spec:
               baseFactoryNamespacedAPIKey: base-factory-namespaced-api
               baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
               baseNamespaceFactoryKey: namespace-details
-              baseNavigationPluralName: navigations
-              baseNavigationSpecificName: navigation
+              baseNavigationPlural: navigations
+              baseNavigationName: navigation
 
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
@@ -165,7 +165,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "replicaset-details"
+      "factory" "replicaset-details/apps/v1/replicasets"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -190,12 +190,12 @@ spec:
             data:
               id: refs
               baseprefix: /openapi-ui
-              clusterNamePartOfUrl: '{2}'
+              cluster: '{2}'
               forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
               reqIndex: 0
               errorText: error getting refs
               notArrayErrorText: refs on path are not arr
-              emptyArrayErrorText: no refs
+              emptyArrayErrorText: "-"
               isNotRefsArrayErrorText: objects in arr are not refs
               # containerStyle:
               #   border: "1px solid red"
@@ -209,8 +209,8 @@ spec:
               baseFactoryNamespacedAPIKey: base-factory-namespaced-api
               baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
               baseNamespaceFactoryKey: namespace-details
-              baseNavigationPluralName: navigations
-              baseNavigationSpecificName: navigation
+              baseNavigationPlural: navigations
+              baseNavigationName: navigation
 
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
@@ -237,7 +237,7 @@ spec:
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
       "project" "{4}"
-      "factory" "instance-replicaset-details"
+      "factory" "instance-replicaset-details/apps/v1/replicasets"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -262,12 +262,12 @@ spec:
             data:
               id: refs
               baseprefix: /openapi-ui
-              clusterNamePartOfUrl: '{2}'
+              cluster: '{2}'
               forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
               reqIndex: 0
               errorText: error getting refs
               notArrayErrorText: refs on path are not arr
-              emptyArrayErrorText: no refs
+              emptyArrayErrorText: "-"
               isNotRefsArrayErrorText: objects in arr are not refs
               # containerStyle:
               #   border: "1px solid red"
@@ -281,8 +281,8 @@ spec:
               baseFactoryNamespacedAPIKey: base-factory-namespaced-api
               baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
               baseNamespaceFactoryKey: namespace-details
-              baseNavigationPluralName: navigations
-              baseNavigationSpecificName: navigation
+              baseNavigationPlural: navigations
+              baseNavigationName: navigation
 
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
@@ -308,7 +308,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "replicaset-details"
+      "factory" "replicaset-details/apps/v1/replicasets"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -333,12 +333,12 @@ spec:
             data:
               id: refs
               baseprefix: /openapi-ui
-              clusterNamePartOfUrl: '{2}'
+              cluster: '{2}'
               forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
               reqIndex: 0
               errorText: error getting refs
               notArrayErrorText: refs on path are not arr
-              emptyArrayErrorText: no refs
+              emptyArrayErrorText: "-"
               isNotRefsArrayErrorText: objects in arr are not refs
               # containerStyle:
               #   border: "1px solid red"
@@ -352,8 +352,8 @@ spec:
               baseFactoryNamespacedAPIKey: base-factory-namespaced-api
               baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
               baseNamespaceFactoryKey: namespace-details
-              baseNavigationPluralName: navigations
-              baseNavigationSpecificName: navigation
+              baseNavigationPlural: navigations
+              baseNavigationName: navigation
 
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
@@ -383,7 +383,7 @@ spec:
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
       "project" "{4}"
-      "factory" "instance-replicaset-details"
+      "factory" "instance-replicaset-details/apps/v1/replicasets"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}

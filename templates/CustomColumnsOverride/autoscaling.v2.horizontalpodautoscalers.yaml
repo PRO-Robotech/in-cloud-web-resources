@@ -12,7 +12,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "horizontalpodautoscaler-details"
+      "factory" "horizontalpodautoscaler-details/autoscaling/v2/horizontalpodautoscalers"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -22,7 +22,7 @@ spec:
       "reqIndex" 0
       "type" "namespace"
       "jsonPath" ".metadata.namespace"
-      "factory" "namespace-details"
+      "factory" "namespace-details/v1/namespaces"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -75,7 +75,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "horizontalpodautoscaler-details"
+      "factory" "horizontalpodautoscaler-details/autoscaling/v2/horizontalpodautoscalers"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -127,7 +127,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "horizontalpodautoscaler-details"
+      "factory" "horizontalpodautoscaler-details/autoscaling/v2/horizontalpodautoscalers"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -180,7 +180,7 @@ spec:
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
       "project" "{4}"
-      "factory" "instance-horizontalpodautoscaler-details"
+      "factory" "instance-horizontalpodautoscaler-details/autoscaling/v2/horizontalpodautoscalers"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}

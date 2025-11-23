@@ -8,5 +8,5 @@ spec:
   id: "stock-cluster-projects-list"
   breadcrumbItems:
     - key: api
-      label: "{apiGroup}/{apiVersion}/{typeName}"
+      label: "{apiGroup}/{apiVersion}/{plural}"
 {{ end }}

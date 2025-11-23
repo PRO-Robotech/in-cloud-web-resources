@@ -12,7 +12,7 @@ spec:
       "type" "name"
       "jsonPath" ".targetRef.name"
       "namespace" "{reqsJsonPath[0]['.targetRef.namespace']['-']}"
-      "factory" "pod-details"
+      "factory" "pod-details/v1/pods"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}

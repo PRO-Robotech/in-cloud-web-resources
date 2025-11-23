@@ -18,11 +18,11 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      group: "apps"
-      version: "v1"
+      apiGroup: "{6}"
+      apiVersion: "{7}"
       namespace: "{3}"
-      plural: "statefulsets"
-      fieldSelector: "metadata.name={6}"
+      plural: "{8}"
+      fieldSelector: "metadata.name={9}"
 
   data:
     # Header section
@@ -38,7 +38,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: "StatefulSet"
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -148,7 +148,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "namespace"
                                           "jsonPath" ".items.0.metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -325,18 +325,18 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: containers-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: "container-spec-containers-list"
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: .items.0.spec.template.spec.initContainers
                               k8sResourceToFetch: 
-                                group: "apps"
-                                version: "v1"
-                                plural: "statefulsets"
+                                apiGroup: "{6}"
+                                apiVersion: "{7}"
                                 namespace: "{3}"
+                                plural: "{8}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{9}"
 
                   # ---- CONTAINERS SECTION ----
                   - type: antdCol
@@ -365,18 +365,18 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: containers-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: "container-spec-containers-list"
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: .items.0.spec.template.spec.containers
                               k8sResourceToFetch: 
-                                group: "apps"
-                                version: "v1"
-                                plural: "statefulsets"
+                                apiGroup: "{6}"
+                                apiVersion: "{7}"
                                 namespace: "{3}"
+                                plural: "{8}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{9}"
 
           # YAML tab
           - key: yaml
@@ -388,7 +388,7 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: apis
-                  typeName: statefulsets
+                  plural: statefulsets
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   pathToData: .items.0
@@ -403,16 +403,17 @@ spec:
               - type: EnrichedTable
                 data:
                   id: pods-table
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: "{{ $podFactoryName }}"
                   labelSelectorFull:
                     reqIndex: 0
                     pathToLabels: ".items.0.spec.template.metadata.labels"
                   pathToItems: ".items"
                   k8sResourceToFetch: 
-                    version: "v1"
+                    apiVersion: "v1"
                     plural: "pods"
                     namespace: "{3}"
+                  withoutControls: false
 
           - key: events
             label: Events
@@ -421,7 +422,7 @@ spec:
                 data:
                   id: events
                   baseprefix: "/openapi-ui"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   wsUrl: "/api/clusters/{2}/openapi-bff-ws/events/eventsWs"
                   pageSize: 50
                   substractHeight: 315
@@ -446,7 +447,7 @@ spec:
                 data:
                   id: ds-pods-table
                   fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/clusterinfraassessmentreports"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.clusterinfraassessmentreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels
@@ -456,8 +457,8 @@ spec:
                   # Items path for Pods list
                   pathToItems: ".items[*].report.checks"
                   k8sResourceToFetch: 
-                    version: "v1alpha1"
-                    group: "aquasecurity.github.io"
+                    apiVersion: "v1alpha1"
+                    apiGroup: "aquasecurity.github.io"
                     plural: "clusterinfraassessmentreports"
 
   {{- end -}}

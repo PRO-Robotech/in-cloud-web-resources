@@ -17,11 +17,11 @@ spec:
     - networkpolicy-details
   urlsToFetch:
     - cluster: "{2}"
-      group: "networking.k8s.io"
-      version: "v1"
+      apiGroup: "{6}"
+      apiVersion: "{7}"
       namespace: "{3}"
-      plural: "networkpolicies"
-      fieldSelector: "metadata.name={6}"
+      plural: "{8}"
+      fieldSelector: "metadata.name={9}"
 
   # Header row with badge and networkpolicy name
   data:
@@ -37,7 +37,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: "{reqsJsonPath[0]['.kind']['-']}"
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -45,7 +45,7 @@ spec:
         - type: parsedText
           data:
             id: networkpolicy-name
-            text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
             style:
               fontSize: 20px
               lineHeight: 24px
@@ -111,7 +111,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: meta-name-value
-                                      text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
 
                               # Namespace link
                               - type: antdFlex
@@ -140,8 +140,8 @@ spec:
                                       {{ include "incloud-web-resources.factory.linkblock" (dict
                                           "reqIndex" 0
                                           "type" "namespace"
-                                          "jsonPath" ".metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "jsonPath" ".items.0.metadata.namespace"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -156,6 +156,7 @@ spec:
                                  {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/networking.k8s.io/v1/namespaces/{3}/networkpolicies/{6}"
                                       "linkPrefix" "/openapi-ui/{2}/search?kinds=networking.k8s.io~v1~networkpolicies&labels="
+                                      "jsonPath" ".items.0.metadata.labels"
                                     ) | nindent 34
                                   }}
 
@@ -175,7 +176,7 @@ spec:
                                         fontSize: 14
                                   {{ include "incloud-web-resources.factory.labels.base.selector" (dict
                                       "type" "pod"
-                                      "jsonPath" ".spec.podSelector.matchLabels"
+                                      "jsonPath" ".items.0.spec.podSelector.matchLabels"
                                       "basePrefix" $basePrefix
                                       "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
                                     ) | nindent 34
@@ -191,6 +192,8 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/networkpolicys/{6}"
+                                      "jsonPath" ".items.0.metadata.annotations"
+                                      "pathToValue" "/metadata/annotations"
                                     ) | nindent 34
                                   }}
 
@@ -202,35 +205,11 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.time.create" (dict
-                                    "req" ".metadata.creationTimestamp"
+                                    "req" ".items.0.metadata.creationTimestamp"
                                     "text" "Created"
                                     ) | nindent 34
                                   }}
 
-                              # Owner
-                              # - type: antdFlex
-                              #   data:
-                              #     id: meta-owner-block
-                              #     vertical: true
-                              #     gap: 4
-                              #   children:
-                              #     - type: antdText
-                              #       data:
-                              #         id: meta-owner-label
-                              #         strong: true
-                              #         text: "Owner"
-                              #     - type: antdFlex
-                              #       data:
-                              #         id: meta-owner-flex
-                              #         gap: 6
-                              #         align: center
-                              #       children:
-                              #         - type: antdText
-                              #           data:
-                              #             id: meta-owner-fallback
-                              #             text: "No owner"
-                              #             style:
-                              #               color: "#FF0000"
 
                       # Right column: routing and ports
                       # - type: antdCol
@@ -247,42 +226,45 @@ spec:
                       #           fontSize: 20
                       #           marginBottom: 12px
 
-
-
           # YAML tab
-          - key: "yaml"
-            label: "YAML"
+          - key: yaml
+            label: YAML
             children:
               - type: YamlEditorSingleton
                 data:
                   id: yaml-editor
                   cluster: "{2}"
                   isNameSpaced: true
-                  type: "builtin"
-                  typeName: networkpolicys
+                  type: api
+                  plural: networkpolicies
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
+                  pathToData: .items.0
+                  forcedKind: NetworkPolicy
+                  apiGroup: networking.k8s.io
+                  apiVersion: v1
 
           # Pods tab
           - key: "pods"
             label: "Pod Selector"
             children:
-              - type: VisibilityContainer
+              - type: EnrichedTable
                 data:
-                  id: networkpolicy-pod-serving-vis
-                  value: "{reqsJsonPath[0]['.spec.podSelector.matchLabels']['-']}"
-                  style: { margin: 0, padding: 0 }
-                children:
-                  - type: EnrichedTable
-                    data:
-                      id: pods-table
-                      fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods"
-                      clusterNamePartOfUrl: "{2}"
-                      customizationId: "{{ $podFactoryName }}"
-                      baseprefix: "/{{ $basePrefix }}"
-                      labelSelectorFull:
-                        reqIndex: 0
-                        pathToLabels: ".spec.podSelector.matchLabels"
-                      pathToItems: ".items"
+                  id: pods-table
+                  cluster: "{2}"
+                  customizationId: "{{ $podFactoryName }}"
+                  baseprefix: "/{{ $basePrefix }}"
+                  labelSelectorFull:
+                    reqIndex: 0
+                    pathToLabels: ".items.0.spec.podSelector.matchLabels"
+                  pathToItems: ".items"
+                  k8sResourceToFetch: 
+                    apiVersion: "v1"
+                    plural: "pods"
+                    namespace: "{3}"
+                  # dataForControls:
+                  #   plural: pods
+                  #   apiVersion: v1
+                  withoutControls: false
 
 {{- end -}}

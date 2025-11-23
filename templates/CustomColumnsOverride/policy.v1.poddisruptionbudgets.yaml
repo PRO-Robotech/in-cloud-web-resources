@@ -12,7 +12,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "poddisruptionbudget-details"
+      "factory" "poddisruptionbudget-details/policy/v1/poddisruptionbudgets"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -22,7 +22,7 @@ spec:
       "reqIndex" 0
       "type" "namespace"
       "jsonPath" ".metadata.namespace"
-      "factory" "namespace-details"
+      "factory" "namespace-details/v1/namespaces"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -59,7 +59,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "poddisruptionbudget-details"
+      "factory" "poddisruptionbudget-details/policy/v1/poddisruptionbudgets"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -95,7 +95,7 @@ spec:
       "type" "name"
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "factory" "poddisruptionbudget-details"
+      "factory" "poddisruptionbudget-details/policy/v1/poddisruptionbudgets"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -132,7 +132,7 @@ spec:
       "jsonPath" ".metadata.name"
       "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
       "project" "{4}"
-      "factory" "instance-poddisruptionbudget-details"
+      "factory" "instance-poddisruptionbudget-details/policy/v1/poddisruptionbudgets"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}

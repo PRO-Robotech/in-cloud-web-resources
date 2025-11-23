@@ -9,10 +9,10 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      group: "rbac.authorization.k8s.io"
-      version: "v1"
-      plural: "clusterroles"
-      fieldSelector: "metadata.name={5}"
+      apiGroup: "{5}"
+      apiVersion: "{6}"
+      plural: "{7}"
+      fieldSelector: "metadata.name={8}"
 
   # Header row with badge and clusterrole name
   data:
@@ -28,7 +28,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: ClusterRole
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -163,16 +163,16 @@ spec:
                       - type: EnrichedTable
                         data:
                           id: conditions-table
-                          clusterNamePartOfUrl: "{2}"
+                          cluster: "{2}"
                           customizationId: factory-k8s-rbac-rules
                           baseprefix: "/{{ .Values.basePrefix }}"
                           pathToItems: ".items.0.rules"
                           k8sResourceToFetch: 
-                            version: "v1"
-                            group: "rbac.authorization.k8s.io"
+                            apiVersion: "v1"
+                            apiGroup: "rbac.authorization.k8s.io"
                             plural: "clusterroles"
                           fieldSelector:
-                            metadata.name: "{5}"
+                            metadata.name: "{8}"
 
           # YAML tab
           - key: "yaml"
@@ -187,7 +187,7 @@ spec:
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   pathToData: .items.0
-                  typeName: clusterroles
+                  plural: clusterroles
                   forcedKind: ClusterRole
                   apiGroup:  "rbac.authorization.k8s.io"
                   apiVersion: v1

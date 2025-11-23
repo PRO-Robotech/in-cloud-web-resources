@@ -10,7 +10,7 @@ spec:
       "title" "CustomResourceDefinition"
       "reqIndex" 0
       "jsonPath" ".metadata.name"
-      "factory" "crd-details"
+      "factory" "crd-details/apiextensions.k8s.io/v1/customresourcedefinitions"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}

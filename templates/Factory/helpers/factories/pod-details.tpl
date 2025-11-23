@@ -16,11 +16,11 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      version: "v1"
+      apiVersion: "{6}"
       namespace: "{3}"
-      plural: "pods"
-      fieldSelector: "metadata.name={6}"
-      
+      plural: "{7}"
+      fieldSelector: "metadata.name={8}"
+
   # Header row with badge, pod name, and status
   data:
     - type: antdFlex
@@ -35,7 +35,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: Pod
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -150,7 +150,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "namespace"
                                           "jsonPath" ".items.0.metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -234,12 +234,12 @@ spec:
                                     data:
                                       id: refs
                                       baseprefix: /openapi-ui
-                                      clusterNamePartOfUrl: '{2}'
+                                      cluster: '{2}'
                                       forcedNamespace: '{3}'
                                       reqIndex: 0
                                       errorText: error getting refs
                                       notArrayErrorText: refs on path are not arr
-                                      emptyArrayErrorText: no refs
+                                      emptyArrayErrorText: "-"
                                       isNotRefsArrayErrorText: objects in arr are not refs
                                       jsonPathToArrayOfRefs: ".items.0.metadata.ownerReferences"
                                       # keysToForcedLabel?: string | string[] // j
@@ -248,8 +248,8 @@ spec:
                                       baseFactoryNamespacedAPIKey: base-factory-namespaced-api
                                       baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
                                       baseNamespaceFactoryKey: namespace-details
-                                      baseNavigationPluralName: navigations
-                                      baseNavigationSpecificName: navigation
+                                      baseNavigationPlural: navigations
+                                      baseNavigationName: navigation
 
                               # Created timestamp (kept as include)
                               - type: antdFlex
@@ -392,7 +392,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "name"
                                           "jsonPath" ".items.0.spec.nodeName"
-                                          "factory" "node-details"
+                                          "factory" "node-details/v1/nodes"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -413,6 +413,45 @@ spec:
                                     data:
                                       id: qos-class-value
                                       text: "{reqsJsonPath[0]['.items.0.status.qosClass']['-']}"
+
+                  # - type: antdCol
+                  #   data:
+                  #     id: ds-metrics-containers-col
+                  #     style:
+                  #       marginTop: 10
+                  #       padding: 10
+                  #   children:
+                  #     - type: VisibilityContainer
+                  #       data:
+                  #         id: ds-metrics-containers-container
+                  #         value: "{reqsJsonPath[0]['.items.0.containers']['-']}"
+                  #         style:
+                  #           margin: 0
+                  #           padding: 0
+                  #       children:
+                  #     - type: antdText
+                  #       data:
+                  #         id: metrics-containers-title
+                  #         text: Metrics containers
+                  #         strong: true
+                  #         style:
+                  #           fontSize: 22
+                  #           marginBottom: 32px
+                  #     - type: EnrichedTable
+                  #       data:
+                  #         id: containers-table
+                  #         cluster: "{2}"
+                  #         customizationId: "container-metrics"
+                  #         baseprefix: "/openapi-ui"
+                  #         withoutControls: true
+                  #         pathToItems: .items.0.containers
+                  #         k8sResourceToFetch: 
+                  #           apiGroup: "metrics.k8s.io"
+                  #           apiVersion: "v1beta1"
+                  #           namespace: "{3}"
+                  #           plural: "pods"
+                  #         fieldSelector: 
+                  #           metadata.name: "{8}"
 
                   # ---- INIT CONTAINERS SECTION ----
                   - type: antdCol
@@ -441,17 +480,17 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: containers-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: "container-status-init-containers-list"
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: .items.0.status.initContainerStatuses
                               k8sResourceToFetch: 
-                                version: "v1"
+                                apiVersion: "v1"
                                 plural: "pods"
                                 namespace: "{3}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{8}"
 
                   # ---- CONTAINERS SECTION ----
                   - type: antdCol
@@ -480,17 +519,17 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: containers-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: "container-status-containers-list"
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: .items.0.status.containerStatuses
                               k8sResourceToFetch: 
-                                version: "v1"
-                                plural: "pods"
+                                apiVersion: "{6}"
                                 namespace: "{3}"
+                                plural: "{7}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{8}"
 
                   # Conditions section (hidden if none)
                   - type: antdCol
@@ -520,17 +559,17 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: conditions-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: factory-status-conditions
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: ".items.0.status.conditions"
                               k8sResourceToFetch: 
-                                version: "v1"
-                                plural: "pods"
+                                apiVersion: "{6}"
                                 namespace: "{3}"
+                                plural: "{7}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{8}"
 
           # YAML tab with inline editor
           - key: "yaml"
@@ -542,7 +581,7 @@ spec:
                   cluster: "{2}"
                   isNameSpaced: true
                   type: "builtin"
-                  typeName: pods
+                  plural: pods
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   pathToData: .items.0
@@ -580,7 +619,7 @@ spec:
                 data:
                   id: events
                   baseprefix: "/openapi-ui"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   wsUrl: "/api/clusters/{2}/openapi-bff-ws/events/eventsWs"
                   pageSize: 50
                   substractHeight: 315
@@ -605,7 +644,7 @@ spec:
                 data:
                   id: ds-pods-table
                   fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/namespaces/{3}/vulnerabilityreports"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.vulnerabilityreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels
@@ -622,7 +661,7 @@ spec:
                 data:
                   id: ds-pods-table
                   fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/namespaces/{3}/configauditreports"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.configauditreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels

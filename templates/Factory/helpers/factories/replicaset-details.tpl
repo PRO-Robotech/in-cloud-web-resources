@@ -17,11 +17,11 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      group: "apps"
-      version: "v1"
+      apiGroup: "{6}"
+      apiVersion: "{7}"
       namespace: "{3}"
-      plural: "replicasets"
-      fieldSelector: "metadata.name={6}"
+      plural: "{8}"
+      fieldSelector: "metadata.name={9}"
 
   # Header row with badge and ReplicaSet name
   data:
@@ -37,7 +37,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: ReplicaSet
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -146,7 +146,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "namespace"
                                           "jsonPath" ".items.0.metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -237,18 +237,6 @@ spec:
                                     ) | nindent 34
                                   }}
 
-                              # Created timestamp
-                              - type: antdFlex
-                                data:
-                                  id: meta-created-block
-                                  vertical: true
-                                  gap: 4
-                                children:
-                                  {{ include "incloud-web-resources.factory.time.create" (dict
-                                    "req" ".items.0.metadata.creationTimestamp"
-                                    "text" "Created"
-                                    ) | nindent 38
-                                  }}
 
                               - type: antdFlex
                                 data:
@@ -266,12 +254,12 @@ spec:
                                     data:
                                       id: refs
                                       baseprefix: /openapi-ui
-                                      clusterNamePartOfUrl: '{2}'
+                                      cluster: '{2}'
                                       forcedNamespace: '{3}'
                                       reqIndex: 0
                                       errorText: error getting refs
                                       notArrayErrorText: refs on path are not arr
-                                      emptyArrayErrorText: no refs
+                                      emptyArrayErrorText: "-"
                                       isNotRefsArrayErrorText: objects in arr are not refs
                                       # containerStyle:
                                       #   border: "1px solid red"
@@ -285,8 +273,21 @@ spec:
                                       baseFactoryNamespacedAPIKey: base-factory-namespaced-api
                                       baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
                                       baseNamespaceFactoryKey: namespace-details
-                                      baseNavigationPluralName: navigations
-                                      baseNavigationSpecificName: navigation
+                                      baseNavigationPlural: navigations
+                                      baseNavigationName: navigation
+
+                              # Created timestamp
+                              - type: antdFlex
+                                data:
+                                  id: meta-created-block
+                                  vertical: true
+                                  gap: 4
+                                children:
+                                  {{ include "incloud-web-resources.factory.time.create" (dict
+                                    "req" ".items.0.metadata.creationTimestamp"
+                                    "text" "Created"
+                                    ) | nindent 38
+                                  }}
 
                       # Right column: replica counts
                       - type: antdCol
@@ -361,18 +362,18 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: containers-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: "container-spec-containers-list"
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: .items.0.spec.template.spec.initContainers
                               k8sResourceToFetch: 
-                                group: "apps"
-                                version: "v1"
+                                apiGroup: "apps"
+                                apiVersion: "v1"
                                 plural: "replicasets"
                                 namespace: "{3}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{9}"
 
                   # ---- CONTAINERS SECTION ----
                   - type: antdCol
@@ -401,18 +402,18 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: containers-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: "container-spec-containers-list"
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: .items.0.spec.template.spec.containers
                               k8sResourceToFetch: 
-                                group: "apps"
-                                version: "v1"
+                                apiGroup: "apps"
+                                apiVersion: "v1"
                                 plural: "replicasets"
                                 namespace: "{3}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{9}"
 
           # YAML tab
           - key: yaml
@@ -423,8 +424,8 @@ spec:
                   id: yaml-editor
                   cluster: "{2}"
                   isNameSpaced: true
-                  type: apis
-                  typeName: replicasets
+                  type: api
+                  plural: replicasets
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   pathToData: .items.0
@@ -441,15 +442,12 @@ spec:
                 data:
                   id: pods-table
                   baseprefix: /{{ $basePrefix }}
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: "{{ $podFactoryName }}"
                   k8sResourceToFetch: 
-                    version: "v1"
+                    apiVersion: "v1"
                     plural: "pods"
                     namespace: "{3}"
-                  dataForControls:
-                    resource: pods
-                    apiVersion: v1
                   labelSelectorFull:
                     reqIndex: 0
                     pathToLabels:  '.items.0.spec.template.metadata.labels'
@@ -464,7 +462,7 @@ spec:
                 data:
                   id: events
                   baseprefix: "/openapi-ui"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   wsUrl: "/api/clusters/{2}/openapi-bff-ws/events/eventsWs"
                   pageSize: 50
                   substractHeight: 315
@@ -489,7 +487,7 @@ spec:
                 data:
                   id: ds-pods-table
                   fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/namespaces/{3}/vulnerabilityreports"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.vulnerabilityreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels
@@ -506,7 +504,7 @@ spec:
                 data:
                   id: ds-pods-table
                   fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/namespaces/{3}/configauditreports"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.configauditreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels
@@ -523,7 +521,7 @@ spec:
                 data:
                   id: sbom-table
                   fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/namespaces/{3}/sbomreports"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: factory-aquasecurity.github.io.v1alpha1.sbomreports
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from pod template labels

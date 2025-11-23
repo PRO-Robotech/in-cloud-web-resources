@@ -8,6 +8,6 @@ spec:
   breadcrumbItems:
     - key: clusterrole
       label: "rbac.authorization.k8s.io/v1/clusterroles"
-      link: "/{{ .Values.basePrefix }}/{clusterName}/api-table/rbac.authorization.k8s.io/v1/clusterroles"
+      link: "/{{ .Values.basePrefix }}/{cluster}/api-table/rbac.authorization.k8s.io/v1/clusterroles"
     - key: clusterrole
-      label: "{5}"
+      label: "{7}"

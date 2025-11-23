@@ -16,10 +16,10 @@ spec:
   withScrollableMainContentCard: true
   urlsToFetch:
     - cluster: "{2}"
-      version: "v1"
+      apiVersion: "{6}"
       namespace: "{3}"
-      plural: "replicationcontrollers"
-      fieldSelector: "metadata.name={6}"
+      plural: "{7}"
+      fieldSelector: "metadata.name={8}"
 
   # Header row with badge and ReplicationController name
   data:
@@ -35,7 +35,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: ReplicationController
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -144,7 +144,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "namespace"
                                           "jsonPath" ".items.0.metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -340,18 +340,18 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: containers-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: "container-spec-containers-list"
                               baseprefix: "/{{ $basePrefix }}"
                               withoutControls: true
                               pathToItems: .items.0.spec.template.spec.initContainers
                               k8sResourceToFetch: 
-                                group: "apps"
-                                version: "v1"
+                                apiGroup: "apps"
+                                apiVersion: "v1"
                                 plural: "replicasets"
                                 namespace: "{3}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{9}"
 
                   # ---- CONTAINERS SECTION ----
                   - type: antdCol
@@ -380,18 +380,18 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: containers-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: "container-spec-containers-list"
                               baseprefix: "/{{ $basePrefix }}"
                               withoutControls: true
                               pathToItems: .items.0.spec.template.spec.containers
                               k8sResourceToFetch: 
-                                group: "apps"
-                                version: "v1"
+                                apiGroup: "apps"
+                                apiVersion: "v1"
                                 plural: "replicasets"
                                 namespace: "{3}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{9}"
 
           # YAML tab
           - key: yaml
@@ -402,8 +402,8 @@ spec:
                   id: yaml-editor
                   cluster: "{2}"
                   isNameSpaced: true
-                  type: apis
-                  typeName: replicationcontrollers
+                  type: api
+                  plural: replicationcontrollers
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   pathToData: .items.0
@@ -419,14 +419,14 @@ spec:
                 data:
                   id: pods-table
                   baseprefix: /{{ $basePrefix }}
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: "{{ $podFactoryName }}"
                   k8sResourceToFetch: 
-                    version: "v1"
+                    apiVersion: "v1"
                     plural: "pods"
                     namespace: "{3}"
                   dataForControls:
-                    resource: pods
+                    plural: pods
                     apiVersion: v1
                   labelSelectorFull:
                     reqIndex: 0
@@ -442,7 +442,7 @@ spec:
                 data:
                   id: events
                   baseprefix: "/{{ $basePrefix }}"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   wsUrl: "/api/clusters/{2}/openapi-bff-ws/events/eventsWs"
                   pageSize: 50
                   substractHeight: 315

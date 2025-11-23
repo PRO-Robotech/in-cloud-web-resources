@@ -22,11 +22,11 @@ spec:
   # API request used to fetch the target Deployment
   urlsToFetch:
     - cluster: "{2}"
-      group: "apps"
-      version: "v1"
+      apiGroup: "{6}"
+      apiVersion: "{7}"
       namespace: "{3}"
-      plural: "deployments"
-      fieldSelector: "metadata.name={6}"
+      plural: "{8}"
+      fieldSelector: "metadata.name={9}"
 
   # Enables scrollable main content area
   withScrollableMainContentCard: true
@@ -46,7 +46,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: "Deployment"
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -163,7 +163,7 @@ spec:
                                           "reqIndex" 0
                                           "type" "namespace"
                                           "jsonPath" ".items.0.metadata.namespace"
-                                          "factory" "namespace-details"
+                                          "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
                                       }}
@@ -267,26 +267,6 @@ spec:
                                     "text" "Created"
                                   ) | nindent 38 
                                   }}
-
-                              # Owner reference (fallback text if no owner)
-                              # - type: antdFlex
-                              #   data:
-                              #     id: owner-block
-                              #     vertical: true
-                              #     gap: 4
-                              #   children:
-                              #     - type: antdText
-                              #       data:
-                              #         id: owner-label
-                              #         text: Owner
-                              #         strong: true
-                              #     - type: parsedText
-                              #       data:
-                              #         id: owner-value
-                              #         strong: true
-                              #         text: "No owner"
-                              #         style:
-                              #           color: red
 
                       # === RIGHT COLUMN: Rollout and timing settings ===
                       - type: antdCol
@@ -432,18 +412,18 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: containers-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: "container-spec-containers-list"
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: .items.0.spec.template.spec.initContainers
                               k8sResourceToFetch: 
-                                group: "apps"
-                                version: "v1"
+                                apiGroup: "apps"
+                                apiVersion: "v1"
                                 plural: "deployments"
                                 namespace: "{3}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{9}"
 
                   # ---- CONTAINERS SECTION ----
                   - type: antdCol
@@ -472,18 +452,18 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: containers-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: "container-spec-containers-list"
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: .items.0.spec.template.spec.containers
                               k8sResourceToFetch: 
-                                group: "apps"
-                                version: "v1"
+                                apiGroup: "apps"
+                                apiVersion: "v1"
                                 plural: "deployments"
                                 namespace: "{3}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{9}"
 
                   # === Conditions table (visible only if status.conditions exist) ===
                   - type: antdCol
@@ -512,18 +492,18 @@ spec:
                           - type: EnrichedTable
                             data:
                               id: conditions-table
-                              clusterNamePartOfUrl: "{2}"
+                              cluster: "{2}"
                               customizationId: factory-status-conditions
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: ".items.0.status.conditions"
                               k8sResourceToFetch: 
-                                version: "v1"
-                                group: "apps"
+                                apiVersion: "v1"
+                                apiGroup: "apps"
                                 plural: "deployments"
                                 namespace: "{3}"
                               fieldSelector: 
-                                metadata.name: "{6}"
+                                metadata.name: "{9}"
 
           # ------ YAML TAB ------
           - key: yaml
@@ -538,7 +518,7 @@ spec:
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
                   type: apis
-                  typeName: deployments
+                  plural: deployments
                   pathToData: .items.0
                   forcedKind: Deployment
                   apiGroup: apps
@@ -553,11 +533,11 @@ spec:
                 data:
                   id: replicasets-table
                   baseprefix: /{{ $basePrefix }}
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: "{{ $rsFactoryName }}"
                   k8sResourceToFetch: 
-                    version: "v1"
-                    group: "apps"
+                    apiVersion: "v1"
+                    apiGroup: "apps"
                     plural: "replicasets"
                     namespace: "{3}"
                   labelSelectorFull:
@@ -575,15 +555,15 @@ spec:
                 data:
                   id: pods-table
                   baseprefix: /{{ $basePrefix }}
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   customizationId: "{{ $podFactoryName }}"
                   k8sResourceToFetch: 
-                    version: "v1"
+                    apiVersion: "v1"
                     plural: "pods"
                     namespace: "{3}"
-                  dataForControls:
-                    resource: pods
-                    apiVersion: v1
+                  # dataForControls:
+                  #   plural: pods
+                  #   apiVersion: v1
                   labelSelectorFull:
                     reqIndex: 0
                     pathToLabels:  '.items.0.spec.template.metadata.labels'
@@ -598,7 +578,7 @@ spec:
                 data:
                   id: events
                   baseprefix: "/openapi-ui"
-                  clusterNamePartOfUrl: "{2}"
+                  cluster: "{2}"
                   wsUrl: "/api/clusters/{2}/openapi-bff-ws/events/eventsWs"
                   pageSize: 50
                   substractHeight: 315

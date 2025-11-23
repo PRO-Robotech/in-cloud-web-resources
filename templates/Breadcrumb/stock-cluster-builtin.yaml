@@ -7,7 +7,7 @@ spec:
   id: "stock-cluster-builtin-table"
   breadcrumbItems:
     - key: api
-      label: "v1/{typeName}"
+      label: "v1/{plural}"
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -18,9 +18,9 @@ spec:
   id: "stock-cluster-builtin-form"
   breadcrumbItems:
     - key: create-api-res-namespaced-table
-      label: "v1/{typeName}"
-      link: "/{{ .Values.basePrefix }}/{clusterName}/builtin-table/{typeName}"
-    - key: create-api-res-namespaced-typename
+      label: "v1/{plural}"
+      link: "/{{ .Values.basePrefix }}/{cluster}/builtin-table/{plural}"
+    - key: create-api-res-namespaced-plural
       label: Create
 
 ---
@@ -32,7 +32,7 @@ spec:
   id: "stock-cluster-builtin-form-edit"
   breadcrumbItems:
     - key: create-api-res-namespaced-table
-      label: "v1/{typeName}"
-      link: "/{{ .Values.basePrefix }}/{clusterName}/builtin-table/{typeName}"
-    - key: create-api-res-namespaced-typename
+      label: "v1/{plural}"
+      link: "/{{ .Values.basePrefix }}/{cluster}/builtin-table/{plural}"
+    - key: create-api-res-namespaced-plural
       label: Update
