@@ -1,0 +1,15 @@
+{{- if .Values.addons.argocd.enabled  }}
+{{ include "incloud-web-resources.factory.manifets.argocd-appproject-details" (dict
+  "key" "argocd-appproject-details"
+  "resName" "{6}"
+  "basePrefix" .Values.basePrefix
+) }}
+
+{{- if not .Values.namespaceNavigation }}
+{{ include "incloud-web-resources.factory.manifets.argocd-appproject-details" (dict
+  "key" "instance-argocd-appproject-details"
+  "resName" "{7}"
+  "basePrefix" .Values.basePrefix
+) }}
+{{- end }}
+{{- end }}

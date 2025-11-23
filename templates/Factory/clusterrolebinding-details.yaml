@@ -5,10 +5,14 @@ metadata:
 spec:
   key: clusterrolebinding-details
   sidebarTags:
-    - clusterrolebinding-sidebar
+    - clusterrolebinding-details
   withScrollableMainContentCard: true
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{5}"
+    - cluster: "{2}"
+      apiGroup: "{5}"
+      apiVersion: "{6}"
+      plural: "{7}"
+      fieldSelector: "metadata.name={8}"
 
   # Header row with badge and clusterrolebinding name
   data:
@@ -20,30 +24,19 @@ spec:
         style:
           marginBottom: 24px
       children:
-        # Service badge
-        - type: antdText
+        # resource badge
+        - type: ResourceBadge
           data:
-            id: badge-service
-            text: RB
-            title: clusterrolebindings
+            id: factory-resource-badge
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
-              lineHeight: 24px
-              padding: "0 9px"
-              borderRadius: "20px"
-              minWidth: 24
-              display: inline-block
-              textAlign: center
-              whiteSpace: nowrap
-              color: "#fff"
-              backgroundColor: "#6ca100"
-              fontFamily: RedHatDisplay, Overpass, overpass, helvetica, arial, sans-serif
-              fontWeight: 400
-        # Service name
+
+        # resource name
         - type: parsedText
           data:
             id: service-name
-            text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
             style:
               fontSize: 20px
               lineHeight: 24px
@@ -79,7 +72,7 @@ spec:
                           - type: antdText
                             data:
                               id: details-title
-                              text: "clusterrolebinding details"
+                              text: "ClusterrRleBinding details"
                               strong: true
                               style:
                                 fontSize: 20
@@ -109,7 +102,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: meta-name-value
-                                      text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
 
                               # Labels
                               - type: antdFlex
@@ -120,6 +113,8 @@ spec:
                                 children:
                                  {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{5}"
+                                      "linkPrefix" "/openapi-ui/{2}/search?kinds=rbac.authorization.k8s.io~v1~clusterrolebindings&labels="
+                                      "jsonPath" ".items.0.metadata.labels"
                                     ) | nindent 34
                                   }}
 
@@ -132,6 +127,8 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{5}"
+                                      "jsonPath" ".items.0.metadata.annotations"
+                                      "pathToValue" "/metadata/annotations"
                                     ) | nindent 34
                                   }}
 
@@ -143,7 +140,7 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.time.create" (dict
-                                    "req" ".metadata.creationTimestamp"
+                                    "req" ".items.0.metadata.creationTimestamp"
                                     "text" "Created"
                                     ) | nindent 34
                                   }}
@@ -208,26 +205,7 @@ spec:
                                   - type: VisibilityContainer
                                     data:
                                       id: conditions-visibility
-                                      value: "{reqsJsonPath[0]['.roleRef.kind']['-']}"
-                                      style:
-                                        margin: 0
-                                        padding: 0
-                                      children:
-                                        {{ include "incloud-web-resources.factory.links.details" (dict
-                                            "reqIndex" 0
-                                            "type" "role"
-                                            "title" "TODO"
-                                            "namespace" "{reqsJsonPath[0]['.metadata.namespace']}"
-                                            "jsonPath" ".roleRef.name"
-                                            "factory" "role-details"
-                                          ) | nindent 40 
-                                        }}
-
-                                  # TODO не работает корректно
-                                  - type: VisibilityContainer
-                                    data:
-                                      id: conditions-visibility
-                                      value: "{reqsJsonPath[0]['.roleRef.kind']['-']}"
+                                      value: "{reqsJsonPath[0]['.items.0.roleRef.kind']['-']}"
                                       style:
                                         margin: 0
                                         padding: 0
@@ -236,8 +214,9 @@ spec:
                                             "reqIndex" 0
                                             "type" "cluster-role"
                                             "title" "ClusterRole"
-                                            "jsonPath" ".roleRef.name"
-                                            "factory" "clusterrole-details"
+                                            "jsonPath" ".items.0.roleRef.name"
+                                            "factory" "clusterrole-details/rbac.authorization.k8s.io/v1/clusterroles"
+                                            "basePrefix" .Values.basePrefix
                                           ) | nindent 40 
                                         }}
 
@@ -249,8 +228,12 @@ spec:
                 data:
                   id: yaml-editor
                   cluster: "{2}"
-                  isNameSpaced: true
-                  type: "builtin"
-                  typeName: clusterrolebindings
+                  isNameSpaced: false
+                  type: "apis"
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
+                  pathToData: .items.0
+                  plural: clusterrolebindings
+                  forcedKind: ClusterRoleBinding
+                  apiGroup:  "rbac.authorization.k8s.io"
+                  apiVersion: v1

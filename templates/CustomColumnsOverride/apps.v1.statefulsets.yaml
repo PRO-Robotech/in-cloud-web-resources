@@ -17,73 +17,50 @@ metadata:
   name: "stock-cluster-apps.v1.statefulsets"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "SS"
-            "title" "statefulset"
-            "backgroundColor" "#2b9af3"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "statefulset-details"
-          ) | nindent 12 
-        }}
-    - jsonPath: .metadata.namespace
-      name: Namespace
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "NS"
-            "title" "namespace"
-            "backgroundColor" "#a25792ff"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "namespace"
-            "jsonPath" ".metadata.namespace"
-            "factory" "namespace-details"
-          ) | nindent 12
-        }}
-    - jsonPath: .metadata.labels
-      name: Labels
-      type: array
-    - jsonPath: .spec.template.metadata.labels
-      name: Pod Selector
-      type: array
-    - jsonPath: .status.conditions[?(@.type=="Available")].status
-      name: Status
-      type: string
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "StatefulSet"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "statefulset-details/apps/v1/statefulsets"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Namespace"
+      "title" "Namespace"
+      "reqIndex" 0
+      "type" "namespace"
+      "jsonPath" ".metadata.namespace"
+      "factory" "namespace-details/v1/namespaces"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/statefulsets/{6}"
+      "linkPrefix" "/openapi-ui/{2}/search?kinds=apps~v1~statefulsets&labels="
+      ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.template.metadata.labels"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
-    - key: Pod Selector
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   id: "stock-cluster-/apps/v1/statefulsets"
 
+{{ if .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -91,50 +68,117 @@ metadata:
   name: "stock-namespace-apps.v1.statefulsets"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "SS"
-            "title" "statefulset"
-            "backgroundColor" "#2b9af3"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "statefulset-details"
-          ) | nindent 12 
-        }}
-    - jsonPath: .metadata.labels
-      name: Labels
-      type: array
-    - jsonPath: .spec.template.metadata.labels
-      name: Pod Selector
-      type: array
-    - jsonPath: .status.conditions[?(@.type=="Available")].status
-      name: Status
-      type: string
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "StatefulSet"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "statefulset-details/apps/v1/statefulsets"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/statefulsets/{6}"
+      "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=apps~v1~statefulsets&labels="
+      ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.template.metadata.labels"
+        "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
-    - key: Pod Selector
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   id: "stock-namespace-/apps/v1/statefulsets"
+{{ else }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: "stock-project-apps.v1.statefulsets"
+spec:
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "StatefulSet"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "statefulset-details/apps/v1/statefulsets"
+      "basePrefix" .Values.basePrefix
+      ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/statefulsets/{6}"
+      "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=apps~v1~statefulsets&labels="
+      ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.template.metadata.labels"
+        "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
+  id: "stock-project-/apps/v1/statefulsets"
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: "stock-instance-apps.v1.statefulsets"
+spec:
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "StatefulSet"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "project" "{4}"
+      "factory" "instance-statefulset-details/apps/v1/statefulsets"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+      "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/statefulsets/{6}"
+      "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=apps~v1~statefulsets&labels="
+      ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.template.metadata.labels"
+        "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
+  id: "stock-instance-/apps/v1/statefulsets"
+{{ end }}

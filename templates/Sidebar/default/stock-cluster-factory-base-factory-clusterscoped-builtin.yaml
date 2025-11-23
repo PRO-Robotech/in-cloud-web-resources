@@ -1,0 +1,92 @@
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Sidebar
+metadata:
+  name: stock-cluster-factory-base-factory-clusterscoped-builtin
+spec:
+  id: stock-cluster-factory-base-factory-clusterscoped-builtin
+  keysAndTags:
+    {{- if .Values.addons.hbf.enabled }}
+    hbf-hosts:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hosts"
+    hbf-hostbindings:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hostbindings"
+    hbf-networks:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/networks"
+    hbf-addressgroups:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroups"
+    hbf-networkbindings:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/networkbindings"
+    hbf-servicealiases:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/servicealiases"
+    hbf-services:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/services"
+    hbf-addressgroupbindings:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupbindings"
+    hbf-svcsvcrules:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcsvcrules"
+    hbf-svcfqdnrules:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcfqdnrules"
+    hbf-addressgroupportmappings:
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupportmappings"
+    {{- end }}
+    search:
+      - search
+    pods:
+      - v1/pods
+    deployments:
+      - apps/v1/deployments
+    statefulsets:
+      - apps/v1/statefulsets
+    secrets:
+      - v1/secrets
+    configmaps:
+      - v1/configmaps
+    cronjobs:
+      - batch/v1/cronjobs
+    jobs:
+      - batch/v1/jobs
+    daemonsets:
+      - apps/v1/daemonsets
+    replicasets:
+      - apps/v1/replicasets
+    replicationcontrollers:
+      - v1/replicationcontrollers
+    horizontalpodautoscalers:
+      - autoscaling/v2/horizontalpodautoscalers
+    poddisruptionbudgets:
+      - policy/v1/poddisruptionbudgets
+    services:
+      - v1/services
+    networkpolicies:
+      - networking.k8s.io/v1/networkpolicies
+    ingresses:
+      - networking.k8s.io/v1/ingresses
+    persistentvolumes:
+      - v1/persistentvolumes
+    persistentvolumeclaims:
+      - v1/persistentvolumeclaims
+    storageclasses:
+      - storage.k8s.io/v1/storageclasses
+    nodes:
+      - v1/nodes
+    serviceaccounts:
+      - v1/serviceaccounts
+    roles:
+      - rbac.authorization.k8s.io/v1/roles
+    rolebindings:
+      - rbac.authorization.k8s.io/v1/rolebindings
+    clusterroles:
+      - rbac.authorization.k8s.io/v1/clusterroles
+    clusterrolebindings:
+      - rbac.authorization.k8s.io/v1/clusterrolebindings
+    namespaces:
+      - v1/namespaces
+    limitranges:
+      - v1/limitranges
+    resourcequotas:
+      - v1/resourcequotas
+    customresourcedefinitions:
+      - apiextensions.k8s.io/v1/customresourcedefinitions
+  menuItems:
+    {{ include "incloud-web-resources.sidebar.menu.items.cluster" . | nindent 4 }}

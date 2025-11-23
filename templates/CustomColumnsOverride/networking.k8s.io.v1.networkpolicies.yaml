@@ -1,0 +1,216 @@
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: stock-cluster-networking.k8s.io.v1.networkpolicies
+spec:
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "NetworkPolicy"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "networkpolicy-details/networking.k8s.io/v1/networkpolicies"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Namespace"
+      "title" "Namespace"
+      "reqIndex" 0
+      "type" "namespace"
+      "jsonPath" ".metadata.namespace"
+      "factory" "namespace-details/v1/namespaces"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/api/networking.k8s.io/v1/networkpolicies/{6}"
+          "linkPrefix" "/openapi-ui/{2}/search?kinds=networking.k8s.io~v1~networkpolicies&labels="
+        ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.podSelector.matchLabels"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsUndefinedValues:
+    - key: ClusterIP
+      value: "-"
+    - key: LoadbalancerIP
+      value: "-"
+    - key: Labels
+      value: "-"
+    - key: Pod Selector
+      value: "-"
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
+  id: stock-cluster-/networking.k8s.io/v1/networkpolicies
+
+{{ if .Values.namespaceNavigation }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: stock-namespace-networking.k8s.io.v1.networkpolicies
+spec:
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "NetworkPolicy"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "networkpolicy-details/networking.k8s.io/v1/networkpolicies"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/services/{6}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=networking.k8s.io~v1~networkpolicies&labels="
+        ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.podSelector.matchLabels"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsUndefinedValues:
+    - key: Labels
+      value: "-"
+    - key: Pod Selector
+      value: "-"
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
+  id: stock-namespace-/networking.k8s.io/v1/networkpolicies
+{{ else }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: stock-project-networking.k8s.io.v1.networkpolicies
+spec:
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "NetworkPolicy"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "networkpolicy-details/networking.k8s.io/v1/networkpolicies"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/services/{6}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=networking.k8s.io~v1~networkpolicies&labels="
+        ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.podSelector.matchLabels"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsUndefinedValues:
+    - key: Labels
+      value: "-"
+    - key: Pod Selector
+      value: "-"
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
+  id: stock-project-/networking.k8s.io/v1/networkpolicies
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: stock-instance-networking.k8s.io.v1.networkpolicies
+spec:
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "NetworkPolicy"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "project" "{4}"
+      "factory" "instance-networkpolicy-details/networking.k8s.io/v1/networkpolicies"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/services/{6}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=networking.k8s.io~v1~networkpolicies&labels="
+        ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.podSelector.matchLabels"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsUndefinedValues:
+    - key: Labels
+      value: "-"
+    - key: Pod Selector
+      value: "-"
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
+  id: stock-instance-/networking.k8s.io/v1/networkpolicies
+{{ end }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: factory-networkpolicy-details-port-mapping
+spec:
+  additionalPrinterColumns:
+    - jsonPath: .name
+      name: Name
+      type: string
+    - jsonPath: .port
+      name: Port
+      type: string
+    - jsonPath: .protocol
+      name: Protocol
+      type: string
+    - jsonPath: .targetPort
+      name: Pod port or name
+      type: string
+  id: factory-networkpolicy-details-port-mapping

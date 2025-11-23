@@ -5,45 +5,32 @@ metadata:
   name: "stock-cluster-batch.v1.jobs"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "J"
-            "title" "job"
-            "backgroundColor" "#004080"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "job-details"
-          ) | nindent 12 
-        }}
-    - jsonPath: .metadata.namespace
-      name: Namespace
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "NS"
-            "title" "namespace"
-            "backgroundColor" "#a25792ff"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "namespace"
-            "jsonPath" ".metadata.namespace"
-            "factory" "namespace-details"
-          ) | nindent 12
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "Job"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "job-details/batch/v1/jobs"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Namespace"
+      "title" "Namespace"
+      "reqIndex" 0
+      "type" "namespace"
+      "jsonPath" ".metadata.namespace"
+      "factory" "namespace-details/v1/namespaces"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/jobs/{6}"
+          "linkPrefix" "/openapi-ui/{2}/search?kinds=batch~v1~jobs&labels="
+        ) | nindent 4
+    }}
     - jsonPath: .spec.manualSelector
       name: Manual selector
       type: string
@@ -68,19 +55,13 @@ spec:
         disableEventBubbling: true
         items:
         {{ include "incloud-web-resources.factory.statuses.job" . | nindent 8 }}
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Namespace
       value: "-"
@@ -88,6 +69,7 @@ spec:
       value: "-"
   id: "stock-cluster-/batch/v1/jobs"
 
+{{ if .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -95,26 +77,22 @@ metadata:
   name: "stock-namespace-batch.v1.jobs"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "J"
-            "title" "job"
-            "backgroundColor" "#004080"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "job-details"
-          ) | nindent 12 
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "Job"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "job-details/batch/v1/jobs"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{6}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=batch~v1~jobs&labels="
+        ) | nindent 4
+    }}
     - jsonPath: .spec.manualSelector
       name: Manual selector
       type: string
@@ -139,53 +117,167 @@ spec:
         disableEventBubbling: true
         items:
         {{ include "incloud-web-resources.factory.statuses.job" . | nindent 8 }}
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Namespace
       value: "-"
     - key: Starting deadline seconds
       value: "-"
   id: "stock-namespace-/batch/v1/jobs"
+{{ else }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: "stock-project-batch.v1.jobs"
+spec:
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "Job"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "job-details/batch/v1/jobs"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{6}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=batch~v1~jobs&labels="
+        ) | nindent 4
+    }}
+    - jsonPath: .spec.manualSelector
+      name: Manual selector
+      type: string
+    - jsonPath: .spec.backoffLimit
+      name: Backoff limit
+      type: string
+    - jsonPath: .spec.completions
+      name: Completions
+      type: string
+    - jsonPath: .spec.parallelism
+      name: Parallelism
+      type: string
+    - jsonPath: .spec.completionMode
+      name: Completion mode
+      type: string
+    - jsonPath: .spec.suspend
+      name: Suspend
+      type: string
+    - name: Status
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.factory.statuses.job" . | nindent 8 }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+  additionalPrinterColumnsUndefinedValues:
+    - key: Namespace
+      value: "-"
+    - key: Starting deadline seconds
+      value: "-"
+  id: "stock-project-/batch/v1/jobs"
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
 metadata:
-  name: "factory-batch.v1.jobs"
+  name: "stock-instance-batch.v1.jobs"
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "Job"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "project" "{4}"
+      "factory" "instance-job-details/batch/v1/jobs"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{6}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=batch~v1~jobs&labels="
+        ) | nindent 4
+    }}
+    - jsonPath: .spec.manualSelector
+      name: Manual selector
+      type: string
+    - jsonPath: .spec.backoffLimit
+      name: Backoff limit
+      type: string
+    - jsonPath: .spec.completions
+      name: Completions
+      type: string
+    - jsonPath: .spec.parallelism
+      name: Parallelism
+      type: string
+    - jsonPath: .spec.completionMode
+      name: Completion mode
+      type: string
+    - jsonPath: .spec.suspend
+      name: Suspend
+      type: string
+    - name: Status
       type: factory
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "J"
-            "title" "job"
-            "backgroundColor" "#004080"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "job-details"
-          ) | nindent 12 
-        }}
+        {{ include "incloud-web-resources.factory.statuses.job" . | nindent 8 }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+  additionalPrinterColumnsUndefinedValues:
+    - key: Namespace
+      value: "-"
+    - key: Starting deadline seconds
+      value: "-"
+  id: "stock-instance-/batch/v1/jobs"
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: "factory-instance-jobs-details"
+spec:
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "Job"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "project" "{4}"
+      "factory" "instance-job-details/batch/v1/jobs"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{6}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=batch~v1~jobs&labels="
+        ) | nindent 4
+    }}
     - jsonPath: .spec.manualSelector
       name: Manual selector
       type: string
@@ -213,19 +305,77 @@ spec:
         disableEventBubbling: true
         items:
         {{ include "incloud-web-resources.factory.statuses.job" . | nindent 8 }}
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+  additionalPrinterColumnsUndefinedValues:
+    - key: Namespace
+      value: "-"
+    - key: Starting deadline seconds
+      value: "-"
+  id: "factory-instance-jobs-details"
+{{ end }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: "factory-batch.v1.jobs"
+spec:
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "Job"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "job-details/batch/v1/jobs"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+        "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs/{6}"
+        "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=batch~v1~jobs&labels="
+      ) | nindent 4
+    }}
+    - jsonPath: .spec.manualSelector
+      name: Manual selector
+      type: string
+    - jsonPath: .spec.backoffLimit
+      name: Backoff limit
+      type: string
+    - jsonPath: .spec.completions
+      name: Completions
+      type: string
+    - jsonPath: .spec.parallelism
+      name: Parallelism
+      type: string
+    - jsonPath: .spec.completionMode
+      name: Completion mode
+      type: string
+    - jsonPath: .spec.suspend
+      name: Suspend
+      type: string
+    - jsonPath: .spec.startingDeadlineSeconds
+      name: Starting deadline seconds
+      type: string
+    - name: Status
       type: factory
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+        {{ include "incloud-web-resources.factory.statuses.job" . | nindent 8 }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Namespace
       value: "-"

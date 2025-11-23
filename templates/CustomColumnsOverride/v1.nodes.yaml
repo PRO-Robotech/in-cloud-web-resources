@@ -5,42 +5,60 @@ metadata:
   name: stock-cluster-v1.nodes
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "N"
-            "title" "node"
-            "backgroundColor" "#8476d1"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "factory" "node-details"
-          ) | nindent 12
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "Node"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "factory" "node-details/v1/nodes"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     - name: Status
       type: factory
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.factory.statuses.node" . | nindent 8 }}
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
+        {{ include "incloud-web-resources.cco.statuses.node" . | nindent 8 }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+  id: stock-cluster-/v1/nodes
+
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: stock-namespace-v1.nodes
+spec:
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "Node"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "factory" "node-details/v1/nodes"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    - name: Status
       type: factory
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+        {{ include "incloud-web-resources.cco.statuses.node" . | nindent 8 }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-  id: stock-cluster-/v1/nodes
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+  id: stock-namespace-/v1/nodes

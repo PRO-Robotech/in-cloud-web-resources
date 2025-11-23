@@ -7,6 +7,6 @@ spec:
   id: stock-project-factory-pod-details
   keysAndTags:
     pods:
-      - pods-sidebar
+      - pods-details
   menuItems:
     {{ include "incloud-web-resources.sidebar.menu.items.namespaced" . | nindent 4 }}

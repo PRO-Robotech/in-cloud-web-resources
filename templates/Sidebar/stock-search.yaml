@@ -1,0 +1,22 @@
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Sidebar
+metadata:
+  name: stock-cluster-search-page
+spec:
+  id: stock-cluster-search-page
+  menuItems:
+    {{ include "incloud-web-resources.sidebar.menu.items.cluster-items" . | nindent 4 }}
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Sidebar
+metadata:
+  name: stock-namespace-search-page
+spec:
+  id: stock-namespace-search-page
+  keysAndTags:
+    search:
+      - search
+  menuItems:
+    {{ include "incloud-web-resources.sidebar.menu.items.namespaced-items" . | nindent 4 }}

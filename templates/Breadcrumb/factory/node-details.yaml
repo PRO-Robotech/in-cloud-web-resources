@@ -8,6 +8,6 @@ spec:
   breadcrumbItems:
     - key: node
       label: "v1/nodes"
-      link: "/openapi-ui/{clusterName}/builtin-table/nodes"
+      link: "/{{ .Values.basePrefix }}/{cluster}/builtin-table/nodes"
     - key: node
-      label: "{5}"
+      label: "{7}"

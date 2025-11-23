@@ -7,6 +7,6 @@ spec:
   id: stock-project-factory-replicationcontroller-details
   keysAndTags:
     replicationcontrollers:
-      - replicationcontroller-sidebar
+      - replicationcontroller-details
   menuItems:
     {{ include "incloud-web-resources.sidebar.menu.items.namespaced" . | nindent 4 }}

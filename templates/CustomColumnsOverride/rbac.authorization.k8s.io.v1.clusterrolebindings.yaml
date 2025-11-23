@@ -5,47 +5,72 @@ metadata:
   name: stock-cluster-rbac.authorization.k8s.io.v1.clusterrolebindings
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "ClusterRoleBinding"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "factory" "clusterrolebinding-details/rbac.authorization.k8s.io/v1/clusterrolebindings"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Role"
+      "title" "ClusterRole"
+      "jsonPath" ".roleRef.name"
+      "factory" "clusterrole-details/rbac.authorization.k8s.io/v1/clusterroles"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    - jsonPath: .subjects[?(@.kind=="ServiceAccount")].name
+      name: Service accounts
       type: factory
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "CRB"
-            "title" "clusterrolebinding"
-            "backgroundColor" "#008bad"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "factory" "clusterrolebinding-details"
-          ) | nindent 12 
-        }}
-    - jsonPath: .roleRef.name
-      name: Role ref
-      type: string
-    - jsonPath: .subjects[?(@.kind=="ServiceAccount")].name
-      name: Service accounts
-      type: array
+          - type: OwnerRefs
+            data:
+              id: refs
+              baseprefix: /openapi-ui
+              cluster: '{2}'
+              # forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+              reqIndex: 0
+              errorText: error getting refs
+              notArrayErrorText: refs on path are not arr
+              emptyArrayErrorText: "-"
+              isNotRefsArrayErrorText: objects in arr are not refs
+              forcedApiVersion:
+                - kind: ServiceAccount
+                  apiVersion: v1
+              # containerStyle:
+              #   border: "1px solid red"
+              #   padding: "10px"
+              # listFlexProps: 
+              #   gap: 10
+              jsonPathToArrayOfRefs: '.subjects[?(@.kind=="ServiceAccount")]'
+              # keysToForcedLabel?: string | string[] // j
+              baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
+              baseFactoryClusterSceopedBuiltinKey: base-factory-clusterscoped-builtin
+              baseFactoryNamespacedAPIKey: base-factory-namespaced-api
+              baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
+              baseNamespaceFactoryKey: namespace-details
+              baseNavigationPlural: navigations
+              baseNavigationName: navigation
     - jsonPath: .subjects[?(@.kind=="User")].name
       name: Users
       type: array
     - jsonPath: .subjects[?(@.kind=="Group")].name
       name: Groups
       type: array
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.rbac-role-ref" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Role ref
       value: "-"
@@ -57,9 +82,4 @@ spec:
       value: "-"
     - key: Namespace
       value: "All namespaces"
-  additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Role ref
-      value: 64
   id: stock-cluster-/rbac.authorization.k8s.io/v1/clusterrolebindings

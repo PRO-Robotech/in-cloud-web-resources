@@ -37,23 +37,3 @@ spec:
   id: inside-namespace-builtin-table
   menuItems:
     {{ include "incloud-web-resources.sidebar.menu.items.namespaced" . | nindent 4 }}
-
----
-apiVersion: front.in-cloud.io/v1alpha1
-kind: Sidebar
-metadata:
-  name: inside-namespace-crd-form
-spec:
-  id: inside-namespace-crd-form
-  menuItems:
-    {{ include "incloud-web-resources.sidebar.menu.items.namespaced" . | nindent 4 }}
-
----
-apiVersion: front.in-cloud.io/v1alpha1
-kind: Sidebar
-metadata:
-  name: inside-namespace-crd-table
-spec:
-  id: inside-namespace-crd-table
-  menuItems:
-    {{ include "incloud-web-resources.sidebar.menu.items.namespaced" . | nindent 4 }}

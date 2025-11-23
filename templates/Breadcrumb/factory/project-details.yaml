@@ -1,0 +1,31 @@
+{{ $projRes := .Values.projectResource }}
+
+{{ if and ($projRes.deployDefaultForms) (not .Values.namespaceNavigation) }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-cluster-factory-project-details
+spec:
+  id: "stock-cluster-factory-project-details"
+  breadcrumbItems:
+    - key: project
+      label: "{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
+      link: "/{{ .Values.basePrefix }}/{cluster}/api-table/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
+    - key: project
+      label: "{7}"
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-project-factory-project-details
+spec:
+  id: "stock-project-factory-project-details"
+  breadcrumbItems:
+    - key: project
+      label: "{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
+      link: "/{{ .Values.basePrefix }}/{cluster}/api-table/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
+    - key: project
+      label: "{3}"
+{{ end }}

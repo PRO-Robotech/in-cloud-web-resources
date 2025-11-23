@@ -20,14 +20,10 @@ spec:
               bytesValue: "{reqsJsonPath[0]['.sizeBytes']['-']}"
               format: true
               precision: 1
-
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.node-image-id" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.node-image-size" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Message
       value: "-"
-
-  additionalPrinterColumnsTrimLengths:
-    - key: ImageID
-      value: 128
-    - key: Size
-      value: 63
   id: "factory-node-images"

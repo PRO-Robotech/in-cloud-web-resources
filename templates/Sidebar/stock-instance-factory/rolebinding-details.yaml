@@ -1,0 +1,21 @@
+{{- $factoryID := "instance-rolebinding-details" -}}
+{{ if .Values.namespaceNavigation }}
+  {{- $factoryID = "rolebinding-details" -}}
+{{ end }}
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Sidebar
+metadata:
+  name: "stock-instance-factory-{{ $factoryID }}"
+spec:
+  id: "stock-instance-factory-{{ $factoryID }}"
+  keysAndTags:
+    rolebindings:
+      - rolebinding-details
+  menuItems:
+  {{ if .Values.namespaceNavigation }}
+    {{ include "incloud-web-resources.sidebar.menu.items.namespaced" . | nindent 4 }}
+  {{ else }}
+    {{ include "incloud-web-resources.sidebar.menu.items.instance" . | nindent 4 }}
+  {{ end }}

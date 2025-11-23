@@ -8,6 +8,22 @@ spec:
   breadcrumbItems:
     - key: replicationcontrollers
       label: "v1/replicationcontrollers"
-      link: "/openapi-ui/{clusterName}/{namespace}/builtin-table/replicationcontrollers"
+      link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/builtin-table/replicationcontrollers"
     - key: replicationcontroller
-      label: "{5}"
+      label: "{8}"
+
+{{- if not .Values.namespaceNavigation }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-factory-instance-replicationcontroller-details
+spec:
+  id: "stock-instance-factory-instance-replicationcontroller-details"
+  breadcrumbItems:
+    - key: replicationcontrollers
+      label: "v1/replicationcontrollers"
+      link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/replicationcontrollers"
+    - key: replicationcontroller
+      label: "{9}"
+{{- end -}}

@@ -40,7 +40,7 @@
       data:
         id: header-badge
         text: NS
-        title: Nanesoace
+        title: Nanespace
         style:
           fontSize: 20px
           lineHeight: 24px

@@ -8,6 +8,22 @@ spec:
   breadcrumbItems:
     - key: cronjob
       label: "batch/v1/cronjobs"
-      link: "/openapi-ui/{clusterName}/{namespace}/api-table/batch/v1/cronjobs"
+      link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/api-table/batch/v1/cronjobs"
     - key: cronjob
-      label: "{6}"
+      label: "{9}"
+
+{{- if not .Values.namespaceNavigation }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-factory-instance-cronjob-details
+spec:
+  id: "stock-instance-factory-instance-cronjob-details"
+  breadcrumbItems:
+    - key: cronjob
+      label: "batch/v1/cronjobs"
+      link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/batch/v1/cronjobs"
+    - key: cronjob
+      label: "{10}"
+{{- end }}

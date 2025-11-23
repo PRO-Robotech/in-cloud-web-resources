@@ -1,0 +1,171 @@
+{{ $projRes         := .Values.projectResource }}
+{{ $instRes         := .Values.instanceResource }}
+{{ $frontApiGroup   := "front.in-cloud.io" }}
+{{ $frontApiVersion := "v1alpha1" }}
+{{ $mpName          := "marketplacepanels" }}
+{{ $mpKind          := "MarketplacePanel" }}
+{{ $factory         := .Values.projectResource.factory }}
+
+{{ if and ($projRes.deployDefaultForms) (not .Values.namespaceNavigation) }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Factory
+metadata:
+  name: project-details
+spec:
+  key: project-details
+  sidebarTags:
+    - clusterrole-details
+  withScrollableMainContentCard: true
+  urlsToFetch:
+    - cluster: "{2}"
+      apiGroup: "{{ $projRes.apiGroup }}"
+      apiVersion: "{{ $projRes.apiVersion }}"
+      namespace: "{3}"
+      plural: "{{ $projRes.resourceName }}"
+      fieldSelector: "metadata.name={6}"
+
+  # Header row with badge and project name
+  data:
+    - type: antdRow
+      data:
+        id: 1
+        gutter: [24, 24]
+        style:
+          flexGrow: 1
+      children:
+        - type: antdCol
+          data:
+            id: project-column
+            title: ""
+            span: 14
+            style:
+              flexShrink: 0
+          children:
+            - type: ContentCard
+              data:
+                id: project-card
+                title: ""
+                style:
+                  flexShrink: 0
+              children:
+                - type: ProjectInfoCard
+                  data:
+                    id: 211
+                    cluster: "{2}"
+                    namespace:   "{3}"
+                    baseApiGroup:         "{{ $frontApiGroup }}"
+                    baseApiVersion:       "{{ $frontApiVersion }}"
+                    baseProjectApiGroup:  "{{ $projRes.apiGroup }}"
+                    baseProjectVersion:   "{{ $projRes.apiVersion }}"
+                    projectPlural:  "{{ $projRes.resourceName }}"
+                    marketplacePlural:       "{{ $mpName }}"
+                    baseprefix:           "{{ .Values.basePrefix }}"
+                    accessGroups:
+                      {{ $factory.accessGroups | toYaml | nindent 22 }}
+                  children:
+                    # Business name
+                    - type: antdFlex
+                      data:
+                        id: business-name-section
+                        vertical: true
+                        gap: 12
+                        style:
+                          marginBottom: 24px
+                          flexShrink: 0
+                      children:
+                        - type: antdText
+                          data:
+                            id: business-name-label
+                            text: "Business name"
+                            style:
+                              fontSize: 14px
+                        - type: parsedText
+                          data:
+                            id: business-name-value
+                            strong: true
+                            text: "{reqsJsonPath[0]['.spec.businessName']['No business name']}"
+                            style:
+                              fontSize: 36px
+                              fontWeight: 700
+
+                    # Description
+                    - type: antdFlex
+                      data:
+                        id: description-section
+                        vertical: true
+                        style:
+                          marginBottom: 24px
+                          flexShrink: 0
+                      children:
+                        - type: parsedText
+                          data:
+                            id: desc-value
+                            text: "{reqsJsonPath[0]['.spec.description']['No description provided']}"
+                            style:
+                              fontSize: 16px
+                
+                    # Developer tools section
+                    - type: antdFlex
+                      data:
+                        id: toolkit-section
+                        vertical: true
+                        style:
+                          marginTop: "auto"
+                          flexShrink: 0
+                      children:
+                        - type: antdText
+                          data:
+                            id: toolkit-title
+                            text: "Dev toolkit"
+                            style:
+                              fontSize: 14px
+                        - type: antdFlex
+                          data:
+                            id: toolkit-buttons
+                            wrap: true
+                            gap: 8
+                            style:
+                              flexShrink: 0
+                          children:
+                          {{- range $i := $factory.devTools }}
+                            - type: antdButton
+                              data:
+                                id:     "{{ $i.name | lower }}-button"
+                                text:   "{{ $i.name }}"
+                                type:   default
+                                href:   {{ $i.link }}
+                                target: "_blank"
+                                size:   middle
+                          {{- end }}
+
+        - type: antdCol
+          data:
+            id: project-column
+            title: ""
+            span: 10
+            style:
+              flexShrink: 0
+          children:
+            - type: ContentCard
+              data:
+                id: 21
+                title: "Marketplace Dashboard"
+                style:
+                  flexGrow: 1
+              children:
+                - type: antdCol
+                  data:
+                    id: 3
+                  children:
+                    - type: MarketplaceCard
+                      data:
+                        id: 311
+                        cluster: "{2}"
+                        namespace:   "{3}"
+                        baseApiGroup:         "{{ $frontApiGroup }}"
+                        baseApiVersion:       "{{ $frontApiVersion }}"
+                        marketplacePlural:       "{{ $mpName }}"
+                        marketplaceKind:       "{{ $mpKind }}"
+                        baseprefix:           "{{ .Values.basePrefix }}"
+{{ end }}

@@ -7,6 +7,6 @@ spec:
   id: stock-cluster-factory-clusterrolebinding-details
   keysAndTags:
     clusterrolebindings:
-      - clusterrolebinding-sidebar
+      - clusterrolebinding-details
   menuItems:
     {{ include "incloud-web-resources.sidebar.menu.items.namespaced" . | nindent 4 }}

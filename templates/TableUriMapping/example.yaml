@@ -1,0 +1,21 @@
+# ---
+# apiVersion: front.in-cloud.io/v1alpha1
+# kind: TableUriMapping
+# metadata:
+#   name: stock-cluster-service-details
+# spec:
+#   keysToParse: ".metadata.name"
+#   keysToParseSecond: ".metadata.namespace"
+#   id: "stock-cluster-/v1/services"
+#   pathToNavigate: "/{{ .Values.basePrefix }}/{cluster}/~recordValueSecond~/factory/service-details/~recordValue~"
+
+# ---
+# apiVersion: front.in-cloud.io/v1alpha1
+# kind: TableUriMapping
+# metadata:
+#   name: stock-namespace-service-details
+# spec:
+#   keysToParse: ".metadata.name"
+#   keysToParseSecond: ".metadata.namespace"
+#   id: "stock-namespace-/v1/services"
+#   pathToNavigate: "/{{ .Values.basePrefix }}/{cluster}/~recordValueSecond~/factory/service-details/~recordValue~"

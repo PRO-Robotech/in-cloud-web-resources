@@ -1,0 +1,28 @@
+{{ $projRes := .Values.projectResource }}
+
+{{ if and ($projRes.deployDefaultForms) (not .Values.namespaceNavigation) }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomFormsPrefill
+metadata:
+  name: default-projects
+spec:
+  customizationId: "default-/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}"
+  values:
+    - path:
+        - metadata
+        - name
+      value: example
+    - path:
+        - spec
+        - businessName
+      value: Business name
+    - path:
+        - spec
+        - description
+      value: Project description
+    - path:
+        - spec
+        - prefix
+      value: prefix
+{{ end }}

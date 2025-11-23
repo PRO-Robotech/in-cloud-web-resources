@@ -1,0 +1,29 @@
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-project-factory-networkpolicy-details
+spec:
+  id: "stock-project-factory-networkpolicy-details"
+  breadcrumbItems:
+    - key: networkpolicys
+      label: "networking.k8s.io/v1/networkpolicies"
+      link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/api-table/networking.k8s.io/v1/networkpolicies"
+    - key: networkpolicy
+      label: "{9}"
+
+{{- if not .Values.namespaceNavigation }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-factory-instance-networkpolicy-details
+spec:
+  id: "stock-instance-factory-instance-networkpolicy-details"
+  breadcrumbItems:
+    - key: networkpolicys
+      label: "networking.k8s.io/v1/networkpolicies"
+      link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/networking.k8s.io/v1/networkpolicies"
+    - key: networkpolicy
+      label: "{10}"
+{{- end -}}

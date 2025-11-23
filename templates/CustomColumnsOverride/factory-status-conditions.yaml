@@ -35,6 +35,6 @@ spec:
       value: "-"
 
   additionalPrinterColumnsTrimLengths:
-    - key: Message
-      value: 63
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.status-message" . | nindent 4 }}
+
   id: "factory-status-conditions"

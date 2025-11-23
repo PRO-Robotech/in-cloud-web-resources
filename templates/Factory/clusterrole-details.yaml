@@ -5,10 +5,14 @@ metadata:
 spec:
   key: clusterrole-details
   sidebarTags:
-    - clusterrole-sidebar
+    - clusterrole-details
   withScrollableMainContentCard: true
   urlsToFetch:
-    - "/api/clusters/{2}/k8s/apis/rbac.authorization.k8s.io/v1/clusterroles/{5}"
+    - cluster: "{2}"
+      apiGroup: "{5}"
+      apiVersion: "{6}"
+      plural: "{7}"
+      fieldSelector: "metadata.name={8}"
 
   # Header row with badge and clusterrole name
   data:
@@ -20,30 +24,19 @@ spec:
         style:
           marginBottom: 24px
       children:
-        # Service badge
-        - type: antdText
+        # resource badge
+        - type: ResourceBadge
           data:
-            id: badge-service
-            text: CR
-            title: clusterroles
+            id: factory-resource-badge
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
-              lineHeight: 24px
-              padding: "0 9px"
-              borderRadius: "20px"
-              minWidth: 24
-              display: inline-block
-              textAlign: center
-              whiteSpace: nowrap
-              color: "#fff"
-              backgroundColor: "#6ca100"
-              fontFamily: RedHatDisplay, Overpass, overpass, helvetica, arial, sans-serif
-              fontWeight: 400
-        # Service name
+
+        # resource name
         - type: parsedText
           data:
             id: service-name
-            text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
             style:
               fontSize: 20px
               lineHeight: 24px
@@ -109,7 +102,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: meta-name-value
-                                      text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
 
                               # Labels
                               - type: antdFlex
@@ -120,6 +113,8 @@ spec:
                                 children:
                                  {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/rbac.authorization.k8s.io/v1/clusterroles/{5}"
+                                      "linkPrefix" "/openapi-ui/{2}/search?kinds=rbac.authorization.k8s.io~v1~clusterroles&labels="
+                                      "jsonPath" ".items.0.metadata.labels"
                                     ) | nindent 34
                                   }}
 
@@ -132,6 +127,8 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/rbac.authorization.k8s.io/v1/clusterroles/{5}"
+                                      "jsonPath" ".items.0.metadata.annotations"
+                                      "pathToValue" "/metadata/annotations"
                                     ) | nindent 34
                                   }}
 
@@ -143,35 +140,10 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.time.create" (dict
-                                    "req" ".metadata.creationTimestamp"
+                                    "req" ".items.0.metadata.creationTimestamp"
                                     "text" "Created"
                                     ) | nindent 34
                                   }}
-
-                              # # Owner
-                              # - type: antdFlex
-                              #   data:
-                              #     id: meta-owner-block
-                              #     vertical: true
-                              #     gap: 4
-                              #   children:
-                              #     - type: antdText
-                              #       data:
-                              #         id: meta-owner-label
-                              #         strong: true
-                              #         text: "Owner"
-                              #     - type: antdFlex
-                              #       data:
-                              #         id: meta-owner-flex
-                              #         gap: 6
-                              #         align: center
-                              #       children:
-                              #         - type: antdText
-                              #           data:
-                              #             id: meta-owner-fallback
-                              #             text: "No owner"
-                              #             style:
-                              #               color: "#FF0000"
 
                   - type: antdCol
                     data:
@@ -191,12 +163,16 @@ spec:
                       - type: EnrichedTable
                         data:
                           id: conditions-table
-                          fetchUrl: "/api/clusters/{2}/k8s/apis/rbac.authorization.k8s.io/v1/clusterroles/{5}"
-                          clusterNamePartOfUrl: "{2}"
+                          cluster: "{2}"
                           customizationId: factory-k8s-rbac-rules
-                          baseprefix: "/openapi-ui"
-                          withoutControls: true
-                          pathToItems: ".rules"
+                          baseprefix: "/{{ .Values.basePrefix }}"
+                          pathToItems: ".items.0.rules"
+                          k8sResourceToFetch: 
+                            apiVersion: "v1"
+                            apiGroup: "rbac.authorization.k8s.io"
+                            plural: "clusterroles"
+                          fieldSelector:
+                            metadata.name: "{8}"
 
           # YAML tab
           - key: "yaml"
@@ -206,8 +182,12 @@ spec:
                 data:
                   id: yaml-editor
                   cluster: "{2}"
-                  isNameSpaced: true
-                  type: "builtin"
-                  typeName: clusterroles
+                  isNameSpaced: false
+                  type: "apis"
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
+                  pathToData: .items.0
+                  plural: clusterroles
+                  forcedKind: ClusterRole
+                  apiGroup:  "rbac.authorization.k8s.io"
+                  apiVersion: v1

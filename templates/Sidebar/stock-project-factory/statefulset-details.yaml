@@ -7,6 +7,6 @@ spec:
   id: stock-project-factory-statefulset-details
   keysAndTags:
     statefulsets:
-      - statefulset-sidebar
+      - statefulset-details
   menuItems:
     {{ include "incloud-web-resources.sidebar.menu.items.namespaced" . | nindent 4 }}

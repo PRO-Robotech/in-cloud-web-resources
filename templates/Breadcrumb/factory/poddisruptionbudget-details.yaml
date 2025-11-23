@@ -8,6 +8,22 @@ spec:
   breadcrumbItems:
     - key: poddisruptionbudgets
       label: "policy/v1/poddisruptionbudgets"
-      link: "/openapi-ui/{clusterName}/{namespace}/api-table/policy/v1/poddisruptionbudgets"
+      link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/api-table/policy/v1/poddisruptionbudgets"
     - key: poddisruptionbudget
-      label: "{6}"
+      label: "{9}"
+
+{{- if not .Values.namespaceNavigation }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: Breadcrumb
+metadata:
+  name: stock-instance-factory-instance-poddisruptionbudget-details
+spec:
+  id: "stock-instance-factory-instance-poddisruptionbudget-details"
+  breadcrumbItems:
+    - key: poddisruptionbudgets
+      label: "policy/v1/poddisruptionbudgets"
+      link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/policy/v1/poddisruptionbudgets"
+    - key: poddisruptionbudget
+      label: "{10}"
+{{- end -}}

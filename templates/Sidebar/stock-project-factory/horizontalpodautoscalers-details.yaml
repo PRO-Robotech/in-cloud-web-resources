@@ -7,6 +7,6 @@ spec:
   id: stock-project-factory-horizontalpodautoscaler-details
   keysAndTags:
     horizontalpodautoscalers:
-      - horizontalpodautoscaler-sidebar
+      - horizontalpodautoscaler-details
   menuItems:
     {{ include "incloud-web-resources.sidebar.menu.items.namespaced" . | nindent 4 }}

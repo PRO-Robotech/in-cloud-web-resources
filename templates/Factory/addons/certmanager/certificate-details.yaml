@@ -1,0 +1,13 @@
+{{ include "incloud-web-resources.factory.manifets.certificate-details" (dict
+  "key" "certificate-details"
+  "resName" "{6}"
+  "basePrefix" .Values.basePrefix
+) }}
+
+{{- if not .Values.namespaceNavigation }}
+{{ include "incloud-web-resources.factory.manifets.certificate-details" (dict
+  "key" "instance-certificate-details"
+  "resName" "{7}"
+  "basePrefix" .Values.basePrefix
+) }}
+{{- end }}

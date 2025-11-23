@@ -5,67 +5,63 @@ metadata:
   name: stock-cluster-v1.services
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "Service"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "service-details/v1/services"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Namespace"
+      "title" "Namespace"
+      "reqIndex" 0
+      "type" "namespace"
+      "jsonPath" ".metadata.namespace"
+      "factory" "namespace-details/v1/namespaces"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    - customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "S"
-            "title" "service"
-            "backgroundColor" "#6ca100"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "service-details"
-          ) | nindent 12 
-        }}
-    - jsonPath: .metadata.namespace
-      name: Namespace
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "NS"
-            "title" "namespace"
-            "backgroundColor" "#a25792ff"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "namespace"
-            "jsonPath" ".metadata.namespace"
-            "factory" "namespace-details"
-          ) | nindent 12
-        }}
-    - jsonPath: .spec.clusterIP
+        - type: parsedText
+          data:
+            id: loadbalancerip-value
+            text: "{reqsJsonPath[0]['.spec.clusterIP']['-']}"
       name: ClusterIP
-      type: string
-    - jsonPath: .spec.loadBalancerIP
-      name: LoadbalancerIP
-      type: string
-    - jsonPath: .metadata.labels
-      name: Labels
-      type: array
-    - jsonPath: .spec.selector
-      name: Pod Selector
-      type: array
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
+      jsonPath: .spec.clusterIP
       type: factory
-      customProps:
+    - customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+        - type: parsedText
+          data:
+            id: loadbalancerip-value
+            text: "{reqsJsonPath[0]['.status.loadBalancer.ingress[0].ip']['-']}"
+      name: LoadbalancerIP
+      jsonPath: .status.loadBalancer.ingress[0].ip
+      type: factory
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/api/v1/services/{6}"
+          "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~services&labels="
+        ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.selector"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsUndefinedValues:
     - key: ClusterIP
       value: "-"
@@ -76,14 +72,12 @@ spec:
     - key: Pod Selector
       value: "-"
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
-    - key: Pod Selector
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   id: stock-cluster-/v1/services
 
+{{ if .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -91,48 +85,53 @@ metadata:
   name: stock-namespace-v1.services
 spec:
   additionalPrinterColumns:
-    - jsonPath: .metadata.name
-      name: Name
-      type: factory
-      customProps:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "Service"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "service-details/v1/services"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    - customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "S"
-            "title" "service"
-            "backgroundColor" "#6ca100"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".metadata.name"
-            "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-            "factory" "service-details"
-          ) | nindent 12 
-        }}
-    - jsonPath: .spec.clusterIP
+        - type: parsedText
+          data:
+            id: loadbalancerip-value
+            text: "{reqsJsonPath[0]['.spec.clusterIP']['-']}"
       name: ClusterIP
-      type: string
-    - jsonPath: .spec.loadBalancerIP
-      name: LoadbalancerIP
-      type: string
-    - jsonPath: .metadata.labels
-      name: Labels
-      type: array
-    - jsonPath: .spec.selector
-      name: Pod Selector
-      type: array
-    - jsonPath: .metadata.creationTimestamp
-      name: Created
+      jsonPath: .spec.clusterIP
       type: factory
-      customProps:
+    - customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.factory.timeblock" (dict
-          "req" ".metadata.creationTimestamp"
-          ) | nindent 8
-        }}
+        - type: parsedText
+          data:
+            id: loadbalancerip-value
+            text: "{reqsJsonPath[0]['.status.loadBalancer.ingress[0].ip']['-']}"
+      name: LoadbalancerIP
+      jsonPath: .status.loadBalancer.ingress[0].ip
+      type: factory
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/services/{6}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~services&labels="
+        ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.selector"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsUndefinedValues:
     - key: ClusterIP
       value: "-"
@@ -143,14 +142,148 @@ spec:
     - key: Pod Selector
       value: "-"
   additionalPrinterColumnsTrimLengths:
-    - key: Name
-      value: 64
-    - key: Labels
-      value: 1
-    - key: Pod Selector
-      value: 1
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   id: stock-namespace-/v1/services
+{{ else }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: stock-project-v1.services
+spec:
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "Service"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "service-details/v1/services"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    - customProps:
+        disableEventBubbling: true
+        items:
+        - type: parsedText
+          data:
+            id: loadbalancerip-value
+            text: "{reqsJsonPath[0]['.spec.clusterIP']['-']}"
+      name: ClusterIP
+      jsonPath: .spec.clusterIP
+      type: factory
+    - customProps:
+        disableEventBubbling: true
+        items:
+        - type: parsedText
+          data:
+            id: loadbalancerip-value
+            text: "{reqsJsonPath[0]['.status.loadBalancer.ingress[0].ip']['-']}"
+      name: LoadbalancerIP
+      type: factory
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/services/{6}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~services&labels="
+        ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.selector"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsUndefinedValues:
+    - key: ClusterIP
+      value: "-"
+    - key: LoadbalancerIP
+      value: "-"
+    - key: Labels
+      value: "-"
+    - key: Pod Selector
+      value: "-"
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
+  id: stock-project-/v1/services
 
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: stock-instance-v1.services
+spec:
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "Service"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "project" "{4}"
+      "factory" "instance-service-details/v1/services"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    - customProps:
+        disableEventBubbling: true
+        items:
+        - type: parsedText
+          data:
+            id: loadbalancerip-value
+            text: "{reqsJsonPath[0]['.spec.clusterIP']['-']}"
+      name: ClusterIP
+      jsonPath: .spec.clusterIP
+      type: factory
+    - customProps:
+        disableEventBubbling: true
+        items:
+        - type: parsedText
+          data:
+            id: loadbalancerip-value
+            text: "{reqsJsonPath[0]['.status.loadBalancer.ingress[0].ip']['-']}"
+      name: LoadbalancerIP
+      type: factory
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/services/{6}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~services&labels="
+        ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.selector"
+        "linkPrefix" "/openapi-ui/{2}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsUndefinedValues:
+    - key: ClusterIP
+      value: "-"
+    - key: LoadbalancerIP
+      value: "-"
+    - key: Labels
+      value: "-"
+    - key: Pod Selector
+      value: "-"
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
+  id: stock-instance-/v1/services
+{{ end }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride

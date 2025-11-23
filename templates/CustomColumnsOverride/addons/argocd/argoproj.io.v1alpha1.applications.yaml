@@ -1,0 +1,328 @@
+{{- if .Values.addons.argocd.enabled  }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: "stock-cluster-argoproj.io.v1alpha1.applications"
+spec:
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "Application"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "argocd-application-details/argoproj.io/v1alpha1/applications"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Namespace"
+      "title" "Namespace"
+      "type" "namespace"
+      "jsonPath" ".metadata.namespace"
+      "factory" "namespace-details/v1/namespaces"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    - jsonPath: .status.sync.status
+      name: Sync Status
+      type: string
+    - jsonPath: .status.health.status
+      name: Health Status
+      type: string
+    - jsonPath: .status.sync.revision
+      name: Revision
+      type: string
+    - jsonPath: .spec.project
+      name: Project
+      type: string
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsTrimLengths: []
+  additionalPrinterColumnsUndefinedValues:
+    - key: Name
+      value: "-"
+    - key: Sync Status
+      value: "-"
+    - key: Health Status
+      value: "-"
+    - key: Revision
+      value: "-"
+    - key: Project
+      value: "-"
+
+  id: "stock-cluster-/argoproj.io/v1alpha1/applications"
+
+  {{ if .Values.namespaceNavigation }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: "stock-namespace-argoproj.io.v1alpha1.applications"
+spec:
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "Application"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "argocd-application-details/argoproj.io/v1alpha1/applications"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    - jsonPath: .status.sync.status
+      name: Sync Status
+      type: string
+    - jsonPath: .status.health.status
+      name: Health Status
+      type: string
+    - jsonPath: .status.sync.revision
+      name: Revision
+      type: string
+    - jsonPath: .spec.project
+      name: Project
+      type: string
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsTrimLengths: []
+
+  additionalPrinterColumnsUndefinedValues:
+    - key: Name
+      value: "-"
+    - key: Sync Status
+      value: "-"
+    - key: Health Status
+      value: "-"
+    - key: Revision
+      value: "-"
+    - key: Project
+      value: "-"
+
+  id: "stock-namespace-/argoproj.io/v1alpha1/applications"
+  {{ else }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: "stock-project-argoproj.io.v1alpha1.applications"
+spec:
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "Application"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "argocd-application-details/argoproj.io/v1alpha1/applications"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    - jsonPath: .status.sync.status
+      name: Sync Status
+      type: string
+    - jsonPath: .status.health.status
+      name: Health Status
+      type: string
+    - jsonPath: .status.sync.revision
+      name: Revision
+      type: string
+    - jsonPath: .spec.project
+      name: Project
+      type: string
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsTrimLengths: []
+
+  additionalPrinterColumnsUndefinedValues:
+    - key: Name
+      value: "-"
+    - key: Sync Status
+      value: "-"
+    - key: Health Status
+      value: "-"
+    - key: Revision
+      value: "-"
+    - key: Project
+      value: "-"
+
+  id: "stock-project-/argoproj.io/v1alpha1/applications"
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: "stock-instance-argoproj.io.v1alpha1.applications"
+spec:
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "Application"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "argocd-application-details/argoproj.io/v1alpha1/applications"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    - jsonPath: .status.sync.status
+      name: Sync Status
+      type: string
+    - jsonPath: .status.health.status
+      name: Health Status
+      type: string
+    - jsonPath: .status.sync.revision
+      name: Revision
+      type: string
+    - jsonPath: .spec.project
+      name: Project
+      type: string
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsTrimLengths: []
+
+  additionalPrinterColumnsUndefinedValues:
+    - key: Name
+      value: "-"
+    - key: Sync Status
+      value: "-"
+    - key: Health Status
+      value: "-"
+    - key: Revision
+      value: "-"
+    - key: Project
+      value: "-"
+
+  id: "stock-instance-/argoproj.io/v1alpha1/applications"
+  {{ end }}
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: factory-argocd-application-resources
+spec:
+  additionalPrinterColumns:
+    - jsonPath: .kind
+      name: Kind
+      type: string
+    - jsonPath: .version
+      name: Version
+      type: string
+    - jsonPath: .name
+      name: Name
+      type: string
+    - jsonPath: .namespace
+      name: Namespace
+      type: string
+    - jsonPath: .status
+      name: Status
+      type: string
+    - jsonPath: .message
+      name: Message
+      type: string
+
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+    - key: Message
+      value: 64
+  additionalPrinterColumnsUndefinedValues:
+    - key: Message
+      value: "-"
+    - key: Namespace
+      value: "-"
+
+  id: "factory-argocd-application-resources"
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: "factory-argocd-application-status-resources"
+spec:
+  additionalPrinterColumns:
+    - jsonPath: .kind
+      name: Kind
+      type: string
+    - jsonPath: .version
+      name: Version
+      type: string
+    - jsonPath: .name
+      name: Name
+      type: string
+    - jsonPath: .namespace
+      name: Namespace
+      type: string
+    - jsonPath: .status
+      name: Status
+      type: string
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+  additionalPrinterColumnsUndefinedValues:
+    - key: Namespace
+      value: "-"
+
+  id: "factory-argocd-application-status-resources"
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: "factory-argocd-application-status-history"
+spec:
+  additionalPrinterColumns:
+    - jsonPath: .id
+      name: ID
+      type: string
+    - jsonPath: .initiatedBy.username
+      name: InitiatedBy
+      type: string
+    - jsonPath: .deployStartedAt
+      name: Deploy Started At
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.factory.timeblock" (dict
+          "req" ".deployStartedAt"
+          ) | nindent 8
+        }}
+    - jsonPath: .deployedAt
+      name: Deployed At
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.factory.timeblock" (dict
+          "req" ".deployedAt"
+          ) | nindent 8
+        }}
+    - jsonPath: .revision
+      name: Revision
+      type: string
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+  additionalPrinterColumnsUndefinedValues:
+    - key: Namespace
+      value: "-"
+    - key: Revision
+      value: "-"
+  id: "factory-argocd-application-status-history"
+
+{{- end -}}

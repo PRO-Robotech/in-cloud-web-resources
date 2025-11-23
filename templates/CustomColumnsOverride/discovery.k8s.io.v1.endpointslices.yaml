@@ -5,25 +5,17 @@ metadata:
   name: factory-service-details-endpointslice
 spec:
   additionalPrinterColumns:
-    - name: Name
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        {{ include "incloud-web-resources.icon" (dict
-            "text" "P"
-            "title" "pod"
-            "backgroundColor" "#009596"
-          )| nindent 8
-        }}
-        {{ include "incloud-web-resources.factory.linkblock" (dict
-            "reqIndex" 0
-            "type" "name"
-            "jsonPath" ".targetRef.name"
-            "namespace" "{reqsJsonPath[0]['.targetRef.namespace']['-']}"
-            "factory" "pod-details"
-          ) | nindent 12 
-        }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "Pod"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".targetRef.name"
+      "namespace" "{reqsJsonPath[0]['.targetRef.namespace']['-']}"
+      "factory" "pod-details/v1/pods"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
     - jsonPath: .conditions.ready
       name: Ready
       type: bool
@@ -34,6 +26,4 @@ spec:
       name: Terminating
       type: bool
   additionalPrinterColumnsUndefinedValues: []
-
-
   id: factory-service-details-endpointslice

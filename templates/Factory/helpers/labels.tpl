@@ -13,6 +13,7 @@
 {{- $modalDescriptionText := (default "" .modalDescriptionText) -}}
 {{- $inputLabel := (default "" .inputLabel) -}}
 {{- $containerMarginTop := (default "-30px" .containerMarginTop) -}}
+{{- $linkPrefix := (default "" .linkPrefix) -}}
 - type: antdText
   data:
     id: {{ printf "%s-title" $type }}
@@ -39,6 +40,7 @@
     pathToValue: "{{ $pathToValue }}"
     editModalWidth: 650
     paddingContainerEnd: "24px"
+    linkPrefix: "{{ $linkPrefix }}"
 {{- end -}}
 
 {{- define "incloud-web-resources.factory.labels.base.selector" -}}
@@ -46,19 +48,13 @@
 {{- $type := (default "pod-selector" .type) -}}
 {{- $title := (default "Pod selector" .title) -}}
 {{- $jsonPath := (default ".spec.template.metadata.labels" .jsonPath) -}}
-- type: antdText
-  data:
-    id: {{ printf "%s-selector" $type }}
-    text: "{{ $title }}"
-    strong: true
-    style:
-      fontSize: 14
+{{- $basePrefix := (default "openapi-ui" .basePrefix) -}}
 - type: LabelsToSearchParams
   data:
     id: {{ printf "%s-to-search-params" $type }}
     reqIndex: {{$i}}
     jsonPathToLabels: "{{ $jsonPath }}"
-    linkPrefix: "{{ .linkPrefix | default "/openapi-ui/{2}/search" }}"
-    errorText: "-"
+    linkPrefix: "{{ .linkPrefix | default "/{{ $basePrefix }}/{2}/search" }}"
+    errorText: "No selector"
+    # textLink: Search
 {{- end -}}
-
