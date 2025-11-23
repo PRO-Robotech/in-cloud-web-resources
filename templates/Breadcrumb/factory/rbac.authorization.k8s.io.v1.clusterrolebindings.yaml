@@ -10,4 +10,4 @@ spec:
       label: "rbac.authorization.k8s.io/v1/clusterrolebindings"
       link: "/{{ .Values.basePrefix }}/{cluster}/api-table/rbac.authorization.k8s.io/v1/clusterrolebindings"
     - key: clusterrolebinding
-      label: "-{7}"
+      label: "{7}"
