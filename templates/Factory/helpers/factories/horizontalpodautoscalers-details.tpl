@@ -347,22 +347,23 @@ spec:
                                           text: "{reqsJsonPath[0]['.status.desiredReplicas']['-']}"
 
 
-                  # === Conditions table ===
+                  # Conditions section (hidden if none)
                   - type: antdCol
                     data:
-                      id: conditions-column
+                      id: conditions-col
                       style:
                         marginTop: 10
                         padding: 10
                     children:
                       - type: VisibilityContainer
                         data:
-                          id: conditions-container
-                          value: "{reqsJsonPath[0]['.status.conditions']['-']}"
+                          id: conditions-visibility
+                          value: "{reqsJsonPath[0]['.items.0.status.conditions']['-']}"
                           style:
                             margin: 0
                             padding: 0
                         children:
+                          # Conditions title
                           - type: antdText
                             data:
                               id: conditions-title
@@ -370,14 +371,22 @@ spec:
                               strong: true
                               style:
                                 fontSize: 22
+
                           - type: EnrichedTable
                             data:
                               id: conditions-table
-                              fetchUrl: "/api/clusters/{2}/k8s/apis/autoscaling/v2/namespaces/{3}/horizontalpodautoscalers/{6}"
                               cluster: "{2}"
                               customizationId: factory-status-conditions
-                              baseprefix: "/{{ $basePrefix }}"
-                              pathToItems: ".status.conditions"
+                              baseprefix: "/openapi-ui"
+                              withoutControls: true
+                              pathToItems: ".items.0.status.conditions"
+                              k8sResourceToFetch: 
+                                apiGroup: "{6}"
+                                apiVersion: "{7}"
+                                namespace: "{3}"
+                                plural: "{8}"
+                              fieldSelector: 
+                                metadata.name: "{9}"
 
           # --- YAML tab -----------------------------------------------------
           - key: "yaml"

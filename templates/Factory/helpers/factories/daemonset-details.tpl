@@ -410,14 +410,12 @@ spec:
               # Table filtered by Deployment's Pod template labels
               - type: EnrichedTable
                 data:
-                  id: ds-pods-table
-                  fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods"
                   id: pods-table
                   baseprefix: /{{ $basePrefix }}
                   cluster: "{2}"
                   customizationId: "{{ $podFactoryName }}"
                   k8sResourceToFetch: 
-                    version: "v1"
+                    apiVersion: "v1"
                     plural: "pods"
                     namespace: "{3}"
                   # dataForControls:

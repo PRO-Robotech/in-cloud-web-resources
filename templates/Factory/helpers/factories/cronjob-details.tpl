@@ -43,7 +43,7 @@ spec:
         - type: ResourceBadge
           data:
             id: factory-resource-badge
-            value: "{reqsJsonPath[0]['.kind']['-']}"
+            value: "{reqsJsonPath[0]['.items.0.kind']['-']}"
             style:
               fontSize: 20px
 
@@ -51,7 +51,7 @@ spec:
         - type: parsedText
           data:
             id: header-name
-            text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
             style:
               fontSize: 20px
               lineHeight: 24px
@@ -124,7 +124,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: meta-name-value
-                                      text: "{reqsJsonPath[0]['.metadata.name']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
 
                               # Namespace link
                               - type: antdFlex
@@ -153,7 +153,7 @@ spec:
                                       {{ include "incloud-web-resources.factory.linkblock" (dict
                                           "reqIndex" 0
                                           "type" "namespace"
-                                          "jsonPath" ".metadata.namespace"
+                                          "jsonPath" ".items.0.metadata.namespace"
                                           "factory" "namespace-details/v1/namespaces"
                                           "basePrefix" $basePrefix
                                         ) | nindent 38
@@ -169,6 +169,7 @@ spec:
                                  {{ include "incloud-web-resources.factory.labels" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/cronjobs/{6}"
                                       "linkPrefix" "/openapi-ui/{2}/search?kinds=batch~v1~cronjobs&labels="
+                                      "jsonPath" ".items.0.metadata.labels"
                                     ) | nindent 34
                                   }}
 
@@ -181,6 +182,8 @@ spec:
                                 children:
                                   {{ include "incloud-web-resources.factory.annotations.block" (dict
                                       "endpoint" "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/cronjobs/{6}"
+                                      "jsonPath" ".items.0.metadata.annotations"
+                                      "pathToValue" "/metadata/annotations"
                                     ) | nindent 34
                                   }}
 
@@ -199,7 +202,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: schedule-value
-                                      text: "{reqsJsonPath[0]['.spec.schedule']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.schedule']['-']}"
 
                               # Suspend flag
                               - type: antdFlex
@@ -216,7 +219,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: suspend-value
-                                      text: "{reqsJsonPath[0]['.spec.suspend']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.suspend']['-']}"
 
                               # Concurrency policy
                               - type: antdFlex
@@ -233,7 +236,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: concurrency-value
-                                      text: "{reqsJsonPath[0]['.spec.concurrencyPolicy']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.concurrencyPolicy']['-']}"
 
                               # StartingDeadlineSeconds
                               - type: antdFlex
@@ -250,7 +253,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: starting-deadline-value
-                                      text: "{reqsJsonPath[0]['.spec.startingDeadlineSeconds']['Not configured']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.startingDeadlineSeconds']['Not configured']}"
 
                               # Last schedule time (from status)
                               - type: antdFlex
@@ -260,7 +263,7 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.time.create" (dict
-                                    "req" ".status.lastScheduleTime"
+                                    "req" ".items.0.status.lastScheduleTime"
                                     "text" "Last schedule time"
                                     ) | nindent 34
                                   }}
@@ -273,30 +276,10 @@ spec:
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.time.create" (dict
-                                    "req" ".metadata.creationTimestamp"
+                                    "req" ".items.0.metadata.creationTimestamp"
                                     "text" "Created"
                                     ) | nindent 34
                                   }}
-
-                              # Owner information block
-                              # - type: antdFlex
-                              #   data:
-                              #     id: owner-block
-                              #     vertical: true
-                              #     gap: 4
-                              #   children:
-                              #     - type: antdText
-                              #       data:
-                              #         id: owner-label
-                              #         strong: true
-                              #         text: "Owner"
-                              #     - type: parsedText
-                              #       data:
-                              #         id: owner-value
-                              #         strong: true
-                              #         text: "No owner"
-                              #         style:
-                              #           color: red
 
                       # RIGHT COLUMN: Job template fields (completions, parallelism, deadlines)
                       - type: antdCol
@@ -342,7 +325,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: desired-completions-value
-                                      text: "{reqsJsonPath[0]['.spec.jobTemplate.spec.completions']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.jobTemplate.spec.completions']['-']}"
 
                               # Parallelism
                               - type: antdFlex
@@ -359,7 +342,7 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: parallelism-value
-                                      text: "{reqsJsonPath[0]['.spec.jobTemplate.spec.parallelism']['-']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.jobTemplate.spec.parallelism']['-']}"
 
                               # ActiveDeadlineSeconds
                               - type: antdFlex
@@ -376,88 +359,105 @@ spec:
                                   - type: parsedText
                                     data:
                                       id: active-deadline-value
-                                      text: "{reqsJsonPath[0]['.spec.activeDeadlineSeconds']['Not configured']}"
+                                      text: "{reqsJsonPath[0]['.items.0.spec.activeDeadlineSeconds']['Not configured']}"
 
                   # ---- INIT CONTAINERS SECTION ----
                   - type: antdCol
                     data:
-                      id: init-containers-section
+                      id: ds-init-containers-col
                       style:
                         marginTop: 10
                         padding: 10
                     children:
-                      # Hide block if no init containers
                       - type: VisibilityContainer
                         data:
-                          id: init-containers-container
-                          value: "{reqsJsonPath[0]['.spec.jobTemplate.spec.template.spec.initContainers']['-']}"
+                          id: ds-init-containers-container
+                          value: "{reqsJsonPath[0]['.items.0.spec.template.spec.initContainers']['-']}"
                           style:
                             margin: 0
                             padding: 0
                         children:
-                          {{ include "incloud-web-resources.factory.containers.table" (dict
-                              "title" "Init containers"
-                              "customizationId" "container-spec-init-containers-list"
-                              "type" "init-containers"
-                              "apiGroup" "apis/batch/v1"
-                              "kind" "cronjobs"
-                              "resourceName" $resName
-                              "namespace" "{3}"
-                              "jsonPath" ".spec.jobTemplate.spec.template.spec.initContainers"
-                              "pathToItems" "['spec','jobTemplate','spec','template','spec','initContainers']"
-                              "basePrefix" $basePrefix
-                            ) | nindent 26
-                          }}
+                          - type: antdText
+                            data:
+                              id: init-containers-title
+                              text: Init containers
+                              strong: true
+                              style:
+                                fontSize: 22
+                                marginBottom: 32px
+                          - type: EnrichedTable
+                            data:
+                              id: containers-table
+                              cluster: "{2}"
+                              customizationId: "container-spec-containers-list"
+                              baseprefix: "/openapi-ui"
+                              withoutControls: true
+                              pathToItems: .items.0.spec.template.spec.initContainers
+                              k8sResourceToFetch: 
+                                apiGroup: "{6}"
+                                apiVersion: "{7}"
+                                namespace: "{3}"
+                                plural: "{8}"
+                              fieldSelector: 
+                                metadata.name: "{9}"
 
                   # ---- CONTAINERS SECTION ----
                   - type: antdCol
                     data:
-                      id: containers-section
+                      id: ds-containers-col
                       style:
                         marginTop: 10
                         padding: 10
                     children:
-                      # Hide block if no containers
                       - type: VisibilityContainer
                         data:
-                          id: containers-container
-                          value: "{reqsJsonPath[0]['.spec.jobTemplate.spec.template.spec.containers']['-']}"
+                          id: ds-containers-container
+                          value: "{reqsJsonPath[0]['.items.0.spec.template.spec.containers']['-']}"
                           style:
                             margin: 0
                             padding: 0
                         children:
-                          {{ include "incloud-web-resources.factory.containers.table" (dict
-                              "title" "Containers"
-                              "customizationId" "container-spec-containers-list"
-                              "type" "containers"
-                              "apiGroup" "apis/batch/v1"
-                              "kind" "cronjobs"
-                              "resourceName" $resName
-                              "namespace" "{3}"
-                              "jsonPath" ".spec.jobTemplate.spec.template.spec.containers"
-                              "pathToItems" "['spec','jobTemplate','spec','template','spec','containers']"
-                              "basePrefix" $basePrefix
-                            ) | nindent 26
-                          }}
+                          - type: antdText
+                            data:
+                              id: init-containers-title
+                              text: Containers
+                              strong: true
+                              style:
+                                fontSize: 22
+                                marginBottom: 32px
+                          - type: EnrichedTable
+                            data:
+                              id: containers-table
+                              cluster: "{2}"
+                              customizationId: "container-spec-containers-list"
+                              baseprefix: "/openapi-ui"
+                              withoutControls: true
+                              pathToItems: .items.0.spec.template.spec.containers
+                              k8sResourceToFetch: 
+                                apiGroup: "{6}"
+                                apiVersion: "{7}"
+                                namespace: "{3}"
+                                plural: "{8}"
+                              fieldSelector: 
+                                metadata.name: "{9}"
 
-                  # ---- CONDITIONS SECTION ----
+                  # Conditions section (hidden if none)
                   - type: antdCol
                     data:
-                      id: conditions-section
+                      id: conditions-col
                       style:
                         marginTop: 10
                         padding: 10
                     children:
-                      # Hide block if no status.conditions
                       - type: VisibilityContainer
                         data:
-                          id: conditions-container
-                          value: "{reqsJsonPath[0]['.status.conditions']['-']}"
+                          id: conditions-visibility
+                          value: "{reqsJsonPath[0]['.items.0.status.conditions']['-']}"
                           style:
                             margin: 0
                             padding: 0
                         children:
-                          # Section title
+                          # Conditions title
                           - type: antdText
                             data:
                               id: conditions-title
@@ -465,50 +465,66 @@ spec:
                               strong: true
                               style:
                                 fontSize: 22
-                          # Table rendering .status.conditions
+
                           - type: EnrichedTable
                             data:
                               id: conditions-table
-                              fetchUrl: "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/cronjobs/{6}"
                               cluster: "{2}"
                               customizationId: factory-status-conditions
-                              baseprefix: "/{{ $basePrefix }}"
-                              # Path to conditions array
-                              pathToItems: ".status.conditions"
+                              baseprefix: "/openapi-ui"
+                              withoutControls: true
+                              pathToItems: ".items.0.status.conditions"
+                              k8sResourceToFetch: 
+                                apiGroup: "{6}"
+                                apiVersion: "{7}"
+                                namespace: "{3}"
+                                plural: "{8}"
+                              fieldSelector: 
+                                metadata.name: "{9}"
 
           # ------ YAML TAB ------
-          - key: "yaml"
-            label: "YAML"
+          - key: yaml
+            label: YAML
             children:
-              # YAML editor for resource manifest
+              # In-place editor bound to the same Deployment
               - type: YamlEditorSingleton
                 data:
                   id: yaml-editor
                   cluster: "{2}"
                   isNameSpaced: true
-                  type: "builtin"
-                  plural: cronjobs
                   prefillValuesRequestIndex: 0
                   substractHeight: 400
+                  type: api
+                  pathToData: .items.0
+                  apiGroup: "{6}"
+                  apiVersion: "{7}"
+                  namespace: "{3}"
+                  plural: "{8}"
 
           # ------ PODS TAB ------
           - key: pods
             label: Pods
             children:
-              # Table of Pods that match CronJob's job template labels
+              # Table filtered by Deployment's Pod template labels
               - type: EnrichedTable
                 data:
                   id: pods-table
-                  fetchUrl: "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods"
+                  baseprefix: /{{ $basePrefix }}
                   cluster: "{2}"
                   customizationId: "{{ $podFactoryName }}"
-                  baseprefix: "/{{ $basePrefix }}"
-                  # Build label selector from job template's pod labels
+                  k8sResourceToFetch: 
+                    apiVersion: "v1"
+                    plural: "pods"
+                    namespace: "{3}"
+                  # dataForControls:
+                  #   resource: pods
+                  #   apiVersion: v1
                   labelSelectorFull:
                     reqIndex: 0
-                    pathToLabels: ".spec.jobTemplate.spec.template.metadata.labels"
-                  # Items path for Pods list
+                    pathToLabels:  ".items.0.spec.jobTemplate.spec.template.metadata.labels"
+                  # Path to items list in the response
                   pathToItems: ".items"
+                  withoutControls: false
 
 
           # ------ JOBS TAB ------
@@ -519,16 +535,20 @@ spec:
               - type: EnrichedTable
                 data:
                   id: jobs-table
-                  fetchUrl: "/api/clusters/{2}/k8s/apis/batch/v1/namespaces/{3}/jobs"
                   cluster: "{2}"
                   customizationId: "{{ $jobFactoryName }}"
                   baseprefix: "/{{ $basePrefix }}"
                   # Build label selector from CronJob's job template metadata.labels
                   labelSelectorFull:
                     reqIndex: 0
-                    pathToLabels: ".spec.jobTemplate.metadata.labels"
+                    pathToLabels: ".items.0.spec.jobTemplate.metadata.labels"
                   # Items path for Jobs list
                   pathToItems: ".items"
+                  k8sResourceToFetch: 
+                    apiGroup: "batch"
+                    apiVersion: "v1"
+                    namespace: "{3}"
+                    plural: "jobs"
 
           - key: events
             label: Events
@@ -543,10 +563,10 @@ spec:
                   substractHeight: 315
                   limit: 40
                   fieldSelector:
-                    regarding.kind: "{reqsJsonPath[0]['.kind']['-']}"
-                    regarding.name: "{reqsJsonPath[0]['.metadata.name']['-']}"
-                    regarding.namespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-                    regarding.apiVersion: "{reqsJsonPath[0]['.apiVersion']['-']}"
+                    regarding.kind: "{reqsJsonPath[0]['.items.0.kind']['-']}"
+                    regarding.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+                    regarding.namespace: "{reqsJsonPath[0]['.items.0.metadata.namespace']['-']}"
+                    regarding.apiVersion: "{reqsJsonPath[0]['.items.0.apiVersion']['-']}"
                   baseFactoryNamespacedAPIKey: base-factory-namespaced-api
                   baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
                   baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin

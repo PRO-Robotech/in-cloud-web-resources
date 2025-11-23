@@ -351,3 +351,31 @@
     errorText:    "Unavailable"
     fallbackText: "Progressing"
 {{- end -}}
+
+{{- define "incloud-web-resources.cco.statuses.job" -}}
+- type: StatusText
+  data:
+    id: header-status
+
+    # --- Collected values from Job conditions -------------------------------
+    values: 
+      # Extracts the type of any condition where type == 'Complete' or 'Failed'
+      - "{reqsJsonPath[0]['.status.conditions[?(@.type=='Complete' || @.type=='Failed')].type']['-']}"
+
+    # --- Success criteria ---------------------------------------------------
+    criteriaSuccess: equals
+    stategySuccess: every
+    valueToCompareSuccess:
+      - "Complete"    # Job succeeded
+
+    # --- Error criteria -----------------------------------------------------
+    criteriaError: equals
+    strategyError: every     # ← likely meant to be `strategyError`
+    valueToCompareError:
+      - "Failed"      # Job failed
+
+    # --- Output text rendering ----------------------------------------------
+    successText:  "Available"
+    errorText:    "Unavailable"
+    fallbackText: "Progressing"
+{{- end -}}
