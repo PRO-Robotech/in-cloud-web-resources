@@ -413,6 +413,7 @@ spec:
                     apiVersion: "v1"
                     plural: "pods"
                     namespace: "{3}"
+                  withoutControls: false
 
           - key: events
             label: Events

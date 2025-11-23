@@ -237,18 +237,6 @@ spec:
                                     ) | nindent 34
                                   }}
 
-                              # Created timestamp
-                              - type: antdFlex
-                                data:
-                                  id: meta-created-block
-                                  vertical: true
-                                  gap: 4
-                                children:
-                                  {{ include "incloud-web-resources.factory.time.create" (dict
-                                    "req" ".items.0.metadata.creationTimestamp"
-                                    "text" "Created"
-                                    ) | nindent 38
-                                  }}
 
                               - type: antdFlex
                                 data:
@@ -271,7 +259,7 @@ spec:
                                       reqIndex: 0
                                       errorText: error getting refs
                                       notArrayErrorText: refs on path are not arr
-                                      emptyArrayErrorText: no refs
+                                      emptyArrayErrorText: "-"
                                       isNotRefsArrayErrorText: objects in arr are not refs
                                       # containerStyle:
                                       #   border: "1px solid red"
@@ -287,6 +275,19 @@ spec:
                                       baseNamespaceFactoryKey: namespace-details
                                       baseNavigationPlural: navigations
                                       baseNavigationName: navigation
+
+                              # Created timestamp
+                              - type: antdFlex
+                                data:
+                                  id: meta-created-block
+                                  vertical: true
+                                  gap: 4
+                                children:
+                                  {{ include "incloud-web-resources.factory.time.create" (dict
+                                    "req" ".items.0.metadata.creationTimestamp"
+                                    "text" "Created"
+                                    ) | nindent 38
+                                  }}
 
                       # Right column: replica counts
                       - type: antdCol

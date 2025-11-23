@@ -561,9 +561,9 @@ spec:
                     apiVersion: "v1"
                     plural: "pods"
                     namespace: "{3}"
-                  dataForControls:
-                    plural: pods
-                    apiVersion: v1
+                  # dataForControls:
+                  #   plural: pods
+                  #   apiVersion: v1
                   labelSelectorFull:
                     reqIndex: 0
                     pathToLabels:  '.items.0.spec.template.metadata.labels'

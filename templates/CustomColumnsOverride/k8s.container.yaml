@@ -146,3 +146,30 @@ spec:
     - key: Ports
       value: "-"
   id: container-spec-containers-list
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: container-metrics
+spec:
+  additionalPrinterColumns:
+    - jsonPath: .name
+      name: Name
+      type: string
+    - jsonPath: .usage.cpu
+      name: CPU Usage
+      type: string
+    - jsonPath: .usage.memory
+      name: Memory Usage
+      type: string
+
+  additionalPrinterColumnsUndefinedValues:
+    - key: Name
+      value: "-"
+    - key: CPU Usage
+      value: "-"
+    - key: Memory Usage
+      value: "-"
+
+  id: container-metrics

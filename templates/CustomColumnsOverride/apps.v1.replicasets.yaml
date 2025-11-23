@@ -52,7 +52,7 @@ spec:
               reqIndex: 0
               errorText: error getting refs
               notArrayErrorText: refs on path are not arr
-              emptyArrayErrorText: no refs
+              emptyArrayErrorText: "-"
               isNotRefsArrayErrorText: objects in arr are not refs
               # containerStyle:
               #   border: "1px solid red"
@@ -124,7 +124,7 @@ spec:
               reqIndex: 0
               errorText: error getting refs
               notArrayErrorText: refs on path are not arr
-              emptyArrayErrorText: no refs
+              emptyArrayErrorText: "-"
               isNotRefsArrayErrorText: objects in arr are not refs
               # containerStyle:
               #   border: "1px solid red"
@@ -195,7 +195,7 @@ spec:
               reqIndex: 0
               errorText: error getting refs
               notArrayErrorText: refs on path are not arr
-              emptyArrayErrorText: no refs
+              emptyArrayErrorText: "-"
               isNotRefsArrayErrorText: objects in arr are not refs
               # containerStyle:
               #   border: "1px solid red"
@@ -267,7 +267,7 @@ spec:
               reqIndex: 0
               errorText: error getting refs
               notArrayErrorText: refs on path are not arr
-              emptyArrayErrorText: no refs
+              emptyArrayErrorText: "-"
               isNotRefsArrayErrorText: objects in arr are not refs
               # containerStyle:
               #   border: "1px solid red"
@@ -338,7 +338,7 @@ spec:
               reqIndex: 0
               errorText: error getting refs
               notArrayErrorText: refs on path are not arr
-              emptyArrayErrorText: no refs
+              emptyArrayErrorText: "-"
               isNotRefsArrayErrorText: objects in arr are not refs
               # containerStyle:
               #   border: "1px solid red"

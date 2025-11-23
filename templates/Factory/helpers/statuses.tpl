@@ -163,8 +163,8 @@
 
     # --- Output text rendering ----------------------------------------------
     successText:  "{reqsJsonPath[0]['.status.phase']}"
-    errorText:    "Error"
-    fallbackText: "Progressing"
+    errorText:    "{reqsJsonPath[0]['.status.phase']}"
+    fallbackText: "{reqsJsonPath[0]['.status.phase']}"
 {{- end -}}
 
 
@@ -252,8 +252,8 @@
 
     # --- Output text rendering ----------------------------------------------
     successText:  "{reqsJsonPath[0]['.items.0.status.phase']}"
-    errorText:    "Error"
-    fallbackText: "Progressing"
+    errorText:    "{reqsJsonPath[0]['.items.0.status.phase']}"
+    fallbackText: "{reqsJsonPath[0]['.items.0.status.phase']}"
 {{- end -}}
 
 {{- define "incloud-web-resources.factory.statuses.node" -}}

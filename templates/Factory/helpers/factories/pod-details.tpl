@@ -20,7 +20,7 @@ spec:
       namespace: "{3}"
       plural: "{7}"
       fieldSelector: "metadata.name={8}"
-      
+
   # Header row with badge, pod name, and status
   data:
     - type: antdFlex
@@ -239,7 +239,7 @@ spec:
                                       reqIndex: 0
                                       errorText: error getting refs
                                       notArrayErrorText: refs on path are not arr
-                                      emptyArrayErrorText: no refs
+                                      emptyArrayErrorText: "-"
                                       isNotRefsArrayErrorText: objects in arr are not refs
                                       jsonPathToArrayOfRefs: ".items.0.metadata.ownerReferences"
                                       # keysToForcedLabel?: string | string[] // j
@@ -413,6 +413,45 @@ spec:
                                     data:
                                       id: qos-class-value
                                       text: "{reqsJsonPath[0]['.items.0.status.qosClass']['-']}"
+
+                  # - type: antdCol
+                  #   data:
+                  #     id: ds-metrics-containers-col
+                  #     style:
+                  #       marginTop: 10
+                  #       padding: 10
+                  #   children:
+                  #     - type: VisibilityContainer
+                  #       data:
+                  #         id: ds-metrics-containers-container
+                  #         value: "{reqsJsonPath[0]['.items.0.containers']['-']}"
+                  #         style:
+                  #           margin: 0
+                  #           padding: 0
+                  #       children:
+                  #     - type: antdText
+                  #       data:
+                  #         id: metrics-containers-title
+                  #         text: Metrics containers
+                  #         strong: true
+                  #         style:
+                  #           fontSize: 22
+                  #           marginBottom: 32px
+                  #     - type: EnrichedTable
+                  #       data:
+                  #         id: containers-table
+                  #         cluster: "{2}"
+                  #         customizationId: "container-metrics"
+                  #         baseprefix: "/openapi-ui"
+                  #         withoutControls: true
+                  #         pathToItems: .items.0.containers
+                  #         k8sResourceToFetch: 
+                  #           apiGroup: "metrics.k8s.io"
+                  #           apiVersion: "v1beta1"
+                  #           namespace: "{3}"
+                  #           plural: "pods"
+                  #         fieldSelector: 
+                  #           metadata.name: "{8}"
 
                   # ---- INIT CONTAINERS SECTION ----
                   - type: antdCol

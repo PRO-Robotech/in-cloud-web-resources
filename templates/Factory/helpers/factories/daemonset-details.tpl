@@ -245,17 +245,17 @@ spec:
                                     ) | nindent 34
                                   }}
 
-                              # Creation time block
+                              # Created timestamp
                               - type: antdFlex
                                 data:
-                                  id: ds-created-time
+                                  id: meta-created-block
                                   vertical: true
                                   gap: 4
                                 children:
                                   {{ include "incloud-web-resources.factory.time.create" (dict
                                     "req" ".items.0.metadata.creationTimestamp"
                                     "text" "Created"
-                                    ) | nindent 30
+                                    ) | nindent 38
                                   }}
 
                       # RIGHT COLUMN: Status counts
@@ -420,9 +420,9 @@ spec:
                     version: "v1"
                     plural: "pods"
                     namespace: "{3}"
-                  dataForControls:
-                    resource: pods
-                    apiVersion: v1
+                  # dataForControls:
+                  #   resource: pods
+                  #   apiVersion: v1
                   labelSelectorFull:
                     reqIndex: 0
                     pathToLabels:  '.items.0.spec.template.metadata.labels'
