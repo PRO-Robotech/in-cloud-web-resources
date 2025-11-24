@@ -3,45 +3,66 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: incloud-web
-  namespace: incloud-argocd
+  namespace: in-cloud-argocd
 spec:
   project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: in-cloud-web
   source:
     repoURL: https://github.com/PRO-Robotech/incloud-web-chart.git
-    targetRevision: dev
+    targetRevision: v1.1.0-rc1
     path: .
     helm:
       values: |-
         incloud-web-resources:
           enabled: false
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: incloud-web
+        fullnameOverride: in-cloud-web
+        externalDomain: 127.0.0.1
+        service:
+          enabled: true
+          type: LoadBalancer
+          ports:
+            - name: web-http
+              port: 8080
+              targetPort: 8080
+              protocol: TCP
+            - name: nginx-http
+              port: 80
+              targetPort: 8081
+              protocol: TCP
+            - name: bff-http
+              port: 8082
+              targetPort: 8082
+              protocol: TCP
+
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
 
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: incloud-web-resources
-  namespace: incloud-argocd
+  namespace: in-cloud-argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/PRO-Robotech/incloud-web-resources.git
-    targetRevision: dev
+    targetRevision: v1.1.0-rc1
     path: .
     helm:
       values: |-
         addons:
           hbf:
-            enabled: true
+            enabled: false
             apiVersion: v1beta1
+          trivy:
+            enabled: true
   destination:
     server: https://kubernetes.default.svc
-    namespace: incloud-web
+    namespace: in-cloud-web
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true

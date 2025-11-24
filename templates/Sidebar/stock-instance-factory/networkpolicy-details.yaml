@@ -1,6 +1,6 @@
 {{- $factoryID := "instance-networkpolicy-details" -}}
 {{ if .Values.namespaceNavigation }}
-  {{- $factoryID = "service-details" -}}
+  {{- $factoryID = "networkpolicy-details" -}}
 {{ end }}
 
 ---
