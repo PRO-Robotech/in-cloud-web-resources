@@ -526,8 +526,6 @@ spec:
                     pathToLabels:  ".items.0.spec.jobTemplate.spec.template.metadata.labels"
                   # Path to items list in the response
                   pathToItems: ".items"
-                  withoutControls: false
-
 
           # ------ JOBS TAB ------
           - key: jobs

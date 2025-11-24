@@ -265,6 +265,5 @@ spec:
                   # dataForControls:
                   #   plural: pods
                   #   apiVersion: v1
-                  withoutControls: false
 
 {{- end -}}

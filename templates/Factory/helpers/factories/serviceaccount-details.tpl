@@ -267,6 +267,5 @@ spec:
                     spec.serviceAccountName: "{8}"
                   # Path to items list in the response
                   pathToItems: ".items"
-                  withoutControls: false
 
 {{- end -}}
