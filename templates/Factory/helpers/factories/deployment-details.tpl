@@ -562,6 +562,7 @@ spec:
                     plural: "pods"
                     namespace: "{3}"
                   dataForControls:
+                    cluster: "{2}"
                     apiVersion: "v1"
                     plural: "pods"
                     namespace: "{3}"
