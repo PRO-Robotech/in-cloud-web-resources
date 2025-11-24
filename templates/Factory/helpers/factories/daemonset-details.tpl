@@ -419,8 +419,9 @@ spec:
                     plural: "pods"
                     namespace: "{3}"
                   dataForControls:
-                    resource: pods
-                    apiVersion: v1
+                    apiVersion: "v1"
+                    plural: "pods"
+                    namespace: "{3}"
                   labelSelectorFull:
                     reqIndex: 0
                     pathToLabels:  '.items.0.spec.template.metadata.labels'
