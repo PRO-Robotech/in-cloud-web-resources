@@ -413,7 +413,11 @@ spec:
                     apiVersion: "v1"
                     plural: "pods"
                     namespace: "{3}"
-                  withoutControls: false
+                  dataForControls:
+                    cluster: "{2}"
+                    apiVersion: "v1"
+                    plural: "pods"
+                    namespace: "{3}"
 
           - key: events
             label: Events

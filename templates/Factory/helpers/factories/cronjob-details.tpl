@@ -516,9 +516,11 @@ spec:
                     apiVersion: "v1"
                     plural: "pods"
                     namespace: "{3}"
-                  # dataForControls:
-                  #   resource: pods
-                  #   apiVersion: v1
+                  dataForControls:
+                    cluster: "{2}"
+                    apiVersion: "v1"
+                    plural: "pods"
+                    namespace: "{3}"
                   labelSelectorFull:
                     reqIndex: 0
                     pathToLabels:  ".items.0.spec.jobTemplate.spec.template.metadata.labels"

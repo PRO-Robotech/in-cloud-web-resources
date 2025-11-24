@@ -448,12 +448,16 @@ spec:
                     apiVersion: "v1"
                     plural: "pods"
                     namespace: "{3}"
+                  dataForControls:
+                    cluster: "{2}"
+                    apiVersion: "v1"
+                    plural: "pods"
+                    namespace: "{3}"
                   labelSelectorFull:
                     reqIndex: 0
                     pathToLabels:  '.items.0.spec.template.metadata.labels'
                   # Path to items list in the response
                   pathToItems: ".items"
-                  withoutControls: false
 
           - key: events
             label: Events
