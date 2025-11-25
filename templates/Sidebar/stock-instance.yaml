@@ -89,28 +89,40 @@ spec:
   keysAndTags:
     pods:
       - pods
+      - v1/pods
     configmaps:
       - configmaps
+      - v1/configmaps
     limitranges:
       - limitranges
+      - v1/limitranges
     namespaces:
       - namespaces
+      - v1/namespaces
     nodes:
       - nodes
+      - v1/nodes
     persistentvolumeclaims:
       - persistentvolumeclaims
+      - v1/persistentvolumeclaims
     persistentvolumes:
       - persistentvolumes
+      - v1/persistentvolumes
     resourcequotas:
       - resourcequotas
+      - v1/resourcequotas
     secrets:
       - secrets
+      - v1/secrets
     serviceaccounts:
       - serviceaccounts
+      - v1/serviceaccounts
     services:
       - services
+      - v1/services
     replicationcontrollers:
       - replicationcontrollers
+      - v1/replicationcontrollers
   menuItems:
   {{ if .Values.namespaceNavigation }}
     {{ include "incloud-web-resources.sidebar.menu.items.namespaced" . | nindent 4 }}
@@ -128,8 +140,10 @@ spec:
   keysAndTags:
     pods:
       - pods
+      - v1/pods
     nodes:
       - nodes
+      - v1/nodes
   menuItems:
   {{ if .Values.namespaceNavigation }}
     {{ include "incloud-web-resources.sidebar.menu.items.namespaced" . | nindent 4 }}
