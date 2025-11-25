@@ -30,6 +30,12 @@ spec:
       plural: "{8}"
       fieldSelector: "metadata.name={9}"
 
+    - cluster: "{2}"
+      apiGroup: "metrics.k8s.io"
+      apiVersion: "v1beta1"
+      namespace: "{3}"
+      plural: "pods"
+
   data:
     # === Header with icon, name, and job status ===
     - type: antdFlex
@@ -578,6 +584,8 @@ spec:
                     pathToLabels:  '.items.0.spec.template.metadata.labels'
                   # Path to items list in the response
                   pathToItems: ".items"
+                  additionalReqsDataToEachItem:
+                    - 1
 
           - key: events
             label: Events

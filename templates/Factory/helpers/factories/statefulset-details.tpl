@@ -24,6 +24,12 @@ spec:
       plural: "{8}"
       fieldSelector: "metadata.name={9}"
 
+    - cluster: "{2}"
+      apiGroup: "metrics.k8s.io"
+      apiVersion: "v1beta1"
+      namespace: "{3}"
+      plural: "pods"
+
   data:
     # Header section
     - type: antdFlex
@@ -418,6 +424,8 @@ spec:
                     apiVersion: "v1"
                     plural: "pods"
                     namespace: "{3}"
+                  additionalReqsDataToEachItem:
+                    - 1
 
           - key: events
             label: Events

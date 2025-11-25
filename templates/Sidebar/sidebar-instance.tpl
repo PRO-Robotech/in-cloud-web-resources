@@ -160,7 +160,7 @@
     {{ if .items.pods }}
     - key: pods
       label: Pods
-      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/pods
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/pods?resources=metrics.k8s.io/v1beta1/pods
     {{ end }}
     {{ if .items.deployments }}
     - key: deployments
@@ -283,7 +283,7 @@
     {{ if .items.nodes }}
     - key: nodes
       label: Nodes
-      link: /{{ $.Values.basePrefix }}/{cluster}/builtin-table/nodes
+      link: /{{ $.Values.basePrefix }}/{cluster}/builtin-table/nodes?resources=metrics.k8s.io/v1beta1/nodes
     {{ end }}
     {{ with .extraItems }}
       {{ . | toYaml | nindent 4 }}

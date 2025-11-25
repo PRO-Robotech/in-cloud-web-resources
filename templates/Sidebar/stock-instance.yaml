@@ -125,6 +125,11 @@ metadata:
   name: stock-instance-builtin-table
 spec:
   id: stock-instance-builtin-table
+  keysAndTags:
+    pods:
+      - v1/pods?resources=metrics.k8s.io/v1beta1/pods
+    nodes:
+      - v1/nodes?resources=metrics.k8s.io/v1beta1/nodes
   menuItems:
   {{ if .Values.namespaceNavigation }}
     {{ include "incloud-web-resources.sidebar.menu.items.namespaced" . | nindent 4 }}
