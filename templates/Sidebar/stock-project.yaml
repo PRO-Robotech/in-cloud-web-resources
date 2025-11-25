@@ -115,8 +115,8 @@ spec:
   id: stock-project-builtin-table
   keysAndTags:
     pods:
-      - v1/pods?resources=metrics.k8s.io/v1beta1/pods
+      - pods
     nodes:
-      - v1/nodes?resources=metrics.k8s.io/v1beta1/nodes
+      - nodes
   menuItems:
     {{ include "incloud-web-resources.sidebar.menu.items.namespaced" . | nindent 4 }}

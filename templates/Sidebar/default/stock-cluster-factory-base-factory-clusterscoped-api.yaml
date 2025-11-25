@@ -32,7 +32,7 @@ spec:
     search:
       - search
     pods:
-      - v1/pods
+      - pods
     deployments:
       - apps/v1/deployments
     statefulsets:
