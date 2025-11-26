@@ -78,7 +78,7 @@ kind: CustomColumnsOverride
 metadata:
   name: "stock-namespace-apps.v1.deployments"
 spec:
-  additionalPrinterColumns: &deploymentsColumns
+  additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
       "columnName" "Name"
       "title" "Deployment"
@@ -129,7 +129,40 @@ kind: CustomColumnsOverride
 metadata:
   name: "stock-project-apps.v1.deployments"
 spec:
-  additionalPrinterColumns: *deploymentsColumns
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Name"
+      "title" "Deployment"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "factory" "deployment-details/apps/v1/deployments"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.labels-new" (dict
+          "endpoint" "/api/clusters/{2}/k8s/apis/apps/v1/namespaces/{3}/deployments/{6}"
+          "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=apps~v1~deployments&labels="
+        ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.pod-selector" (dict
+        "type" "pod"
+        "jsonPath" ".spec.template.metadata.labels"
+        "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~pods&labels="
+      ) | nindent 4
+    }}
+    - name: Status
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        {{ include "incloud-web-resources.cco.statuses.deployment" . | nindent 8 }}
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
   additionalPrinterColumnsTrimLengths:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}

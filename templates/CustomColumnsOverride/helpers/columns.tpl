@@ -22,15 +22,61 @@
         align: center
         gap: 6   # расстояние между иконкой и текстом
       children:
+        {{- if ne $title "" }}
         - type: ResourceBadge
           data:
             id: example-resource-badge
             value: {{ $title }}
+        {{- end }}
         {{ include "incloud-web-resources.factory.linkblock" (dict
             "reqIndex" $reqIndex
             "type" $type
             "jsonPath" $jsonPath
             "factory" $factory
+            "basePrefix" $basePrefix
+            "namespace" $namespace
+            "project" $project
+          ) | nindent 8
+        }}
+{{- end -}}
+
+{{- define "incloud-web-resources.cco.columns.icon-link-block-api-table" -}}
+{{- $columnName       := (default ""            .columnName)      -}}
+{{- $title            := (default ""            .title)           -}}
+{{- $reqIndex         := (default 0             .reqIndex)        -}}
+{{- $type             := (default ""            .type)            -}}
+{{- $title            := (default ""            .title)           -}}
+{{- $jsonPath         := (default ""            .jsonPath)        -}}
+{{- $resource         := (default ""            .resource)        -}}
+{{- $basePrefix       := (default "openapi-ui"  .basePrefix)      -}}
+{{- $namespace        := (default ""            .namespace)       -}}
+{{- $project          := (default ""            .project)         -}}
+
+- jsonPath: {{ $jsonPath }}
+  name: {{ $columnName }}
+  type: factory
+  customProps:
+    disableEventBubbling: true
+    items:
+    - type: antdFlex
+      data:
+        id: resource-badge-link-row
+        direction: row
+        align: center
+        gap: 6   # расстояние между иконкой и текстом
+      children:
+        {{- if ne $title "" }}
+        - type: ResourceBadge
+          data:
+            id: example-resource-badge
+            value: {{ $title }}
+        {{- end }}
+        {{ include "incloud-web-resources.api-table.links.details" (dict
+            "reqIndex" $reqIndex
+            "type" $type
+            "title" $title
+            "jsonPath" $jsonPath
+            "resource" $resource
             "basePrefix" $basePrefix
             "namespace" $namespace
             "project" $project

@@ -19,6 +19,9 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
+    - jsonPath: .spec.prefix
+      name: Prefix
+      type: string
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"

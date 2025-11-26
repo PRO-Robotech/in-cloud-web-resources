@@ -15,13 +15,6 @@
 {{- if ne $proj "" }}
   {{- $nsPart = printf "%s%s/" $nsPart $proj -}}
 {{- end }}
-- type: parsedText
-  data:
-    id: {{ printf "%s-title" $type }}
-    strong: true
-    text: "{{ $title }}"
-    style:
-      fontWeight: bold
 - type: antdLink
   data:
     id: {{ printf "%s-link" $type }}

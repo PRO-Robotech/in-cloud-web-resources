@@ -8,7 +8,7 @@ metadata:
   name: stock-project-instance
 spec:
   additionalPrinterColumns:
-    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+    {{ include "incloud-web-resources.cco.columns.icon-link-block-api-table" (dict
       "columnName" "Name"
       "title" "Instance"
       "reqIndex" 0
@@ -16,7 +16,7 @@ spec:
       "jsonPath" ".metadata.name"
       "resource" "apps/v1/deployments"
       "project" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}-{reqsJsonPath[0]['.metadata.name']['-']}"
+      "namespace" .Values.instanceResource.instanceNamespaceNavigationPattern
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -27,9 +27,13 @@ spec:
       "type" "project"
       "jsonPath" ".metadata.namespace"
       "factory" "project-details"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
+    - jsonPath: .spec.description
+      name: Description
+      type: string
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -47,7 +51,7 @@ metadata:
   name: factory-project-instance-details
 spec:
   additionalPrinterColumns:
-    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+    {{ include "incloud-web-resources.cco.columns.icon-link-block-api-table" (dict
       "columnName" "Name"
       "title" "Instance"
       "reqIndex" 0
@@ -55,7 +59,7 @@ spec:
       "jsonPath" ".metadata.name"
       "resource" "apps/v1/deployments"
       "project" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}-{reqsJsonPath[0]['.metadata.name']['-']}"
+      "namespace" .Values.instanceResource.instanceNamespaceNavigationPattern
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -66,6 +70,7 @@ spec:
       "type" "project"
       "jsonPath" ".metadata.namespace"
       "factory" "project-details"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
