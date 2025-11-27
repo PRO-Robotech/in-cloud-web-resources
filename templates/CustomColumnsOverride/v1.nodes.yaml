@@ -23,10 +23,11 @@ spec:
       customProps:
         disableEventBubbling: true
         items:
-          - type: parsedText
+          - type: ConverterBytes
             id: name-custom
             data:
-              text: |
+              notANumberText: "-"
+              bytesValue: |
                 {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].usage.memory']['-']}
 
     - name: CPU
@@ -36,10 +37,14 @@ spec:
       customProps:
         disableEventBubbling: true
         items:
-          - type: parsedText
+          - type: ConverterCores
             id: name-custom
             data:
-              text: |
+              unit: true
+              format: true
+              precision: 4
+              notANumberText: "-"
+              coresValue: |
                 {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].usage.cpu']['-']}
 
 
