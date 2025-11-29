@@ -20,6 +20,11 @@ spec:
       plural: "{6}"
       fieldSelector: "metadata.name={7}"
 
+    - cluster: "{2}"
+      apiGroup: "metrics.k8s.io"
+      apiVersion: "v1beta1"
+      plural: "pods"
+
   data:
     # === HEADER ROW ===
     - type: antdFlex
@@ -483,6 +488,13 @@ spec:
                   k8sResourceToFetch: 
                     apiVersion: "v1"
                     plural: "pods"
+                  dataForControls:
+                    cluster: "{2}"
+                    apiVersion: "v1"
+                    plural: "pods"
+                    namespace: "{3}"
+                  additionalReqsDataToEachItem:
+                    - 1
 
 
           # ------ TERMINAL TAB ------

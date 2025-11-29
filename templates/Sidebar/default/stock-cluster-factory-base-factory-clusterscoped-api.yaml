@@ -32,14 +32,17 @@ spec:
     search:
       - search
     pods:
+      - pods
       - v1/pods
     deployments:
       - apps/v1/deployments
     statefulsets:
       - apps/v1/statefulsets
     secrets:
+      - secrets
       - v1/secrets
     configmaps:
+      - configmaps
       - v1/configmaps
     cronjobs:
       - batch/v1/cronjobs
@@ -50,26 +53,32 @@ spec:
     replicasets:
       - apps/v1/replicasets
     replicationcontrollers:
+      - replicationcontrollers
       - v1/replicationcontrollers
     horizontalpodautoscalers:
       - autoscaling/v2/horizontalpodautoscalers
     poddisruptionbudgets:
       - policy/v1/poddisruptionbudgets
     services:
+      - services
       - v1/services
     networkpolicies:
       - networking.k8s.io/v1/networkpolicies
     ingresses:
       - networking.k8s.io/v1/ingresses
     persistentvolumes:
+      - persistentvolumes
       - v1/persistentvolumes
     persistentvolumeclaims:
+      - persistentvolumeclaims
       - v1/persistentvolumeclaims
     storageclasses:
       - storage.k8s.io/v1/storageclasses
     nodes:
+      - nodes
       - v1/nodes
     serviceaccounts:
+      - serviceaccounts
       - v1/serviceaccounts
     roles:
       - rbac.authorization.k8s.io/v1/roles
@@ -80,10 +89,13 @@ spec:
     clusterrolebindings:
       - rbac.authorization.k8s.io/v1/clusterrolebindings
     namespaces:
+      - namespaces
       - v1/namespaces
     limitranges:
+      - limitranges
       - v1/limitranges
     resourcequotas:
+      - resourcequotas
       - v1/resourcequotas
     customresourcedefinitions:
       - apiextensions.k8s.io/v1/customresourcedefinitions

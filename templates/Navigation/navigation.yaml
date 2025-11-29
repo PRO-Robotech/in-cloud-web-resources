@@ -9,14 +9,14 @@ metadata:
 spec:
 {{ if .Values.namespaceNavigation }}
   projects:
-    clear: "/{{ .Values.basePrefix }}/{selectedCluster}/builtin-table/pods"
-    change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/builtin-table/pods"
+    clear: "/{{ .Values.basePrefix }}/{selectedCluster}/builtin-table/pods?resources=metrics.k8s.io/v1beta1/pods"
+    change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/builtin-table/pods?resources=metrics.k8s.io/v1beta1/pods"
   instances:
-    clear: "/{{ .Values.basePrefix }}/{selectedCluster}/builtin-table/pods"
-    change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/builtin-table/pods"
+    clear: "/{{ .Values.basePrefix }}/{selectedCluster}/builtin-table/pods?resources=metrics.k8s.io/v1beta1/pods"
+    change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/builtin-table/pods?resources=metrics.k8s.io/v1beta1/pods"
   namespaces:
-    clear: "/{{ .Values.basePrefix }}/{selectedCluster}/builtin-table/pods"
-    change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/builtin-table/pods"
+    clear: "/{{ .Values.basePrefix }}/{selectedCluster}/builtin-table/pods?resources=metrics.k8s.io/v1beta1/pods"
+    change: "/{{ .Values.basePrefix }}/{selectedCluster}/{value}/builtin-table/pods?resources=metrics.k8s.io/v1beta1/pods"
 {{ else }}
   projects:
     clear: "/{{ .Values.basePrefix }}/clusters/{selectedCluster}"

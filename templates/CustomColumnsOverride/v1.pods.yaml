@@ -32,21 +32,45 @@ spec:
     - jsonPath: .status.podIP
       name: Pod IP
       type: string
-    # - jsonPath: .status.conditions[?(@.type=="ContainersReady")].status
-    #   name: Status Containers
-    #   type: string
-    # - jsonPath: .status.conditions[?(@.type=="PodScheduled")].status
-    #   name: Status Scheduled
-    #   type: string
     - jsonPath: .status.qosClass
       name: QOS
       type: string
-    - name: Status
+
+    - name: Memory
+      # Фильтрация недоступна до создания бекенда
+      # jsonPath: .metadata.name
       type: factory
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 8 }}
+          - type: ConverterBytes
+            id: name-custom
+            data:
+              notANumberText: "-"
+              bytesValue: |
+                {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].containers[*].usage.memory']['-']}
+
+    - name: CPU
+      # Фильтрация недоступна до создания бекенда
+      # jsonPath: .metadata.name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+          - type: ConverterCores
+            id: name-custom
+            data:
+              unit: true
+              format: true
+              precision: 4
+              notANumberText: "-"
+              coresValue: |
+                {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].containers[*].usage.cpu']['-']}
+
+
+
+    {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 4 }}
+
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -105,21 +129,44 @@ spec:
     - jsonPath: .status.podIP
       name: Pod IP
       type: string
-    # - jsonPath: .status.conditions[?(@.type=="ContainersReady")].status
-    #   name: Status Containers
-    #   type: string
-    # - jsonPath: .status.conditions[?(@.type=="PodScheduled")].status
-    #   name: Status Scheduled
-    #   type: string
     - jsonPath: .status.qosClass
       name: QOS
       type: string
-    - name: Status
+
+    - name: Memory
+      # Фильтрация недоступна до создания бекенда
+      # jsonPath: .metadata.name
       type: factory
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 8 }}
+          - type: ConverterBytes
+            id: name-custom
+            data:
+              notANumberText: "-"
+              bytesValue: |
+                {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].containers[*].usage.memory']['-']}
+
+    - name: CPU
+      # Фильтрация недоступна до создания бекенда
+      # jsonPath: .metadata.name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+          - type: ConverterCores
+            id: name-custom
+            data:
+              unit: true
+              format: true
+              precision: 4
+              notANumberText: "-"
+              coresValue: |
+                {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].containers[*].usage.cpu']['-']}
+
+
+    {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 4 }}
+
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -169,21 +216,43 @@ spec:
     - jsonPath: .status.podIP
       name: Pod IP
       type: string
-    # - jsonPath: .status.conditions[?(@.type=="ContainersReady")].status
-    #   name: Status Containers
-    #   type: string
-    # - jsonPath: .status.conditions[?(@.type=="PodScheduled")].status
-    #   name: Status Scheduled
-    #   type: string
     - jsonPath: .status.qosClass
       name: QOS
       type: string
-    - name: Status
+
+    - name: Memory
+      # Фильтрация недоступна до создания бекенда
+      # jsonPath: .metadata.name
       type: factory
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 8 }}
+          - type: ConverterBytes
+            id: name-custom
+            data:
+              notANumberText: "-"
+              bytesValue: |
+                {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].containers[*].usage.memory']['-']}
+
+    - name: CPU
+      # Фильтрация недоступна до создания бекенда
+      # jsonPath: .metadata.name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+          - type: ConverterCores
+            id: name-custom
+            data:
+              unit: true
+              format: true
+              precision: 4
+              notANumberText: "-"
+              coresValue: |
+                {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].containers[*].usage.cpu']['-']}
+
+    {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 4 }}
+
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -232,21 +301,43 @@ spec:
     - jsonPath: .status.podIP
       name: Pod IP
       type: string
-    # - jsonPath: .status.conditions[?(@.type=="ContainersReady")].status
-    #   name: Status Containers
-    #   type: string
-    # - jsonPath: .status.conditions[?(@.type=="PodScheduled")].status
-    #   name: Status Scheduled
-    #   type: string
     - jsonPath: .status.qosClass
       name: QOS
       type: string
-    - name: Status
+
+    - name: Memory
+      # Фильтрация недоступна до создания бекенда
+      # jsonPath: .metadata.name
       type: factory
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 8 }}
+          - type: ConverterBytes
+            id: name-custom
+            data:
+              notANumberText: "-"
+              bytesValue: |
+                {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].containers[*].usage.memory']['-']}
+
+    - name: CPU
+      # Фильтрация недоступна до создания бекенда
+      # jsonPath: .metadata.name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+          - type: ConverterCores
+            id: name-custom
+            data:
+              unit: true
+              format: true
+              precision: 4
+              notANumberText: "-"
+              coresValue: |
+                {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].containers[*].usage.cpu']['-']}
+
+    {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 4 }}
+
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -296,21 +387,43 @@ spec:
     - jsonPath: .status.podIP
       name: Pod IP
       type: string
-    # - jsonPath: .status.conditions[?(@.type=="ContainersReady")].status
-    #   name: Status Containers
-    #   type: string
-    # - jsonPath: .status.conditions[?(@.type=="PodScheduled")].status
-    #   name: Status Scheduled
-    #   type: string
     - jsonPath: .status.qosClass
       name: QOS
       type: string
-    - name: Status
+
+    - name: Memory
+      # Фильтрация недоступна до создания бекенда
+      # jsonPath: .metadata.name
       type: factory
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 8 }}
+          - type: ConverterBytes
+            id: name-custom
+            data:
+              notANumberText: "-"
+              bytesValue: |
+                {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].containers[*].usage.memory']['-']}
+
+    - name: CPU
+      # Фильтрация недоступна до создания бекенда
+      # jsonPath: .metadata.name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+          - type: ConverterCores
+            id: name-custom
+            data:
+              unit: true
+              format: true
+              precision: 4
+              notANumberText: "-"
+              coresValue: |
+                {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].containers[*].usage.cpu']['-']}
+
+    {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 4 }}
+
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -360,21 +473,43 @@ spec:
     - jsonPath: .status.podIP
       name: Pod IP
       type: string
-    # - jsonPath: .status.conditions[?(@.type=="ContainersReady" || @.type=="PodReady")].status
-    #   name: Status Containers
-    #   type: string
-    # - jsonPath: .status.conditions[?(@.type=="PodScheduled")].status
-    #   name: Status Scheduled
-    #   type: string
     - jsonPath: .status.qosClass
       name: QOS
       type: string
-    - name: Status
+
+    - name: Memory
+      # Фильтрация недоступна до создания бекенда
+      # jsonPath: .metadata.name
       type: factory
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 8 }}
+          - type: ConverterBytes
+            id: name-custom
+            data:
+              notANumberText: "-"
+              bytesValue: |
+                {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].containers[*].usage.memory']['-']}
+
+    - name: CPU
+      # Фильтрация недоступна до создания бекенда
+      # jsonPath: .metadata.name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+          - type: ConverterCores
+            id: name-custom
+            data:
+              unit: true
+              format: true
+              precision: 4
+              notANumberText: "-"
+              coresValue: |
+                {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].containers[*].usage.cpu']['-']}
+
+    {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 4 }}
+
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
@@ -423,21 +558,43 @@ spec:
     - jsonPath: .status.podIP
       name: Pod IP
       type: string
-    # - jsonPath: .status.conditions[?(@.type=="ContainersReady" || @.type=="PodReady")].status
-    #   name: Status Containers
-    #   type: string
-    # - jsonPath: .status.conditions[?(@.type=="PodScheduled")].status
-    #   name: Status Scheduled
-    #   type: string
     - jsonPath: .status.qosClass
       name: QOS
       type: string
-    - name: Status
+
+    - name: Memory
+      # Фильтрация недоступна до создания бекенда
+      # jsonPath: .metadata.name
       type: factory
       customProps:
         disableEventBubbling: true
         items:
-        {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 8 }}
+          - type: ConverterBytes
+            id: name-custom
+            data:
+              notANumberText: "-"
+              bytesValue: |
+                {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].containers[*].usage.memory']['-']}
+
+    - name: CPU
+      # Фильтрация недоступна до создания бекенда
+      # jsonPath: .metadata.name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+          - type: ConverterCores
+            id: name-custom
+            data:
+              unit: true
+              format: true
+              precision: 4
+              notANumberText: "-"
+              coresValue: |
+                {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].containers[*].usage.cpu']['-']}
+
+    {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 4 }}
+
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"

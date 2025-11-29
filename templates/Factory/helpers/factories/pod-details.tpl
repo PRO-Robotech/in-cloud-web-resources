@@ -21,6 +21,13 @@ spec:
       plural: "{7}"
       fieldSelector: "metadata.name={8}"
 
+    - cluster: "{2}"
+      apiGroup: "metrics.k8s.io"
+      apiVersion: "v1beta1"
+      namespace: "{3}"
+      plural: "pods"
+      fieldSelector: "metadata.name={8}"
+
   # Header row with badge, pod name, and status
   data:
     - type: antdFlex
@@ -530,6 +537,8 @@ spec:
                                 plural: "{7}"
                               fieldSelector: 
                                 metadata.name: "{8}"
+                              additionalReqsDataToEachItem:
+                                - 1
 
                   # Conditions section (hidden if none)
                   - type: antdCol
