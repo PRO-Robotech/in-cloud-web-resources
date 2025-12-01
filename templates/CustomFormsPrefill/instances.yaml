@@ -17,4 +17,8 @@ spec:
         - spec
         - description
       value: Instance description
+    - path:
+        - spec
+        - alias
+      value: Instance alias
 {{ end }}

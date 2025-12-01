@@ -14,9 +14,9 @@ spec:
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
-      "resource" "apps/v1/deployments"
+      "resource" $instRes.redirectToResource
       "project" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "namespace" .Values.instanceResource.instanceNamespaceNavigationPattern
+      "namespace" $instRes.instanceNamespaceNavigationPattern
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -31,6 +31,9 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
+    - jsonPath: .spec.alias
+      name: Alias
+      type: string
     - jsonPath: .spec.description
       name: Description
       type: string
@@ -57,9 +60,9 @@ spec:
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
-      "resource" "apps/v1/deployments"
+      "resource" $instRes.redirectToResource
       "project" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "namespace" .Values.instanceResource.instanceNamespaceNavigationPattern
+      "namespace" $instRes.instanceNamespaceNavigationPattern
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -74,6 +77,12 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
+    - jsonPath: .spec.alias
+      name: Alias
+      type: string
+    - jsonPath: .spec.description
+      name: Description
+      type: string
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"

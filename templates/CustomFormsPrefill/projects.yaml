@@ -25,4 +25,8 @@ spec:
         - spec
         - prefix
       value: prefix
+    - path:
+        - spec
+        - alias
+      value: Project alias
 {{ end }}
