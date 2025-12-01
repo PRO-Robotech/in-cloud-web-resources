@@ -28,7 +28,6 @@ spec:
     hbf-addressgroupportmappings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupportmappings"
     {{- end }}
-  keysAndTags: 
     search:
       - search
     pods:
