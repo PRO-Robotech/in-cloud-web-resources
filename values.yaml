@@ -94,26 +94,61 @@ addons:
     enabled: false
 
 navigation:
-  # Namespace-like navigation
+  # Navigation configuration for three-level selector hierarchy:
+  # 1. Cluster (pre-selected, uses {selectedCluster} variable)
+  # 2. Project/Namespace
+  # 3. Instance
+  
+  # Project selector configuration (second level in hierarchy)
   projects:
+    # URL to navigate to when clearing/project selector selection
+    # Shows all pods with metrics in the current cluster
     clear: "/openapi-ui/{selectedCluster}/builtin-table/pods?resources=metrics.k8s.io/v1beta1/pods"
+    
+    # URL to navigate to when selecting a project
+    # Shows pods with metrics in the selected project/namespace within current cluster
     change: "/openapi-ui/{selectedCluster}/{value}/builtin-table/pods?resources=metrics.k8s.io/v1beta1/pods"
+    
+    # JSONPath expression to extract display name from resource data
+    # Extracts the pod name from metadata for selector display
     aliasPath: "{reqsJsonPath[0]['.metadata.name']}"
+  
+  # Instance selector configuration (third level in hierarchy)
   instances:
+    # URL to navigate to when clearing instance selector selection
+    # Shows all pods with metrics in the current project/namespace
     clear: "/openapi-ui/{selectedCluster}/builtin-table/pods?resources=metrics.k8s.io/v1beta1/pods"
+    
+    # URL to navigate to when selecting an instance
+    # Shows pods with metrics for the selected instance within current project/namespace
     change: "/openapi-ui/{selectedCluster}/{value}/builtin-table/pods?resources=metrics.k8s.io/v1beta1/pods"
+    
+    # JSONPath expression to extract display name from resource data
+    # Extracts the pod name from metadata for selector display
     aliasPath: "{reqsJsonPath[0]['.metadata.name']}"
-    # Namespace naming pattern for instances
-    # Defines how instance namespaces are generated when using project/instance mode
+    
+    # Namespace naming pattern for instances when using project/instance mode
+    # Defines how instance namespaces are generated
     # Default pattern: {projectName}-{instanceName}
     # Supports JSONPath expressions for dynamic namespace generation
-    mapOptionsPattern: "{reqsJsonPath[0]['.metadata.namespace']}-{reqsJsonPath[0]['.metadata.name']}"
+    # mapOptionsPattern: "{reqsJsonPath[0]['.metadata.namespace']}-{reqsJsonPath[0]['.metadata.name']}"
+  
+  # Namespace selector configuration (alternative second level in hierarchy)
   namespaces:
+    # URL to navigate to when clearing namespace selector selection
+    # Shows all namespaces in the current cluster
     clear: "/openapi-ui/{selectedCluster}/builtin-table/namespaces"
+    
+    # URL to navigate to when selecting a namespace
+    # Shows address groups for the selected namespace within current cluster
     change: "/openapi-ui/{selectedCluster}/{value}/api-table/netguard.sgroups.io/v1beta1/addressgroups"
+    
+    # JSONPath expression to extract display name from resource data
+    # Extracts the namespace name from metadata for selector display
     aliasPath: "{reqsJsonPath[0]['.metadata.name']}"
 
-  # Project-like navigation
+  # Alternative navigation pattern (commented out):
+  # Project-like navigation with different URL structure
   # projects:
   #   clear: "/openapi-ui/clusters/{selectedCluster}"
   #   change: "/openapi-ui/{selectedCluster}/{value}/factory/project-details/{value}"
