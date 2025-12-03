@@ -16,7 +16,7 @@ spec:
       "jsonPath" ".metadata.name"
       "resource" $instRes.redirectToResource
       "project" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "namespace" $instRes.instanceNamespaceNavigationPattern
+      "namespace" .Values.navigation.instances.mapOptionsPattern
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
@@ -62,7 +62,7 @@ spec:
       "jsonPath" ".metadata.name"
       "resource" $instRes.redirectToResource
       "project" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
-      "namespace" $instRes.instanceNamespaceNavigationPattern
+      "namespace" .Values.navigation.instances.mapOptionsPattern
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
