@@ -28,7 +28,6 @@
   {{ end }}
 {{ end }}
 
-{{ if not .Values.namespaceNavigation }}
 {{ with $sidebars.projects }}
   {{ if .enabled }}
 - children:
@@ -49,7 +48,6 @@
   key: instances
   label: Instances
   {{ end }}
-{{ end }}
 {{ end }}
 
 {{ if .Values.addons.argocd.enabled }}
