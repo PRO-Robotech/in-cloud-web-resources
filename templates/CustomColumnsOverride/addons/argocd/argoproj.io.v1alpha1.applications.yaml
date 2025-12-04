@@ -58,7 +58,6 @@ spec:
 
   id: "stock-cluster-/argoproj.io/v1alpha1/applications"
 
-  {{ if .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -109,7 +108,7 @@ spec:
       value: "-"
 
   id: "stock-namespace-/argoproj.io/v1alpha1/applications"
-  {{ else }}
+
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -211,7 +210,7 @@ spec:
       value: "-"
 
   id: "stock-instance-/argoproj.io/v1alpha1/applications"
-  {{ end }}
+
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride

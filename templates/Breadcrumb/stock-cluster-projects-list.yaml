@@ -1,4 +1,3 @@
-{{ if not .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: Breadcrumb
@@ -9,4 +8,3 @@ spec:
   breadcrumbItems:
     - key: api
       label: "{apiGroup}/{apiVersion}/{plural}"
-{{ end }}

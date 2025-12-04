@@ -12,7 +12,6 @@ spec:
     - key: service
       label: "{8}"
 
-{{- if not .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: Breadcrumb
@@ -26,4 +25,3 @@ spec:
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/services"
     - key: service
       label: "{9}"
-{{- end -}}

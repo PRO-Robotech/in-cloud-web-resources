@@ -1,6 +1,6 @@
 {{ $instRes := .Values.instanceResource }}
 
-{{ if and ($instRes.deployDefaultForms) (not .Values.namespaceNavigation) }}
+{{ if ($instRes.deployDefaultForms) }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -46,6 +46,52 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues: []
   id: "stock-project-/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
+
+---
+apiVersion: front.in-cloud.io/v1alpha1
+kind: CustomColumnsOverride
+metadata:
+  name: stock-namespace-instance
+spec:
+  additionalPrinterColumns:
+    {{ include "incloud-web-resources.cco.columns.icon-link-block-api-table" (dict
+      "columnName" "Name"
+      "title" "Instance"
+      "reqIndex" 0
+      "type" "name"
+      "jsonPath" ".metadata.name"
+      "resource" $instRes.redirectToResource
+      "project" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "namespace" .Values.navigation.instances.mapOptionsPattern
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+      "columnName" "Project"
+      "title" "Project"
+      "reqIndex" 0
+      "type" "project"
+      "jsonPath" ".metadata.namespace"
+      "factory" "project-details"
+      "namespace" "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+      "basePrefix" .Values.basePrefix
+    ) | nindent 4
+    }}
+    - jsonPath: .spec.alias
+      name: Alias
+      type: string
+    - jsonPath: .spec.description
+      name: Description
+      type: string
+    {{ include "incloud-web-resources.cco.columns.timeblock" (dict
+      "columnName" "Created"
+      "jsonPath" ".metadata.creationTimestamp"
+    ) | nindent 4
+    }}
+  additionalPrinterColumnsTrimLengths:
+    {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+  additionalPrinterColumnsUndefinedValues: []
+  id: "stock-namespace-/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}"
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1

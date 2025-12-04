@@ -65,7 +65,6 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.rbac-role-ref" . | nindent 4 }}
   id: stock-cluster-/rbac.authorization.k8s.io/v1/rolebindings
 
-{{ if .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -155,7 +154,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.rbac-role-ref" . | nindent 4 }}
   id: stock-namespace-/rbac.authorization.k8s.io/v1/rolebindings
-{{ else }}
+
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -336,4 +335,3 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.rbac-role-ref" . | nindent 4 }}
   id: stock-instance-/rbac.authorization.k8s.io/v1/rolebindings
-{{ end }}

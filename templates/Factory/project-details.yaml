@@ -6,7 +6,7 @@
 {{ $mpKind          := "MarketplacePanel" }}
 {{ $factory         := .Values.projectResource.factory }}
 
-{{ if and ($projRes.deployDefaultForms) (not .Values.namespaceNavigation) }}
+{{ if $projRes.deployDefaultForms }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: Factory

@@ -12,7 +12,6 @@ spec:
     - key: statefulset
       label: "{9}"
 
-{{- if not .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: Breadcrumb
@@ -26,4 +25,3 @@ spec:
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/apps/v1/statefulsets"
     - key: statefulset
       label: "{10}"
-{{- end -}}
