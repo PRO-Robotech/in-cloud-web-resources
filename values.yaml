@@ -71,6 +71,8 @@ instanceResource:
   # - metadata.name: Instance name
   # - spec.description: Instance description
   deployDefaultForms: true
+  # Redirect to resource after select instance (CustomColumnsOverride)
+  redirectToResource: apps/v1/deployments
 
 # Addons configuration
 # Enable/disable and configure additional integrated tools and features
