@@ -185,16 +185,13 @@ sidebars:
     #   {1} = "openapi-ui", {2} = "cluster-name", {3} = "builtin-table", {4} = "namespaces"
     #   {cluster} = "cluster-name"
     customItems: []
-    # Search sidebar section
-    search:
+
+    home:
       enabled: true
-    # Built-in sidebar sections configuration
-    clusters:
-      enabled: false
-    projects:
-      enabled: false
-    instances:
-      enabled: false
+      items:
+        search: true
+        projects: false
+        instances: false
 
     # ArgoCD sidebar section and sub-items
     argocd:
@@ -323,16 +320,13 @@ sidebars:
     #   {cluster} = "cluster-name"
     #   {namespace} = "namespace"
     customItems: []
-    # Search sidebar section
-    search:
+
+    home:
       enabled: true
-
-    # Built-in sidebar sections for namespaced context
-    projects:
-      enabled: false
-
-    instances:
-      enabled: false
+      items:
+        search: true
+        projects: false
+        instances: false
 
     # ArgoCD resources within the namespace/project
     argocd:
@@ -456,16 +450,13 @@ sidebars:
     #   {namespace} = "namespace"
     #   {syntheticProject} = "project-name"
     customItems: []
-    # Search sidebar section
-    search:
+
+    home:
       enabled: true
-
-    # Built-in sidebar sections for instance context
-    projects:
-      enabled: false
-
-    instances:
-      enabled: false
+      items:
+        search: true
+        projects: false
+        instances: false
 
     # ArgoCD resources for the instance
     argocd:

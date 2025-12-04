@@ -12,44 +12,34 @@
 {{ $projRes := .Values.projectResource }}
 {{ $instRes := .Values.instanceResource }}
 
-{{- if $sidebars.customItems -}}
-  {{- range $sidebars.customItems }}
-{{ $sidebars.customItems | toYaml }}
-  {{- end }}
-{{- end -}}
-
-{{ with $sidebars.search }}
+{{ with $sidebars.home }}
   {{ if .enabled }}
 - children:
+    {{ if .items.search }}
     - key: search
       label: Search
       link: /openapi-ui/{cluster}/search
+    {{ end }}
+    {{ if .items.projects }}
+    - key: projects
+      label: Projects
+      link: /{{ $.Values.basePrefix }}/{cluster}/api-table/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}
+    {{ end }}
+    {{ if .items.instances }}
+    - key: instances
+      label: Instances
+      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}
+    {{ end }}
   key: home
   label: Home
   {{ end }}
 {{ end }}
 
-{{ with $sidebars.projects }}
-  {{ if .enabled }}
-- children:
-    - key: projects
-      label: Projects
-      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/{{ $projRes.apiGroup }}/{{ $projRes.apiVersion }}/{{ $projRes.resourceName }}
-  key: projects
-  label: Projects
-  {{ end }}
-{{ end }}
-
-{{ with $sidebars.instances }}
-  {{ if .enabled }}
-- children:
-    - key: instances
-      label: Instances
-      link: /{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/{{ $instRes.apiGroup }}/{{ $instRes.apiVersion }}/{{ $instRes.resourceName }}
-  key: instances
-  label: Instances
-  {{ end }}
-{{ end }}
+{{- if $sidebars.customItems -}}
+  {{- range $sidebars.customItems }}
+{{ $sidebars.customItems | toYaml }}
+  {{- end }}
+{{- end -}}
 
 {{ if .Values.addons.argocd.enabled }}
 {{ with $sidebars.argocd }}
