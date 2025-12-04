@@ -133,7 +133,8 @@ navigation:
     # Defines how instance namespaces are generated
     # Default pattern: {projectName}-{instanceName}
     # Supports JSONPath expressions for dynamic namespace generation
-    # mapOptionsPattern: "{reqsJsonPath[0]['.metadata.namespace']}-{reqsJsonPath[0]['.metadata.name']}"
+    # Example: {reqsJsonPath[0]['.metadata.namespace']}-{reqsJsonPath[0]['.metadata.name']}
+    mapOptionsPattern: "{reqsJsonPath[0]['.metadata.name']}"
   
   # Namespace selector configuration (alternative second level in hierarchy)
   namespaces:
