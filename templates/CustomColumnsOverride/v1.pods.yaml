@@ -81,6 +81,11 @@ spec:
       value: Unschedulable
     - key: Pod IP
       value: NotAllocated
+  additionalPrinterColumnsCustomSortersAndFilters:
+    - key: Memory
+      type: memory
+    - key: CPU
+      type: cpu
   additionalPrinterColumnsTrimLengths:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   id: "factory-node-details-/v1/pods"
@@ -177,6 +182,11 @@ spec:
       value: Unschedulable
     - key: Pod IP
       value: NotAllocated
+  additionalPrinterColumnsCustomSortersAndFilters:
+    - key: Memory
+      type: memory
+    - key: CPU
+      type: cpu
   additionalPrinterColumnsTrimLengths:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   id: "stock-cluster-/v1/pods"
@@ -262,6 +272,11 @@ spec:
       value: Unschedulable
     - key: Pod IP
       value: NotAllocated
+  additionalPrinterColumnsCustomSortersAndFilters:
+    - key: Memory
+      type: memory
+    - key: CPU
+      type: cpu
   additionalPrinterColumnsTrimLengths:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   id: "stock-namespace-/v1/pods"
@@ -347,6 +362,11 @@ spec:
       value: Unschedulable
     - key: Pod IP
       value: NotAllocated
+  additionalPrinterColumnsCustomSortersAndFilters:
+    - key: Memory
+      type: memory
+    - key: CPU
+      type: cpu
   additionalPrinterColumnsTrimLengths:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   id: "stock-project-/v1/pods"
@@ -433,6 +453,11 @@ spec:
       value: Unschedulable
     - key: Pod IP
       value: NotAllocated
+  additionalPrinterColumnsCustomSortersAndFilters:
+    - key: Memory
+      type: memory
+    - key: CPU
+      type: cpu
   additionalPrinterColumnsTrimLengths:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   id: "stock-instance-/v1/pods"
@@ -519,6 +544,11 @@ spec:
       value: Unschedulable
     - key: Pod IP
       value: NotAllocated
+  additionalPrinterColumnsCustomSortersAndFilters:
+    - key: Memory
+      type: memory
+    - key: CPU
+      type: cpu
   additionalPrinterColumnsTrimLengths:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   id: "factory-instance-pods-details"
@@ -601,6 +631,11 @@ spec:
     }}
   additionalPrinterColumnsTrimLengths:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
+  additionalPrinterColumnsCustomSortersAndFilters:
+    - key: Memory
+      type: memory
+    - key: CPU
+      type: cpu
   additionalPrinterColumnsUndefinedValues:
     - key: Node
       value: Unschedulable
