@@ -144,8 +144,8 @@ navigation:
     
     # URL to navigate to when selecting a namespace
     # Shows address groups for the selected namespace within current cluster
-    change: "/openapi-ui/{selectedCluster}/{value}/api-table/apps/v1/pods"
-    
+    change: "/openapi-ui/{selectedCluster}/{value}/builtin-table/pods"
+builtin
     # JSONPath expression to extract display name from resource data
     # Extracts the namespace name from metadata for selector display
     aliasPath: "{reqsJsonPath[0]['.metadata.name']}"
