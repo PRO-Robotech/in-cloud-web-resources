@@ -121,7 +121,7 @@
     {{ if .items.svcsvcrules }}
     - key: hbf-svcsvcrules
       label: SvcSvcRules
-      link: "/{{ $.Values.basePrefix }}/{cluster}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/svcsvcrules"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/svcsvcrules?resources=/v1/namespaces"
     {{ end }}
     {{ if .items.svcfqdnrules }}
     - key: hbf-svcfqdnrules
