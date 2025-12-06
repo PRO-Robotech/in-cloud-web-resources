@@ -26,4 +26,7 @@ spec:
   additionalPrinterColumnsUndefinedValues:
     - key: Message
       value: "-"
+  additionalPrinterColumnsCustomSortersAndFilters:
+    - key: Memory
+      type: memory
   id: "factory-node-images"
