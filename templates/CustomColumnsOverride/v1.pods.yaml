@@ -67,8 +67,6 @@ spec:
               coresValue: |
                 {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].containers[*].usage.cpu']['-']}
 
-
-
     {{ include "incloud-web-resources.cco.statuses.pod" . | nindent 4 }}
 
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict

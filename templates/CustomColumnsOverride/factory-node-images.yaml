@@ -18,12 +18,15 @@ spec:
             data:
               id: example-converter-bytes
               bytesValue: "{reqsJsonPath[0]['.sizeBytes']['-']}"
-              format: true
-              precision: 1
+              notANumberText: "-"
+
   additionalPrinterColumnsTrimLengths:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.node-image-id" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.node-image-size" . | nindent 4 }}
   additionalPrinterColumnsUndefinedValues:
     - key: Message
       value: "-"
+  additionalPrinterColumnsCustomSortersAndFilters:
+    - key: Size
+      type: memory
   id: "factory-node-images"
