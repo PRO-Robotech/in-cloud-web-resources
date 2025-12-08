@@ -126,7 +126,7 @@
     {{ if .items.svcfqdnrules }}
     - key: hbf-svcfqdnrules
       label: SvcFqdnRules
-      link: "/{{ $.Values.basePrefix }}/{cluster}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/svcfqdnrules"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/svcfqdnrules?resources=/v1/namespaces"
     {{ end }}
     {{ with .extraItems }}
       {{ . | toYaml | nindent 4 }}
