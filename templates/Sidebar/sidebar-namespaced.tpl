@@ -78,12 +78,12 @@
     {{ if .items.hosts }}
     - key: hbf-hosts
       label: Hosts
-      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/hosts"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/hosts?resources=/v1/namespaces"
     {{ end }}
     {{ if .items.networks }}
     - key: hbf-networks
       label: Networks
-      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/networks"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/networks?resources=/v1/namespaces"
     {{ end }}
     {{ if .items.addressgroups }}
     - key: hbf-addressgroups
