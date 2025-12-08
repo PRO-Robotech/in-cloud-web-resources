@@ -31,7 +31,7 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    - jsonPath: .spec.alias
+    - jsonPath: .status.fullAlias
       name: Alias
       type: string
     - jsonPath: .spec.description
@@ -79,7 +79,7 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    - jsonPath: .spec.alias
+    - jsonPath: .status.fullAlias
       name: Alias
       type: string
     - jsonPath: .spec.description
@@ -127,7 +127,7 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    - jsonPath: .spec.alias
+    - jsonPath: .status.fullAlias
       name: Alias
       type: string
     - jsonPath: .spec.description
@@ -175,7 +175,7 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    - jsonPath: .spec.alias
+    - jsonPath: .status.fullAlias
       name: Alias
       type: string
     - jsonPath: .spec.description
