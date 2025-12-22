@@ -78,32 +78,32 @@
     {{ if .items.hosts }}
     - key: hbf-hosts
       label: Hosts
-      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/hosts"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/hosts?resources=/v1/namespaces"
     {{ end }}
     {{ if .items.networks }}
     - key: hbf-networks
       label: Networks
-      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/networks"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/networks?resources=/v1/namespaces"
     {{ end }}
     {{ if .items.addressgroups }}
     - key: hbf-addressgroups
       label: AddressGroups
-      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/addressgroups"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/addressgroups?resources=/v1/namespaces"
     {{ end }}
     {{ if .items.services }}
     - key: hbf-services
       label: Services
-      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/services"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/services?resources=/v1/namespaces"
     {{ end }}
     {{ if .items.svcsvcrules }}
     - key: hbf-svcsvcrules
       label: SvcSvcRules
-      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/svcsvcrules"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/svcsvcrules?resources=/v1/namespaces"
     {{ end }}
     {{ if .items.svcfqdnrules }}
     - key: hbf-svcfqdnrules
       label: SvcFqdnRules
-      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/svcfqdnrules"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/svcfqdnrules?resources=/v1/namespaces"
     {{ end }}
     {{ with .extraItems }}
       {{ . | toYaml | nindent 4 }}
@@ -119,22 +119,22 @@
     {{ if .items.hostbindings }}
     - key: hbf-hostbindings
       label: HostBindings
-      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/hostbindings"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/hostbindings?resources=/v1/namespaces"
     {{ end }}
     {{ if .items.networkbindings }}
     - key: hbf-networkbindings
       label: NetworkBindings
-      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/networkbindings"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/networkbindings?resources=/v1/namespaces"
     {{ end }}
     {{ if .items.addressgroupbindings }}
     - key: hbf-addressgroupbindings
       label: AddressGroupBindings
-      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/addressgroupbindings"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/addressgroupbindings?resources=/v1/namespaces"
     {{ end }}
     {{ if .items.addressgroupportmappings }}
     - key: hbf-addressgroupportmappings
       label: AddressGroupPortMappings
-      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/addressgroupportmappings"
+      link: "/{{ $.Values.basePrefix }}/{cluster}/{namespace}/api-table/netguard.sgroups.io/{{ $.Values.addons.hbf.apiVersion }}/addressgroupportmappings?resources=/v1/namespaces"
     {{ end }}
     {{ with .extraItems }}
       {{ . | toYaml | nindent 4 }}

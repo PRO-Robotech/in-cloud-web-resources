@@ -103,7 +103,11 @@ spec:
       value: "-"
     - key: WaitingdReason
       value: "-"
-
+  additionalPrinterColumnsCustomSortersAndFilters:
+    - key: Memory
+      type: memory
+    - key: CPU
+      type: cpu
   additionalPrinterColumnsTrimLengths:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.container-image" . | nindent 4 }}

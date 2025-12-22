@@ -492,6 +492,7 @@ spec:
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: .items.0.status.initContainerStatuses
+                              pathToKey: .name
                               k8sResourceToFetch: 
                                 apiVersion: "v1"
                                 plural: "pods"
@@ -531,6 +532,7 @@ spec:
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: .items.0.status.containerStatuses
+                              pathToKey: .name
                               k8sResourceToFetch: 
                                 apiVersion: "{6}"
                                 namespace: "{3}"

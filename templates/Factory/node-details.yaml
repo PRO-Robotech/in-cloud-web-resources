@@ -447,6 +447,7 @@ spec:
                           customizationId: "factory-node-images"
                           baseprefix: "/{{ .Values.basePrefix }}"
                           pathToItems: ".items.0.status.images"
+                          pathToKey: .names[0]
                           k8sResourceToFetch: 
                             apiVersion: "v1"
                             plural: "nodes"

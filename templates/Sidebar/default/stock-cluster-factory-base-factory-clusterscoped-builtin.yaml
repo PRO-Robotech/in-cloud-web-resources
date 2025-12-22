@@ -9,26 +9,34 @@ spec:
     {{- if .Values.addons.hbf.enabled }}
     hbf-hosts:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hosts"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hosts?resources=/v1/namespaces"
     hbf-hostbindings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hostbindings"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hostbindings?resources=/v1/namespaces"
     hbf-networks:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/networks"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/networks?resources=/v1/namespaces"
     hbf-addressgroups:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroups"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroups?resources=/v1/namespaces"
     hbf-networkbindings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/networkbindings"
-    hbf-servicealiases:
-      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/servicealiases"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/networkbindings?resources=/v1/namespaces"
     hbf-services:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/services"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/services?resources=/v1/namespaces"
     hbf-addressgroupbindings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupbindings"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupbindings?resources=/v1/namespaces"
     hbf-svcsvcrules:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcsvcrules"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcsvcrules?resources=/v1/namespaces"
     hbf-svcfqdnrules:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcfqdnrules"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcfqdnrules?resources=/v1/namespaces"
     hbf-addressgroupportmappings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupportmappings"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupportmappings?resources=/v1/namespaces"
     {{- end }}
     search:
       - search
