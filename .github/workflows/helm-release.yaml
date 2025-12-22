@@ -2,7 +2,6 @@ name: release
 on:
   push:
     branches:
-      - '*'
       - 'release/*'
       - 'feature/*'
     tags:
@@ -21,8 +20,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set chart version
+        shell: bash
+        run: |
+          BRANCH="${GITHUB_REF_NAME}"
+          SHORT_SHA="$(git rev-parse --short HEAD)"
+
+          if [[ "$BRANCH" == feature/* ]]; then
+            NAME="${BRANCH#feature/}"
+            VERSION="0.0.0-feature-${NAME}-${SHORT_SHA}"
+          elif [[ "$BRANCH" == release/* ]]; then
+            NAME="${BRANCH#release/}"
+            VERSION="${NAME}-${SHORT_SHA}"
+          else
+            echo "Unsupported branch: $BRANCH"
+            exit 1
+          fi
+
+          echo "Using chart version: $VERSION"
+
+          yq -i ".version = \"${VERSION}\"" Chart.yaml
+
       - name: Package & Push
         run: |
+          helm registry login registry-1.docker.io \
+            -u prorobotech \
+            -p ${{ secrets.DOCKERHUB_TOKEN }}
+
           pkg=$(helm package "${{ env.CHART_DIR }}" | awk '{print $NF}')
-          helm registry login registry-1.docker.io -u prorobotech -p ${{ secrets.DOCKERHUB_TOKEN }}
-          helm push $pkg oci://registry-1.docker.io/prorobotech
+          helm push "$pkg" oci://registry-1.docker.io/prorobotech
