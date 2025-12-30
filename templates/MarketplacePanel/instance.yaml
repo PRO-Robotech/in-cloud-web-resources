@@ -1,6 +1,6 @@
 {{ $instRes := .Values.instanceResource }}
 
-{{ if and ($instRes.deployDefaultForms) (not .Values.namespaceNavigation) }}
+{{ if $instRes.deployDefaultForms }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: MarketplacePanel

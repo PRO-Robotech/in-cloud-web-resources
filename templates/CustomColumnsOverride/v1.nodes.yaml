@@ -15,6 +15,39 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
+
+    - name: Memory
+      # Фильтрация недоступна до создания бекенда
+      # jsonPath: .metadata.name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+          - type: ConverterBytes
+            id: name-custom
+            data:
+              notANumberText: "-"
+              bytesValue: |
+                {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].usage.memory']['-']}
+
+    - name: CPU
+      # Фильтрация недоступна до создания бекенда
+      # jsonPath: .metadata.name
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+          - type: ConverterCores
+            id: name-custom
+            data:
+              unit: true
+              format: true
+              precision: 4
+              notANumberText: "-"
+              coresValue: |
+                {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].usage.cpu']['-']}
+
+
     - name: Status
       type: factory
       customProps:

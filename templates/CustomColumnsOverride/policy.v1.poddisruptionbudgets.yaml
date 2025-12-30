@@ -44,7 +44,6 @@ spec:
 
   id: "stock-cluster-/policy/v1/poddisruptionbudgets"
 
-{{ if .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -80,7 +79,7 @@ spec:
   additionalPrinterColumnsUndefinedValues: []
 
   id: "stock-namespace-/policy/v1/poddisruptionbudgets"
-{{ else }}
+
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -153,4 +152,3 @@ spec:
   additionalPrinterColumnsUndefinedValues: []
 
   id: "stock-instance-/policy/v1/poddisruptionbudgets"
-{{ end }}

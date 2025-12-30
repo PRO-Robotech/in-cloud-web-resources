@@ -6,7 +6,6 @@
   "basePrefix" .Values.basePrefix
 ) }}
 
-{{- if not .Values.namespaceNavigation }}
 {{ include "incloud-web-resources.factory.manifets.replicaset-details" (dict
   "key" "instance-replicaset-details"
   "resName" "{7}"
@@ -14,4 +13,3 @@
   "trivyEnabled" .Values.addons.trivy.enabled
   "basePrefix" .Values.basePrefix
 ) }}
-{{- end }}

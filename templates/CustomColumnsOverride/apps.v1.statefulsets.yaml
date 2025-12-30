@@ -60,7 +60,6 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   id: "stock-cluster-/apps/v1/statefulsets"
 
-{{ if .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -100,7 +99,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   id: "stock-namespace-/apps/v1/statefulsets"
-{{ else }}
+
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -181,4 +180,3 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   id: "stock-instance-/apps/v1/statefulsets"
-{{ end }}

@@ -21,6 +21,12 @@ spec:
       plural: "{7}"
       fieldSelector: "metadata.name={8}"
 
+    - cluster: "{2}"
+      apiGroup: "metrics.k8s.io"
+      apiVersion: "v1beta1"
+      namespace: "{3}"
+      plural: "pods"
+
   # Header row with badge and ReplicationController name
   data:
     - type: antdFlex
@@ -435,6 +441,8 @@ spec:
                     pathToLabels:  '.items.0.spec.template.metadata.labels'
                   # Path to items list in the response
                   pathToItems: ".items"
+                  additionalReqsDataToEachItem:
+                    - 1
 
           - key: events
             label: Events

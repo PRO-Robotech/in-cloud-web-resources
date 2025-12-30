@@ -9,38 +9,49 @@ spec:
     {{- if .Values.addons.hbf.enabled }}
     hbf-hosts:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hosts"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hosts?resources=/v1/namespaces"
     hbf-hostbindings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hostbindings"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hostbindings?resources=/v1/namespaces"
     hbf-networks:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/networks"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/networks?resources=/v1/namespaces"
     hbf-addressgroups:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroups"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroups?resources=/v1/namespaces"
     hbf-networkbindings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/networkbindings"
-    hbf-servicealiases:
-      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/servicealiases"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/networkbindings?resources=/v1/namespaces"
     hbf-services:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/services"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/services?resources=/v1/namespaces"
     hbf-addressgroupbindings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupbindings"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupbindings?resources=/v1/namespaces"
     hbf-svcsvcrules:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcsvcrules"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcsvcrules?resources=/v1/namespaces"
     hbf-svcfqdnrules:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcfqdnrules"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcfqdnrules?resources=/v1/namespaces"
     hbf-addressgroupportmappings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupportmappings"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupportmappings?resources=/v1/namespaces"
     {{- end }}
     search:
       - search
     pods:
+      - pods
       - v1/pods
     deployments:
       - apps/v1/deployments
     statefulsets:
       - apps/v1/statefulsets
     secrets:
+      - secrets
       - v1/secrets
     configmaps:
+      - configmaps
       - v1/configmaps
     cronjobs:
       - batch/v1/cronjobs
@@ -51,24 +62,29 @@ spec:
     replicasets:
       - apps/v1/replicasets
     replicationcontrollers:
+      - replicationcontrollers
       - v1/replicationcontrollers
     horizontalpodautoscalers:
       - autoscaling/v2/horizontalpodautoscalers
     poddisruptionbudgets:
       - policy/v1/poddisruptionbudgets
     services:
+      - services
       - v1/services
     networkpolicies:
       - networking.k8s.io/v1/networkpolicies
     ingresses:
       - networking.k8s.io/v1/ingresses
     persistentvolumes:
+      - persistentvolumes
       - v1/persistentvolumes
     persistentvolumeclaims:
+      - persistentvolumeclaims
       - v1/persistentvolumeclaims
     storageclasses:
       - storage.k8s.io/v1/storageclasses
     nodes:
+      - nodes
       - v1/nodes
     serviceaccounts:
       - v1/serviceaccounts
@@ -81,10 +97,13 @@ spec:
     clusterrolebindings:
       - rbac.authorization.k8s.io/v1/clusterrolebindings
     namespaces:
+      - namespaces
       - v1/namespaces
     limitranges:
+      - limitranges
       - v1/limitranges
     resourcequotas:
+      - resourcequotas
       - v1/resourcequotas
     customresourcedefinitions:
       - apiextensions.k8s.io/v1/customresourcedefinitions

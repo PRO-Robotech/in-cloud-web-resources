@@ -38,7 +38,6 @@ spec:
       value: "-"
   id: "stock-cluster-/v1/configmaps"
 
-{{ if .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -65,7 +64,7 @@ spec:
   additionalPrinterColumnsTrimLengths:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   id: "stock-namespace-/v1/configmaps"
-{{ else }}
+
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -120,7 +119,7 @@ spec:
   additionalPrinterColumnsTrimLengths:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   id: "stock-instance-/v1/configmaps"
-{{ end }}
+
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride

@@ -60,7 +60,6 @@ spec:
       value: "-"
   id: "stock-cluster-/autoscaling/v2/horizontalpodautoscalers"
 
-{{ if .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -112,7 +111,7 @@ spec:
     - key: Min replicas
       value: "-"
   id: "stock-namespace-/autoscaling/v2/horizontalpodautoscalers"
-{{ else }}
+
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -217,4 +216,3 @@ spec:
     - key: Min replicas
       value: "-"
   id: "stock-instance-/autoscaling/v2/horizontalpodautoscalers"
-{{ end }}

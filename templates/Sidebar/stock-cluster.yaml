@@ -9,28 +9,34 @@ spec:
     {{- if .Values.addons.hbf.enabled }}
     hbf-hosts:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hosts"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hosts?resources=/v1/namespaces"
     hbf-hostbindings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hostbindings"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/hostbindings?resources=/v1/namespaces"
     hbf-networks:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/networks"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/networks?resources=/v1/namespaces"
     hbf-addressgroups:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroups"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroups?resources=/v1/namespaces"
     hbf-networkbindings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/networkbindings"
-    hbf-servicealiases:
-      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/servicealiases"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/networkbindings?resources=/v1/namespaces"
     hbf-services:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/services"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/services?resources=/v1/namespaces"
     hbf-addressgroupbindings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupbindings"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupbindings?resources=/v1/namespaces"
     hbf-svcsvcrules:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcsvcrules"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcsvcrules?resources=/v1/namespaces"
     hbf-svcfqdnrules:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcfqdnrules"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/svcfqdnrules?resources=/v1/namespaces"
     hbf-addressgroupportmappings:
       - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupportmappings"
-    hbf-ieagagrules:
-      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/ieagagrules"
+      - "netguard.sgroups.io/{{ .Values.addons.hbf.apiVersion }}/addressgroupportmappings?resources=/v1/namespaces"
     {{- end }}
     deployments:
       - apps/v1/deployments
@@ -88,28 +94,40 @@ spec:
   keysAndTags:
     pods:
       - pods
+      - v1/pods
     configmaps:
       - configmaps
+      - v1/configmaps
     limitranges:
       - limitranges
+      - v1/limitranges
     namespaces:
       - namespaces
+      - v1/namespaces
     nodes:
       - nodes
+      - v1/nodes
     persistentvolumeclaims:
       - persistentvolumeclaims
+      - v1/persistentvolumeclaims
     persistentvolumes:
       - persistentvolumes
+      - v1/persistentvolumes
     resourcequotas:
       - resourcequotas
+      - v1/resourcequotas
     secrets:
       - secrets
+      - v1/secrets
     serviceaccounts:
       - serviceaccounts
+      - v1/serviceaccounts
     services:
       - services
+      - v1/services
     replicationcontrollers:
       - replicationcontrollers
+      - v1/replicationcontrollers
   menuItems:
     {{ include "incloud-web-resources.sidebar.menu.items.cluster" . | nindent 4 }}
 
@@ -120,6 +138,13 @@ metadata:
   name: stock-cluster-builtin-table
 spec:
   id: stock-cluster-builtin-table
+  keysAndTags:
+    pods:
+      - pods
+      - v1/pods
+    nodes:
+      - nodes
+      - v1/nodes
   menuItems:
     {{ include "incloud-web-resources.sidebar.menu.items.cluster" . | nindent 4 }}
 
