@@ -71,11 +71,8 @@ instanceResource:
   # - metadata.name: Instance name
   # - spec.description: Instance description
   deployDefaultForms: true
-  # Namespace naming pattern for instances
-  # Defines how instance namespaces are generated when using project/instance mode
-  # Default pattern: {projectName}-{instanceName}
-  # Supports JSONPath expressions for dynamic namespace generation
-  instanceNamespaceNavigationPattern: "{reqsJsonPath[0]['.metadata.namespace']}-{reqsJsonPath[0]['.metadata.name']}"
+  # Redirect to resource after select instance (CustomColumnsOverride)
+  redirectToResource: apps/v1/deployments
 
 # Addons configuration
 # Enable/disable and configure additional integrated tools and features
@@ -97,6 +94,73 @@ addons:
   # Provides links to monitoring infrastructure
   grafana:
     enabled: false
+
+navigation:
+  # Navigation configuration for three-level selector hierarchy:
+  # 1. Cluster (pre-selected, uses {selectedCluster} variable)
+  # 2. Project/Namespace
+  # 3. Instance
+  
+  # Project selector configuration (second level in hierarchy)
+  projects:
+    # URL to navigate to when clearing/project selector selection
+    # Shows all pods with metrics in the current cluster
+    clear: "/openapi-ui/{selectedCluster}/builtin-table/pods?resources=metrics.k8s.io/v1beta1/pods"
+    
+    # URL to navigate to when selecting a project
+    # Shows pods with metrics in the selected project/namespace within current cluster
+    change: "/openapi-ui/{selectedCluster}/{value}/builtin-table/pods?resources=metrics.k8s.io/v1beta1/pods"
+    
+    # JSONPath expression to extract display name from resource data
+    # Extracts the pod name from metadata for selector display
+    aliasPath: "{reqsJsonPath[0]['.metadata.name']}"
+  
+  # Instance selector configuration (third level in hierarchy)
+  instances:
+    # URL to navigate to when clearing instance selector selection
+    # Shows all pods with metrics in the current project/namespace
+    clear: "/openapi-ui/{selectedCluster}/builtin-table/pods?resources=metrics.k8s.io/v1beta1/pods"
+    
+    # URL to navigate to when selecting an instance
+    # Shows pods with metrics for the selected instance within current project/namespace
+    change: "/openapi-ui/{selectedCluster}/{value}/builtin-table/pods?resources=metrics.k8s.io/v1beta1/pods"
+    
+    # JSONPath expression to extract display name from resource data
+    # Extracts the pod name from metadata for selector display
+    aliasPath: "{reqsJsonPath[0]['.metadata.name']}"
+    
+    # Namespace naming pattern for instances when using project/instance mode
+    # Defines how instance namespaces are generated
+    # Default pattern: {projectName}-{instanceName}
+    # Supports JSONPath expressions for dynamic namespace generation
+    # Example: {reqsJsonPath[0]['.metadata.namespace']}-{reqsJsonPath[0]['.metadata.name']}
+    mapOptionsPattern: "{reqsJsonPath[0]['.metadata.name']}"
+  
+  # Namespace selector configuration (alternative second level in hierarchy)
+  namespaces:
+    # URL to navigate to when clearing namespace selector selection
+    # Shows all namespaces in the current cluster
+    clear: "/openapi-ui/{selectedCluster}/builtin-table/namespaces"
+    
+    # URL to navigate to when selecting a namespace
+    # Shows address groups for the selected namespace within current cluster
+    change: "/openapi-ui/{selectedCluster}/{value}/builtin-table/pods"
+
+    # JSONPath expression to extract display name from resource data
+    # Extracts the namespace name from metadata for selector display
+    aliasPath: "{reqsJsonPath[0]['.metadata.name']}"
+
+  # Alternative navigation pattern (commented out):
+  # Project-like navigation with different URL structure
+  # projects:
+  #   clear: "/openapi-ui/clusters/{selectedCluster}"
+  #   change: "/openapi-ui/{selectedCluster}/{value}/factory/project-details/{value}"
+  # instances:
+  #   clear: "/openapi-ui/{selectedCluster}/{selectedProject}/api-table/{{ $instanceApiGroup }}/{{ $instanceApiVersion }}/{{ $instanceResourceName }}"
+  #   change: "/openapi-ui/{selectedCluster}/{value}/{selectedProject}/api-table/apps/v1/deployments"
+  # namespaces:
+  #   clear: "/openapi-ui/clusters/{selectedCluster}"
+  #   change: "/openapi-ui/clusters/{selectedCluster}/{{ $projectResourceName }}/{value}"
 
 # Sidebar navigation configuration
 # Controls the visibility and content of navigation sidebars at different hierarchy levels
@@ -124,16 +188,13 @@ sidebars:
     #   {1} = "openapi-ui", {2} = "cluster-name", {3} = "builtin-table", {4} = "namespaces"
     #   {cluster} = "cluster-name"
     customItems: []
-    # Search sidebar section
-    search:
+
+    home:
       enabled: true
-    # Built-in sidebar sections configuration
-    clusters:
-      enabled: false
-    projects:
-      enabled: true
-    instances:
-      enabled: false
+      items:
+        search: true
+        projects: false
+        instances: false
 
     # ArgoCD sidebar section and sub-items
     argocd:
@@ -262,16 +323,13 @@ sidebars:
     #   {cluster} = "cluster-name"
     #   {namespace} = "namespace"
     customItems: []
-    # Search sidebar section
-    search:
-      enabled: true
 
-    # Built-in sidebar sections for namespaced context
-    projects:
-      enabled: false
-
-    instances:
+    home:
       enabled: true
+      items:
+        search: true
+        projects: false
+        instances: false
 
     # ArgoCD resources within the namespace/project
     argocd:
@@ -395,16 +453,13 @@ sidebars:
     #   {namespace} = "namespace"
     #   {syntheticProject} = "project-name"
     customItems: []
-    # Search sidebar section
-    search:
+
+    home:
       enabled: true
-
-    # Built-in sidebar sections for instance context
-    projects:
-      enabled: false
-
-    instances:
-      enabled: false
+      items:
+        search: true
+        projects: false
+        instances: false
 
     # ArgoCD resources for the instance
     argocd:

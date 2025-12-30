@@ -57,7 +57,6 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   id: stock-cluster-/networking.k8s.io/v1/networkpolicies
 
-{{ if .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -102,7 +101,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   id: stock-namespace-/networking.k8s.io/v1/networkpolicies
-{{ else }}
+
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -193,7 +192,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.labels" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.pod-selector" . | nindent 4 }}
   id: stock-instance-/networking.k8s.io/v1/networkpolicies
-{{ end }}
+
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride

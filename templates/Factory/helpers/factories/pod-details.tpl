@@ -21,6 +21,13 @@ spec:
       plural: "{7}"
       fieldSelector: "metadata.name={8}"
 
+    - cluster: "{2}"
+      apiGroup: "metrics.k8s.io"
+      apiVersion: "v1beta1"
+      namespace: "{3}"
+      plural: "pods"
+      fieldSelector: "metadata.name={8}"
+
   # Header row with badge, pod name, and status
   data:
     - type: antdFlex
@@ -485,6 +492,7 @@ spec:
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: .items.0.status.initContainerStatuses
+                              pathToKey: .name
                               k8sResourceToFetch: 
                                 apiVersion: "v1"
                                 plural: "pods"
@@ -524,12 +532,15 @@ spec:
                               baseprefix: "/openapi-ui"
                               withoutControls: true
                               pathToItems: .items.0.status.containerStatuses
+                              pathToKey: .name
                               k8sResourceToFetch: 
                                 apiVersion: "{6}"
                                 namespace: "{3}"
                                 plural: "{7}"
                               fieldSelector: 
                                 metadata.name: "{8}"
+                              additionalReqsDataToEachItem:
+                                - 1
 
                   # Conditions section (hidden if none)
                   - type: antdCol

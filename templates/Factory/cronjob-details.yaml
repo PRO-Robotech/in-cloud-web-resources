@@ -6,7 +6,6 @@
   "basePrefix" .Values.basePrefix
 ) }}
 
-{{- if not .Values.namespaceNavigation }}
 {{ include "incloud-web-resources.factory.manifets.cronjob-details" (dict
   "key" "instance-cronjob-details"
   "resName" "{7}"
@@ -14,4 +13,3 @@
   "podFactoryName" "stock-namespace-/v1/pods"
   "basePrefix" .Values.basePrefix
 ) }}
-{{- end }}

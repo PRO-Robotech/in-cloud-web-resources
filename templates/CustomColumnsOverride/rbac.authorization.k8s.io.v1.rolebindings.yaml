@@ -35,9 +35,42 @@ spec:
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
+
     - jsonPath: .subjects[?(@.kind=="ServiceAccount")].name
       name: Service accounts
-      type: array
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+          - type: OwnerRefs
+            data:
+              id: refs
+              baseprefix: /openapi-ui
+              cluster: '{2}'
+              # forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+              reqIndex: 0
+              errorText: error getting refs
+              notArrayErrorText: refs on path are not arr
+              emptyArrayErrorText: "-"
+              isNotRefsArrayErrorText: objects in arr are not refs
+              forcedApiVersion:
+                - kind: ServiceAccount
+                  apiVersion: v1
+              # containerStyle:
+              #   border: "1px solid red"
+              #   padding: "10px"
+              # listFlexProps: 
+              #   gap: 10
+              jsonPathToArrayOfRefs: '.subjects[?(@.kind=="ServiceAccount")]'
+              # keysToForcedLabel?: string | string[] // j
+              baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
+              baseFactoryClusterSceopedBuiltinKey: base-factory-clusterscoped-builtin
+              baseFactoryNamespacedAPIKey: base-factory-namespaced-api
+              baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
+              baseNamespaceFactoryKey: namespace-details
+              baseNavigationPlural: navigations
+              baseNavigationName: navigation
+
     - jsonPath: .subjects[?(@.kind=="User")].name
       name: Users
       type: array
@@ -65,7 +98,6 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.rbac-role-ref" . | nindent 4 }}
   id: stock-cluster-/rbac.authorization.k8s.io/v1/rolebindings
 
-{{ if .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -155,7 +187,7 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.rbac-role-ref" . | nindent 4 }}
   id: stock-namespace-/rbac.authorization.k8s.io/v1/rolebindings
-{{ else }}
+
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -336,4 +368,3 @@ spec:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
     {{ include "incloud-web-resources.cco.columns-trim-lengths.rbac-role-ref" . | nindent 4 }}
   id: stock-instance-/rbac.authorization.k8s.io/v1/rolebindings
-{{ end }}

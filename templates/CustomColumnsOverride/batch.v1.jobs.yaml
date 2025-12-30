@@ -69,7 +69,6 @@ spec:
       value: "-"
   id: "stock-cluster-/batch/v1/jobs"
 
-{{ if .Values.namespaceNavigation }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -130,7 +129,7 @@ spec:
     - key: Starting deadline seconds
       value: "-"
   id: "stock-namespace-/batch/v1/jobs"
-{{ else }}
+
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -318,7 +317,7 @@ spec:
     - key: Starting deadline seconds
       value: "-"
   id: "factory-instance-jobs-details"
-{{ end }}
+
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride

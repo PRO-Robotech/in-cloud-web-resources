@@ -5,11 +5,9 @@
   "basePrefix" .Values.basePrefix
 ) }}
 
-{{- if not .Values.namespaceNavigation }}
 {{ include "incloud-web-resources.factory.manifets.job-details" (dict
   "key" "instance-job-details"
   "resName" "{7}"
   "podFactoryName" "factory-instance-pods-details"
   "basePrefix" .Values.basePrefix
 ) }}
-{{- end }}

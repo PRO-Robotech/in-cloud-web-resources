@@ -1,6 +1,8 @@
 {{ $projRes := .Values.projectResource }}
+{{ $instRes := .Values.instanceResource }}
+{{ $instResPath := printf "%s/%s/%s" $instRes.apiGroup $instRes.apiVersion $instRes.resourceName }}
 
-{{ if and ($projRes.deployDefaultForms) (not .Values.namespaceNavigation) }}
+{{ if ($projRes.deployDefaultForms) }}
 ---
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
@@ -8,19 +10,19 @@ metadata:
   name: stock-cluster-project
 spec:
   additionalPrinterColumns:
-    {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
+    {{ include "incloud-web-resources.cco.columns.icon-link-block-api-table" (dict
       "columnName" "Name"
-      "title" "project"
+      "title" "Project"
       "reqIndex" 0
       "type" "name"
       "jsonPath" ".metadata.name"
-      "factory" "project-details"
+      "resource" $instResPath
       "namespace" "{reqsJsonPath[0]['.metadata.name']['-']}"
       "basePrefix" .Values.basePrefix
     ) | nindent 4
     }}
-    - jsonPath: .spec.prefix
-      name: Prefix
+    - jsonPath: .spec.alias
+      name: Alias
       type: string
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
