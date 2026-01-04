@@ -509,6 +509,7 @@ spec:
                   cluster: "{2}"
                   nodeName: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
                   substractHeight: 400
+                  listPodTemplatesNs: {{ .Release.Namespace }}
 
           - key: events
             label: Events
