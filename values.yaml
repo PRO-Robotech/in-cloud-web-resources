@@ -12,6 +12,26 @@ basePrefix: openapi-ui
 # When using project/instance mode, instances create namespaces with matching names
 namespaceNavigation: true
 
+#### Factory Configuration ####
+factory:
+  podDetails:
+    # Enable/disable the Pod Details page in the web interface
+    monitoring:
+      enabled: true
+    # Links to monitoring tools for pod metrics and logs
+      iframe:
+        enabled: true
+        link: "https://example.com/d/k8s_views_pods/kubernetes-views-pods?orgId=1&from=now-1h&to=now&timezone=utc&var-datasource=example&var-namespace={reqsJsonPath[0]['.items.0.metadata.namespace']['-']}&var-pod={reqsJsonPath[0]['.items.0.metadata.name']['-']}&var-resolution=30s&var-job=kube-state-metrics&refresh=5s&kiosk=true&theme={theme}"
+
+  nodeDetails:
+    # Enable/disable the Pod Details page in the web interface
+    monitoring:
+      enabled: true
+    # Links to monitoring tools for pod metrics and logs
+      iframe:
+        enabled: true
+        link: "https://example.com/d/k8s_views_nodes/kubernetes-views-nodes?orgId=1&from=now-1h&to=now&timezone=utc&var-datasource=example&var-resolution=30s&var-node={reqsJsonPath[0]['.items.0.metadata.name']['-']}&var-instance=&refresh=30s&kiosk=true&theme={theme}"
+
 # Project resource configuration
 # Defines the custom resource definition for Projects when using project/instance mode
 projectResource:

@@ -533,6 +533,22 @@ spec:
                   baseFactoryClusterSceopedBuiltinKey: base-factory-clusterscoped-builtin
                   baseNamespaceFactoryKey: namespace-details
 
+          {{ with .Values.factory.nodeDetails.monitoring }}
+            {{ if .eq .enabled true }}
+          - key: monitoring
+            label: Monitoring
+            children:
+              - type: DefaultIframe
+                data:
+                  id: DefaultIframe
+                  src: "{{ .iframe.link }}"
+                  width: 100%
+                  height: 1050px
+                  style:
+                    border: 0
+            {{- end }}
+          {{- end }}
+
 {{- if .Values.addons.trivy.enabled }}
           # ------ PODS TAB ------
           - key: config-reports
