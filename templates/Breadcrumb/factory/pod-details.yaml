@@ -10,7 +10,7 @@ spec:
       label: "v1/pods"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/builtin-table/pods"
     - key: pod
-      label: "{8}"
+      label: "{5}"
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
