@@ -55,7 +55,7 @@ spec:
             plural: "{7}"
             jsonPath: ".metadata.name"
             redirectUrl: "/openapi-ui/{2}/{3}/factory/{5}/{6}/{7}/{chosenEntryValue}"
-            currentValue: "{8}"
+            currentValue: "{reqsJsonPath[0]['.items.0.metadata.name']['Select {7}...']}"
             placeholder: "Select {7}..."
 
         - type: CopyButton
@@ -725,8 +725,8 @@ spec:
                       baseprefix: "/{{ $basePrefix }}"
                       # Build label selector from pod template labels
                       labelSelector:
-                        trivy-operator.resource.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-                        trivy-operator.resource.kind: "{reqsJsonPath[0]['.items.0.kind']['-']}"
+                        trivy-operator.resource.name: "{reqsJsonPath[0]['.items.0.metadata.ownerReferences[?(@.kind=='ReplicaSet' || @.kind=='DaemonSet' || @.kind=='StatefulSet')].name']['-']}"
+                        trivy-operator.resource.kind: "{reqsJsonPath[0]['.items.0.metadata.ownerReferences[?(@.kind=='ReplicaSet' || @.kind=='DaemonSet' || @.kind=='StatefulSet')].kind']['-']}"
                       # Items path for Pods list
                       pathToItems: ".items[*].report.vulnerabilities"
 
@@ -748,8 +748,8 @@ spec:
                       baseprefix: "/{{ $basePrefix }}"
                       # Build label selector from pod template labels
                       labelSelector:
-                        trivy-operator.resource.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-                        trivy-operator.resource.kind: "{reqsJsonPath[0]['.items.0.kind']['-']}"
+                        trivy-operator.resource.name: "{reqsJsonPath[0]['.items.0.metadata.ownerReferences[?(@.kind=='ReplicaSet' || @.kind=='DaemonSet' || @.kind=='StatefulSet')].name']['-']}"
+                        trivy-operator.resource.kind: "{reqsJsonPath[0]['.items.0.metadata.ownerReferences[?(@.kind=='ReplicaSet' || @.kind=='DaemonSet' || @.kind=='StatefulSet')].kind']['-']}"
                       # Items path for Pods list
                       pathToItems: ".items[*].report.checks"
 
