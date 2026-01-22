@@ -533,8 +533,8 @@ spec:
                   baseFactoryClusterSceopedBuiltinKey: base-factory-clusterscoped-builtin
                   baseNamespaceFactoryKey: namespace-details
 
-          {{ with .Values.factory.nodeDetails.monitoring }}
-            {{ if .eq .enabled true }}
+          {{ with $.Values.factory.nodeDetails.monitoring }}
+            {{- if and .enabled .iframe.enabled }}
           - key: monitoring
             label: Monitoring
             children:

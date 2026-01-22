@@ -690,14 +690,14 @@ spec:
                       baseNamespaceFactoryKey: namespace-details
 
           {{ with .Values.factory.podDetails.monitoring }}
-            {{ if .eq .enabled true }}
+            {{- if and .enabled .iframe.enabled }}
           - key: monitoring
             label: Monitoring
             children:
               - type: DefaultIframe
                 data:
                   id: DefaultIframe
-                  src: "{{ .iframe.link }}"
+                  src: {{ $.Values.factory.podDetails.monitoring.iframe.link }}
                   width: 100%
                   height: 1050px
                   style:

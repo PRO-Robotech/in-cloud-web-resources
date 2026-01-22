@@ -3,6 +3,7 @@
   "resName" "{6}"
   "trivyEnabled" .Values.addons.trivy.enabled
   "basePrefix" .Values.basePrefix
+  "Values" .Values
 ) }}
 
 {{ include "incloud-web-resources.factory.manifets.pod-details" (dict
@@ -10,4 +11,5 @@
   "resName" "{7}"
   "trivyEnabled" .Values.addons.trivy.enabled
   "basePrefix" .Values.basePrefix
+  "Values" .Values
 ) }}
