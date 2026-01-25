@@ -16,6 +16,55 @@ spec:
     ) | nindent 4
     }}
 
+
+    {{- if .Values.addons.inCloudMCO.enabled }}
+    - name: Machine Pool
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        - children:
+          - data:
+              id: example-resource-badge
+              value: MachineConfigPool
+            type: ResourceBadge
+
+          - data:
+              href: /openapi-ui/{2}/factory/base-factory-clusterscoped-api/mco.in-cloud.io/v1alpha1/machineconfigpools/{reqsJsonPath[0]['.metadata.annotations["mco.in-cloud.io/pool"]']['-']}
+              id: name-link
+              text: "{reqsJsonPath[0]['.metadata.annotations[\"mco.in-cloud.io/pool\"]']['-']}"
+            type: antdLink
+          data:
+            align: center
+            direction: row
+            gap: 6
+            id: resource-badge-link-row
+          type: antdFlex
+
+    - name: Render Config
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        - children:
+          - data:
+              id: example-resource-badge
+              value: RenderedMachineConfig
+            type: ResourceBadge
+
+          - data:
+              href: /openapi-ui/{2}/factory/base-factory-clusterscoped-api/mco.in-cloud.io/v1alpha1/renderedmachineconfigs/{reqsJsonPath[0]['.metadata.annotations["mco.in-cloud.io/current-revision"]']['-']}
+              id: name-link
+              text: "{reqsJsonPath[0]['.metadata.annotations[\"mco.in-cloud.io/current-revision\"]']['-']}"
+            type: antdLink
+          data:
+            align: center
+            direction: row
+            gap: 6
+            id: resource-badge-link-row
+          type: antdFlex
+    {{- end }}
+    
     - name: Memory
       # Фильтрация недоступна до создания бекенда
       # jsonPath: .metadata.name
@@ -79,54 +128,6 @@ spec:
     - jsonPath: .status.nodeInfo.kubeletVersion
       name: Kubelet Version
       type: string
-
-    {{- if .Values.addons.inCloudMCO.enabled }}
-    - name: Machine Pool
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        - children:
-          - data:
-              id: example-resource-badge
-              value: MachineConfigPool
-            type: ResourceBadge
-
-          - data:
-              href: /openapi-ui/{2}/factory/base-factory-clusterscoped-api/mco.in-cloud.io/v1alpha1/machineconfigpools/{reqsJsonPath[0]['.metadata.annotations["mco.in-cloud.io/pool"]']['-']}
-              id: name-link
-              text: "{reqsJsonPath[0]['.metadata.annotations[\"mco.in-cloud.io/pool\"]']['-']}"
-            type: antdLink
-          data:
-            align: center
-            direction: row
-            gap: 6
-            id: resource-badge-link-row
-          type: antdFlex
-
-    - name: Render Config
-      type: factory
-      customProps:
-        disableEventBubbling: true
-        items:
-        - children:
-          - data:
-              id: example-resource-badge
-              value: RenderedMachineConfig
-            type: ResourceBadge
-
-          - data:
-              href: /openapi-ui/{2}/factory/base-factory-clusterscoped-api/mco.in-cloud.io/v1alpha1/renderedmachineconfigs/{reqsJsonPath[0]['.metadata.annotations["mco.in-cloud.io/current-revision"]']['-']}
-              id: name-link
-              text: "{reqsJsonPath[0]['.metadata.annotations[\"mco.in-cloud.io/current-revision\"]']['-']}"
-            type: antdLink
-          data:
-            align: center
-            direction: row
-            gap: 6
-            id: resource-badge-link-row
-          type: antdFlex
-    {{- end }}
 
     - name: Status
       type: factory
