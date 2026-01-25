@@ -80,7 +80,7 @@ spec:
       name: Kubelet Version
       type: string
 
-    {{- if .Values.inCloudMCO.enabled }}
+    {{- if .Values.addons.inCloudMCO.enabled }}
     - name: Machine Pool
       type: factory
       customProps:
