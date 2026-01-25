@@ -93,7 +93,7 @@ spec:
             type: ResourceBadge
 
           - data:
-              href: /openapi-ui/{2}/{reqsJsonPath[0]['.metadata.namespace']['-']}/factory/base-factory-clusterscoped-api/mco.in-cloud.io/v1alpha1/machineconfigpools/{reqsJsonPath[0]['.metadata.annotations["mco.in-cloud.io/pool"]']['-']}
+              href: /openapi-ui/{2}/factory/base-factory-clusterscoped-api/mco.in-cloud.io/v1alpha1/machineconfigpools/{reqsJsonPath[0]['.metadata.annotations["mco.in-cloud.io/pool"]']['-']}
               id: name-link
               text: "{reqsJsonPath[0]['.metadata.annotations[\"mco.in-cloud.io/pool\"]']['-']}"
             type: antdLink
@@ -116,7 +116,7 @@ spec:
             type: ResourceBadge
 
           - data:
-              href: /openapi-ui/{2}/{reqsJsonPath[0]['.metadata.namespace']['-']}/factory/base-factory-clusterscoped-api/mco.in-cloud.io/v1alpha1/renderedmachineconfigs/{reqsJsonPath[0]['.metadata.annotations["mco.in-cloud.io/current-revision"]']['-']}
+              href: /openapi-ui/{2}/factory/base-factory-clusterscoped-api/mco.in-cloud.io/v1alpha1/renderedmachineconfigs/{reqsJsonPath[0]['.metadata.annotations["mco.in-cloud.io/current-revision"]']['-']}
               id: name-link
               text: "{reqsJsonPath[0]['.metadata.annotations[\"mco.in-cloud.io/current-revision\"]']['-']}"
             type: antdLink
