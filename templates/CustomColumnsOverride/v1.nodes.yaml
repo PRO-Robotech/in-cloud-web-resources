@@ -47,6 +47,85 @@ spec:
               coresValue: |
                 {reqsJsonPath[0]['.additionalReqsData.0.items[?(@.metadata.name=="{reqsJsonPath[0][".metadata.name"]}")].usage.cpu']['-']}
 
+    - name: Internal IP
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+          - type: parsedText
+            data:
+              id: external-io-value
+              text: "{reqsJsonPath[0]['.status.addresses[?(@.type=='InternalIP')].address']['-']}"
+
+    - name: External IP
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+          - type: parsedText
+            data:
+              id: external-io-value
+              text: "{reqsJsonPath[0]['.status.addresses[?(@.type=='ExternalIP')].address']['-']}"
+
+    - jsonPath: .status.nodeInfo.osImage
+      name: OS Image
+      type: string
+
+
+    - jsonPath: .status.nodeInfo.kernelVersion
+      name: Kernel Version
+      type: string
+
+    - jsonPath: .status.nodeInfo.kubeletVersion
+      name: Kubelet Version
+      type: string
+
+    - name: Machine Pool
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        - children:
+          - data:
+              id: example-resource-badge
+              value: MachineConfigPool
+            type: ResourceBadge
+
+          - data:
+              href: /openapi-ui/{2}/{reqsJsonPath[0]['.metadata.namespace']['-']}/factory/base-factory-clusterscoped-api/mco.in-cloud.io/v1alpha1/machineconfigpools/{reqsJsonPath[0]['.metadata.annotations["mco.in-cloud.io/pool"]']['-']}
+              id: name-link
+              text: "{reqsJsonPath[0]['.metadata.annotations[\"mco.in-cloud.io/pool\"]']['-']}"
+            type: antdLink
+          data:
+            align: center
+            direction: row
+            gap: 6
+            id: resource-badge-link-row
+          type: antdFlex
+
+    - name: Render Config
+      type: factory
+      customProps:
+        disableEventBubbling: true
+        items:
+        - children:
+          - data:
+              id: example-resource-badge
+              value: RenderedMachineConfig
+            type: ResourceBadge
+
+          - data:
+              href: /openapi-ui/{2}/{reqsJsonPath[0]['.metadata.namespace']['-']}/factory/base-factory-clusterscoped-api/mco.in-cloud.io/v1alpha1/renderedmachineconfigs/{reqsJsonPath[0]['.metadata.annotations["mco.in-cloud.io/current-revision"]']['-']}
+              id: name-link
+              text: "{reqsJsonPath[0]['.metadata.annotations[\"mco.in-cloud.io/current-revision\"]']['-']}"
+            type: antdLink
+          data:
+            align: center
+            direction: row
+            gap: 6
+            id: resource-badge-link-row
+          type: antdFlex
+
 
     - name: Status
       type: factory
@@ -54,11 +133,13 @@ spec:
         disableEventBubbling: true
         items:
         {{ include "incloud-web-resources.cco.statuses.node" . | nindent 8 }}
+
     {{ include "incloud-web-resources.cco.columns.timeblock" (dict
       "columnName" "Created"
       "jsonPath" ".metadata.creationTimestamp"
-    ) | nindent 4
+      ) | nindent 4
     }}
+
   additionalPrinterColumnsTrimLengths:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
   id: stock-cluster-/v1/nodes
