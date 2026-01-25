@@ -80,6 +80,7 @@ spec:
       name: Kubelet Version
       type: string
 
+    {{- if .Values.inCloudMCO.enabled }}
     - name: Machine Pool
       type: factory
       customProps:
@@ -125,7 +126,7 @@ spec:
             gap: 6
             id: resource-badge-link-row
           type: antdFlex
-
+    {{- end }}
 
     - name: Status
       type: factory
