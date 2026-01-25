@@ -16,7 +16,7 @@ spec:
   key: project-details
   sidebarTags:
     - clusterrole-details
-  withScrollableMainContentCard: true
+  withScrollableMainContentCard: false
   urlsToFetch:
     - cluster: "{2}"
       apiGroup: "{{ $projRes.apiGroup }}"

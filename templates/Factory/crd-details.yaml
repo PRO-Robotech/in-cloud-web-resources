@@ -19,7 +19,7 @@ spec:
       fieldSelector: "metadata.name={8}"
 
   # Enable scrollable main content
-  withScrollableMainContentCard: true
+  withScrollableMainContentCard: false
 
   data:
     # === HEADER SECTION ===
@@ -39,15 +39,26 @@ spec:
             style:
               fontSize: 20px
 
-        # CRD name
-        - type: parsedText
+        - type: DropdownRedirect
           data:
-            id: header-name
-            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-            style:
-              fontFamily: RedHatDisplay, Overpass, overpass, helvetica, arial, sans-serif
-              fontSize: 20px
-              lineHeight: 24px
+            id: resource-name-dropdown
+
+            cluster: '{2}'
+            apiGroup: "{5}"
+            apiVersion: '{6}'
+            plural: '{7}'
+
+            jsonPath: ".metadata.name"
+            redirectUrl: "/openapi-ui/{2}/factory/{4}/{5}/{6}/{7}/{chosenEntryValue}"
+            currentValue: "{reqsJsonPath[0]['.items.0.metadata.name']['Select {7}...']}"
+            placeholder: "Select {7}..."
+
+        - type: CopyButton
+          data:
+            id: copy-resource-name
+            copyText: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+            successMessage: "Name copied to clipboard."
+            tooltip: "Copy {reqsJsonPath[0]['.items.0.kind']['-']} name"
 
     # === TABS SECTION ===
     - type: antdTabs
@@ -302,19 +313,25 @@ spec:
           - key: yaml
             label: YAML
             children:
-              - type: YamlEditorSingleton
+              - type: ContentCard
                 data:
-                  id: yaml-editor
-                  cluster: "{2}"
-                  isNameSpaced: false
-                  prefillValuesRequestIndex: 0
-                  substractHeight: 400
-                  type: api
-                  plural: customresourcedefinitions
-                  pathToData: .items.0
-                  forcedKind: CustomResourceDefinition
-                  apiGroup:  "apiextensions.k8s.io"
-                  apiVersion: v1
+                  id: yaml-editor-card
+                  style:
+                    marginBottom: 24px
+                children:
+                  - type: YamlEditorSingleton
+                    data:
+                      id: yaml-editor
+                      cluster: "{2}"
+                      isNameSpaced: false
+                      prefillValuesRequestIndex: 0
+                      substractHeight: 350
+                      type: api
+                      plural: customresourcedefinitions
+                      pathToData: .items.0
+                      forcedKind: CustomResourceDefinition
+                      apiGroup:  "apiextensions.k8s.io"
+                      apiVersion: v1
 
 
           # --- INSTANCES TAB ---

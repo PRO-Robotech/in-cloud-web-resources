@@ -12,7 +12,7 @@ metadata:
   name: "{{ $key }}"
 spec:
   key: "{{ $key }}"
-  withScrollableMainContentCard: true
+  withScrollableMainContentCard: false
   sidebarTags:
     - service-details
   urlsToFetch:
@@ -40,15 +40,26 @@ spec:
             style:
               fontSize: 20px
 
-        # Service name
-        - type: parsedText
+        - type: DropdownRedirect
           data:
-            id: service-name
-            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-            style:
-              fontSize: 20px
-              lineHeight: 24px
-              fontFamily: RedHatDisplay, Overpass, overpass, helvetica, arial, sans-serif
+            id: resource-name-dropdown
+
+            cluster: '{2}'
+            namespace: '{3}'
+            apiVersion: '{6}'
+            plural: '{7}'
+
+            jsonPath: ".metadata.name"
+            redirectUrl: "/openapi-ui/{2}/{3}/factory/{5}/{6}/{7}/{chosenEntryValue}"
+            currentValue: "{reqsJsonPath[0]['.items.0.metadata.name']['Select {7}...']}"
+            placeholder: "Select {7}..."
+
+        - type: CopyButton
+          data:
+            id: copy-resource-name
+            copyText: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+            successMessage: "Name copied to clipboard."
+            tooltip: "Copy {reqsJsonPath[0]['.items.0.kind']['-']} name"
 
     # Tabs with Details, YAML, and Pods
     - type: antdTabs
@@ -370,64 +381,82 @@ spec:
           - key: "yaml"
             label: "YAML"
             children:
-              - type: YamlEditorSingleton
+              - type: ContentCard
                 data:
-                  id: yaml-editor
-                  cluster: "{2}"
-                  isNameSpaced: true
-                  type: "builtin"
-                  prefillValuesRequestIndex: 0
-                  substractHeight: 400
-                  pathToData: .items.0
-                  plural: services
-                  forcedKind: Service
-                  apiVersion: v1
+                  id: yaml-editor-card
+                  style:
+                    marginBottom: 24px
+                children:
+                  - type: YamlEditorSingleton
+                    data:
+                      id: yaml-editor
+                      cluster: "{2}"
+                      isNameSpaced: true
+                      type: "builtin"
+                      prefillValuesRequestIndex: 0
+                      substractHeight: 350
+                      pathToData: .items.0
+                      plural: services
+                      forcedKind: Service
+                      apiVersion: v1
 
 
           # Pods tab
           - key: "pods"
             label: "Pods"
             children:
-              - type: VisibilityContainer
+              - type: ContentCard
                 data:
-                  id: service-pod-serving-vis
-                  value: "{reqsJsonPath[0]['.items.0.spec.selector']['-']}"
-                  style: { margin: 0, padding: 0 }
+                  id: pod-list-card
+                  style:
+                    marginBottom: 24px
                 children:
-                  - type: EnrichedTable
+                  - type: VisibilityContainer
                     data:
-                      id: pods-table
-                      cluster: "{2}"
-                      customizationId: "{{ $podFactoryName }}"
-                      baseprefix: "/{{ $basePrefix }}"
-                      labelSelectorFull:
-                        reqIndex: 0
-                        pathToLabels: ".items.0.spec.selector"
-                      pathToItems: ".items"
-                      k8sResourceToFetch: 
-                        apiVersion: "v1"
-                        plural: "pods"
-                        namespace: "{3}"
+                      id: service-pod-serving-vis
+                      value: "{reqsJsonPath[0]['.items.0.spec.selector']['-']}"
+                      style: { margin: 0, padding: 0 }
+                    children:
+                      - type: EnrichedTable
+                        data:
+                          id: pods-table
+                          cluster: "{2}"
+                          customizationId: "{{ $podFactoryName }}"
+                          baseprefix: "/{{ $basePrefix }}"
+                          labelSelectorFull:
+                            reqIndex: 0
+                            pathToLabels: ".items.0.spec.selector"
+                          pathToItems: ".items"
+                          k8sResourceToFetch: 
+                            apiVersion: "v1"
+                            plural: "pods"
+                            namespace: "{3}"
 
 
   {{- if $trivyEnabled }}
           - key: config-reports
             label: Config reports
             children:
-              - type: EnrichedTable
+              - type: ContentCard
                 data:
-                  id: ds-pods-table
-                  fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/namespaces/{3}/configauditreports"
-                  cluster: "{2}"
-                  customizationId: factory-aquasecurity.github.io.v1alpha1.configauditreports
-                  baseprefix: "/{{ $basePrefix }}"
-                  
-                  # Build label selector from pod template labels
-                  labelSelector:
-                    trivy-operator.resource.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-                    trivy-operator.resource.kind: "{reqsJsonPath[0]['.items.0.kind']['-']}"
-                  # Items path for Pods list
-                  pathToItems: ".items[*].report.checks"
+                  id: config-report-list-card
+                  style:
+                    marginBottom: 24px
+                children:
+                  - type: EnrichedTable
+                    data:
+                      id: ds-pods-table
+                      fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/namespaces/{3}/configauditreports"
+                      cluster: "{2}"
+                      customizationId: factory-aquasecurity.github.io.v1alpha1.configauditreports
+                      baseprefix: "/{{ $basePrefix }}"
+                      
+                      # Build label selector from pod template labels
+                      labelSelector:
+                        trivy-operator.resource.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+                        trivy-operator.resource.kind: "{reqsJsonPath[0]['.items.0.kind']['-']}"
+                      # Items path for Pods list
+                      pathToItems: ".items[*].report.checks"
 
   {{- end -}}
 {{- end -}}

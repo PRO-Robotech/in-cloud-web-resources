@@ -639,7 +639,7 @@ spec:
                       cluster: "{2}"
                       namespace: "{reqsJsonPath[0]['.items.0.metadata.namespace']['-']}"
                       podName: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-                      substractHeight: 400
+                      substractHeight: 350
                       tailLines: 1000
 
           # Terminal tab with exec into pod

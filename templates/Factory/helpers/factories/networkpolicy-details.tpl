@@ -12,7 +12,7 @@ metadata:
   name: "{{ $key }}"
 spec:
   key: "{{ $key }}"
-  withScrollableMainContentCard: true
+  withScrollableMainContentCard: false
   sidebarTags:
     - networkpolicy-details
   urlsToFetch:
@@ -41,15 +41,27 @@ spec:
             style:
               fontSize: 20px
 
-        # networkpolicy name
-        - type: parsedText
+        - type: DropdownRedirect
           data:
-            id: networkpolicy-name
-            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-            style:
-              fontSize: 20px
-              lineHeight: 24px
-              fontFamily: RedHatDisplay, Overpass, overpass, helvetica, arial, sans-serif
+            id: resource-name-dropdown
+
+            cluster: '{2}'
+            namespace: '{3}'
+            apiGroup: '{6}'
+            apiVersion: '{7}'
+            plural: '{8}'
+
+            jsonPath: ".metadata.name"
+            redirectUrl: "/openapi-ui/{2}/{3}/factory/{5}/{6}/{7}/{8}/{chosenEntryValue}"
+            currentValue: "{reqsJsonPath[0]['.items.0.metadata.name']['Select {8}...']}"
+            placeholder: "Select {8}..."
+
+        - type: CopyButton
+          data:
+            id: copy-resource-name
+            copyText: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+            successMessage: "Name copied to clipboard."
+            tooltip: "Copy {reqsJsonPath[0]['.items.0.kind']['-']} name"
 
     # Tabs with Details, YAML, and Pods
     - type: antdTabs
@@ -230,40 +242,52 @@ spec:
           - key: yaml
             label: YAML
             children:
-              - type: YamlEditorSingleton
+              - type: ContentCard
                 data:
-                  id: yaml-editor
-                  cluster: "{2}"
-                  isNameSpaced: true
-                  type: api
-                  plural: networkpolicies
-                  prefillValuesRequestIndex: 0
-                  substractHeight: 400
-                  pathToData: .items.0
-                  forcedKind: NetworkPolicy
-                  apiGroup: networking.k8s.io
-                  apiVersion: v1
+                  id: yaml-editor-card
+                  style:
+                    marginBottom: 24px
+                children:
+                  - type: YamlEditorSingleton
+                    data:
+                      id: yaml-editor
+                      cluster: "{2}"
+                      isNameSpaced: true
+                      type: api
+                      plural: networkpolicies
+                      prefillValuesRequestIndex: 0
+                      substractHeight: 350
+                      pathToData: .items.0
+                      forcedKind: NetworkPolicy
+                      apiGroup: networking.k8s.io
+                      apiVersion: v1
 
           # Pods tab
           - key: "pods"
             label: "Pod Selector"
             children:
-              - type: EnrichedTable
+              - type: ContentCard
                 data:
-                  id: pods-table
-                  cluster: "{2}"
-                  customizationId: "{{ $podFactoryName }}"
-                  baseprefix: "/{{ $basePrefix }}"
-                  labelSelectorFull:
-                    reqIndex: 0
-                    pathToLabels: ".items.0.spec.podSelector.matchLabels"
-                  pathToItems: ".items"
-                  k8sResourceToFetch: 
-                    apiVersion: "v1"
-                    plural: "pods"
-                    namespace: "{3}"
-                  # dataForControls:
-                  #   plural: pods
-                  #   apiVersion: v1
+                  id: pod-list-card
+                  style:
+                    marginBottom: 24px
+                children:
+                  - type: EnrichedTable
+                    data:
+                      id: pods-table
+                      cluster: "{2}"
+                      customizationId: "{{ $podFactoryName }}"
+                      baseprefix: "/{{ $basePrefix }}"
+                      labelSelectorFull:
+                        reqIndex: 0
+                        pathToLabels: ".items.0.spec.podSelector.matchLabels"
+                      pathToItems: ".items"
+                      k8sResourceToFetch: 
+                        apiVersion: "v1"
+                        plural: "pods"
+                        namespace: "{3}"
+                      # dataForControls:
+                      #   plural: pods
+                      #   apiVersion: v1
 
 {{- end -}}

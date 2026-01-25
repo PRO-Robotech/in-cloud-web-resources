@@ -10,7 +10,7 @@ spec:
       label: "apps/v1/replicasets"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/api-table/apps/v1/replicasets"
     - key: ReplicaSet
-      label: "{9}"
+      label: "details"
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -24,4 +24,4 @@ spec:
       label: "apps/v1/replicasets"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/apps/v1/replicasets"
     - key: ReplicaSet
-      label: "{10}"
+      label: "details"

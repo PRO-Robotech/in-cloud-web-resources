@@ -10,7 +10,7 @@ spec:
       label: "batch/v1/cronjobs"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/api-table/batch/v1/cronjobs"
     - key: cronjob
-      label: "{9}"
+      label: "details"
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -24,4 +24,4 @@ spec:
       label: "batch/v1/cronjobs"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/batch/v1/cronjobs"
     - key: cronjob
-      label: "{10}"
+      label: "details"
