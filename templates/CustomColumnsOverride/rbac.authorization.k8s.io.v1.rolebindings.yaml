@@ -47,7 +47,7 @@ spec:
               id: refs
               baseprefix: /openapi-ui
               cluster: '{2}'
-              # forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+              forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
               reqIndex: 0
               errorText: error getting refs
               notArrayErrorText: refs on path are not arr
@@ -137,7 +137,7 @@ spec:
               id: refs
               baseprefix: /openapi-ui
               cluster: '{2}'
-              # forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+              forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
               reqIndex: 0
               errorText: error getting refs
               notArrayErrorText: refs on path are not arr
@@ -227,7 +227,7 @@ spec:
               id: refs
               baseprefix: /openapi-ui
               cluster: '{2}'
-              # forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+              forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
               reqIndex: 0
               errorText: error getting refs
               notArrayErrorText: refs on path are not arr
@@ -318,7 +318,7 @@ spec:
               id: refs
               baseprefix: /openapi-ui
               cluster: '{2}'
-              # forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
+              forcedNamespace: "{reqsJsonPath[0]['.metadata.namespace']['-']}"
               reqIndex: 0
               errorText: error getting refs
               notArrayErrorText: refs on path are not arr

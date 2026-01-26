@@ -509,6 +509,7 @@ spec:
                   cluster: "{2}"
                   nodeName: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
                   substractHeight: 400
+                  listPodTemplatesNs: {{ .Release.Namespace }}
 
           - key: events
             label: Events
@@ -531,6 +532,22 @@ spec:
                   baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
                   baseFactoryClusterSceopedBuiltinKey: base-factory-clusterscoped-builtin
                   baseNamespaceFactoryKey: namespace-details
+
+          {{ with $.Values.factory.nodeDetails.monitoring }}
+            {{- if and .enabled .iframe.enabled }}
+          - key: monitoring
+            label: Monitoring
+            children:
+              - type: DefaultIframe
+                data:
+                  id: DefaultIframe
+                  src: "{{ .iframe.link }}"
+                  width: 100%
+                  height: 1050px
+                  style:
+                    border: 0
+            {{- end }}
+          {{- end }}
 
 {{- if .Values.addons.trivy.enabled }}
           # ------ PODS TAB ------
