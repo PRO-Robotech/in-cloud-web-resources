@@ -132,23 +132,6 @@ spec:
                                   vertical: true
                                   gap: 24
                                 children:
-                                  # Display name label/value
-                                  - type: antdFlex
-                                    data:
-                                      id: meta-name-block
-                                      vertical: true
-                                      gap: 4
-                                    children:
-                                      - type: antdText
-                                        data:
-                                          id: meta-name-label
-                                          strong: true
-                                          text: "Name"
-                                      - type: parsedText
-                                        data:
-                                          id: meta-name-value
-                                          text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-
                                   # Namespace link (kept as include)
                                   - type: antdFlex
                                     data:
@@ -302,27 +285,6 @@ spec:
                                   vertical: true
                                   gap: 24
                                 children:
-                                  # Status block with readiness reason mapping
-                                  - type: antdFlex
-                                    data:
-                                      id: status-block
-                                      vertical: true
-                                      gap: 4
-                                    children:
-                                      - type: antdText
-                                        data:
-                                          id: status-label
-                                          strong: true
-                                          text: "Status"
-                                      # Pod readiness/status indicator
-                                      - type: antdFlex
-                                        data:
-                                          id: status-label-block
-                                          vertical: true
-                                          gap: 4
-                                        children:
-                                          {{ include "incloud-web-resources.factory.statuses.pod" . | nindent 38 }}
-
                                   # Restart policy
                                   - type: antdFlex
                                     data:

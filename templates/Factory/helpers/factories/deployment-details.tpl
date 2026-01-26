@@ -138,23 +138,6 @@ spec:
                               vertical: true
                               gap: 24
                             children:
-                              # Name block
-                              - type: antdFlex
-                                data:
-                                  id: name-block
-                                  vertical: true
-                                  gap: 4
-                                children:
-                                  - type: antdText
-                                    data:
-                                      id: name-label
-                                      text: Name
-                                      strong: true
-                                  - type: parsedText
-                                    data:
-                                      id: name-value
-                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-
                               # Namespace link block (rendered by include)
                               - type: antdFlex
                                 data:
@@ -299,25 +282,6 @@ spec:
                               vertical: true
                               gap: 24
                             children:
-                              # Status block (mirrors header status)
-                              - type: antdFlex
-                                data:
-                                  id: status-block
-                                  vertical: true
-                                  gap: 4
-                                children:
-                                  - type: antdText
-                                    data:
-                                      id: status-label
-                                      text: Status
-                                      strong: true
-                                  - type: antdFlex
-                                    data:
-                                      id: status-header-block
-                                      vertical: true
-                                      gap: 4
-                                    children:
-                                      {{ include "incloud-web-resources.factory.statuses.deployment" . | nindent 38 }}
 
                               # Rolling update strategy type
                               - type: antdFlex

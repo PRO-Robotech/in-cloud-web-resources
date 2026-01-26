@@ -117,23 +117,6 @@ spec:
                               vertical: true
                               gap: 24
                             children:
-                              # Name block
-                              - type: antdFlex
-                                data:
-                                  id: meta-name-block
-                                  vertical: true
-                                  gap: 4
-                                children:
-                                  - type: antdText
-                                    data:
-                                      id: meta-name-label
-                                      text: Name
-                                      strong: true
-                                  - type: parsedText
-                                    data:
-                                      id: meta-name-value
-                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-
                               # Namespace link
                               - type: antdFlex
                                 data:

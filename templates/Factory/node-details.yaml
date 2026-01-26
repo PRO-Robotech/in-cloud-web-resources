@@ -123,22 +123,6 @@ spec:
                               vertical: true
                               gap: 24
                             children:
-                              # Node name block
-                              - type: antdFlex
-                                data:
-                                  id: name-block
-                                  vertical: true
-                                  gap: 4
-                                children:
-                                  - type: antdText
-                                    data:
-                                      id: name-label
-                                      strong: true
-                                      text: "Name"
-                                  - type: parsedText
-                                    data:
-                                      id: name-value
-                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
 
                               # External ID block
                               - type: antdFlex
