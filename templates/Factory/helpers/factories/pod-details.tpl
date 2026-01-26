@@ -49,6 +49,7 @@ spec:
         - type: DropdownRedirect
           data:
             id: resource-name-dropdown
+            popupMatchSelectWidth: 300
             cluster: "{2}"
             apiVersion: "{6}"
             namespace: "{3}"

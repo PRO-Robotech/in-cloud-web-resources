@@ -42,6 +42,7 @@ spec:
         - type: DropdownRedirect
           data:
             id: resource-name-dropdown
+            popupMatchSelectWidth: 300
 
             cluster: '{2}'
             apiGroup: '{5}'
