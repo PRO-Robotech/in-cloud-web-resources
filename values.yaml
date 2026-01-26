@@ -114,6 +114,8 @@ addons:
   # Provides links to monitoring infrastructure
   grafana:
     enabled: false
+  inCloudMCO:
+    enabled: false
 
 navigation:
   # Navigation configuration for three-level selector hierarchy:

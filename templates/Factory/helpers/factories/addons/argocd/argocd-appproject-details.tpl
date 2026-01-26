@@ -12,7 +12,7 @@ spec:
   key: "{{ $key }}"
   sidebarTags:
     - argocd-appprojects-details
-  withScrollableMainContentCard: true
+  withScrollableMainContentCard: false
   urlsToFetch:
     - cluster: "{2}"
       apiGroup: "{6}"
@@ -39,15 +39,27 @@ spec:
             style:
               fontSize: 20px
 
-        # appprojects name
-        - type: parsedText
+        - type: DropdownRedirect
           data:
-            id: header-appprojects-name
-            text: "{reqsJsonPath[0]['.metadata.name']['-']}"
-            style:
-              fontSize: 20px
-              lineHeight: 24px
-              fontFamily: RedHatDisplay, Overpass, overpass, helvetica, arial, sans-serif
+            id: resource-name-dropdown
+
+            cluster: '{2}'
+            apiGroup: '{5}'
+            namespace: '{3}'
+            apiVersion: '{6}'
+            plural: '{7}'
+
+            jsonPath: ".metadata.name"
+            redirectUrl: "/openapi-ui/{2}/{3}/factory/{5}/{6}/{7}/{chosenEntryValue}"
+            currentValue: "{reqsJsonPath[0]['.items.0.metadata.name']['Select {7}...']}"
+            placeholder: "Select {7}..."
+
+        - type: CopyButton
+          data:
+            id: copy-resource-name
+            copyText: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+            successMessage: "Name copied to clipboard."
+            tooltip: "Copy {reqsJsonPath[0]['.items.0.kind']['-']} name"
 
     # Tabs with Details and YAML
     - type: antdTabs
@@ -217,17 +229,23 @@ spec:
           - key: yaml
             label: YAML
             children:
-              - type: YamlEditorSingleton
+              - type: ContentCard
                 data:
-                  id: yaml-editor
-                  cluster: "{2}"
-                  isNameSpaced: true
-                  type: builtin
-                  plural: appprojects
-                  prefillValuesRequestIndex: 0
-                  substractHeight: 400
-                  pathToData: .items.0
-                  forcedKind: AppProject
-                  apiGroup: argoproj.io
-                  apiVersion: v1alpha1
+                  id: yaml-editor-card
+                  style:
+                    marginBottom: 24px
+                children:
+                  - type: YamlEditorSingleton
+                    data:
+                      id: yaml-editor
+                      cluster: "{2}"
+                      isNameSpaced: true
+                      type: builtin
+                      plural: appprojects
+                      prefillValuesRequestIndex: 0
+                      substractHeight: 350
+                      pathToData: .items.0
+                      forcedKind: AppProject
+                      apiGroup: argoproj.io
+                      apiVersion: v1alpha1
 {{- end -}}

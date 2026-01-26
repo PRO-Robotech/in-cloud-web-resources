@@ -13,7 +13,7 @@ spec:
   key: "{{ $key }}"
   sidebarTags:
     - replicationcontroller-details
-  withScrollableMainContentCard: true
+  withScrollableMainContentCard: false
   urlsToFetch:
     - cluster: "{2}"
       apiVersion: "{6}"
@@ -45,15 +45,26 @@ spec:
             style:
               fontSize: 20px
 
-        # ReplicationController name
-        - type: parsedText
+        - type: DropdownRedirect
           data:
-            id: rc-name
-            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-            style:
-              fontSize: 20px
-              lineHeight: 24px
-              fontFamily: RedHatDisplay, Overpass, overpass, helvetica, arial, sans-serif
+            id: resource-name-dropdown
+
+            cluster: '{2}'
+            namespace: '{3}'
+            apiVersion: '{6}'
+            plural: '{7}'
+
+            jsonPath: ".metadata.name"
+            redirectUrl: "/openapi-ui/{2}/{3}/factory/{5}/{6}/{7}/{chosenEntryValue}"
+            currentValue: "{reqsJsonPath[0]['.items.0.metadata.name']['Select {7}...']}"
+            placeholder: "Select {7}..."
+
+        - type: CopyButton
+          data:
+            id: copy-resource-name
+            copyText: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+            successMessage: "Name copied to clipboard."
+            tooltip: "Copy {reqsJsonPath[0]['.items.0.kind']['-']} name"
 
     # Tabs with Details, YAML, and Pods
     - type: antdTabs
@@ -403,68 +414,86 @@ spec:
           - key: yaml
             label: YAML
             children:
-              - type: YamlEditorSingleton
+              - type: ContentCard
                 data:
-                  id: yaml-editor
-                  cluster: "{2}"
-                  isNameSpaced: true
-                  type: api
-                  plural: replicationcontrollers
-                  prefillValuesRequestIndex: 0
-                  substractHeight: 400
-                  pathToData: .items.0
-                  forcedKind: Replicationcontroller
-                  apiVersion: v1
+                  id: yaml-editor-card
+                  style:
+                    marginBottom: 24px
+                children:
+                  - type: YamlEditorSingleton
+                    data:
+                      id: yaml-editor
+                      cluster: "{2}"
+                      isNameSpaced: true
+                      type: api
+                      plural: replicationcontrollers
+                      prefillValuesRequestIndex: 0
+                      substractHeight: 350
+                      pathToData: .items.0
+                      forcedKind: Replicationcontroller
+                      apiVersion: v1
 
           # Pods tab
           - key: pods
             label: Pods
             children:
-              # Table filtered by Deployment's Pod template labels
-              - type: EnrichedTable
+              - type: ContentCard
                 data:
-                  id: pods-table
-                  baseprefix: /{{ $basePrefix }}
-                  cluster: "{2}"
-                  customizationId: "{{ $podFactoryName }}"
-                  k8sResourceToFetch: 
-                    apiVersion: "v1"
-                    plural: "pods"
-                    namespace: "{3}"
-                  dataForControls:
-                    cluster: "{2}"
-                    apiVersion: "v1"
-                    plural: "pods"
-                    namespace: "{3}"
-                  labelSelectorFull:
-                    reqIndex: 0
-                    pathToLabels:  '.items.0.spec.template.metadata.labels'
-                  # Path to items list in the response
-                  pathToItems: ".items"
-                  additionalReqsDataToEachItem:
-                    - 1
+                  id: pod-list-card
+                  style:
+                    marginBottom: 24px
+                children:
+                  # Table filtered by Deployment's Pod template labels
+                  - type: EnrichedTable
+                    data:
+                      id: pods-table
+                      baseprefix: /{{ $basePrefix }}
+                      cluster: "{2}"
+                      customizationId: "{{ $podFactoryName }}"
+                      k8sResourceToFetch: 
+                        apiVersion: "v1"
+                        plural: "pods"
+                        namespace: "{3}"
+                      dataForControls:
+                        cluster: "{2}"
+                        apiVersion: "v1"
+                        plural: "pods"
+                        namespace: "{3}"
+                      labelSelectorFull:
+                        reqIndex: 0
+                        pathToLabels:  '.items.0.spec.template.metadata.labels'
+                      # Path to items list in the response
+                      pathToItems: ".items"
+                      additionalReqsDataToEachItem:
+                        - 1
 
           - key: events
             label: Events
             children:
-              - type: Events
+              - type: ContentCard
                 data:
-                  id: events
-                  baseprefix: "/{{ $basePrefix }}"
-                  cluster: "{2}"
-                  wsUrl: "/api/clusters/{2}/openapi-bff-ws/events/eventsWs"
-                  pageSize: 50
-                  substractHeight: 315
-                  limit: 40
-                  fieldSelector:
-                    regarding.kind: "{reqsJsonPath[0]['.items.0.kind']['-']}"
-                    regarding.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-                    regarding.namespace: "{reqsJsonPath[0]['.items.0.metadata.namespace']['-']}"
-                    regarding.apiVersion: "{reqsJsonPath[0]['.items.0.apiVersion']['-']}"
-                  baseFactoryNamespacedAPIKey: base-factory-namespaced-api
-                  baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
-                  baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
-                  baseFactoryClusterSceopedBuiltinKey: base-factory-clusterscoped-builtin
-                  baseNamespaceFactoryKey: namespace-details
+                  id: events-card
+                  style:
+                    marginBottom: 24px
+                children:
+                  - type: Events
+                    data:
+                      id: events
+                      baseprefix: "/{{ $basePrefix }}"
+                      cluster: "{2}"
+                      wsUrl: "/api/clusters/{2}/openapi-bff-ws/events/eventsWs"
+                      pageSize: 50
+                      substractHeight: 315
+                      limit: 40
+                      fieldSelector:
+                        regarding.kind: "{reqsJsonPath[0]['.items.0.kind']['-']}"
+                        regarding.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+                        regarding.namespace: "{reqsJsonPath[0]['.items.0.metadata.namespace']['-']}"
+                        regarding.apiVersion: "{reqsJsonPath[0]['.items.0.apiVersion']['-']}"
+                      baseFactoryNamespacedAPIKey: base-factory-namespaced-api
+                      baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
+                      baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
+                      baseFactoryClusterSceopedBuiltinKey: base-factory-clusterscoped-builtin
+                      baseNamespaceFactoryKey: namespace-details
 
 {{- end -}}

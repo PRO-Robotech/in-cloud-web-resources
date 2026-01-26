@@ -11,7 +11,7 @@ spec:
     - node-details
 
   # Enable scrollable content card for main section
-  withScrollableMainContentCard: true
+  withScrollableMainContentCard: false
 
   # API endpoint for fetching Node details
   urlsToFetch:
@@ -43,15 +43,25 @@ spec:
             style:
               fontSize: 20px
 
-        # Node name
-        - type: parsedText
+        - type: DropdownRedirect
           data:
-            id: header-name
-            text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-            style:
-              fontSize: 20px
-              lineHeight: 24px
-              fontFamily: RedHatDisplay, Overpass, overpass, helvetica, arial, sans-serif
+            id: resource-name-dropdown
+
+            cluster: '{2}'
+            apiVersion: '{5}'
+            plural: '{6}'
+
+            jsonPath: ".metadata.name"
+            redirectUrl: "/openapi-ui/{2}/factory/{4}/{5}/{6}/{chosenEntryValue}"
+            currentValue: "{reqsJsonPath[0]['.items.0.metadata.name']['Select {6}...']}"
+            placeholder: "Select {6}..."
+
+        - type: CopyButton
+          data:
+            id: copy-resource-name
+            copyText: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+            successMessage: "Name copied to clipboard."
+            tooltip: "Copy {reqsJsonPath[0]['.items.0.kind']['-']} name"
 
         - type: antdFlex
           data:
@@ -458,80 +468,104 @@ spec:
           - key: "yaml"
             label: "YAML"
             children:
-              # YAML editor for Node manifest
-              - type: YamlEditorSingleton
+              - type: ContentCard
                 data:
-                  id: yaml-editor
-                  cluster: "{2}"
-                  isNameSpaced: false
-                  type: "builtin"
-                  prefillValuesRequestIndex: 0
-                  substractHeight: 400
-                  plural: nodes
-                  pathToData: .items.0
-                  # forcedKind: Node
-                  apiVersion: v1
+                  id: yaml-editor-card
+                  style:
+                    marginBottom: 24px
+                children:
+                  # YAML editor for Node manifest
+                  - type: YamlEditorSingleton
+                    data:
+                      id: yaml-editor
+                      cluster: "{2}"
+                      isNameSpaced: false
+                      type: "builtin"
+                      prefillValuesRequestIndex: 0
+                      substractHeight: 350
+                      plural: nodes
+                      pathToData: .items.0
+                      # forcedKind: Node
+                      apiVersion: v1
 
           # ------ PODS TAB ------
           - key: "pods"
             label: "Pods"
             children:
-              # Table of Pods scheduled on this Node
-              - type: EnrichedTable
+              - type: ContentCard
                 data:
-                  id: pods-table
-                  cluster: "{2}"
-                  customizationId: "factory-node-details-/v1/pods"
-                  baseprefix: "/{{ .Values.basePrefix }}"
-                  fieldSelector:
-                    spec.nodeName: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-                  pathToItems: ".items"
-                  k8sResourceToFetch: 
-                    apiVersion: "v1"
-                    plural: "pods"
-                  dataForControls:
-                    cluster: "{2}"
-                    apiVersion: "v1"
-                    plural: "pods"
-                    namespace: "{3}"
-                  additionalReqsDataToEachItem:
-                    - 1
+                  id: pod-list-card
+                  style:
+                    marginBottom: 24px
+                children:
+                  # Table of Pods scheduled on this Node
+                  - type: EnrichedTable
+                    data:
+                      id: pods-table
+                      cluster: "{2}"
+                      customizationId: "factory-node-details-/v1/pods"
+                      baseprefix: "/{{ .Values.basePrefix }}"
+                      fieldSelector:
+                        spec.nodeName: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+                      pathToItems: ".items"
+                      k8sResourceToFetch: 
+                        apiVersion: "v1"
+                        plural: "pods"
+                      dataForControls:
+                        cluster: "{2}"
+                        apiVersion: "v1"
+                        plural: "pods"
+                        namespace: "{3}"
+                      additionalReqsDataToEachItem:
+                        - 1
 
 
           # ------ TERMINAL TAB ------
           - key: "terminal"
             label: "Terminal"
             children:
-              # Interactive node terminal
-              - type: NodeTerminal
+              - type: ContentCard
                 data:
-                  id: terminal
-                  cluster: "{2}"
-                  nodeName: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-                  substractHeight: 400
-                  listPodTemplatesNs: {{ .Release.Namespace }}
+                  id: pod-terminal-card
+                  style:
+                    marginBottom: 24px
+                children:
+                  # Interactive node terminal
+                  - type: NodeTerminal
+                    data:
+                      id: terminal
+                      cluster: "{2}"
+                      nodeName: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+                      substractHeight: 350
+                      listPodTemplatesNs: {{ .Release.Namespace }}
 
           - key: events
             label: Events
             children:
-              - type: Events
+              - type: ContentCard
                 data:
-                  id: events
-                  baseprefix: "/openapi-ui"
-                  cluster: "{2}"
-                  wsUrl: "/api/clusters/{2}/openapi-bff-ws/events/eventsWs"
-                  pageSize: 50
-                  substractHeight: 315
-                  limit: 40
-                  fieldSelector:
-                    regarding.kind: Node
-                    regarding.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-                    regarding.apiVersion: v1
-                  baseFactoryNamespacedAPIKey: base-factory-namespaced-api
-                  baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
-                  baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
-                  baseFactoryClusterSceopedBuiltinKey: base-factory-clusterscoped-builtin
-                  baseNamespaceFactoryKey: namespace-details
+                  id: events-card
+                  style:
+                    marginBottom: 24px
+                children:
+                  - type: Events
+                    data:
+                      id: events
+                      baseprefix: "/openapi-ui"
+                      cluster: "{2}"
+                      wsUrl: "/api/clusters/{2}/openapi-bff-ws/events/eventsWs"
+                      pageSize: 50
+                      substractHeight: 315
+                      limit: 40
+                      fieldSelector:
+                        regarding.kind: Node
+                        regarding.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+                        regarding.apiVersion: v1
+                      baseFactoryNamespacedAPIKey: base-factory-namespaced-api
+                      baseFactoryClusterSceopedAPIKey: base-factory-clusterscoped-api
+                      baseFactoryNamespacedBuiltinKey: base-factory-namespaced-builtin
+                      baseFactoryClusterSceopedBuiltinKey: base-factory-clusterscoped-builtin
+                      baseNamespaceFactoryKey: namespace-details
 
           {{ with $.Values.factory.nodeDetails.monitoring }}
             {{- if and .enabled .iframe.enabled }}
@@ -554,17 +588,23 @@ spec:
           - key: config-reports
             label: Config reports
             children:
-              - type: EnrichedTable
+              - type: ContentCard
                 data:
-                  id: ds-pods-table
-                  fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/clusterinfraassessmentreports"
-                  cluster: "{2}"
-                  customizationId: factory-aquasecurity.github.io.v1alpha1.clusterinfraassessmentreports
-                  baseprefix: "/{{ .Values.basePrefix }}"
-                  # Build label selector from pod template labels
-                  labelSelector:
-                    trivy-operator.resource.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-                    trivy-operator.resource.kind: "{reqsJsonPath[0]['.items.0.kind']['-']}"
-                  # Items path for Pods list
-                  pathToItems: ".items[*].report.checks"
+                  id: config-report-card
+                  style:
+                    marginBottom: 24px
+                children:
+                  - type: EnrichedTable
+                    data:
+                      id: ds-pods-table
+                      fetchUrl: "/api/clusters/{2}/k8s/apis/aquasecurity.github.io/v1alpha1/clusterinfraassessmentreports"
+                      cluster: "{2}"
+                      customizationId: factory-aquasecurity.github.io.v1alpha1.clusterinfraassessmentreports
+                      baseprefix: "/{{ .Values.basePrefix }}"
+                      # Build label selector from pod template labels
+                      labelSelector:
+                        trivy-operator.resource.name: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
+                        trivy-operator.resource.kind: "{reqsJsonPath[0]['.items.0.kind']['-']}"
+                      # Items path for Pods list
+                      pathToItems: ".items[*].report.checks"
 {{- end -}}
