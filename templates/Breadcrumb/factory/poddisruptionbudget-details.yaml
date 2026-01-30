@@ -9,8 +9,10 @@ spec:
     - key: poddisruptionbudgets
       label: "policy/v1/poddisruptionbudgets"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/api-table/policy/v1/poddisruptionbudgets"
+    - key: resource-name
+      label: "{8}"
     - key: poddisruptionbudget
-      label: "details"
+      label: "Details"
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -24,4 +26,4 @@ spec:
       label: "policy/v1/poddisruptionbudgets"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/policy/v1/poddisruptionbudgets"
     - key: poddisruptionbudget
-      label: "details"
+      label: "Details"

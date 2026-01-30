@@ -9,8 +9,10 @@ spec:
     - key: pods
       label: "v1/pods"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/builtin-table/pods"
+    - key: resource-name
+      label: "{8}"
     - key: pod
-      label: "details"
+      label: "Details"
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -24,4 +26,4 @@ spec:
       label: "v1/pods"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/pods"
     - key: pod
-      label: "details"
+      label: "Details"

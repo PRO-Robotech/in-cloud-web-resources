@@ -9,5 +9,7 @@ spec:
     - key: clusterrole
       label: "rbac.authorization.k8s.io/v1/clusterroles"
       link: "/{{ .Values.basePrefix }}/{cluster}/api-table/rbac.authorization.k8s.io/v1/clusterroles"
+    - key: resource-name
+      label: "{7}"
     - key: clusterrole
-      label: "details"
+      label: "Details"

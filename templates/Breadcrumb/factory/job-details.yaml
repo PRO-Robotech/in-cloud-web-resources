@@ -9,8 +9,10 @@ spec:
     - key: jobs
       label: "batch/v1/jobs"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/api-table/batch/v1/jobs"
+    - key: resource-name
+      label: "{8}"
     - key: job
-      label: "details"
+      label: "Details"
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -24,4 +26,4 @@ spec:
       label: "batch/v1/jobs"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/batch/v1/jobs"
     - key: job
-      label: "details"
+      label: "Details"
