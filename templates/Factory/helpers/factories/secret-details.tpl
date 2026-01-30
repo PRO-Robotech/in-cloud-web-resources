@@ -12,6 +12,8 @@ spec:
   key: "{{ $key }}"
   sidebarTags:
     - secret-details
+    - '{6}/{7}'
+
   withScrollableMainContentCard: false
   urlsToFetch:
     - cluster: "{2}"

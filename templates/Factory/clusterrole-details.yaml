@@ -6,6 +6,8 @@ spec:
   key: clusterrole-details
   sidebarTags:
     - clusterrole-details
+    - '{5}/{6}/{7}'
+
   withScrollableMainContentCard: false
   urlsToFetch:
     - cluster: "{2}"

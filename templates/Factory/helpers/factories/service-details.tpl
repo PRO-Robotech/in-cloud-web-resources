@@ -15,6 +15,8 @@ spec:
   withScrollableMainContentCard: false
   sidebarTags:
     - service-details
+    - '{6}/{7}'
+
   urlsToFetch:
     - cluster: "{2}"
       apiVersion: "{6}"

@@ -15,6 +15,8 @@ spec:
   withScrollableMainContentCard: false
   sidebarTags:
     - networkpolicy-details
+    - '{6}/{7}/{8}'
+
   urlsToFetch:
     - cluster: "{2}"
       apiGroup: "{6}"

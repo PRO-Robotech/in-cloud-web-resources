@@ -9,6 +9,7 @@ spec:
   # Sidebar category tags
   sidebarTags:
     - node-details
+    - '{5}/{6}'
 
   # Enable scrollable content card for main section
   withScrollableMainContentCard: false
@@ -163,7 +164,7 @@ spec:
                                         data:
                                           id: node-address
                                           reqIndex: 0
-                                          jsonPathToArray: ".status.addresses"
+                                          jsonPathToArray: ".items.0.status.addresses"
                                           keyFieldName: type
                                           valueFieldName: address
                                           keyFieldStyle:
@@ -253,25 +254,6 @@ spec:
                               vertical: true
                               gap: 24
                             children:
-                              # Status block
-                              - type: antdFlex
-                                data:
-                                  id: status-block
-                                  vertical: true
-                                  gap: 4
-                                children:
-                                  - type: antdText
-                                    data:
-                                      id: status-label
-                                      strong: true
-                                      text: "Status"
-                                  - type: antdFlex
-                                    data:
-                                      id: status-header-block
-                                      vertical: true
-                                      gap: 4
-                                    children:
-                                      {{ include "incloud-web-resources.factory.statuses.node" . | nindent 38 }}
 
                               # Operating system block
                               - type: antdFlex

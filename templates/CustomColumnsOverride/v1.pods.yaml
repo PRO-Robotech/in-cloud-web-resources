@@ -464,7 +464,7 @@ spec:
 apiVersion: front.in-cloud.io/v1alpha1
 kind: CustomColumnsOverride
 metadata:
-  name: "factory-instance-pods-details"
+  name: "factory-instance-pod-details"
 spec:
   additionalPrinterColumns:
     {{ include "incloud-web-resources.cco.columns.icon-link-block" (dict
@@ -549,7 +549,7 @@ spec:
       type: cpu
   additionalPrinterColumnsTrimLengths:
     {{ include "incloud-web-resources.cco.columns-trim-lengths.name" . | nindent 4 }}
-  id: "factory-instance-pods-details"
+  id: "factory-instance-pod-details"
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1

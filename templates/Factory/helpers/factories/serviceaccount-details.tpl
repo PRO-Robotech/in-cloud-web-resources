@@ -13,6 +13,8 @@ spec:
   key: "{{ $key }}"
   sidebarTags:
     - serviceaccount-details
+    - '{6}/{7}'
+
   withScrollableMainContentCard: false
   urlsToFetch:
     - cluster: "{2}"

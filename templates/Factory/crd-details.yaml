@@ -9,6 +9,7 @@ spec:
   # Sidebar tag for grouping in UI
   sidebarTags:
     - customresourcedefinitions-details
+    - '{5}/{6}/{7}'
 
   # URL for fetching CRD details
   urlsToFetch:

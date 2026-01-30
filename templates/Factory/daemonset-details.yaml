@@ -9,7 +9,7 @@
 {{ include "incloud-web-resources.factory.manifets.daemonset-details" (dict
   "key" "instance-daemonset-details"
   "resName" "{7}"
-  "podFactoryName" "factory-instance-pods-details"
+  "podFactoryName" "factory-instance-pod-details"
   "trivyEnabled" .Values.addons.trivy.enabled
   "basePrefix" .Values.basePrefix
 ) }}

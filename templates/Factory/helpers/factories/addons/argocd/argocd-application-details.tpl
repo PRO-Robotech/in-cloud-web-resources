@@ -13,6 +13,8 @@ spec:
   key: "{{ $key }}"
   sidebarTags:
     - argocd-applications-details
+    - '{6}/{7}/{8}'
+
   withScrollableMainContentCard: false
   urlsToFetch:
     - cluster: "{2}"

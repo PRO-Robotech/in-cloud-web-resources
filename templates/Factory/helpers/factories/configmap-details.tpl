@@ -15,6 +15,7 @@ spec:
   # Sidebar category tags
   sidebarTags:
     - configmap-details
+    - '{6}/{7}'
 
   # Enable scrollable content card for main section
   withScrollableMainContentCard: false

@@ -18,6 +18,7 @@ spec:
   # Sidebar categorization
   sidebarTags:
     - deployment-details
+    - '{6}/{7}/{8}'
 
   # API request used to fetch the target Deployment
   urlsToFetch:

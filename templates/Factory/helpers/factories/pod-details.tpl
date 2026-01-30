@@ -12,7 +12,9 @@ metadata:
 spec:
   key: "{{ $key }}"
   sidebarTags:
-    - pods-details
+    - pod-details
+    - '{6}/{7}'
+
   withScrollableMainContentCard: false
   urlsToFetch:
     - cluster: "{2}"
@@ -196,7 +198,7 @@ spec:
                                           "jsonPath" ".items.0.spec.template.spec.nodeSelector"
                                           "basePrefix" $basePrefix
                                           "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~nodes&labels="
-                                        ) | nindent 34
+                                        ) | nindent 38
                                       }}
 
                                   # Tolerations counter (kept as include)
@@ -210,7 +212,7 @@ spec:
                                         "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{6}"
                                         "jsonPathToArray" ".items.0.spec.tolerations"
                                         "pathToValue" "/spec/tolerations"
-                                        ) | nindent 34
+                                        ) | nindent 38
                                       }}
 
                                   # Annotations counter block
@@ -224,7 +226,7 @@ spec:
                                           "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{6}"
                                           "jsonPath" ".items.0.metadata.annotations"
                                           "pathToValue" "/metadata/annotations"
-                                        ) | nindent 34
+                                        ) | nindent 38
                                       }}
 
                                   - type: antdFlex

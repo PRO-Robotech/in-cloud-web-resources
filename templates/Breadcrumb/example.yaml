@@ -1,0 +1,13 @@
+# ---
+# apiVersion: front.in-cloud.io/v1alpha1
+# kind: Breadcrumb
+# metadata:
+#   name: stock-project-factory-replicaset-details
+# spec:
+#   id: "stock-project-factory-replicaset-details"
+#   breadcrumbItems:
+#     - key: replicasets
+#       label: "apps/v1/replicasets"
+#       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/api-table/apps/v1/replicasets"
+#     - key: ReplicaSet
+#       label: "details"

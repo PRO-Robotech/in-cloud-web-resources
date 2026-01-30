@@ -12,6 +12,8 @@ spec:
   key: "{{ $key }}"
   sidebarTags:
     - rolebinding-details
+    - '{6}/{7}/{8}'
+
   withScrollableMainContentCard: false
   urlsToFetch:
     - cluster: "{2}"
