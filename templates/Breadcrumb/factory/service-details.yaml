@@ -9,8 +9,10 @@ spec:
     - key: services
       label: "v1/services"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/builtin-table/services"
+    - key: resource-name
+      label: "{8}"
     - key: service
-      label: "details"
+      label: "Details"
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -24,4 +26,4 @@ spec:
       label: "v1/services"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/services"
     - key: service
-      label: "details"
+      label: "Details"

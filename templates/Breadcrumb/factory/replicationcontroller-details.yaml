@@ -9,8 +9,10 @@ spec:
     - key: replicationcontrollers
       label: "v1/replicationcontrollers"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/builtin-table/replicationcontrollers"
+    - key: resource-name
+      label: "{8}"
     - key: replicationcontroller
-      label: "details"
+      label: "Details"
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -24,4 +26,4 @@ spec:
       label: "v1/replicationcontrollers"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/replicationcontrollers"
     - key: replicationcontroller
-      label: "details"
+      label: "Details"

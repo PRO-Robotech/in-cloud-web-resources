@@ -9,8 +9,10 @@ spec:
     - key: horizontalpodautoscalers
       label: "autoscaling/v2/horizontalpodautoscalers"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/api-table/autoscaling/v2/horizontalpodautoscalers"
+    - key: resource-name
+      label: "{8}"
     - key: horizontalpodautoscaler
-      label: "details"
+      label: "Details"
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -24,4 +26,4 @@ spec:
       label: "autoscaling/v2/horizontalpodautoscalers"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/api-table/autoscaling/v2/horizontalpodautoscalers"
     - key: horizontalpodautoscaler
-      label: "details"
+      label: "Details"

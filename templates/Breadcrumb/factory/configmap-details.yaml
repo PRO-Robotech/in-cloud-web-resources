@@ -9,8 +9,10 @@ spec:
     - key: configmaps
       label: "v1/configmaps"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/builtin-table/configmaps"
+    - key: resource-name
+      label: "{8}"
     - key: configmap
-      label: "details"
+      label: "Details"
 
 ---
 apiVersion: front.in-cloud.io/v1alpha1
@@ -24,4 +26,4 @@ spec:
       label: "v1/configmaps"
       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/{syntheticProject}/builtin-table/configmaps"
     - key: configmap
-      label: "details"
+      label: "Details"

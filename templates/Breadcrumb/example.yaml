@@ -10,4 +10,4 @@
 #       label: "apps/v1/replicasets"
 #       link: "/{{ .Values.basePrefix }}/{cluster}/{namespace}/api-table/apps/v1/replicasets"
 #     - key: ReplicaSet
-#       label: "details"
+#       label: "Details"

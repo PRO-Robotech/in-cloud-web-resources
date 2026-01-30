@@ -9,5 +9,7 @@ spec:
     - key: node
       label: "v1/nodes"
       link: "/{{ .Values.basePrefix }}/{cluster}/builtin-table/nodes"
+    - key: resource-name
+      label: "{7}"
     - key: node
-      label: "details"
+      label: "Details"
