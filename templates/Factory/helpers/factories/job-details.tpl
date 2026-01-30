@@ -17,6 +17,7 @@ spec:
   # Tags for sidebar navigation
   sidebarTags:
     - jobs-details
+    - '{6}/{7}/{8}'
 
   # Enables scrolling in the main content area
   withScrollableMainContentCard: false
@@ -57,6 +58,7 @@ spec:
         - type: DropdownRedirect
           data:
             id: resource-name-dropdown
+            popupMatchSelectWidth: 350
 
             cluster: '{2}'
             namespace: '{3}'
@@ -131,23 +133,6 @@ spec:
                               vertical: true
                               gap: 24
                             children:
-                              # Job name
-                              - type: antdFlex
-                                data:
-                                  id: name-block
-                                  vertical: true
-                                  gap: 4
-                                children:
-                                  - type: antdText
-                                    data:
-                                      id: name-label
-                                      strong: true
-                                      text: "Name"
-                                  - type: parsedText
-                                    data:
-                                      id: name-value
-                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-
                               # Namespace link
                               - type: antdFlex
                                 data:

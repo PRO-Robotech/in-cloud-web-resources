@@ -8,6 +8,6 @@
 {{ include "incloud-web-resources.factory.manifets.job-details" (dict
   "key" "instance-job-details"
   "resName" "{7}"
-  "podFactoryName" "factory-instance-pods-details"
+  "podFactoryName" "factory-instance-pod-details"
   "basePrefix" .Values.basePrefix
 ) }}

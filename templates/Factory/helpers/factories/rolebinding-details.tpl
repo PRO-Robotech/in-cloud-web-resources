@@ -12,6 +12,8 @@ spec:
   key: "{{ $key }}"
   sidebarTags:
     - rolebinding-details
+    - '{6}/{7}/{8}'
+
   withScrollableMainContentCard: false
   urlsToFetch:
     - cluster: "{2}"
@@ -42,6 +44,7 @@ spec:
         - type: DropdownRedirect
           data:
             id: resource-name-dropdown
+            popupMatchSelectWidth: 350
 
             cluster: '{2}'
             namespace: '{3}'
@@ -106,23 +109,6 @@ spec:
                               vertical: true
                               gap: 24
                             children:
-                              # Name block
-                              - type: antdFlex
-                                data:
-                                  id: meta-name-block
-                                  vertical: true
-                                  gap: 4
-                                children:
-                                  - type: antdText
-                                    data:
-                                      id: meta-name-label
-                                      strong: true
-                                      text: "Name"
-                                  - type: parsedText
-                                    data:
-                                      id: meta-name-value
-                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-
                               # Namespace link (kept as include)
                               - type: antdFlex
                                 data:

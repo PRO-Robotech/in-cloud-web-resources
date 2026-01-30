@@ -12,7 +12,9 @@ metadata:
 spec:
   key: "{{ $key }}"
   sidebarTags:
-    - pods-details
+    - pod-details
+    - '{6}/{7}'
+
   withScrollableMainContentCard: false
   urlsToFetch:
     - cluster: "{2}"
@@ -49,6 +51,7 @@ spec:
         - type: DropdownRedirect
           data:
             id: resource-name-dropdown
+            popupMatchSelectWidth: 350
             cluster: "{2}"
             apiVersion: "{6}"
             namespace: "{3}"
@@ -131,23 +134,6 @@ spec:
                                   vertical: true
                                   gap: 24
                                 children:
-                                  # Display name label/value
-                                  - type: antdFlex
-                                    data:
-                                      id: meta-name-block
-                                      vertical: true
-                                      gap: 4
-                                    children:
-                                      - type: antdText
-                                        data:
-                                          id: meta-name-label
-                                          strong: true
-                                          text: "Name"
-                                      - type: parsedText
-                                        data:
-                                          id: meta-name-value
-                                          text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-
                                   # Namespace link (kept as include)
                                   - type: antdFlex
                                     data:
@@ -212,7 +198,7 @@ spec:
                                           "jsonPath" ".items.0.spec.template.spec.nodeSelector"
                                           "basePrefix" $basePrefix
                                           "linkPrefix" "/openapi-ui/{2}/{3}/search?kinds=~v1~nodes&labels="
-                                        ) | nindent 34
+                                        ) | nindent 38
                                       }}
 
                                   # Tolerations counter (kept as include)
@@ -226,7 +212,7 @@ spec:
                                         "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{6}"
                                         "jsonPathToArray" ".items.0.spec.tolerations"
                                         "pathToValue" "/spec/tolerations"
-                                        ) | nindent 34
+                                        ) | nindent 38
                                       }}
 
                                   # Annotations counter block
@@ -240,7 +226,7 @@ spec:
                                           "endpoint" "/api/clusters/{2}/k8s/api/v1/namespaces/{3}/pods/{6}"
                                           "jsonPath" ".items.0.metadata.annotations"
                                           "pathToValue" "/metadata/annotations"
-                                        ) | nindent 34
+                                        ) | nindent 38
                                       }}
 
                                   - type: antdFlex
@@ -301,27 +287,6 @@ spec:
                                   vertical: true
                                   gap: 24
                                 children:
-                                  # Status block with readiness reason mapping
-                                  - type: antdFlex
-                                    data:
-                                      id: status-block
-                                      vertical: true
-                                      gap: 4
-                                    children:
-                                      - type: antdText
-                                        data:
-                                          id: status-label
-                                          strong: true
-                                          text: "Status"
-                                      # Pod readiness/status indicator
-                                      - type: antdFlex
-                                        data:
-                                          id: status-label-block
-                                          vertical: true
-                                          gap: 4
-                                        children:
-                                          {{ include "incloud-web-resources.factory.statuses.pod" . | nindent 38 }}
-
                                   # Restart policy
                                   - type: antdFlex
                                     data:

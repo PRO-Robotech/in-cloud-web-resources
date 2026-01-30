@@ -15,6 +15,8 @@ spec:
 
   sidebarTags:
     - statefulset-details
+    - '{6}/{7}/{8}'
+
   withScrollableMainContentCard: false
   urlsToFetch:
     - cluster: "{2}"
@@ -51,6 +53,7 @@ spec:
         - type: DropdownRedirect
           data:
             id: resource-name-dropdown
+            popupMatchSelectWidth: 350
 
             cluster: '{2}'
             namespace: '{3}'
@@ -121,23 +124,6 @@ spec:
                               vertical: true
                               gap: 24
                             children:
-                              # Name
-                              - type: antdFlex
-                                data:
-                                  id: name-block
-                                  vertical: true
-                                  gap: 4
-                                children:
-                                  - type: antdText
-                                    data:
-                                      id: name-label
-                                      text: Name
-                                      strong: true
-                                  - type: parsedText
-                                    data:
-                                      id: name-value
-                                      text: "{reqsJsonPath[0]['.items.0.metadata.name']['-']}"
-
                               # Namespace link block (include)
                               - type: antdFlex
                                 data:
