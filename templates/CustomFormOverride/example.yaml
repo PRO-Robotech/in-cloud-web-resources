@@ -1,0 +1,34 @@
+# apiVersion: front.in-cloud.io/v1alpha1
+# kind: CustomFormsOverride
+# metadata:
+#   name: example
+# spec:
+#   customizationId: default-/apps/v1/replicasets
+#   hidden:
+#   - - metadata
+#     - creationTimestamp
+#   - - metadata
+#     - deletionGracePeriodSeconds
+#   - - metadata
+#     - deletionTimestamp
+#   - - metadata
+#     - finalizers
+#   - - metadata
+#     - generateName
+#   - - metadata
+#     - generation
+#   - - metadata
+#     - managedFields
+#   - - metadata
+#     - ownerReferences
+#   - - metadata
+#     - resourceVersion
+#   - - metadata
+#     - selfLink
+#   - - metadata
+#     - uid
+#   - - kind
+#   - - apiVersion
+#   - - status
+#   schema: {}
+#   strategy: merge
